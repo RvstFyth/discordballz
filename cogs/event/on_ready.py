@@ -25,7 +25,7 @@ class On_Ready(Cog):
         '''
     
         # Init
-        ready_time = time.strftime('%d/%m/%y - %H:%M')
+        ready_time = time.strftime('%d/%m/%y - %H:%M', time.gmtime())
         server_count = len(self.client.guilds)
         bot_name = self.client.user.name 
         version = f'v{V_MAJ}.{V_MED}.{V_MIN}::{V_BUILD} - {V_PHASE}'

@@ -10,7 +10,7 @@ import time
 
 # Tasks
 
-from cogs.utils.functions.database.database_connection import Connection_to_database
+from cogs.utils.functions.database.init.database_connection import Connection_to_database
 
 # Data
 

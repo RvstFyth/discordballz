@@ -31,7 +31,7 @@ if __name__ == '__main__':
             client.load_extension(cog)
 
         except Exception as error:
-            error_time = time.strftime('%d/%m/%y - %H:%M')
+            error_time = time.strftime('%d/%m/%y - %H:%M', time.gmtime())
             print('{} - Error in main : loading cogs : {}'.format(error_time, error))
             pass
 

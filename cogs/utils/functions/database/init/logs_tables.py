@@ -27,7 +27,9 @@ async def Create_logs_tables(client):
         hour TEXT,
         command_name TEXT,
         caller_name TEXT,
-        caller_id BIGINT
+        caller_id BIGINT,
+        mention_name TEXT DEFAULT 'NONE',
+        mention_id BIGINT DEFAULT '0'
     );'''
 
     try:
