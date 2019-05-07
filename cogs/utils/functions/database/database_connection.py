@@ -14,11 +14,11 @@ from configuration.main_config.database_config import DB_HOST,DB_NAME, DB_PASSWO
 
 async def Connection_to_database(client):
     '''
-    Create 'client.db' to allow you to connect to the database.
+    Create `client.db` to allow you to connect to the database.
 
-    'client.db.acquire()' : Will allow you to create a connection to the database.
+    `client.db.acquire()` : Will allow you to create a connection to the database.
 
-    'client.db.release(connection) : Will drop the connection to the database.
+    `client.db.release(connection)` : Will drop the connection to the database.
 
     Return: New client instance.
     '''

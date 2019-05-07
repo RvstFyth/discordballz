@@ -21,4 +21,10 @@ PREFIX = ['Db', 'db', 'D!', 'd!']
 # Any file update increases the V_MIN value by 1 (or V_BUILD value if it's active)
 # Only one increase per file
 
-V_MAJ,V_MED,V_MIN,V_BUILD,V_PHASE = 3,0,0,6, 'Prototype'
+V_MAJ,V_MED,V_MIN,V_BUILD,V_PHASE = 3,0,0,13, 'Prototype'
+
+# Cogs
+# To add a cog, type the path to the cog as a string (do not use `/`, it's represented by `.`)
+# Allow 3 cog per line
+
+COGS = ['cogs.commands.event.on_ready']
