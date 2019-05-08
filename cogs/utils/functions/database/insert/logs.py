@@ -8,7 +8,7 @@ Last update: 08/05/19
 
 import asyncpg, time
 
-async def Insert_in_logs_command(client, caller, day, hour, command, mention = None):
+async def Insert_in_logs_command(client, caller, day, hour, command, target = None):
     '''
     Insert a new log into the logs_commands table.
 
@@ -18,7 +18,7 @@ async def Insert_in_logs_command(client, caller, day, hour, command, mention = N
 
     `day`, `hour` and `command` : must be `str`.
 
-    *[Optional: mention]* : if passed, must be `discord.Member` object.
+    *[Optional: target]* : if passed, must be `discord.Member` object.
 
     Return: void
     '''
@@ -32,11 +32,11 @@ async def Insert_in_logs_command(client, caller, day, hour, command, mention = N
     # Commands logs
     # If the caller has mentionned an other user :
 
-    if(mention != None):
-        query = 'INSERT INTO logs_commands(day, hour, caller_id, caller_name, command_name, mention_name, mention_id) VALUES($1, $2, $3, $4, $5, $6, $7);'
+    if(target != None):
+        query = 'INSERT INTO logs_commands(day, hour, caller_id, caller_name, command_name, target_name, target_id) VALUES($1, $2, $3, $4, $5, $6, $7);'
 
         try:
-            await conn.execute(query, day, hour, caller.id, caller.name, command, mention.name, mention.id)
+            await conn.execute(query, day, hour, caller.id, caller.name, command, target.name, target.id)
         
         except Exception as error:
             error_time = time.strftime('%d/%m/%y', time.gmtime())

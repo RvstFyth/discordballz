@@ -13,7 +13,7 @@ from time import strftime, gmtime
 
 from cogs.utils.functions.database.insert.logs import Insert_in_logs_command
 
-async def Command_log(client, ctx, command, caller, mention = None):
+async def Command_log(client, ctx, command, caller, target = None):
     '''
     Insert into the database the informations about an used command.
 
@@ -23,7 +23,7 @@ async def Command_log(client, ctx, command, caller, mention = None):
 
     `command` : must be `str`.
 
-    `mention` : if passed, must be `discord.Member` object.
+    `target` : if passed, must be `discord.Member` object.
 
     Return: void
     '''
@@ -38,8 +38,8 @@ async def Command_log(client, ctx, command, caller, mention = None):
     # Log
     # If the user mentionned someone
 
-    if(mention != None):
-        await Insert_in_logs_command(client, caller, day, hour, command, mention = mention)
+    if(target != None):
+        await Insert_in_logs_command(client, caller, day, hour, command, target = target)
     
     else:
         await Insert_in_logs_command(client, caller, day, hour, command)

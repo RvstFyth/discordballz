@@ -14,14 +14,13 @@ from discord.ext.commands import Cog
 
 from cogs.utils.functions.check.player.player_checks import Is_registered
 
-# Config
-    # Utils
+# Database
 
-from cogs.utils.functions.readability.embed import Basic_embed
+from cogs.utils.functions.logs.command_logger import Command_log
 
-    # Badges
+# Functions
 
-from configuration.graphic_config.badges_config import BADGE_PIONEER
+from cogs.utils.functions.commands.profile.profile_display import Display_profile
 
 class Profile(Cog):
     def __init__(self, client):
@@ -29,26 +28,35 @@ class Profile(Cog):
     
     @commands.command()
     @commands.check(Is_registered)
-    async def profile(self, ctx):
+    async def profile(self, ctx, target: discord.Member = None):
         '''
         Displays the player's profile.
         '''
 
         # Init
 
-        player = ctx.message.author
-        player_ava = player.avatar_url
+        caller = ctx.message.author
 
-        player_level = 0
-        player_rank = '#1'
+        # If the caller didn't mention someone
 
-        # Set up the embed
+        if(target == None):
+            player = ctx.message.author
 
-        profile_display = Basic_embed(self.client, thumb = player_ava)
-        profile_display.add_field(name = 'Level :', value = player_level, inline = True)
-        profile_display.add_field(name = 'Ladder :', value = player_rank, inline = True)
+            # Log
 
-        await ctx.send(embed = profile_display)
+            await Command_log(self.client, ctx, 'profile', caller)
+        
+        else:
+            
+            # If he mentionned someone, we replace him by the mentionned person
+
+            player = target
+
+            # Log
+
+            await Command_log(self.client, ctx, 'profile', caller, target = player)
+        
+        await Display_profile(self.client, ctx, player)
 
 def setup(client):
     client.add_cog(Profile(client))

@@ -23,13 +23,13 @@ async def Create_logs_tables(client):
 
     query = '''
     CREATE TABLE IF NOT EXISTS logs_commands(
-        day TEXT PRIMARY KEY,
+        day TEXT,
         hour TEXT,
         command_name TEXT,
         caller_name TEXT,
         caller_id BIGINT,
-        mention_name TEXT DEFAULT 'NONE',
-        mention_id BIGINT DEFAULT '0'
+        target_name TEXT DEFAULT 'NONE',
+        target_id BIGINT DEFAULT '0'
     );'''
 
     try:
