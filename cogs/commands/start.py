@@ -16,7 +16,8 @@ from cogs.utils.functions.check.player.player_checks import Is_not_registered
 
 # Database
 
-from cogs.utils.functions.database.insert.player import Insert_in_player
+from cogs.utils.functions.logs.command_logger import Command_log
+from cogs.utils.functions.database.insert.player import Insert_in_player, Insert_in_player_ressources, Insert_in_player_experience
 
 class Start(Cog):
     def __init__(self, client):
@@ -34,9 +35,15 @@ class Start(Cog):
         player = ctx.message.author
         date = time.strftime('%d/%m/%y', time.gmtime())
 
+        # Logs
+
+        await Command_log(self.client, ctx, 'start', player)
+
         # Insert informations into the database
 
         await Insert_in_player(self.client, player, date)
+        await Insert_in_player_ressources(self.client, player)
+        await Insert_in_player_experience(self.client, player)
 
 def setup(client):
     client.add_cog(Start(client))

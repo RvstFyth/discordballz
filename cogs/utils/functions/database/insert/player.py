@@ -42,3 +42,59 @@ async def Insert_in_player(client, player, date):
     
     finally:
         await client.db.release(conn)
+
+async def Insert_in_player_ressources(client, player):
+    '''
+    Insert the player's informations in the player_ressources table.
+
+    `client` : must be `discord.Client` or `discord.ext.commands.AutoShardedBot` object.
+
+    `player` : must be `discord.Member` object.
+
+    Return: void
+    '''
+
+    # Init
+
+    conn = await client.db.acquire()
+
+    query = 'INSERT INTO player_ressources(player_id, player_name) VALUES($1, $2);'
+
+    try:
+        await conn.execute(query, player.id, player.name)
+    
+    except Exception as error:
+        error_time = time.strftime('%d/%m/%y - %H:%M', time.gmtime())
+        print('{} Error in cogs.utils.functions.database.insert.player.Insert_in_player_ressources() : l.64 : {}'.format(error_time, error))
+        pass
+    
+    finally:
+        await client.db.release(conn)
+
+async def Insert_in_player_experience(client, player):
+    '''
+    Insert the player's informations in the player_experience table.
+
+    `client` : must be `discord.Client` object.
+
+    `player` : must be `discord.Member` object.
+
+    Return: void
+    '''
+
+    # Init
+
+    conn = await client.db.acquire()
+
+    query = 'INSERT INTO player_experience(player_id, player_name) VALUES($1, $2);'
+
+    try:
+        await conn.execute(query, player.id, player.name)
+    
+    except Exception as error:
+        error_time = time.strftime('%d/%m/%y - %H:%M', time.gmtime())
+        print('{} Error in cogs.utils.functions.database.insert.player.Insert_in_player_experience() : l.92 : {}'.format(error_time, error))
+        pass
+    
+    finally:
+        await client.db.release(conn)

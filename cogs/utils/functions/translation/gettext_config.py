@@ -29,7 +29,7 @@ async def Translate(client, ctx):
         player_language = player_language.upper()
     
     else:
-        return
+        player_language = 'EN'
     
     # French translation
 

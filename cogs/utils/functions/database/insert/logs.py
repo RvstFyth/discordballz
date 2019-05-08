@@ -1,16 +1,24 @@
 '''
 Manages the functions that insert informations in the logs tables.
 
-Last update: 07/05/19
+Last update: 08/05/19
 '''
 
 # Dependancies
 
 import asyncpg, time
 
-async def Insert_logs_summon(client, player):
+async def Insert_in_logs_command(client, caller, day, hour, command, mention = None):
     '''
-    Insert informations about a summon into the logs tables.
+    Insert a new log into the logs_commands table.
+
+    `client` : must be `discord.Client` object.
+
+    `caller` : must be `discord.Member` object that represents the `context.message.author`.
+
+    `day`, `hour` and `command` : must be `str`.
+
+    *[Optional: mention]* : if passed, must be `discord.Member` object.
 
     Return: void
     '''
@@ -18,21 +26,38 @@ async def Insert_logs_summon(client, player):
     # Init
 
     conn = await client.db.acquire()
-    command = 'summon'
     day = time.strftime('%d/%m/%y', time.gmtime())
     hour = time.strftime('%H:%M', time.gmtime())
     
     # Commands logs
+    # If the caller has mentionned an other user :
 
-    query = 'INSERT INTO logs_commands(day, time, command_name, caller_name, caller_id) VALUES($1, $2, $3, $4, $5);'
+    if(mention != None):
+        query = 'INSERT INTO logs_commands(day, hour, caller_id, caller_name, command_name, mention_name, mention_id) VALUES($1, $2, $3, $4, $5, $6, $7);'
 
-    try:
-        await conn.execute(query, day, hour, command, player.name, player.id)
+        try:
+            await conn.execute(query, day, hour, caller.id, caller.name, command, mention.name, mention.id)
+        
+        except Exception as error:
+            error_time = time.strftime('%d/%m/%y', time.gmtime())
+            print('{} - Error in cogs.utils.functions.database.insert.logs.Insert_in_logs_command() : l.39 : {}'.format(error_time, error))
+            pass
+        
+        finally:
+            await client.db.release(conn)
+            return
     
-    except Exception as error:
-        error_time = time.strftime('%d/%m/%y', time.gmtime())
-        print('{} - Error in cogs.utils.functions.database.insert.logs.Insert_logs_summon() : l.30 : {}'.format(error_time, error))
-        pass
-    
-    finally:
-        await client.db.release(conn)
+    else:
+        query = 'INSERT INTO logs_commands(day, hour, caller_id, caller_name, command_name) VALUES($1, $2, $3, $4, $5);'
+
+        try:
+            await conn.execute(query, day, hour, caller.id, caller.name, command)
+        
+        except Exception as error:
+            error_time = time.strftime('%d/%m/%y', time.gmtime())
+            print('{} - Error in cogs.utils.functions.database.insert.logs.Insert_in_logs_command() : l.57 : {}'.format(error_time, error))
+            pass
+        
+        finally:
+            await client.db.release(conn)
+            return
