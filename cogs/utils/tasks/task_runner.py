@@ -1,7 +1,7 @@
 '''
 Runs all the tasks.
 
-Last update: 07/05/19
+Last update: 08/05/19
 '''
 
 # Dependancies
@@ -15,6 +15,7 @@ from cogs.utils.functions.database.init.database_connection import Connection_to
 # Data
 
 from cogs.utils.functions.database.init.logs_tables import Create_logs_tables
+from cogs.utils.functions.database.init.player_tables import Create_player_tables
 
 def Task_runner(client):
     '''
@@ -31,3 +32,4 @@ def Task_runner(client):
         # Tables creation
     
     client.loop.run_until_complete(Create_logs_tables(client))
+    client.loop.run_until_complete(Create_player_tables(client))

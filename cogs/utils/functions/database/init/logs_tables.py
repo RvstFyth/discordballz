@@ -37,7 +37,7 @@ async def Create_logs_tables(client):
         query = ''
     
     except Exception as error:
-        error_time = time.strftime('%d/%m/%y - %H:%M')
+        error_time = time.strftime('%d/%m/%y - %H:%M', time.gmtime())
         print('{} - Error in cogs.utils.functions.database.init.Create_logs_table() : l.33 - 35 : {}'.format(error_time, error))
         pass
     

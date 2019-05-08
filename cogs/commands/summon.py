@@ -20,5 +20,9 @@ class Summon(Cog):
         Allows the player to summon a character.
         '''
 
+        # Init
+        
+        player = ctx.message.author
+
 def setup(client):
     client.add_cog(Summon(client))
