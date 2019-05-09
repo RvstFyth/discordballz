@@ -1,7 +1,7 @@
 '''
 Manages the player's checks.
 
-Last update: 08/05/19
+Last update: 09/05/19
 '''
 
 # Dependancies
