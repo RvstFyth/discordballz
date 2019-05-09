@@ -69,3 +69,36 @@ async def Select_player_language(client, player):
         await client.db.release(conn)
     
     return(player_language)
+
+async def Select_player_register_date(client, player):
+    '''
+    Returns the player's register date.
+
+    `client` : must be `discord.Client` object.
+
+    `player` : must be `discord.Member` object.
+
+    Return: str
+    '''
+
+    # Init
+
+    date = None
+
+    conn = await client.db.acquire()
+
+    query = 'SELECT register_date FROM player WHERE player_id = $1;'
+
+    try:
+        date = await conn.fetchval(query, player.id)
+        date = str(date)
+    
+    except Exception as error:
+        error_time = time.strftime('%d/%m/%y - %H:%M', time.gmtime())
+        print('{} Error in cogs.utils.functions.database.select.player.player.Select_player_register_date() : l.93 - 94 : {}'.format(error_time, error))
+        pass
+    
+    finally:
+        await client.db.release(conn)
+    
+    return(date)

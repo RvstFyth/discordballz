@@ -1,7 +1,7 @@
 '''
 Manages the commands logs in the database.
 
-Last update: 08/05/19
+Last update: 09/05/19
 '''
 
 # Dependancies
@@ -13,15 +13,13 @@ from time import strftime, gmtime
 
 from cogs.utils.functions.database.insert.logs import Insert_in_logs_command
 
-async def Command_log(client, ctx, command, caller, target = None):
+async def Command_log(client, ctx, caller, target = None):
     '''
     Insert into the database the informations about an used command.
 
     `client` : must be `discord.Client` object.
 
     `ctx` : must be `discord.ext.commands.Context` object.
-
-    `command` : must be `str`.
 
     `target` : if passed, must be `discord.Member` object.
 
@@ -31,7 +29,7 @@ async def Command_log(client, ctx, command, caller, target = None):
     # Init
 
     caller = ctx.message.author
-    command = command.lower()
+    command = ctx.command.name
     day = strftime('%d/%m/%y', gmtime())
     hour = strftime('%H:%M', gmtime())
 

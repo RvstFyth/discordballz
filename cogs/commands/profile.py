@@ -1,7 +1,7 @@
 '''
 Manages the player's profile.
 
-Last update: 08/05/19
+Last update: 09/05/19
 '''
 
 # Dependancies
@@ -44,7 +44,7 @@ class Profile(Cog):
 
             # Log
 
-            await Command_log(self.client, ctx, 'profile', caller)
+            await Command_log(self.client, ctx, caller)
         
         else:
             
@@ -54,7 +54,7 @@ class Profile(Cog):
 
             # Log
 
-            await Command_log(self.client, ctx, 'profile', caller, target = player)
+            await Command_log(self.client, ctx, caller, target = player)
         
         await Display_profile(self.client, ctx, player)
 

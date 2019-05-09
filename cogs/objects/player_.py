@@ -10,7 +10,9 @@ import asyncio
 
 # Database
 
+from cogs.utils.functions.database.select.player.player import Select_player_register_date
 from cogs.utils.functions.database.select.player.player_ressources import Select_player_stones, Select_player_zenis
+from cogs.utils.functions.database.select.player.player_experience import Select_player_level, Select_player_xp
 
 class Player_:
     '''
@@ -24,8 +26,13 @@ class Player_:
     
     1. Infos
     - `avatar` : Returns the player's avatar url.
+    - `register_date` : Returns the player's register date.
 
-    2. Ressources
+    2. Experience :
+    - `level` : Returns the player's level.
+    - `xp` : Returns the player's xp amount.
+
+    3. Ressources
     - `stones` : Returns the player's stones.
     - `zenis` : Returns the player's zenis.
     '''
@@ -44,6 +51,45 @@ class Player_:
         '''
 
         return(self.player.avatar_url)
+    
+    async def register_date(self):
+        '''
+        Returns the player's register date.
+
+        Return : str
+        '''
+
+        date = await Select_player_register_date(self.client, self.player)
+
+        return(date)
+
+    # Experience
+
+    async def level(self):
+        '''
+        `coroutine`
+
+        Returns the player's level.
+
+        Return: int
+        '''
+
+        level = await Select_player_level(self.client, self.player)
+
+        return(level)
+    
+    async def xp(self):
+        '''
+        `coroutine`
+
+        Returns player's xp amount.
+
+        Return: int
+        '''
+
+        xp = await Select_player_xp(self.client, self.player)
+
+        return(xp)
 
     # Ressources
 

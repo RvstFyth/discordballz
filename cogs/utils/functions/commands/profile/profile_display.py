@@ -7,6 +7,9 @@ Last update: 09/05/19
 # Dependancies
 
 import discord, asyncio, time
+
+# Object
+
 from cogs.objects.player_ import Player_
 
 # Translation
@@ -16,10 +19,6 @@ from cogs.utils.functions.translation.gettext_config import Translate
 # Config
 
 from cogs.utils.functions.readability.embed import Basic_embed
-
-# Database
-
-from cogs.utils.functions.database.select.player.player_ressources import Select_player_stones, Select_player_zenis
 
 async def Display_profile(client, ctx, player):
     '''
@@ -44,9 +43,9 @@ async def Display_profile(client, ctx, player):
 
         # Init player's info
 
-    player_stones = await player_.stones()
-    player_zenis = await player_.zenis()
-    player_ava = player_.avatar()
+    player_register, player_ava = await player_.register_date(), player_.avatar()
+    player_stones, player_zenis = await player_.stones(), await player_.zenis()
+    player_level, player_xp = await player_.level(), await player_.xp()
 
     # Set up the embed
 
@@ -54,8 +53,11 @@ async def Display_profile(client, ctx, player):
 
         # Fields
     
-    profile.add_field(name = _('Dragon stones :'), value = player_stones, inline = True)
-    profile.add_field(name = _('Zenis :'), value = player_zenis, inline = True)
+    profile.add_field(name = _('Level :'), value = '{:,}'.format(player_level), inline = True)
+    profile.add_field(name = _('Experience :'), value = '{:,}'.format(player_xp), inline = True)
+    profile.add_field(name = _('Dragon stones :'), value = '{:,}'.format(player_stones), inline = True)
+    profile.add_field(name = _('Zenis :'), value = '{:,}'.format(player_zenis), inline = True)
+    profile.add_field(name = _('Play since :'), value = player_register, inline = True)
     
     # Send
 
