@@ -19,7 +19,7 @@ from cogs.utils.functions.check.player.player_checks import Is_not_registered
 from cogs.utils.functions.logs.command_logger import Command_log
 from cogs.utils.functions.database.insert.player import Insert_in_player, Insert_in_player_ressources, Insert_in_player_experience
 
-class Start(Cog):
+class Cmd_Start(Cog):
     def __init__(self, client):
         self.client = client
 
@@ -46,4 +46,4 @@ class Start(Cog):
         await Insert_in_player_experience(self.client, player)
 
 def setup(client):
-    client.add_cog(Start(client))
+    client.add_cog(Cmd_Start(client))

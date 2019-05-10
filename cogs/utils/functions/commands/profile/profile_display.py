@@ -10,7 +10,7 @@ import discord, asyncio, time
 
 # Object
 
-from cogs.objects.player_ import Player_
+from cogs.objects.player import Player
 
 # Translation
 
@@ -39,10 +39,10 @@ async def Display_profile(client, ctx, player):
         return
 
     _ = await Translate(client, ctx)
-    player_ = Player_(client, player)
+    player_ = Player(client, player)
 
         # Init player's info
-
+        
     player_register, player_ava = await player_.register_date(), player_.avatar()
     player_stones, player_zenis = await player_.stones(), await player_.zenis()
     player_level, player_xp = await player_.level(), await player_.xp()

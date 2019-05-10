@@ -10,7 +10,7 @@ import discord, asyncio, time
 from discord.ext import commands
 from discord.ext.commands import Cog
 
-class Summon(Cog):
+class Cmd_Summon(Cog):
     def __init__(self, client):
         self.client = client
 
@@ -25,4 +25,4 @@ class Summon(Cog):
         player = ctx.message.author
 
 def setup(client):
-    client.add_cog(Summon(client))
+    client.add_cog(Cmd_Summon(client))

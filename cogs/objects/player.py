@@ -1,7 +1,7 @@
 '''
 Manages the player's informations.
 
-Last update: 09/05/19
+Last update: 10/05/19
 '''
 
 # Dependancies
@@ -9,12 +9,16 @@ Last update: 09/05/19
 import asyncio
 
 # Database
-
+    # Select
 from cogs.utils.functions.database.select.player.player import Select_player_register_date
 from cogs.utils.functions.database.select.player.player_ressources import Select_player_stones, Select_player_zenis
 from cogs.utils.functions.database.select.player.player_experience import Select_player_level, Select_player_xp
 
-class Player_:
+    # Update
+from cogs.utils.functions.database.update.player_experience import Update_player_level, Update_player_xp
+
+
+class Player:
     '''
     Represent a player.
 
@@ -90,6 +94,27 @@ class Player_:
         xp = await Select_player_xp(self.client, self.player)
 
         return(xp)
+    
+    # Add
+
+    async def add_xp(self, value: int):
+        '''
+        `coroutine`
+
+        Increases the amount of player's xp.
+
+        `value` : must be of type `int`.
+
+        Return: void
+        '''
+
+        # Init
+
+        player_xp = await Select_player_xp(self.client, self.player)
+
+        player_xp += value
+
+        await Update_player_xp(self.client, self.player, player_xp)
 
     # Ressources
 

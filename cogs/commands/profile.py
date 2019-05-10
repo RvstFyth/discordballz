@@ -22,7 +22,7 @@ from cogs.utils.functions.logs.command_logger import Command_log
 
 from cogs.utils.functions.commands.profile.profile_display import Display_profile
 
-class Profile(Cog):
+class Cmd_Profile(Cog):
     def __init__(self, client):
         self.client = client
     
@@ -59,4 +59,4 @@ class Profile(Cog):
         await Display_profile(self.client, ctx, player)
 
 def setup(client):
-    client.add_cog(Profile(client))
+    client.add_cog(Cmd_Profile(client))
