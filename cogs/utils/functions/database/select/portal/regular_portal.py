@@ -1,7 +1,7 @@
 '''
 Manages the SQL statment for the regular_portals table.
 
-Last update: 12/05/19
+Last update: 13/05/19
 '''
 
 # Dependancies
@@ -11,6 +11,8 @@ from time import strftime, gmtime
 
 async def Select_regular_portal_infos(client, portal):
     '''
+    `coroutine`
+
     Return a dict containing all the portal informations.
 
     `client` : must be `discord.Client` object.
@@ -19,7 +21,8 @@ async def Select_regular_portal_infos(client, portal):
 
     Return: dict
 
-    Values :
+    Index :
+
     1. name
     2. cost
     3. image
