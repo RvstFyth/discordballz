@@ -28,7 +28,7 @@ async def Update_unique_id_summon(client, reference, new_id, player):
 
     conn = await client.db.acquire()
 
-    query = 'UPDATE unique_characters SET unique_id = $1 WHERE reference = $2 AND player_id = $2;'
+    query = 'UPDATE unique_characters SET unique_id = $1 WHERE reference = $2 AND player_id = $3;'
 
     try:
         await conn.execute(query, new_id, reference, player.id)

@@ -1,7 +1,7 @@
 '''
 Manages the select SQL statments on the characters table.
 
-Last update: 13/05/19
+Last update: 14/05/19
 '''
 
 # Dependancies
@@ -54,3 +54,35 @@ async def Select_character_infos(client, character):
     character_infos['type'] = character_fetch[0][5]
 
     return(character_infos)
+
+async def Select_unique_characters_amount(client):
+    '''
+    `couroutine` 
+
+    Return the total amount of unique characters.
+
+    `client` : must be `discord.Client` object.
+
+    Return: int
+    '''
+
+    # Init
+
+    total = None
+    conn = await client.db.acquire()
+
+    query = 'SELECT reference FROM unique_characters;'
+
+    try:
+        total = await conn.fetch(query)
+        total = len(total)
+    
+    except Exception as error:
+        error_time = strftime('%d/%m/%y - %H:%M', gmtime())
+        print('{} Error in cogs.utils.functions.database.select.character.character.Select_unique_characters_amount() : l.77 - 78: {}'.format(error_time, error))
+        pass
+    
+    finally:
+        await client.db.release(conn)
+    
+    return(total)

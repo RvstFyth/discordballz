@@ -30,6 +30,10 @@ from cogs.utils.functions.readability.embed import Basic_embed
 
 from cogs.utils.functions.commands.summon.summoner import Summoner
 
+# Database
+
+from cogs.utils.functions.database.insert.character import Insert_unique_character
+
 class Cmd_Summon(Cog):
     def __init__(self, client):
         self.client = client
@@ -54,6 +58,11 @@ class Cmd_Summon(Cog):
         summon_embed = Basic_embed(self.client, thumb = player.avatar_url)
         summon_embed.add_field(name = _('{}\'s summon :').format(player.name), value = _('Congratulation **{}** ! You\'ve summoned **{}** !').format(player.name, await character_.name()))
         summon_embed.set_image(url = await character_.image())
+
+        # Unique character
+
+        await Insert_unique_character(self.client, player, drawn_char)
+        await character_.new_unique(player)
 
         await ctx.send(embed = summon_embed)
 

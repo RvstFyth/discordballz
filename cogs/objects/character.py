@@ -10,7 +10,12 @@ import asyncio
 
 # Database
 
-from cogs.utils.functions.database.select.character.character import Select_character_infos
+from cogs.utils.functions.database.select.character.character import Select_character_infos, Select_unique_characters_amount
+from cogs.utils.functions.database.update.unique_characters import Update_unique_id_summon
+
+# Id
+
+from cogs.utils.functions.commands.summon.id_generator import Unique_id_generator
 
 class Character:
     '''
@@ -26,6 +31,7 @@ class Character:
     2. image
     3. rarity
     4. _type
+    5. new_unique
     '''
 
     def __init__(self, client, character):
@@ -89,3 +95,17 @@ class Character:
         _type = character['type']
 
         return(_type)
+    
+    async def new_unique(self, player):
+        '''
+        `coroutine`
+
+        `player` : must be `discord.Member` object.
+
+        Create a new unique character.
+        '''
+
+        reference = await Select_unique_characters_amount(self.client)
+        unique_id = await Unique_id_generator(self.client, reference)
+
+        await Update_unique_id_summon(self.client, reference, unique_id, player)
