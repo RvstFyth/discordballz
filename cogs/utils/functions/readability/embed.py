@@ -1,7 +1,7 @@
 '''
 Manages the basic embed of the bot.
 
-Last update: 07/05/19
+Last update: 14/05/19
 '''
 
 # Dependancies
@@ -45,6 +45,7 @@ def Basic_embed(client, title = None, thumb = None, footer = None, colour = None
         thumb_ = thumb
         basic_embed.set_thumbnail(url = thumb_)
     
+    basic_embed.set_author(name = client.user.name, icon_url = client.user.avatar_url)
     basic_embed.set_footer(text = footer_)
 
     return(basic_embed)
