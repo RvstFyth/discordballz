@@ -28,9 +28,9 @@ async def Create_regular_portal_table(client):
         name TEXT DEFAULT 'NONE',
         cost BIGINT DEFAULT 0,
         image TEXT DEFAULT 'NONE',
-        legendary TEXT DEFAULT '0 0',
-        scouter TEXT DEFAULT '0 0',
-        out_scouter TEXT DEFAULT '0 0'
+        legendary TEXT DEFAULT 'NONE',
+        scouter TEXT DEFAULT 'NONE',
+        out_scouter TEXT DEFAULT 'NONE'
     );'''
 
     query_constraint = 'CREATE UNIQUE INDEX IF NOT EXISTS reference ON regular_portal(reference, portal_id);'

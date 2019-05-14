@@ -41,7 +41,7 @@ class Cmd_Summon(Cog):
         _ = await Translate(self.client, ctx)
         player = ctx.message.author
 
-        drawn_char = await Summoner(self.client, 0)
+        drawn_char = await Summoner(self.client, 1)
         if(drawn_char == '0 0'):
             print('error')
             return
