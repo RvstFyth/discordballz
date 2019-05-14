@@ -102,3 +102,36 @@ async def Select_player_register_date(client, player):
         await client.db.release(conn)
     
     return(date)
+
+async def Select_player_location(client, player):
+    '''
+    `coroutine`
+
+    Return the player's location.
+
+    `client` : must be `discord.Client` object.
+
+    `player` : must be `discord.Member` object.
+
+    Return: str
+    '''
+
+    # Init
+
+    location = None
+    conn = await client.db.acquire()
+
+    query = 'SELECT location FROM player WHERE player_id = $1;'
+
+    try:
+        location = await conn.fetchval(query, player.id)
+    
+    except Exception as error:
+        error_time = time.strftime('%d/%m/%y - %H:%M', time.gmtime())
+        print('{} Error in cogs.utils.functions.database.select.player.player.Select_player_location() : l.127 : {}'.format(error_time, error))
+        pass
+    
+    finally:
+        await client.db.release(conn)
+    
+    return(location)

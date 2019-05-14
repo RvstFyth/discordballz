@@ -58,6 +58,8 @@ async def Display_profile(client, ctx, player):
     profile.add_field(name = _('Dragon stones :'), value = '{:,}'.format(player_stones), inline = True)
     profile.add_field(name = _('Zenis :'), value = '{:,}'.format(player_zenis), inline = True)
     profile.add_field(name = _('Play since :'), value = player_register, inline = True)
+    profile.add_field(name = _('Language :'), value = await player_.language(), inline = True)
+    profile.add_field(name = _('Location :'), value = await player_.location(), inline = True)
     
     # Send
 
