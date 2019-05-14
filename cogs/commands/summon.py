@@ -10,6 +10,10 @@ import discord, asyncio, time
 from discord.ext import commands
 from discord.ext.commands import Cog
 
+# Config
+
+from configuration.main_config.portal_config import REGULAR_PORTAL
+
 # Object
 
 from cogs.objects.character import Character
@@ -41,10 +45,7 @@ class Cmd_Summon(Cog):
         _ = await Translate(self.client, ctx)
         player = ctx.message.author
 
-        drawn_char = await Summoner(self.client, 1)
-        if(drawn_char == '0 0'):
-            print('error')
-            return
+        drawn_char = await Summoner(self.client, REGULAR_PORTAL)
 
         character_ = Character(self.client, int(drawn_char))
 
@@ -52,7 +53,8 @@ class Cmd_Summon(Cog):
 
         summon_embed = Basic_embed(self.client, thumb = player.avatar_url)
         summon_embed.add_field(name = _('{}\'s summon :').format(player.name), value = _('Congratulation **{}** ! You\'ve summoned **{}** !').format(player.name, await character_.name()))
-        
+        summon_embed.set_image(url = await character_.image())
+
         await ctx.send(embed = summon_embed)
 
 def setup(client):

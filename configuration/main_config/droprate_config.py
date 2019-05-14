@@ -1,7 +1,7 @@
 '''
 Manages the drop rates
 
-Last update: 13/05/19
+Last update: 14/05/19
 '''
 
 # Category rates

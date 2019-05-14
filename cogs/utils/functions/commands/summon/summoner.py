@@ -67,7 +67,10 @@ async def Summoner(client, portal):
 
             return(int(char_returned))
     
-        # Scouter category test
+    else:
+        pass
+
+    # Scouter category test
 
     if not scouter[0] == 'NONE':
 
@@ -112,7 +115,10 @@ async def Summoner(client, portal):
 
                 return(int(char_returned))
     
-        # Out of scouter category test
+    else:
+        pass
+    
+    # Out of scouter category test
     
     if not out_scouter[0] == 'NONE':
 
