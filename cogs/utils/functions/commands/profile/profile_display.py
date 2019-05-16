@@ -43,7 +43,7 @@ async def Display_profile(client, ctx, player):
 
         # Init player's info
         
-    player_register, player_ava = await player_.register_date(), player_.avatar()
+    player_register, player_ava = await player_.register_date(), player_.avatar
     player_stones, player_zenis = await player_.stones(), await player_.zenis()
     player_level, player_xp = await player_.level(), await player_.xp()
 

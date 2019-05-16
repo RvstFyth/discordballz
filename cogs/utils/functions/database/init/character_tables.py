@@ -62,7 +62,10 @@ async def Create_characters_table(client):
         name TEXT DEFAULT 'NONE',
         image_url TEXT DEFAULT 'NONE',
         base_rarity TEXT DEFAULT 'NONE',
-        type TEXT DEFAULT 'NONE'
+        type TEXT DEFAULT 'NONE',
+        base_hp BIGINT DEFAULT 1,
+        base_min_dmg BIGINT DEFAULT 0,
+        base_max_dmg BIGINT DEFAULT 1
     );'''
 
     query_constraint = 'CREATE UNIQUE INDEX IF NOT EXISTS global_id ON characters(global_id, reference);'

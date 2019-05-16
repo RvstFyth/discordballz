@@ -11,7 +11,7 @@ import asyncio
 # Database
     # Select
 
-from cogs.utils.functions.database.select.player.player import Select_player_register_date, Select_player_language, Select_player_location
+from cogs.utils.functions.database.select.player.player import Select_player_register_date, Select_player_language, Select_player_location, Select_player_fighter
 from cogs.utils.functions.database.select.player.player_ressources import Select_player_stones, Select_player_zenis
 from cogs.utils.functions.database.select.player.player_experience import Select_player_level, Select_player_xp
 
@@ -28,12 +28,17 @@ class Player:
 
     `player` : must be `discord.Member` object.
 
-    *Method list* :
+    Attributes :
+
+    1. Infos :
+    - `avatar` : Returns the player's avatar url.
+    
+    Method list :
     
     1. Infos
-    - `avatar` : Returns the player's avatar url.
     - `register_date` : Returns the player's register date.
     - language : Returns the player's language.
+    - fighter : Returns the player's fighter unique id.
 
     2. Experience :
     - `level` : Returns the player's level.
@@ -49,17 +54,9 @@ class Player:
     def __init__(self, client, player):
         self.client = client
         self.player = player
+        self.avatar = player.avatar_url
     
     # Infos
-
-    def avatar(self):
-        '''
-        Returns the player's avatar url.
-
-        Return: str
-        '''
-
-        return(self.player.avatar_url)
     
     async def register_date(self):
         '''
@@ -99,6 +96,19 @@ class Player:
         player_location = await Select_player_location(self.client, self.player)
 
         return(player_location)
+    
+    async def fighter(self):
+        '''
+        `coroutine`
+
+        Return the player's fighter unique id.
+
+        Return: str
+        '''
+
+        unique_id = await Select_player_fighter(self.client, self.player)
+
+        return(unique_id)
 
     # Experience
 

@@ -1,7 +1,7 @@
 '''
 Manages the function which select the player's informations from player table.
 
-Last update: 08/05/19
+Last update: 15/05/19
 '''
 
 # Dependancies
@@ -135,3 +135,52 @@ async def Select_player_location(client, player):
         await client.db.release(conn)
     
     return(location)
+
+async def Select_player_fighter(client, player):
+    '''
+    `coroutine`
+
+    Return the player's fighter unique id.
+
+    `client` : must be `discord.Client` object.
+
+    `player` : must be `discord.Member` object.
+
+    Return: dict
+
+    Index : 
+
+    - unique id : Return the character's unique id.
+    - global id : Return the character's global id, based on it unique id.
+    '''
+
+    # Init 
+
+    player_fighter = {}
+    conn = await client.db.acquire()
+
+    query = 'SELECT player_fighter FROM player WHERE player_id = $1;'
+
+    try:
+        player_fighter['unique id'] = await conn.fetchval(query, player.id)
+    
+    except Exception as error:
+        error_time = time.strftime('%d/%m/%y - %H:%M', time.gmtime())
+        print('{} Error in cogs.utils.functions.database.select.player.player.Select_player_fighter() : l.160 : {}'.format(error_time, error))
+        pass
+    
+    else:
+        query = 'SELECT unique_id FROM unique_characters WHERE unique_id = $1;'
+
+        try:
+            player_fighter['global id'] = await conn.fetchval(query, player_fighter['unique id'])
+        
+        except Exception as error:
+            error_time = time.strftime('%d/%m/%y - %H:%M', time.gmtime())
+            print('{} Error in cogs.utils.functions.database.select.player.player.Select_player_fighter() : l.176 : {}'.format(error_time, error))
+            pass
+
+    finally:
+        await client.db.release(conn)
+    
+    return(player_fighter)

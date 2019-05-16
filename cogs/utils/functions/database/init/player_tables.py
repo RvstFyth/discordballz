@@ -72,7 +72,8 @@ async def Create_player_tables(client):
         player_id BIGINT,
         player_name TEXT,
         player_level BIGINT DEFAULT 1,
-        player_xp BIGINT DEFAULT 0
+        player_xp BIGINT DEFAULT 0,
+        player_fighter TEXT DEFAULT 'NONE'
     );'''
 
     query_constraint = 'CREATE UNIQUE INDEX IF NOT EXISTS id ON player_experience(player_id);'
