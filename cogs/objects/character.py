@@ -8,170 +8,121 @@ Last update: 16/05/19
 
 import asyncio
 
-# Database
+# Utils
 
-from cogs.utils.functions.database.select.character.character import Select_character_infos, Select_unique_characters_amount, Select_global_id_from_unique
-from cogs.utils.functions.database.update.unique_characters import Update_unique_id_summon
-
-# Id
-
-from cogs.utils.functions.commands.summon.id_generator import Unique_id_generator
+from cogs.utils.functions.translation.gettext_config import Translate
 
 class Character:
     '''
-    Return the character's informations.
+    Represent a character.
 
-    `client` : must be `discord.Client` object.
+    Attributes :
+    Basic
+    - name : str
+    - image : str (url)
+    - category : int
+    - type : int
+    - rarity : int
 
-    `player` : must be `discord.Member` object.
+    Fight
+    - max_hp : int
+    - current_hp : int
+    - max_ki : int
+    - current_ki : int
+    - damage_max : int
+    - damage_min : int
+    - defense : int
+    - critical_chance : int (%)
+    - dodge_chance : int (%)
+    - ki_regen : int
+    - health_regen : int
+    - ability_count : int
 
-    `character` : must be type `int` and represent the character's `global id`.
+    Targets
+    - target : Character/Enemy object
+    - player_team : List of Character objects
+    - enemy_team : List of Enemy objects
 
-    `unique_id` : must be type `str`.
-
-    Method list :
-
-    1. Informations :
-
-    - name : Returns the character name.
-    - image : Returns the image url of the character.
-    - rarity : Returns the character's rarity.
-    - _type : Returns the character's type.
-    - base_hp
-    - damages
-    
-    2. Methods :
-
-    - new_unique
-    - global_id_from_unique : Return the character's global id from its unique one.
+    Methods :
+    - `coro` init(client, ctx)
     '''
 
-    def __init__(self, client, player, character = None, unique_id = None):
-        self.client = client
-        self.global_id = character
-        self.unique_id = unique_id
-        self.player = player
-    
-    # Basic informations
+    # Instance attributes
 
-    async def name(self):
+    def __init__(self, target, player_team, enemy_team):
+        # Basic infos
+        self.name = ''
+        self.image = ''  # Image URL
+        self.category = 0
+        self.type = 0
+        self.rarity = 0
+
+        # Fight infos
+        self.max_hp = 0
+        self.current_hp = 0
+        self.max_ki = 0
+        self.current_ki = 0
+        self.damage_max = 0
+        self.damage_min = 90*(self.damage_max)/100  # The minimum damages represent 90 % of the max damages
+        self.defense = 0
+        self.critical_chance = 0 # In %
+        self.dodge_chance = 0  # In %
+        self.ki_regen = 0
+        self.health_regen = 0
+
+        # Targets
+        self.target = target
+        self.player_team = player_team
+        self.enemy_team = enemy_team
+
+        # Abilities infos
+        self.ability_count = 0  # Represents the number of abilities a character has
+        self.first_ability_name = ''
+        self.first_ability_description = ''
+
+        self.second_ability_name = ''
+        self.second_ability_description = ''
+
+        self.third_ability_name = ''
+        self.third_ability_description = ''
+
+        self.fourth_ability_name = ''
+        self.fourth_ability_description = ''
+
+    # Methods
+
+    async def init(self, client, ctx):
         '''
         `coroutine`
 
-        Return the name of the character.
+        Init the object.
 
-        Return: str
+        `client` : must be `discord.Client` object.
+
+        `ctx` : must be `discord.ext.commands.Context` object.
         '''
-
-        character = await Select_character_infos(self.client, self.global_id)
-        name = character['name']
-
-        return(name)
-    
-    async def image(self):
-        '''
-        `coroutine`
-
-        Return the image url of the character.
-
-        Return: str (url)
-        '''
-
-        character = await Select_character_infos(self.client, self.global_id)
-        url = character['image']
-
-        return(url)
-    
-    async def rarity(self):
-        '''
-        `coroutine`
-
-        Return the rarity of the character.
-
-        Return: str
-        '''
-
-        character = await Select_character_infos(self.client, self.global_id)
-        rarity = character['rarity']
-
-        return(rarity)
-    
-    async def _type(self):
-        '''
-        `coroutine`
-
-        Return the type of the character.
-
-        Return: str
-        '''
-
-        character = await Select_character_infos(self.client, self.global_id)
-        _type = character['type']
-
-        return(_type)
-    
-    async def base_hp(self):
-        '''
-        `coroutine`
-
-        Return the character base hp.
-
-        Return: int
-        '''
-
-        character = await Select_character_infos(self.client, self.global_id)
-        hp = character['base hp']
-
-        return(hp)
-    
-    async def damages(self):
-        '''
-        `coroutine`
-
-        Return the character's damages.
-
-        Return: dict
-
-        Index :
-
-        - min
-        - max
-        '''
-
-        character = await Select_character_infos(self.client, self.global_id)
-        damages = {}
-        damages['min'] = character['min dmg']
-        damages['max'] = character['max dmg']
-
-        return(damages)
-
-    # Unique id
-
-    async def new_unique(self, player):
-        '''
-        `coroutine`
-
-        `player` : must be `discord.Member` object.
-
-        Create a new unique character.
-        '''
-
-        reference = await Select_unique_characters_amount(self.client)
-        unique_id = await Unique_id_generator(self.client, reference)
-
-        await Update_unique_id_summon(self.client, reference, unique_id, player)
-    
-    async def global_id_from_unique(self):
-        '''
-        `coroutine`
-
-        Return the character's global id from the unique passed one
         
-        Return: int
-        '''
+        # Init
+            # Translation
+        
+        _ = await Translate(client, ctx)
 
-        if(self.unique_id != None):
-            global_id = await Select_global_id_from_unique(self.client, self.player, self.unique_id)
-            self.global_id = global_id
+        # Configure name
 
-            return(global_id)
+        new_name = await _(self.name)
+        
+        self.name = new_name
+    
+    # Abilities
+
+    async def first_ability(self):
+        pass
+    
+    async def second_ability(self):
+        pass
+    
+    async def third_ability(self):
+        pass
+    
+    async def fourth_ability(self):
+        pass
