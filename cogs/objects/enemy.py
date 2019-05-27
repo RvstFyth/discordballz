@@ -1,7 +1,7 @@
 '''
-Store the character's basic informations using its global id.
+Manages the NPC object.
 
-Last update: 16/05/19
+Last update : 24/05/19
 '''
 
 # Dependancies
@@ -12,9 +12,9 @@ import asyncio
 
 from cogs.utils.functions.translation.gettext_config import Translate
 
-class Character:
+class Enemy:
     '''
-    Represent a character.
+    Represent an enemy.
 
     Attributes :
     Basic
@@ -84,10 +84,29 @@ class Character:
         self.fourth_ability_name = ''
         self.fourth_ability_description = ''
 
-    # Methods
+        # Methods
 
     async def init(self, client, ctx):
-        pass
+        '''
+        `coroutine`
+
+        Init the object.
+
+        `client` : must be `discord.Client` object.
+
+        `ctx` : must be `discord.ext.commands.Context` object.
+        '''
+        
+        # Init
+            # Translation
+        
+        _ = await Translate(client, ctx)
+
+        # Configure name
+
+        new_name = await _(self.name)
+        
+        self.name = new_name
     
     # Abilities
 

@@ -21,8 +21,7 @@ class Acid(Dot):
 
     def __init__(self):
         # Duration
-        self.init_duration = 0
-        self.current_duration = 0
+        self.duration = 4
 
         # Stacks
         self.max_stack = 3
@@ -30,8 +29,7 @@ class Acid(Dot):
 
         # Damages
         self.total_damage = 0
-        self.tick_damage = (self.total_damage/self.init_duration)*self.stack  # The more there is stacks, the more damage it inflicts
-
+        self.tick_damage = 0
     
     # Method
 
@@ -39,12 +37,14 @@ class Acid(Dot):
         '''
         `coroutine`
         '''
-        if(self.current_duration > 0):
-            if(self.stack >= 3):
-                self.tick_damage *= 1.5  # If there is more than 3 stacks the damages are increased by 50 %
 
-            self.current_duration -= 1
+        if(self.duration > 0):
+            if(self.stack >= 3):
+                self.tick_damage = int(self.tick_damage * 1.5)  # If there is more than 3 stacks the damages are increased by 50 %
+            
+            self.duration -= 1
+            print(self.tick_damage)
 
             # Dealing damages
 
-            target.current_hp -= self.tick_damage  # Ignores the defense
+            target.stat.current_hp -= self.tick_damage  # Ignores the defense
