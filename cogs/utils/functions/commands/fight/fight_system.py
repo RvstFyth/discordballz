@@ -38,6 +38,7 @@ async def Pve_Fight(client, ctx, player, enemy):
     '''
 
     # Init
+    await Display_character(client, ctx, enemy[0])
 
     player_team = await Get_player_team(client, player)  # Represent the player team (Character Objects)
     enemy_team = enemy
@@ -60,8 +61,6 @@ async def Pve_Fight(client, ctx, player, enemy):
         await asyncio.sleep(0)
 
         await enemy.stat.init(client, ctx)
-
-    await Display_character(client, ctx, fighter_a.stat)
 
     # Turn
 

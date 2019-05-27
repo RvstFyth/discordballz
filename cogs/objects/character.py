@@ -59,11 +59,11 @@ class Character:
 
         # Fight infos
         self.max_hp = 0
-        self.current_hp = 0
+        self.current_hp = self.max_hp
         self.max_ki = 0
         self.current_ki = 0
         self.damage_max = 0
-        self.damage_min = 90*(self.damage_max)/100  # The minimum damages represent 90 % of the max damages
+        self.damage_min = int(90*(self.damage_max)/100)  # The minimum damages represent 90 % of the max damages
         self.defense = 0
         self.critical_chance = 0 # In %
         self.dodge_chance = 0  # In %

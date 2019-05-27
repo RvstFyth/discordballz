@@ -7,6 +7,7 @@ Last update: 12/05/19
 # Dependancies
 
 import asyncio, time, string
+from time import strftime, gmtime
 from string import ascii_letters
 
 async def Unique_id_generator(client, reference):
@@ -55,3 +56,62 @@ async def Unique_id_generator(client, reference):
     code = '{}{}{}{}{}'.format(la[l1],lb[l2],lc[l3],ld[l4],n)
 
     return(code)
+
+async def Create_unique_id(client):
+    '''
+    `coroutine`
+
+    Create a unique id for all the character with 'NONE' as unique id based on their
+    
+    reference number.
+
+    `client` : must be `discord.Client` object.
+
+    Return: void
+    '''
+
+    # Init
+
+    all_unique_char = []  # Fetch
+    conn = await client.db.acquire()
+
+    query = '''
+    SELECT * FROM unique_characters WHERE unique_id = 'NONE';
+    '''
+
+    try:
+        all_unique_char = await conn.fetch(query)
+    
+    except Exception as error:
+        error_time = strftime('%d/%m/%y - %H:%M', gmtime())
+        print('{} Error in cogs.utils.functions.commands.summon.id_generator.Create_unique_id() : l.85 : {}'.format(error_time, error))
+        pass
+    
+    # Now we generate a new id for all the char
+
+    for a in range(len(all_unique_char)):
+        await asyncio.sleep(0)
+
+        reference = all_unique_char[a][0]
+        unique_id = await Unique_id_generator(client, reference)
+
+        # Once we have the unique id we update the unique at 
+        # the reference
+
+        query = '''
+        UPDATE unique_characters SET unique_id = $1 WHERE reference = $2;
+        '''
+
+        try:
+            await conn.execute(query, unique_id, reference)
+        
+        except Exception as error:
+            error_time = strftime('%d/%m/%y - %H:%M', gmtime())
+            print('{} Error in cogs.utils.functions.commands.summon.id_generator.Create_unique_id() : l.106 : {}'.format(error_time, error))
+            pass
+
+    # End
+
+    await client.db.release(conn)
+
+    return

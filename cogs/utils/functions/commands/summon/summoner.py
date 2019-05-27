@@ -1,13 +1,17 @@
 '''
 Manages the way the units are summonned by players.
 
-Last update: 14/05/19
+Last update: 27/05/19
 '''
 
 # Dependancies
 
 import asyncio
 from random import uniform, randint
+
+# Objects
+
+from configuration.characters.characters_list.all_char import Get_char
 
 # Rates
 
@@ -88,16 +92,16 @@ async def Summoner(client, portal):
 
                 await asyncio.sleep(0)  # Asynchronous
 
-                character = await Select_character_infos(client, int(scouter[a]))  # We get the information of the character stored at the scouter[a] pos
+                character_ = await Get_char(int(scouter[a]))  # Get the character object
 
                 # Now we add the characters in the lists
-
-                if(character['rarity'].upper() == 'SSR'):
-                    scouter_ssr.append(int(scouter[a]))
                 
-                elif(character['rarity'].upper() == 'SR'):
+                if(character_.rarity == 3):  # Rarity SSR
                     scouter_sr.append(int(scouter[a]))
                 
+                elif(character_.rarity == 2):  # SR
+                    scouter_sr.append(scouter[a])
+
                 else:
                     pass
 
@@ -130,19 +134,19 @@ async def Summoner(client, portal):
             # Init
 
             await asyncio.sleep(0)
+            
+            character_ = await Get_char(int(out_scouter[b]))
 
-            character = await Select_character_infos(client, int(out_scouter[b]))
-
-            if(character['rarity'].upper() == 'SSR'):
+            if(character_.rarity == 3):
                 out_scouter_ssr.append(int(out_scouter[b]))
             
-            elif(character['rarity'].upper() == 'SR'):
+            elif(character_.rarity == 2):
                 out_scouter_sr.append(int(out_scouter[b]))
             
-            elif(character['rarity'].upper() == 'R'):
+            elif(character_.rarity == 1):
                 out_scouter_r.append(int(out_scouter[b]))
             
-            elif(character['rarity'].upper() == 'N'):
+            elif(character_.rarity == 0):
                 out_scouter_n.append(int(out_scouter[b]))
             
             else:

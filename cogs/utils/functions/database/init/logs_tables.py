@@ -1,7 +1,7 @@
 '''
 Manages the creation of the logs tables.
 
-Last update: 07/05/19
+Last update: 27/05/19
 '''
 
 # Dependancies

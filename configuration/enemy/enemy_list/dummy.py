@@ -1,69 +1,35 @@
 '''
-Manages the NPC object.
+This is the dummy, test everything you want on it.
 
-Last update : 24/05/19
+Last update: 27/05/19
 '''
 
 # Dependancies
 
-import asyncio
+from cogs.objects.enemy import Enemy
 
-# Utils
-
-from cogs.utils.functions.translation.gettext_config import Translate
-
-class Enemy:
+class Dummy(Enemy):
     '''
-    Represent an enemy.
-
-    Attributes :
-    Basic
-    - name : str
-    - image : str (url)
-    - category : int
-    - type : int
-    - rarity : int
-
-    Fight
-    - max_hp : int
-    - current_hp : int
-    - max_ki : int
-    - current_ki : int
-    - damage_max : int
-    - damage_min : int
-    - defense : int
-    - critical_chance : int (%)
-    - dodge_chance : int (%)
-    - ki_regen : int
-    - health_regen : int
-    - ability_count : int
-
-    Targets
-    - target : Character/Enemy object
-    - player_team : List of Character objects
-    - enemy_team : List of Enemy objects
-
-    Methods :
-    - `coro` init(client, ctx)
+    Represents : `Dummy`
     '''
 
     # Instance attributes
 
     def __init__(self):
         # Basic infos
-        self.name = ''
-        self.image = ''  # Image URL
+        self.name = 'Dummy'
+        self.image = 'https://i.imgur.com/qNzaU4B.png'  # Image URL
         self.category = 0
         self.type = 0
         self.rarity = 0
 
         # Fight infos
-        self.max_hp = 0
+        self.max_hp = 5000
         self.current_hp = self.max_hp
-        self.max_ki = 0
-        self.current_ki = 0
-        self.damage_max = 0
-        self.damage_min = 90*(self.damage_max)/100  # The minimum damages represent 90 % of the max damages
+        self.max_ki = 100
+        self.current_ki = self.max_ki
+        self.damage_max = 500
+        self.damage_min = int(90*(self.damage_max)/100)  # The minimum damages represent 90 % of the max damages
         self.defense = 0
         self.critical_chance = 0 # In %
         self.dodge_chance = 0  # In %

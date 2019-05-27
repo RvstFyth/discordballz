@@ -1,7 +1,7 @@
 '''
 Manages the portals creation tables.
 
-Last update: 12/05/19
+Last update: 27/05/19
 '''
 
 # Dependancies
@@ -22,8 +22,10 @@ async def Create_regular_portal_table(client):
 
     conn = await client.db.acquire()
 
-    query = '''CREATE TABLE IF NOT EXISTS regular_portal(
-        reference SERIAL PRIMARY KEY,
+    query = '''
+    CREATE SEQUENCE IF NOT EXISTS regular_portal_reference_seq;
+    CREATE TABLE IF NOT EXISTS regular_portal(
+        reference BIGINT PRIMARY KEY DEFAULT nextval('regular_portal_reference_seq') NOT NULL,
         portal_id BIGINT DEFAULT 0,
         name TEXT DEFAULT 'NONE',
         cost BIGINT DEFAULT 0,

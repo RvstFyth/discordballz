@@ -19,6 +19,8 @@ from configuration.main_config.portal_config import REGULAR_PORTAL
 from cogs.objects.character import Character
 from cogs.objects.player import Player
 
+from configuration.characters.characters_list.all_char import Get_char
+
 # Translation
 
 from cogs.utils.functions.translation.gettext_config import Translate
@@ -35,6 +37,7 @@ from cogs.utils.functions.commands.summon.summoner import Summoner
 
 from cogs.utils.functions.database.insert.character import Insert_unique_character
 from cogs.utils.functions.database.select.portal.regular_portal import Select_regular_portal_infos
+from cogs.utils.functions.commands.summon.id_generator import Create_unique_id
 
 class Cmd_Summon(Cog):
     def __init__(self, client):
@@ -61,18 +64,19 @@ class Cmd_Summon(Cog):
                 # If the player actually drawn an existing character
 
                 await player_.remove_stones(portal['cost'])
-                character_ = Character(self.client, int(drawn_char))
+                character_ = await Get_char(drawn_char)
+                
 
                 # Embed
 
                 summon_embed = Basic_embed(self.client, thumb = player.avatar_url)
-                summon_embed.add_field(name = _('{}\'s summon :').format(player.name), value = _('Congratulation **{}** ! You\'ve summoned **{}** !').format(player.name, await character_.name()))
-                summon_embed.set_image(url = await character_.image())
+                summon_embed.add_field(name = _('{}\'s summon :').format(player.name), value = _('Congratulation **{}** ! You\'ve summoned **{}** !').format(player.name, character_.name))
+                summon_embed.set_image(url = character_.image)
 
                 # Unique character
 
                 await Insert_unique_character(self.client, player, drawn_char)
-                await character_.new_unique(player)
+                await Create_unique_id(self.client)
 
                 await ctx.send(embed = summon_embed)
         

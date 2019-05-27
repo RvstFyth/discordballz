@@ -1,7 +1,7 @@
 '''
 Manages the character tables creation.
 
-Last update: 12/05/19
+Last update: 27/05/19
 '''
 
 # Dependancies
@@ -22,8 +22,10 @@ async def Create_unique_character_table(client):
 
     conn = await client.db.acquire()
 
-    query = '''CREATE TABLE IF NOT EXISTS unique_characters(
-        reference SERIAL PRIMARY KEY,
+    query = '''
+    CREATE SEQUENCE IF NOT EXISTS unique_characters_reference_seq;
+    CREATE TABLE IF NOT EXISTS unique_characters(
+        reference BIGINT PRIMARY KEY DEFAULT nextval('unique_characters_reference_seq') NOT NULL,
         unique_id TEXT DEFAULT 'NONE',
         global_id BIGINT,
         player_id BIGINT
@@ -56,8 +58,10 @@ async def Create_characters_table(client):
 
     conn = await client.db.acquire()
 
-    query = '''CREATE TABLE IF NOT EXISTS characters(
-        reference SERIAL PRIMARY KEY,
+    query = '''
+    CREATE SEQUENCE IF NOT EXISTS characters_reference_seq;
+    CREATE TABLE IF NOT EXISTS characters(
+        reference BIGINT PRIMARY KEY DEFAULT nextval('characters_reference_seq') NOT NULL,
         global_id BIGINT DEFAULT 0,
         name TEXT DEFAULT 'NONE',
         image_url TEXT DEFAULT 'NONE',
