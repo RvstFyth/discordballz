@@ -49,9 +49,9 @@ async def Select_player_team(client, player):
     finally:
         await client.db.release(conn)
     
-    player_team['fighter a'] = player_team_fetch[0][0]
-    player_team['fighter b'] = player_team_fetch[0][1]
-    player_team['fighter c'] = player_team_fetch[0][2]
-    player_team['leader'] = player_team_fetch[0][3]
+    player_team['fighter a'] = player_team_fetch[0][2]
+    player_team['fighter b'] = player_team_fetch[0][3]
+    player_team['fighter c'] = player_team_fetch[0][4]
+    player_team['leader'] = player_team_fetch[0][5]
 
     return(player_team)
