@@ -16,6 +16,7 @@ class Acid(Dot):
     # Class attribute
 
     dot_name = 'acid'
+    dot_icon = '<:poison:582966564006002700>'
     
     # Instance attributes
 
@@ -43,7 +44,6 @@ class Acid(Dot):
                 self.tick_damage = int(self.tick_damage * 1.5)  # If there is more than 3 stacks the damages are increased by 50 %
             
             self.duration -= 1
-            print(self.tick_damage)
 
             # Dealing damages
 

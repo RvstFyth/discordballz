@@ -97,7 +97,10 @@ Ignore the target defense.'''
         # Init Acid damages
 
         acid_dot, identical = Acid(), False
-        acid_dot.duration, acid_dot.stack = 10, 1  # Set the duration and the stacks
+        initial_duration = 4
+        initial_stack = 1
+
+        acid_dot.duration, acid_dot.stack = initial_duration, initial_stack  # Set the duration and the stacks
 
         acid_dot.total_damage = (2*target.stat.max_hp)/100  # Set the damages
         acid_dot.tick_damage = int((acid_dot.total_damage/acid_dot.duration)*acid_dot.stack)
@@ -112,6 +115,8 @@ Ignore the target defense.'''
 
                 if(acid_dot.stack < acid_dot.max_stack):  # If we haven't reached the max stacks we ad another one
                     acid_dot.stack += 1
+                
+                acid_dot.duration = initial_duration
 
                 target.dot.append(acid_dot)  # Apply the new dot
 

@@ -19,6 +19,7 @@ from cogs.utils.functions.commands.fight.displayer.display_teams import Pve_disp
 from cogs.utils.functions.readability.embed import Basic_embed
 from cogs.utils.functions.readability.displayer.character_displayer import Display_character
 from cogs.utils.functions.commands.fight.player.player_team import Get_player_team
+from cogs.utils.functions.commands.fight.displayer.display_fighter import Pve_display_fighter
 
 async def Pve_Fight(client, ctx, player, enemy):
     '''
@@ -57,11 +58,13 @@ async def Pve_Fight(client, ctx, player, enemy):
         await asyncio.sleep(0)
 
         await fighter.stat.init(client, ctx)
+        await fighter.init()
     
     for enemy in enemy_team :
         await asyncio.sleep(0)
 
         await enemy.stat.init(client, ctx)
+        await enemy.init()
 
     # Turn
 
@@ -75,12 +78,35 @@ async def Pve_Fight(client, ctx, player, enemy):
         if(turn == 1):
             await Pve_display_team(client, ctx, player, player_team, enemy_team)
 
+        # Test
+
+        await player_team[0].stat.first_ability(client, ctx, player_team[0], player_team, enemy_team)
+
         # Trigger the effects
+
+            # Player team
+        
+        for fighter in player_team:
+            await asyncio.sleep(0)
+
+            # Dot
+            for dot in fighter.dot:
+                await asyncio.sleep(0)
+
+                if(dot.duration <= 0):
+                    fighter.dot.remove(dot)
+
+                    if(len(fighter.dot) == 0):
+                        break
+                
+                await dot.apply_dot(fighter)
+
             # Enemy team
         
         for enemy in enemy_team:
             await asyncio.sleep(0)
-
+            
+            # Dot
             for dot in enemy.dot :
                 await asyncio.sleep(0)
 
@@ -100,8 +126,15 @@ async def Pve_Fight(client, ctx, player, enemy):
 
         for fighter in player_team:
             await asyncio.sleep(0)
+            
+            if(len(fighter.dot) > 0):
+                if(fighter.stat.current_hp > 0):
+                    # Display fighter's turn
 
-            # Display fighter's turn
+                    await Pve_display_fighter(client, ctx, fighter)
+            
+            else:
+                pass
 
             # Then ask action
         

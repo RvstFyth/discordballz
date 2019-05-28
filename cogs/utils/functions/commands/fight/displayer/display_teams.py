@@ -41,12 +41,12 @@ async def Pve_display_team(client, ctx, player, player_team, enemy_team):
     for fighter in player_team:
         await asyncio.sleep(0)
 
-        display_player += _('{} **{}** lv.{}\n').format(fighter.stat.rarity, fighter.stat.name, fighter.level)
+        display_player += _('**{}** {} {} lv.{}\n').format(fighter.stat.name, fighter.stat.type, fighter.stat.rarity, fighter.level)
     
     for enemy in enemy_team:
         await asyncio.sleep(0)
 
-        display_enemy += _('{} **{}** lv.{}\n').format(enemy.stat.rarity, enemy.stat.name, enemy.level)
+        display_enemy += _('**{}** {} {} lv.{}\n').format(enemy.stat.name, enemy.stat.type, enemy.stat.rarity, enemy.level)
     
     # Set embed
 

@@ -12,6 +12,10 @@ import asyncio
 
 from cogs.objects.character.character import Character
 
+# Utils
+
+from cogs.utils.functions.readability.displayer.icon_displayer import Get_rarity_icon, Get_type_icon
+
 class Fighter(Character):
     '''
     Represent a Fighter
@@ -45,3 +49,17 @@ class Fighter(Character):
         self.buff = []  # List of buff objects
         self.debuff = []  # List of debuff objects
         self.dot = []  # List of dot objects
+    
+    # Method
+
+    async def init(self):
+        '''
+        `coroutine`
+
+        Init the fighter.
+        '''
+
+        self.stat.rarity = await Get_rarity_icon(self.stat.rarity)
+        self.stat.type = await Get_type_icon(self.stat.type)
+
+        return
