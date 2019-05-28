@@ -1,7 +1,7 @@
 '''
 Manages the summon feature.
 
-Last update: 07/05/19
+Last update: 28/05/19
 '''
 
 # Dependancies
@@ -16,10 +16,10 @@ from configuration.main_config.portal_config import REGULAR_PORTAL
 
 # Object
 
-from cogs.objects.character import Character
+from cogs.objects.character.character import Character
 from cogs.objects.player import Player
 
-from configuration.characters.characters_list.all_char import Get_char
+from cogs.objects.character.characters_list.all_char import Get_char
 
 # Translation
 

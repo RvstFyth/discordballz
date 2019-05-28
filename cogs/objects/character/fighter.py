@@ -1,7 +1,7 @@
 '''
 Manages the fighter object.
 
-Last update: 27/05/19
+Last update: 28/05/19
 '''
 
 # Init
@@ -10,13 +10,13 @@ import asyncio
 
 # Object
 
-from cogs.objects.character import Character
+from cogs.objects.character.character import Character
 
 class Fighter(Character):
     '''
     Represent a Fighter
 
-    `character` : must be `Character` object.
+    `character` : must be `Character/Enemy` object.
 
     Attributes :
         Basics :
@@ -35,6 +35,8 @@ class Fighter(Character):
 
     def __init__(self, character):
         self.stat = character
+        self.level = 0
+        self.awakening = 0
 
         # Fight infos
         self.statut = 0  # 0 or 1 : 0 = defenser, 1 = attacker

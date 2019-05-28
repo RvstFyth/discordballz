@@ -23,7 +23,7 @@ async def Get_char(char_id):
         
         # Import the character
 
-        from configuration.characters.characters_list.char_1 import Char_1
+        from cogs.objects.character.characters_list.char_1 import Char_1
 
         char_ = Char_1()
 

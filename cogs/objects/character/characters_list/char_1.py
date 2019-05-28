@@ -1,7 +1,7 @@
 '''
 Manage the character_1
 
-Last update: 24/05/19
+Last update: 28/05/19
 '''
 
 # Dependancies
@@ -10,8 +10,8 @@ import asyncio
 
 # Objects
 
-from cogs.objects.character import Character
-from configuration.characters.abilities_effects.damages_over_time.acid import Acid
+from cogs.objects.character.character import Character
+from cogs.objects.character.abilities_effects.damages_over_time.acid import Acid
 
 # Utils
 

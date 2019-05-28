@@ -1,7 +1,7 @@
 '''
 Manages the fight system.
 
-Last update: 27/05/19
+Last update: 28/05/19
 '''
 
 # Dependancies
@@ -10,12 +10,12 @@ import asyncio
 
 # Object
 
-from cogs.objects.fighter import Fighter
-from cogs.objects.enemy import Enemy
-from configuration.characters.characters_list.char_1 import Char_1
+from cogs.objects.character.fighter import Fighter
+from cogs.objects.character.characters_list import char_1
 
 # Utils
 
+from cogs.utils.functions.commands.fight.displayer.display_teams import Pve_display_team
 from cogs.utils.functions.readability.embed import Basic_embed
 from cogs.utils.functions.readability.displayer.character_displayer import Display_character
 from cogs.utils.functions.commands.fight.player.player_team import Get_player_team
@@ -38,10 +38,11 @@ async def Pve_Fight(client, ctx, player, enemy):
     '''
 
     # Init
-    await Display_character(client, ctx, enemy[0])
+
+    enemy_fighter = Fighter(enemy[0])
 
     player_team = await Get_player_team(client, player)  # Represent the player team (Character Objects)
-    enemy_team = enemy
+    enemy_team = [enemy_fighter]
 
     # Init the player team
 
@@ -68,7 +69,11 @@ async def Pve_Fight(client, ctx, player, enemy):
 
     while fighter_a.stat.current_hp > 0 :
         await asyncio.sleep(0)
-        print('Tour {}'.format(turn))
+
+        # Display both team
+
+        if(turn == 1):
+            await Pve_display_team(client, ctx, player, player_team, enemy_team)
 
         # Trigger the effects
             # Enemy team
@@ -89,6 +94,18 @@ async def Pve_Fight(client, ctx, player, enemy):
                 # If the effect is not over, apply the effect
 
                 await dot.apply_dot(enemy)
+
+        # Turn maker
+        # For PvE the player starts always first
+
+        for fighter in player_team:
+            await asyncio.sleep(0)
+
+            # Display fighter's turn
+
+            # Then ask action
+        
+        # Sam for enemy team
 
         # End of turn
 

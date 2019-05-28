@@ -11,7 +11,7 @@ from random import uniform, randint
 
 # Objects
 
-from configuration.characters.characters_list.all_char import Get_char
+from cogs.objects.character.characters_list.all_char import Get_char
 
 # Rates
 

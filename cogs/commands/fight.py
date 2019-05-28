@@ -9,7 +9,7 @@ from discord.ext.commands import Cog
 
 from cogs.utils.functions.commands.fight.fight_system import Pve_Fight
 
-from configuration.enemy.enemy_list.dummy import Dummy
+from cogs.objects.enemy.enemy_list.dummy import Dummy
 
 class Cmd_Fight(Cog):
     def __init__(self, client):

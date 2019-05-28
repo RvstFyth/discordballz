@@ -12,12 +12,12 @@ import asyncio
 
 from cogs.utils.functions.database.select.character.character import Select_global_id_from_unique
 from cogs.utils.functions.database.select.player.player_combat import Select_player_team
-from configuration.characters.characters_list.all_char import Get_char
+from cogs.objects.character.characters_list.all_char import Get_char
 
 # Objects
 
-from cogs.objects.character import Character
-from cogs.objects.fighter import Fighter
+from cogs.objects.character.character import Character
+from cogs.objects.character.fighter import Fighter
 
 async def Get_player_team(client, player):
     '''

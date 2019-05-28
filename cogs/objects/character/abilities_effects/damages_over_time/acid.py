@@ -1,12 +1,12 @@
 '''
 Manages the effect of the Acid dot.
 
-Last update: 24/05/19
+Last update: 28/05/19
 '''
 
 # Dependancies
 
-from configuration.characters.abilities_effects.damages_over_time.dot_object import Dot
+from cogs.objects.character.abilities_effects.damages_over_time.dot_object import Dot
 
 class Acid(Dot):
     '''
