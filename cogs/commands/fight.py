@@ -20,6 +20,7 @@ class Cmd_Fight(Cog):
         
         enemy = Dummy()
         liste = [enemy]
+        
         await Pve_Fight(self.client, ctx, ctx.message.author, liste)
         
 def setup(client):

@@ -71,18 +71,24 @@ class Character:
         self.health_regen = 0
 
         # Abilities infos
+        self.flag = 0  # 0 : Attack, 1 : Charge, 2 : Def
         self.ability_count = 0  # Represents the number of abilities a character has
+
         self.first_ability_name = ''
         self.first_ability_description = ''
+        self.first_ability_cooldown = 0
 
         self.second_ability_name = ''
         self.second_ability_description = ''
+        self.second_ability_cooldown = 0
 
         self.third_ability_name = ''
         self.third_ability_description = ''
+        self.third_ability_cooldown = 0
 
         self.fourth_ability_name = ''
         self.fourth_ability_description = ''
+        self.fourth_ability_cooldown = 0
 
     # Methods
 
@@ -91,14 +97,14 @@ class Character:
     
     # Abilities
 
-    async def first_ability(self):
+    async def First_ability(self):
         pass
     
-    async def second_ability(self):
+    async def Second_ability(self):
         pass
     
-    async def third_ability(self):
+    async def Third_ability(self):
         pass
     
-    async def fourth_ability(self):
+    async def Fourth_ability(self):
         pass

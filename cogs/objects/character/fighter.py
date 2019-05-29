@@ -43,7 +43,7 @@ class Fighter(Character):
         self.awakening = 0
 
         # Fight infos
-        self.statut = 0  # 0 or 1 : 0 = defenser, 1 = attacker
+        self.posture = 0  # 0 or 1 : 0 = defender, 1 = attacker
 
         # Effects
         self.buff = []  # List of buff objects

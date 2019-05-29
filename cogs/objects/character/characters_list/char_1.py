@@ -60,6 +60,7 @@ class Char_1(Character):
         self.first_ability_description = '''
 Applies a stack of **Acid** on the target. Each stack of **Acid** deals an amount of *2 %* of the target's maximum health as damages per turn.
 Ignore the target defense.'''
+        self.first_ability_cooldown = 0
 
     # Method
 
@@ -87,7 +88,7 @@ Ignore the target defense.'''
 
     # Abilities
 
-    async def first_ability(self, client, ctx, target, player_team, enemy_team):
+    async def First_ability(self, client, ctx, target, player_team, enemy_team):
         '''
         `coroutine`
 
