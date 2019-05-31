@@ -33,6 +33,7 @@ class Char_1(Character):
     # Instance attributes
 
     def __init__(self):
+        Character.__init__(self)
         # Basic
         self.name = 'Saibaiman'
         self.image = 'https://i.imgur.com/1m8rA7L.png'
@@ -60,6 +61,7 @@ class Char_1(Character):
         self.first_ability_description = '''
 Applies a stack of **Acid** on the target. Each stack of **Acid** deals an amount of *2 %* of the target's maximum health as damages per turn.
 Ignore the target defense.'''
+        self.first_ability_icon = Acid.dot_icon
         self.first_ability_cooldown = 0
 
     # Method
@@ -118,6 +120,7 @@ Ignore the target defense.'''
                     acid_dot.stack += 1
                 
                 acid_dot.duration = initial_duration
+                acid_dot.tick_damage = int((acid_dot.total_damage/acid_dot.duration)*acid_dot.stack)
 
                 target.dot.append(acid_dot)  # Apply the new dot
 

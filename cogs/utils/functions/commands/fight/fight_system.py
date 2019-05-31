@@ -109,8 +109,8 @@ async def Pve_Fight(client, ctx, player, enemy):
         await ctx.send(_('🌀 - Triggers Phase'))
         await asyncio.sleep(1)
 
-        await Triggers_phase(player_team, enemy_team)
-
+        await Triggers_phase(client, ctx, player_team, enemy_team)
+        
         # Turn maker
         # For PvE the player starts always first
         
@@ -129,7 +129,7 @@ async def Pve_Fight(client, ctx, player, enemy):
         await ctx.send(_('⚔ - Battle Phase'))
         await asyncio.sleep(1)
 
-        await Battle_phase(client, ctx, player_move, player_team, enemy_team, all_fighter)
+        await Battle_phase(client, ctx, player, player_move, player_team, enemy_team, all_fighter)
 
         # End of turn
 

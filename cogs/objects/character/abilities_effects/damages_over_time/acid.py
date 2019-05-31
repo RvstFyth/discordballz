@@ -16,7 +16,7 @@ class Acid(Dot):
     # Class attribute
 
     dot_name = 'acid'
-    dot_icon = '<:poison:582966564006002700>'
+    dot_icon = '<:acid:583953112406949888>'
     
     # Instance attributes
 

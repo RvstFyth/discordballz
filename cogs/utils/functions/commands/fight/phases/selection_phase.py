@@ -175,6 +175,9 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
 
                     else:  # If its not an ability, its ok
                         decision_made = True
+                        if(len(move) == 1):
+                            move = [2, 0]
+                            
                         player_move.append(move)
 
                 else:  # If move is not correct we re-ask

@@ -24,13 +24,14 @@ class Dummy(Enemy):
         self.rarity = 0
 
         # Fight infos
-        self.max_hp = 5000
+        self.max_hp = 5000000
         self.current_hp = self.max_hp
         self.max_ki = 100
         self.current_ki = self.max_ki
         self.damage_max = 500
         self.damage_min = int(90*(self.damage_max)/100)  # The minimum damages represent 90 % of the max damages
-        self.defense = 0
+        self.physical_defense = 10000
+        self.ki_defense = 0
         self.critical_chance = 0 # In %
         self.dodge_chance = 0  # In %
         self.ki_regen = 0
