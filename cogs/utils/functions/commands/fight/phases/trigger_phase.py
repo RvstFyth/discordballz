@@ -68,8 +68,6 @@ async def Triggers_phase(client, ctx, player_team, enemy_team):
     for enemy in enemy_team:
         await asyncio.sleep(0)
         enemy_effects, enemy_dot = False, False  # If the enemy has active effects pass to true
-
-        enemy_team_triggers += _('{} - **{}** {} :').format(enemy_count, enemy.name, enemy.type)
         
         # Dot
         for dot in enemy.dot :
@@ -84,10 +82,13 @@ async def Triggers_phase(client, ctx, player_team, enemy_team):
 
             # If the effect is not over, apply the effect
 
+            print(dot.stack)
             enemy_effects = True
             enemy_dot = True
 
             await dot.apply_dot(enemy)
+
+            # The enemy has an effect on him, we display
             
             enemy_dot_display += '`{}`{} | '.format(dot.dot_name, dot.dot_icon)
             enemy_dot_total_stack += dot.stack
@@ -98,11 +99,12 @@ async def Triggers_phase(client, ctx, player_team, enemy_team):
     # Display
     if enemy_effects:
         if enemy_dot :
+            
             # DOT
             enemy_team_triggers += _('\n------------ Damages over time ------------')
-            enemy_dot_stack_display += '{:,}'.format(dot.stack)
-            enemy_dot_damage_display += '**{:,}**'.format(dot.tick_damage)
-            enemy_dot_duration_display += '{:,}'.format(dot.duration)
+            enemy_dot_stack_display += '{:,}'.format(enemy_dot_total_stack)
+            enemy_dot_damage_display += '**{:,}**'.format(enemy_dot_total_damage)
+            enemy_dot_duration_display += '{:,}'.format(enemy_dot_total_duration)
             
             # Dot name
             enemy_team_triggers += enemy_dot_display

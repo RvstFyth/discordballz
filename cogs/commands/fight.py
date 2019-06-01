@@ -19,7 +19,8 @@ class Cmd_Fight(Cog):
     async def fight(self, ctx):
         
         enemy = Dummy()
-        liste = [enemy]
+        enemy_2 = Dummy()
+        liste = [enemy, enemy_2]
         
         await Pve_Fight(self.client, ctx, ctx.message.author, liste)
         
