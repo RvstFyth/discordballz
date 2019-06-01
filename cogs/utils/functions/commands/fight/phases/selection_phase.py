@@ -26,11 +26,11 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
 
     `player`: must be `discord.Member` object.
 
-    `player_team` : must be list of `Fighter` objects.
+    `player_team` : must be list of `Character` objects.
 
-    `enemy_team` : must be list of `Fighter` objects.
+    `enemy_team` : must be list of `Character` objects.
 
-    `all_fighter` : must be list of `Fighter` objects.
+    `all_fighter` : must be list of `Character` objects.
 
     Return: list ([[move, target]])
     '''

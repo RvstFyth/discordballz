@@ -30,11 +30,11 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
 
     `player_move`: must be list object of player_move [[move, target]]
 
-    `player_team` : must be list of `Fighter` objects.
+    `player_team` : must be list of `Character` objects.
 
-    `enemy_team` : must be list of `Fighter` objects.
+    `enemy_team` : must be list of `Character` objects.
 
-    `all_fighter` : must be list of `Fighter` objects.
+    `all_fighter` : must be list of `Character` objects.
 
     Return: discord.Message (battle informations)
     '''

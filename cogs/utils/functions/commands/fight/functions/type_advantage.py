@@ -14,7 +14,7 @@ async def Is_type_advantaged(fighter, target):
 
     Tells elif the fighter has the type advantage on its target.
 
-    `fighter` : must be `Fighter` object.
+    `fighter` : must be `Character` object.
 
     `target` : must be `Character` object.
 
