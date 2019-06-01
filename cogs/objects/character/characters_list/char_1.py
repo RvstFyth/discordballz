@@ -15,6 +15,7 @@ from cogs.objects.character.abilities_effects.damages_over_time.acid import Acid
 
 # Utils
 
+from cogs.utils.functions.commands.fight.displayer.display_move import Display_move
 from cogs.utils.functions.readability.displayer.icon_displayer import Get_rarity_icon, Get_type_icon
 from cogs.utils.functions.translation.gettext_config import Translate
 
@@ -36,6 +37,7 @@ class Char_1(Character):
     def __init__(self):
         Character.__init__(self)
         # Basic
+        self.id = 1
         self.name = 'Saibaiman'
         self.image = 'https://i.imgur.com/1m8rA7L.png'
         self.category = 0
@@ -99,11 +101,25 @@ Ignore the target defense.'''
 
     # Abilities
 
-    async def First_ability(self, client, ctx, target, player_team, enemy_team):
+    async def First_ability(self, client, ctx, target, player_team, enemy_team, move):
         '''
         `coroutine`
 
-        `enemy` : Must be `Enemy` object.
+        Apply a DoT (Acid) to the target.
+
+        `client` : must be `discord.Client` object.
+
+        `ctx` : must be `discord.ext.commands.Context` object.
+
+        `target` : must be `Character` object.
+
+        `player_team` : must be `list` of `Character` objects.
+
+        `enemy_team` : must be `list` of `Character` objects.
+
+        `move` : must be type `str` and represent the player_team_moves to display the corrects move etc.
+
+        Return: str (player_team_moves)
         '''
 
         # Init Acid damages
@@ -135,5 +151,13 @@ Ignore the target defense.'''
 
                 break
         
+        # Display the move
+
+        damage_done = 0
+        
+        move += await Display_move(client, ctx, self.first_ability_name, self.first_ability_icon, damage_done, self, target)  # <<<<<<<<< This should be inside the method not here.
+        
         if not identical :  # If we don't find the dot into the Target dots list we add it
             target.dot.append(acid_dot)
+        
+        return(move)

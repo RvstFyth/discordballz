@@ -18,6 +18,7 @@ class Character:
 
     Attributes :
         Basic
+        - id : int
         - name : str
         - image : str (url)
         - category : int
@@ -113,6 +114,7 @@ class Character:
 
     def __init__(self):
         # Basic infos
+        self.id = 0
         self.name = ''
         self.image = ''  # Image URL
         self.category = 0

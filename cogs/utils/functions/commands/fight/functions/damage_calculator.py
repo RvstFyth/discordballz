@@ -80,7 +80,7 @@ async def Damage_calculator(fighter, target, is_sequence = False, is_ki = False,
         fighter_damage = randint(fighter.ki_damage_min, fighter.ki_damage_max)
     
     else:
-        fighter_damage = randint(fighter.physical_damage_min, fighter.physical_damage_min)
+        fighter_damage = randint(fighter.physical_damage_min, fighter.physical_damage_max)
 
     if is_sequence:
         fighter_damage = fighter_damage*0.8
@@ -110,12 +110,11 @@ async def Damage_calculator(fighter, target, is_sequence = False, is_ki = False,
     if not ignore_defense:  # If the defense is not ignored
         if not is_ki:
             calculated_damages = (fighter_damage)*type_advantage*damage_reduction*phy_defense*critical_bonus
-            print(fighter_damage,type_advantage,damage_reduction,phy_defense,critical_bonus)
+            
         else:  # If KI ability
             calculated_damages = (fighter_damage)*type_advantage*damage_reduction*ki_defense*critical_bonus
     
     else:  # If ignore defense
         calculated_damages = (fighter_damage)*type_advantage*damage_reduction*critical_bonus
 
-    print(calculated_damages)
     return(int(calculated_damages))

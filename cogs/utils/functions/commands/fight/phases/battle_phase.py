@@ -107,8 +107,7 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
 
             # Display
 
-            player_team_moves += await Display_move(client, ctx, fighter.first_ability_name, fighter.first_ability_icon, 0, fighter, fighter_target)  # <<<<<<<<< This should be inside the method not here.
-            await player_team[0].First_ability(client, ctx, fighter_target, player_team, enemy_team)
+            player_team_moves = await player_team[0].First_ability(client, ctx, fighter_target, player_team, enemy_team, player_team_moves)
         
         if(fighter_choice == 5):
             # Ability 2
