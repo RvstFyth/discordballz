@@ -15,7 +15,7 @@ class Acid(Dot):
 
     # Class attribute
 
-    dot_name = 'acid'
+    dot_name = 'Acid'
     dot_icon = '<:acid:583953112406949888>'
     
     # Instance attributes
@@ -47,4 +47,4 @@ class Acid(Dot):
 
             # Dealing damages
 
-            target.stat.current_hp -= self.tick_damage  # Ignores the defense
+            target.current_hp -= self.tick_damage  # Ignores the defense

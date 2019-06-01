@@ -1,7 +1,7 @@
 '''
 Manages how the damages are calculated.
 
-Last update: 31/05/19
+Last update: 01/06/19
 '''
 
 # Dependancies 
@@ -13,13 +13,13 @@ from random import randint
 
 from cogs.utils.functions.commands.fight.functions.type_advantage import Is_type_advantaged
 
-async def Damage_calculator(fighter, target, is_sequence = False, is_ki = False, ignore_defense = False):
+async def Damage_calculator(fighter, target, is_sequence = False, is_ki = False, ignore_defense = False, can_crit = False):
     '''
     `coroutine`
 
     Calculates the damage a unit does in function of the parameters.
 
-    `fighter` : must be `Fighter` object.
+    `fighter` : must be `Character` object.
 
     `target` : must be `Character` object.
 
@@ -28,6 +28,8 @@ async def Damage_calculator(fighter, target, is_sequence = False, is_ki = False,
     `is_ki` : must be type `bool` default set to `False` and tells if the incoming damages are from a ki ability or not.
 
     `ignore_defense` : must be type `bool` default set to `False`
+
+    `can_crit` : must be type `bool` determines if an attack is able to crit or not.
 
     Return: int (damage value)
     '''
@@ -74,7 +76,7 @@ async def Damage_calculator(fighter, target, is_sequence = False, is_ki = False,
      
     # Damages
 
-    fighter_damage = randint(fighter.stat.damage_min, fighter.stat.damage_max)
+    fighter_damage = randint(fighter.damage_min, fighter.damage_max)
 
     if is_sequence:
         fighter_damage = fighter_damage*0.8
@@ -82,24 +84,27 @@ async def Damage_calculator(fighter, target, is_sequence = False, is_ki = False,
     else:
         pass
 
-    damage_reduction = 1+(fighter.stat.damage_reduction) 
+    damage_reduction = 1+(fighter.damage_reduction) 
 
     # Defense
 
-    phy_defense, ki_defense = 2500/(2500 + target.stat.physical_defense), 2500/(2500 + target.stat.ki_defense)
+    phy_defense, ki_defense = 2500/(2500 + target.physical_defense), 2500/(2500 + target.ki_defense)
     
     # Critical roll
 
-    roll = randint(0, 100)
-    if(roll <= fighter.stat.critical_chance):
-        critical_bonus = 1.5 + (fighter.stat.critical_bonus)/100
+    if can_crit:
+        roll = randint(0, 100)
+        if(roll <= fighter.critical_chance):
+            critical_bonus = 1.5 + (fighter.critical_bonus)/100
+        
+        else:
+            critical_bonus = 1
     
-    else:
+    else:  # The attack is not supposed to crit
         critical_bonus = 1
 
     if not ignore_defense:  # If the defense is not ignored
         if not is_ki:
-            print(fighter_damage, type_advantage, damage_reduction, phy_defense, critical_bonus)
             calculated_damages = (fighter_damage)*type_advantage*damage_reduction*phy_defense*critical_bonus
         
         else:  # If KI ability

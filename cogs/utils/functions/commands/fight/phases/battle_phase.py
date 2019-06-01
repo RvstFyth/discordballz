@@ -55,7 +55,7 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
 
         # 7 possible choices
 
-        player_team_moves += _('{} - **{}** {} to **{}** {} :\n').format(order, fighter.stat.name, fighter.stat.type, fighter_target.stat.name, fighter.stat.type)
+        player_team_moves += _('{} - **{}** {} to **{}** {} :\n').format(order, fighter.name, fighter.type, fighter_target.name, fighter.type)
 
         if(fighter_choice == 1):
             # Sequence
@@ -72,7 +72,7 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
                 for enemy in enemy_team:
                     await asyncio.sleep(0)
                     
-                    if(enemy.posture == 2):
+                    if(enemy.flag == 2):
                         defenders.append(enemy)
                     
                     else:
@@ -85,9 +85,9 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
                     fighter_target = defenders[randint(0, len(defenders)-1)]  # Select a random defender as the new target
 
                 damages_done = await Damage_calculator(fighter, fighter_target, is_sequence = True)
-                fighter_target.stat.current_hp -= damages_done
+                fighter_target.current_hp -= damages_done
 
-                player_team_moves += _('__Move__ : `Sequence`\n __Damages__ : **{:,}**\n__Target__ : **{}** {}\n\n').format(damages_done, fighter_target.stat.name, fighter_target.stat.type)
+                player_team_moves += _('__Move__ : `Sequence`\n __Damages__ : **{:,}**\n__Target__ : **{}** {}\n\n').format(damages_done, fighter_target.name, fighter_target.type)
         
         if(fighter_choice == 2):
             # Ki charge
@@ -99,8 +99,8 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
         
         if(fighter_choice == 4):
             # Ability 1
-            player_team_moves += _('__Move__ : `{}` {}\n__Target__ : **{}** {}\n\n').format(fighter.stat.first_ability_name, fighter.stat.first_ability_icon, fighter_target.stat.name, fighter_target.stat.type)
-            await player_team[0].stat.First_ability(client, ctx, fighter_target, player_team, enemy_team)
+            player_team_moves += _('__Move__ : `{}` {}\n__Target__ : **{}** {}\n\n').format(fighter.first_ability_name, fighter.first_ability_icon, fighter_target.name, fighter_target.type)
+            await player_team[0].First_ability(client, ctx, fighter_target, player_team, enemy_team)
         
         if(fighter_choice == 5):
             # Ability 2

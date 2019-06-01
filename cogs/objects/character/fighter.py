@@ -38,7 +38,7 @@ class Fighter(Character):
     # Instance attributes
 
     def __init__(self, character):
-        self.stat = character
+        self = character
         self.level = 0
         self.awakening = 0
 
@@ -59,7 +59,7 @@ class Fighter(Character):
         Init the fighter.
         '''
 
-        self.stat.rarity = await Get_rarity_icon(self.stat.rarity)
-        self.stat.type = await Get_type_icon(self.stat.type)
+        self.rarity = await Get_rarity_icon(self.rarity)
+        self.type = await Get_type_icon(self.type)
 
         return

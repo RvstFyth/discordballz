@@ -11,7 +11,7 @@ from random import randint
 
 # Object
 
-from cogs.objects.character.fighter import Fighter
+from cogs.objects.character.character import Character
 from cogs.objects.character.characters_list import char_1
 
 # Utils
@@ -50,7 +50,7 @@ async def Pve_Fight(client, ctx, player, enemy):
     # Init
 
     _ = await Translate(client, ctx)
-    enemy_fighter = Fighter(enemy[0])
+    enemy_fighter = enemy[0]  # List contains Dummy() at 0
 
     player_team = await Get_player_team(client, player)  # Represent the player team (Character Objects)
     enemy_team = [enemy_fighter]
@@ -72,21 +72,19 @@ async def Pve_Fight(client, ctx, player, enemy):
     for fighter in player_team :
         await asyncio.sleep(0)
 
-        await fighter.stat.init(client, ctx)
-        await fighter.init()
+        await fighter.init(client, ctx)
     
     for enemy in enemy_team :
         await asyncio.sleep(0)
 
-        await enemy.stat.init(client, ctx)
-        await enemy.init()
+        await enemy.init(client, ctx)
 
     # Main loop
     # Turn
 
     turn = 1  # Begin at 1
 
-    while fighter_a.stat.current_hp > 0 :
+    while fighter_a.current_hp > 0 :
         await asyncio.sleep(0)
 
         # Init

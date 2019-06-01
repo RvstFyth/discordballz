@@ -1,7 +1,7 @@
 '''
 Get the player team informations.
 
-Last update: 27/05/19
+Last update: 01/06/19
 '''
 
 # Dependancies
@@ -56,7 +56,6 @@ async def Get_player_team(client, player):
 
     # Creating the list
 
-    fighter_a, fighter_b, fighter_c = Fighter(fighter_a), Fighter(fighter_b), Fighter(fighter_c)
     player_team = [fighter_a, fighter_b, fighter_c, leader]
 
     return(player_team)

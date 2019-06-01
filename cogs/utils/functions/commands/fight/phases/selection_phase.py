@@ -43,7 +43,7 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
     for fighter in player_team:
         await asyncio.sleep(0)
         
-        if(fighter.stat.current_hp > 0):
+        if(fighter.current_hp > 0):
             # Display fighter's turn
 
             await Pve_display_fighter(client, ctx, fighter)
@@ -51,26 +51,26 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
             # Set fighter kit
 
             fighter_kit = _('`1. Sequence` | `2. Ki charge` | `3. Flee` | ')
-            fighter_ability_count = fighter.stat.ability_count 
+            fighter_ability_count = fighter.ability_count 
 
             if(fighter_ability_count > 0):
                 if(fighter_ability_count == 1):
-                    fighter_kit += '`4. {}` | '.format(fighter.stat.first_ability_name)
+                    fighter_kit += '`4. {}` | '.format(fighter.first_ability_name)
                 
                 elif(fighter_ability_count == 2):
-                    fighter_kit += '`4. {}` | '.format(fighter.stat.first_ability_name)
-                    fighter_kit += '`5. {}` | '.format(fighter.stat.second_ability_name)
+                    fighter_kit += '`4. {}` | '.format(fighter.first_ability_name)
+                    fighter_kit += '`5. {}` | '.format(fighter.second_ability_name)
                 
                 elif(fighter_ability_count == 3):
-                    fighter_kit += '`4. {}` | '.format(fighter.stat.first_ability_name)
-                    fighter_kit += '`5. {}` | '.format(fighter.stat.second_ability_name)
-                    fighter_kit += '`6. {}` | '.format(fighter.stat.third_ability_name)
+                    fighter_kit += '`4. {}` | '.format(fighter.first_ability_name)
+                    fighter_kit += '`5. {}` | '.format(fighter.second_ability_name)
+                    fighter_kit += '`6. {}` | '.format(fighter.third_ability_name)
                 
                 elif(fighter_ability_count == 4):
-                    fighter_kit += '`4. {}` | '.format(fighter.stat.first_ability_name)
-                    fighter_kit += '`5. {}` | '.format(fighter.stat.second_ability_name)
-                    fighter_kit += '`6. {}` | '.format(fighter.stat.third_ability_name)
-                    fighter_kit += '`7. {}` | '.format(fighter.stat.fourth_ability_name)
+                    fighter_kit += '`4. {}` | '.format(fighter.first_ability_name)
+                    fighter_kit += '`5. {}` | '.format(fighter.second_ability_name)
+                    fighter_kit += '`6. {}` | '.format(fighter.third_ability_name)
+                    fighter_kit += '`7. {}` | '.format(fighter.fourth_ability_name)
                 
                 else:
                     pass
@@ -86,7 +86,7 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
             for fighter_member in player_team:
                 await asyncio.sleep(0)
 
-                fighter_kit += '{}. **{}** {} | '.format(character_count, fighter_member.stat.name, fighter_member.stat.type)
+                fighter_kit += '{}. **{}** {} | '.format(character_count, fighter_member.name, fighter_member.type)
                 character_count += 1
             
             fighter_kit += '\nEnemey team : '
@@ -96,12 +96,12 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
             for enemy_member in enemy_team:
                 await asyncio.sleep(0)
 
-                fighter_kit += '{}. **{}** {} | '.format(character_count, enemy_member.stat.name, enemy_member.stat.type)
+                fighter_kit += '{}. **{}** {} | '.format(character_count, enemy_member.name, enemy_member.type)
                 character_count += 1
 
             # Show the possible actions :
 
-            action_display = _('<@{}> Please select an action and a target among the following for **{}** {}.\n(type their number right above : like `[action number]`  `[target number]`) :\n\n{}').format(player.id, fighter.stat.name, fighter.stat.type, fighter_kit)
+            action_display = _('<@{}> Please select an action and a target among the following for **{}** {}.\n(type their number right above : like `[action number]`  `[target number]`) :\n\n{}').format(player.id, fighter.name, fighter.type, fighter_kit)
 
             # Then ask action
         
@@ -118,7 +118,7 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
                     # Check if the ability is not in cooldown
                     if(move[0] > 3):  # If the move is an ability
                         if(move[0] == 4):  # If its the first ability
-                            cooldown = fighter.stat.first_ability_cooldown  # Get the ability current cooldown
+                            cooldown = fighter.first_ability_cooldown  # Get the ability current cooldown
 
                             if(cooldown <= 0):  # If its not on cooldown, we add it to the action to perform
                                 player_move.append(move)
@@ -132,7 +132,7 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
                                 pass
                         
                         elif(move[0] == 5):  # If its the first ability
-                            cooldown = fighter.stat.second_ability_cooldown  # Get the ability current cooldown
+                            cooldown = fighter.second_ability_cooldown  # Get the ability current cooldown
 
                             if(cooldown <= 0):  # If its not on cooldown, we add it to the action to perform
                                 player_move.append(move)
@@ -146,7 +146,7 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
                                 pass
                         
                         elif(move[0] == 6):  # If its the first ability
-                            cooldown = fighter.stat.third_ability_cooldown  # Get the ability current cooldown
+                            cooldown = fighter.third_ability_cooldown  # Get the ability current cooldown
 
                             if(cooldown <= 0):  # If its not on cooldown, we add it to the action to perform
                                 player_move.append(move)
@@ -160,7 +160,7 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
                                 pass
 
                         elif(move[0] == 7):  # If its the first ability
-                            cooldown = fighter.stat.fourth_ability_cooldown  # Get the ability current cooldown
+                            cooldown = fighter.fourth_ability_cooldown  # Get the ability current cooldown
 
                             if(cooldown <= 0):  # If its not on cooldown, we add it to the action to perform
                                 player_move.append(move)

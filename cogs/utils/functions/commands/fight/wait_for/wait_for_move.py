@@ -19,14 +19,14 @@ async def Wait_for_move(client, player, fighter, all_fighter):
 
     `player` : must be `discord.Member` object.
 
-    `fighter` : must be `Fighter` object.
+    `fighter` : must be `Character` object.
 
     Return : bool (True if the choice has been registered successfully or False otherwise)
     '''
 
     # Init
 
-    fighter_ability_count = fighter.stat.ability_count
+    fighter_ability_count = fighter.ability_count
     success = False
 
     def Correct_move(message):

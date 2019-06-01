@@ -113,6 +113,9 @@ class Character:
         self.type = 0
         self.rarity = 0
 
+        # Variation
+        self.level = 0
+
         # Fight infos
         self.max_hp = 0
         self.current_hp = self.max_hp

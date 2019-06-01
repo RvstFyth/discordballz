@@ -8,6 +8,10 @@ Last update: 27/05/19
 
 from cogs.objects.enemy.enemy import Enemy
 
+# Utils
+
+from cogs.utils.functions.readability.displayer.icon_displayer import Get_rarity_icon, Get_type_icon
+
 class Dummy(Enemy):
     '''
     Represents : `Dummy`
@@ -22,6 +26,9 @@ class Dummy(Enemy):
         self.category = 0
         self.type = 0
         self.rarity = 0
+
+        # Variation
+        self.level = 0
 
         # Fight infos
         self.max_hp = 5000000
@@ -51,10 +58,20 @@ class Dummy(Enemy):
         self.fourth_ability_name = ''
         self.fourth_ability_description = ''
 
+        # Effects
+        self.buff = []
+        self.debuff = []
+        self.dot = []
+
+        # Combat
+        self.flag = 0
+
         # Methods
 
     async def init(self, client, ctx):
-        pass
+        self.rarity = await Get_rarity_icon(self.rarity)
+        self.type = await Get_type_icon(self.type)
+        return
     
     # Abilities
 

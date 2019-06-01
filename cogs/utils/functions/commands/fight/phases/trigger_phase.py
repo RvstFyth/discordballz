@@ -1,7 +1,7 @@
 '''
 Manages the trigger phase of the fight.
 
-Last update: 31/05/19
+Last update: 01/06/19
 '''
 
 # Dependancies
@@ -32,10 +32,19 @@ async def Triggers_phase(client, ctx, player_team, enemy_team):
 
     # Enemy team
 
-    enemy_team_display = Basic_embed(client)
+    enemy_team_display = ''
     enemy_effects = False
     enemy_team_triggers = ''
     enemy_count = 1
+
+        # Dot
+    enemy_dot = False
+    enemy_dot_display = _('\n__Dot__ : ') # List the enemy dots
+    enemy_dot_stack_display = _('\n__Stack__ : ')
+    enemy_dot_damage_display = _('\n__Damages__ : ')
+    enemy_dot_duration_display = _('\n__Remaining__ : ')
+    enemy_dot_total_duration = 0
+    enemy_dot_total_damage = 0
 
     for fighter in player_team:
             await asyncio.sleep(0)
@@ -56,9 +65,9 @@ async def Triggers_phase(client, ctx, player_team, enemy_team):
         
     for enemy in enemy_team:
         await asyncio.sleep(0)
-        enemy_effects = False  # If the enemy has active effects pass to true
+        enemy_effects, enemy_dot = False, False  # If the enemy has active effects pass to true
 
-        enemy_team_triggers += _('{} - **{}** {} :\n').format(enemy_count, enemy.stat.name, enemy.stat.type)
+        enemy_team_triggers += _('{} - **{}** {} :').format(enemy_count, enemy.name, enemy.type)
         
         # Dot
         for dot in enemy.dot :
@@ -74,14 +83,33 @@ async def Triggers_phase(client, ctx, player_team, enemy_team):
             # If the effect is not over, apply the effect
 
             enemy_effects = True
-            await dot.apply_dot(enemy)
+            enemy_dot = True
 
-            enemy_team_triggers += _('__Dot__ : `{}` {}\n__Stack__ : {:,}\n__Damages__ : **{:,}**\n__Remaining__ : {:,} Turns\n\n').format(dot.dot_name, dot.dot_icon, dot.stack, dot.tick_damage, dot.duration)
+            await dot.apply_dot(enemy)
             
+            enemy_dot_display += '`{}`{} | '.format(dot.dot_name, dot.dot_icon)
+            enemy_dot_stack_display += '{:,}'.format(dot.stack)
+            enemy_dot_damage_display += '**{:,}**'.format(dot.tick_damage)
+            enemy_dot_duration_display += '{:,}'.format(dot.duration)
+
         # End
-        
+        # Display
         if enemy_effects:
-            enemy_team_display.add_field(name = 'Enemy team :', value = enemy_team_triggers, inline = False)
-            await ctx.send(embed = enemy_team_display)
+            if enemy_dot :
+                # DOT
+                enemy_team_triggers += _('\n------------ Damages over time ------------')
+                # Dot name
+                enemy_team_triggers += enemy_dot_display
+                # Dot stack
+                enemy_team_triggers += enemy_dot_stack_display
+                # Dot damages
+                enemy_team_triggers += enemy_dot_damage_display
+                # Dot duration
+                enemy_team_triggers += enemy_dot_duration_display
+
+                enemy_team_display += _('🔴 - Enemy Team :\n')+ enemy_team_triggers
+            
+            # Send
+            await ctx.send(enemy_team_display)
 
         enemy_count += 1

@@ -25,7 +25,7 @@ async def Pve_display_team(client, ctx, player, player_team, enemy_team):
 
     `player` : must be `discord.Member` object.
 
-    `player_team` & `enemy_team` : must be list of `Fighter` objects.
+    `player_team` & `enemy_team` : must be list of `Character` objects.
 
     Return: discord.Message
     '''
@@ -41,12 +41,12 @@ async def Pve_display_team(client, ctx, player, player_team, enemy_team):
     for fighter in player_team:
         await asyncio.sleep(0)
 
-        display_player += _('**{}** {} {} lv.{}\n').format(fighter.stat.name, fighter.stat.type, fighter.stat.rarity, fighter.level)
+        display_player += _('**{}** {} {} lv.{}\n').format(fighter.name, fighter.type, fighter.rarity, fighter.level)
     
     for enemy in enemy_team:
         await asyncio.sleep(0)
 
-        display_enemy += _('**{}** {} {} lv.{}\n').format(enemy.stat.name, enemy.stat.type, enemy.stat.rarity, enemy.level)
+        display_enemy += _('**{}** {} {} lv.{}\n').format(enemy.name, enemy.type, enemy.rarity, enemy.level)
     
     # Set embed
 

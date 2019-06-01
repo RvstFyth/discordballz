@@ -1,7 +1,7 @@
 '''
 Manage the character_1
 
-Last update: 28/05/19
+Last update: 01/06/19
 '''
 
 # Dependancies
@@ -15,6 +15,7 @@ from cogs.objects.character.abilities_effects.damages_over_time.acid import Acid
 
 # Utils
 
+from cogs.utils.functions.readability.displayer.icon_displayer import Get_rarity_icon, Get_type_icon
 from cogs.utils.functions.translation.gettext_config import Translate
 
 class Char_1(Character):
@@ -83,6 +84,11 @@ Ignore the target defense.'''
 
         self.name = _('Saibaiman')
 
+        # Icons
+
+        self.rarity = await Get_rarity_icon(self.rarity)
+        self.type = await Get_type_icon(self.type)
+
         # Ability 
 
         self.first_ability_name = _('Acid')
@@ -105,7 +111,7 @@ Ignore the target defense.'''
 
         acid_dot.duration, acid_dot.stack = initial_duration, initial_stack  # Set the duration and the stacks
 
-        acid_dot.total_damage = (2*target.stat.max_hp)/100  # Set the damages
+        acid_dot.total_damage = (2*target.max_hp)/100  # Set the damages
         acid_dot.tick_damage = int((acid_dot.total_damage/acid_dot.duration)*acid_dot.stack)
 
         for Dot in target.dot :  # We check all the dot the target has

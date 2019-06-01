@@ -26,7 +26,7 @@ async def Pve_display_fighter(client, ctx, fighter):
 
     `ctx` : must be `discord.ext.commands.Context` object.
 
-    `fighter` : must be `Fighter` object.
+    `fighter` : must be `Character` object.
 
     Return: discord.Message (embed)
     '''
@@ -37,7 +37,7 @@ async def Pve_display_fighter(client, ctx, fighter):
 
     display = Basic_embed(client)
 
-    informations = _('__Name__ : **{}** {}\n__Health__ : {:,} / {:,} :hearts:\n__Damage range__ : {:,} - {:,} :crossed_swords:\n__Physical defense__ : {:,} :shield:\n__Ki defense__ : {:,} :rosette:').format(fighter.stat.name, fighter.stat.type, fighter.stat.current_hp, fighter.stat.max_hp, fighter.stat.damage_min, fighter.stat.damage_max, fighter.stat.physical_defense, fighter.stat.ki_defense)
+    informations = _('__Name__ : **{}** {}\n__Health__ : {:,} / {:,} :hearts:\n__Damage range__ : {:,} - {:,} :crossed_swords:\n__Physical defense__ : {:,} :shield:\n__Ki defense__ : {:,} :rosette:').format(fighter.name, fighter.type, fighter.current_hp, fighter.max_hp, fighter.damage_min, fighter.damage_max, fighter.physical_defense, fighter.ki_defense)
     
     if(len(fighter.buff) > 0):  # If the fighter has at least one buff, displays its icon and the durations
         for buff in fighter.buff:
@@ -62,6 +62,6 @@ async def Pve_display_fighter(client, ctx, fighter):
     
     # Setting up the embed
 
-    display.add_field(name = _('{}\'s turn :').format(fighter.stat.name), value = informations, inline = False)
+    display.add_field(name = _('{}\'s turn :').format(fighter.name), value = informations, inline = False)
 
     await ctx.send(embed = display)
