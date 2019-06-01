@@ -1,7 +1,7 @@
 '''
 Manages the fight battle phase.
 
-Last update: 29/05/19
+Last update: 01/06/19
 '''
 
 # Dependancies
@@ -15,6 +15,7 @@ from cogs.utils.functions.readability.embed import Basic_embed
 from cogs.utils.functions.translation.gettext_config import Translate
 from cogs.utils.functions.commands.fight.displayer.display_fighter import Pve_display_fighter
 from cogs.utils.functions.commands.fight.functions.damage_calculator import Damage_calculator
+from cogs.utils.functions.commands.fight.displayer.display_move import Display_move
 
 async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team, all_fighter):
     '''
@@ -87,7 +88,7 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
                 damages_done = await Damage_calculator(fighter, fighter_target, is_sequence = True)
                 fighter_target.current_hp -= damages_done
 
-                player_team_moves += _('__Move__ : `Sequence`\n __Damages__ : **{:,}**\n__Target__ : **{}** {}\n\n').format(damages_done, fighter_target.name, fighter_target.type)
+                player_team_moves += await Display_move(client, ctx, 'Sequence', '👊', damages_done, fighter, fighter_target)
         
         if(fighter_choice == 2):
             # Ki charge
@@ -99,7 +100,14 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
         
         if(fighter_choice == 4):
             # Ability 1
-            player_team_moves += _('__Move__ : `{}` {}\n__Target__ : **{}** {}\n\n').format(fighter.first_ability_name, fighter.first_ability_icon, fighter_target.name, fighter_target.type)
+                # Init
+
+            cost = fighter.first_ability_cost
+            fighter.current_ki -= cost
+
+            # Display
+
+            player_team_moves += await Display_move(client, ctx, fighter.first_ability_name, fighter.first_ability_icon, 0, fighter, fighter_target)  # <<<<<<<<< This should be inside the method not here.
             await player_team[0].First_ability(client, ctx, fighter_target, player_team, enemy_team)
         
         if(fighter_choice == 5):

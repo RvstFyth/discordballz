@@ -47,8 +47,10 @@ class Char_1(Character):
         self.current_hp = self.max_hp
         self.max_ki = 100
         self.current_ki = self.max_ki
-        self.damage_max = 850
-        self.damage_min = int(90*(self.damage_max)/100)  # The minimum damages represent 90 % of the max damages
+        self.physical_damage_max = 850
+        self.physical_damage_min = int(90*(self.physical_damage_max)/100)  # The minimum damages represent 90 % of the max damages
+        self.ki_damage_max = 0
+        self.ki_damage_min = int(90*(self.ki_damage_max)/100)
         self.defense = 700
         self.critical_chance = 10  # In %
         self.dodge_chance = 10  # In %
@@ -63,6 +65,7 @@ class Char_1(Character):
 Applies a stack of **Acid** on the target. Each stack of **Acid** deals an amount of *2 %* of the target's maximum health as damages per turn.
 Ignore the target defense.'''
         self.first_ability_icon = Acid.dot_icon
+        self.first_ability_cost = 8
         self.first_ability_cooldown = 0
 
     # Method

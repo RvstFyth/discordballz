@@ -35,9 +35,9 @@ class Dummy(Enemy):
         self.current_hp = self.max_hp
         self.max_ki = 100
         self.current_ki = self.max_ki
-        self.damage_max = 500
-        self.damage_min = int(90*(self.damage_max)/100)  # The minimum damages represent 90 % of the max damages
-        self.physical_defense = 10000
+        self.physical_damage_max = 500
+        self.physical_damage_min = int(90*(self.physical_damage_max)/100)  # The minimum damages represent 90 % of the max damages
+        self.physical_defense = 12
         self.ki_defense = 0
         self.critical_chance = 0 # In %
         self.dodge_chance = 0  # In %

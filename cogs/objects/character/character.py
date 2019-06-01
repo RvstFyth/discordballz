@@ -1,7 +1,7 @@
 '''
 Store the character's basic informations using its global id.
 
-Last update: 31/05/19
+Last update: 01/06/19
 '''
 
 # Dependancies
@@ -31,8 +31,10 @@ class Character:
         - max_ki : int
         - current_ki : int
 
-        - damage_max : int
-        - damage_min : int
+        - physical_damage_max : int
+        - physical_damage_min : int
+        - ki_damage_max : int
+        - ki_damage_min : int
 
         - physical_defense : int
         - ki_defense : int
@@ -60,21 +62,25 @@ class Character:
         - first_ability_name : str
         - first_ability_description : str
         - first_ability_icon : str
+        - first_ability_cost : int
         - first_ability_cooldown : int (init to a certain value to avoid player to use an ability at the beginning of the fight)
 
         - second_ability_name : str
         - second_ability_description : str
         - second_ability_icon : str
+        - second_ability_cost : int
         - second_ability_cooldown : int (init to a certain value to avoid player to use an ability at the beginning of the fight)
 
         - third_ability_name : str
         - third_ability_description : str
         - third_ability_icon : str
+        - third_ability_cost : int
         - third_ability_cooldown : int (init to a certain value to avoid player to use an ability at the beginning of the fight)
 
         - fourth_ability_name : str
         - fourth_ability_description : str
         - fourth_ability_icon : str
+        - fourth_ability_cost : int
         - fourth_ability_cooldown : int (init to a certain value to avoid player to use an ability at the beginning of the fight)
 
         Effects :
@@ -123,8 +129,10 @@ class Character:
         self.max_ki = 0
         self.current_ki = 0
 
-        self.damage_max = 0
-        self.damage_min = int(90*(self.damage_max)/100)  # The minimum damages represent 90 % of the max damages
+        self.physical_damage_max = 0
+        self.physical_damage_min = int(90*(self.physical_damage_max)/100)  # The minimum damages represent 90 % of the max damages
+        self.ki_damage_max = 0
+        self.ki_damage_min = int(90*(self.ki_damage_max)/100)
         
         self.physical_defense = 0
         self.ki_defense = 0
@@ -158,21 +166,25 @@ class Character:
         self.first_ability_name = ''
         self.first_ability_description = ''
         self.first_ability_icon = ''
+        self.first_ability_cost = 0
         self.first_ability_cooldown = 0
 
         self.second_ability_name = ''
         self.second_ability_description = ''
         self.second_ability_icon = ''
+        self.second_ability_cost = 0
         self.second_ability_cooldown = 0
 
         self.third_ability_name = ''
         self.third_ability_description = ''
         self.third_ability_icon = ''
+        self.third_ability_cost = 0
         self.third_ability_cooldown = 0
 
         self.fourth_ability_name = ''
         self.fourth_ability_description = ''
         self.fourth_ability_icon = ''
+        self.fourth_ability_cost = 0
         self.fourth_ability_cooldown = 0
 
     # Methods

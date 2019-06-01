@@ -119,11 +119,19 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
                     if(move[0] > 3):  # If the move is an ability
                         if(move[0] == 4):  # If its the first ability
                             cooldown = fighter.first_ability_cooldown  # Get the ability current cooldown
+                            cost = fighter.first_ability_cost
 
                             if(cooldown <= 0):  # If its not on cooldown, we add it to the action to perform
-                                player_move.append(move)
+                                if(fighter.current_ki >= cost):
+                                    player_move.append(move)
 
-                                decision_made = True
+                                    decision_made = True
+                                
+                                else:  # Not enough ki
+                                    decision_made = False
+                                    await ctx.send(_('<@{}> 🚫 ⚠ Not enough ki : {} / {}').format(player.id, fighter.current_ki, cost))
+                                    await asyncio.sleep(2)
+                                    pass
                                 
                             else:  # If the ability is on cd
                                 decision_made = False
@@ -133,11 +141,19 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
                         
                         elif(move[0] == 5):  # If its the first ability
                             cooldown = fighter.second_ability_cooldown  # Get the ability current cooldown
+                            cost = fighter.second_ability_cost
 
                             if(cooldown <= 0):  # If its not on cooldown, we add it to the action to perform
-                                player_move.append(move)
+                                if(fighter.current_ki >= cost):
+                                    player_move.append(move)
 
-                                decision_made = True
+                                    decision_made = True
+                                
+                                else:  # Not enough ki
+                                    decision_made = False
+                                    await ctx.send(_('<@{}> 🚫 ⚠ Not enough ki : {} / {}').format(player.id, fighter.current_ki, cost))
+                                    await asyncio.sleep(2)
+                                    pass
                                 
                             else:  # If the ability is on cd
                                 decision_made = False
@@ -147,11 +163,19 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
                         
                         elif(move[0] == 6):  # If its the first ability
                             cooldown = fighter.third_ability_cooldown  # Get the ability current cooldown
+                            cost = fighter.third_ability_cost
 
                             if(cooldown <= 0):  # If its not on cooldown, we add it to the action to perform
-                                player_move.append(move)
+                                if(fighter.current_ki >= cost):
+                                    player_move.append(move)
 
-                                decision_made = True
+                                    decision_made = True
+                                
+                                else:  # Not enough ki
+                                    decision_made = False
+                                    await ctx.send(_('<@{}> 🚫 ⚠ Not enough ki : {} / {}').format(player.id, fighter.current_ki, cost))
+                                    await asyncio.sleep(2)
+                                    pass
                                 
                             else:  # If the ability is on cd
                                 decision_made = False
@@ -161,11 +185,19 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
 
                         elif(move[0] == 7):  # If its the first ability
                             cooldown = fighter.fourth_ability_cooldown  # Get the ability current cooldown
+                            cost = fighter.fourth_ability_cost
 
                             if(cooldown <= 0):  # If its not on cooldown, we add it to the action to perform
-                                player_move.append(move)
+                                if(fighter.current_ki >= cost):
+                                    player_move.append(move)
 
-                                decision_made = True
+                                    decision_made = True
+                                
+                                else:  # Not enough ki
+                                    decision_made = False
+                                    await ctx.send(_('<@{}> 🚫 ⚠ Not enough ki : {} / {}').format(player.id, fighter.current_ki, cost))
+                                    await asyncio.sleep(2)
+                                    pass
                                 
                             else:  # If the ability is on cd
                                 decision_made = False

@@ -1,7 +1,7 @@
 '''
 Manages the fight system.
 
-Last update: 29/05/19
+Last update: 01/06/19
 '''
 
 # Dependancies
@@ -51,9 +51,10 @@ async def Pve_Fight(client, ctx, player, enemy):
 
     _ = await Translate(client, ctx)
     enemy_fighter = enemy[0]  # List contains Dummy() at 0
+    enemy_2 = enemy[0]
 
     player_team = await Get_player_team(client, player)  # Represent the player team (Character Objects)
-    enemy_team = [enemy_fighter]
+    enemy_team = [enemy_fighter, enemy_2]
 
     # Init the player team
 
