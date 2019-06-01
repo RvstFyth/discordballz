@@ -29,7 +29,7 @@ async def Get_player_team(client, player):
 
     `player` : must be `discord.Member` object.
 
-    Return: list of `Fighter` object.
+    Return: list of `Character` object.
 
     Index :
     - 0 : fighter a

@@ -92,7 +92,20 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
         
         if(fighter_choice == 2):
             # Ki charge
-            pass
+            move = _('Ki charge')
+            move_icon = 'None'
+            missing_ki = fighter.max_ki - fighter.current_ki
+            missing_ki = (10*missing_ki)/100  # 10% of missing ki
+
+            ki_gain = randint(1, 5) + fighter.rarity_value + missing_ki
+
+            ki_gain = int(ki_gain)
+            fighter.current_ki += ki_gain
+
+            if(fighter.current_ki > fighter.max_ki):
+                fighter.current_ki = fighter.max_ki
+
+            player_team_moves += await Display_move(client, ctx, move, move_icon, 0, fighter, fighter, ki_gain = ki_gain)
         
         if(fighter_choice == 3):
             # Flee
@@ -137,3 +150,5 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
     # Same for enemy team
 
     # End Enemery_team turn
+
+    return

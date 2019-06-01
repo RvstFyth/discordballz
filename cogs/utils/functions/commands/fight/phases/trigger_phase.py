@@ -19,9 +19,9 @@ async def Triggers_phase(client, ctx, player_team, enemy_team):
 
     Trigger the fighters effects.
 
-    `player_team` : must be list of `Fighter` objects.
+    `player_team` : must be list of `Character` objects.
 
-    `enemy_team` : must be list of `Fighter` objects.
+    `enemy_team` : must be list of `Character` objects.
 
     Return: void
     '''
@@ -50,6 +50,13 @@ async def Triggers_phase(client, ctx, player_team, enemy_team):
 
     for fighter in player_team:
             await asyncio.sleep(0)
+            
+            # Ki
+
+            fighter.current_ki += fighter.ki_regen
+            
+            if(fighter.current_ki > fighter.max_ki):
+                fighter.current_ki = fighter.max_ki
 
             # Dot
             for dot in fighter.dot:
@@ -67,8 +74,22 @@ async def Triggers_phase(client, ctx, player_team, enemy_team):
         
     for enemy in enemy_team:
         await asyncio.sleep(0)
-        enemy_effects, enemy_dot = False, False  # If the enemy has active effects pass to true
+
+        if(enemy_effects):
+            pass
         
+        else:
+            enemy_effects = False
+        
+        enemy_dot = False  # If the enemy has active effects pass to true
+        
+        # Ki
+
+        enemy.current_ki += enemy.ki_regen
+
+        if(enemy.current_ki > enemy.max_ki):
+            enemy.current_ki = enemy.max_ki
+
         # Dot
         for dot in enemy.dot :
             await asyncio.sleep(0)
@@ -82,7 +103,6 @@ async def Triggers_phase(client, ctx, player_team, enemy_team):
 
             # If the effect is not over, apply the effect
 
-            print(dot.stack)
             enemy_effects = True
             enemy_dot = True
 

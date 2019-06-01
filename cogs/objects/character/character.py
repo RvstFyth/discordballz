@@ -24,6 +24,7 @@ class Character:
         - category : int
         - type : int
         - rarity : int
+        - rarity_value : int
 
         Fight
         - max_hp : int
@@ -120,6 +121,7 @@ class Character:
         self.category = 0
         self.type = 0
         self.rarity = 0
+        self.rarity_value = 0
 
         # Variation
         self.level = 0

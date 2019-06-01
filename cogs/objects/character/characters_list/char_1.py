@@ -43,6 +43,7 @@ class Char_1(Character):
         self.category = 0
         self.type = 0
         self.rarity = 0
+        self.rarity_value = 0
 
         # Fight
         self.max_hp = 3500
