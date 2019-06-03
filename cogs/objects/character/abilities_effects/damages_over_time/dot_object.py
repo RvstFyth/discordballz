@@ -1,7 +1,7 @@
 '''
 Manages the DoT object.
 
-Last update: 24/05/19
+Last update: 03/06/19
 '''
 
 class Dot:
@@ -14,12 +14,14 @@ class Dot:
         - effect_description
     
         Instance :
-        - init_duration : int
-        - current_duration : int
+        - duration : int
         - total_damage : int
         - tick_damage : int
         - max_stack : int
         - stack : int
+    
+    Method :
+        - `coro` apply : return damage_done : int
     '''
     # Class attributes
 
@@ -30,18 +32,20 @@ class Dot:
 
     def __init__(self):
         # Duration
-        self.init_duration = 0
-        self.current_duration = 0
+        self.duration = 1
 
         # Stacks
-        self.max_stack = 0
+        self.max_stack = 1
         self.stack = 0
 
         # Damages
         self.total_damage = 0
-        self.tick_damage = (self.total_damage/self.init_duration)*self.stack
+        self.tick_damage = (self.total_damage/self.duration)*self.stack
     
     # Method
 
-    async def apply_dot(self, target):
+    async def apply(self):
+        '''
+        Return: damage done (int)
+        '''
         pass
