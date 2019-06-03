@@ -1,7 +1,7 @@
 '''
 Manages the fight battle phase.
 
-Last update: 01/06/19
+Last update: 03/06/19
 '''
 
 # Dependancies
@@ -45,7 +45,7 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
     fighter_move_id = 0
     player_team_moves = ''
     enemy_team_moves = ''
-    order = 1
+    order = 0
 
     for fighter in player_team:
         await asyncio.sleep(0)
@@ -56,7 +56,7 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
 
         # 7 possible choices
 
-        player_team_moves += _('{} - **{}** {} to **{}** {} :\n').format(order, fighter.name, fighter.type, fighter_target.name, fighter.type)
+        player_team_moves += _('{} - **{}** {} to **{}** {} :\n').format(order+1, fighter.name, fighter.type, fighter_target.name, fighter.type)
 
         if(fighter_choice == 1):
             # Sequence
@@ -120,26 +120,36 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
 
             # Display
 
-            player_team_moves = await player_team[0].First_ability(client, ctx, fighter_target, player_team, enemy_team, player_team_moves)
+            player_team_moves = await player_team[order].First_ability(client, ctx, fighter_target, player_team, enemy_team, player_team_moves)
         
         if(fighter_choice == 5):
             # Ability 2
-            pass
+
+            cost = fighter.second_ability_cost
+            fighter.current_ki -= cost 
+
+            player_team_moves = await player_team[order].Second_ability(client, ctx, fighter_target, player_team, enemy_team, player_team_moves)
         
         if(fighter_choice == 6):
             # Ability 3
-            pass
+            cost = fighter.third_ability_cost
+            fighter.current_ki -= cost 
+
+            player_team_moves = await player_team[order].Third_ability(client, ctx, fighter_target, player_team, enemy_team, player_team_moves)
         
         if(fighter_choice == 7):
             # Ability 4
-            pass
+            cost = fighter.fourth_ability_cost
+            fighter.current_ki -= cost 
+
+            player_team_moves = await player_team[order].Fourth_ability(client, ctx, fighter_target, player_team, enemy_team, player_team_moves)
 
         # Increase fighter move to assign the move to the next fighter
         fighter_move_id += 1
         order += 1
 
     # Player team actions
-    order = 0
+    order = 1
 
     player_team_display = Basic_embed(client, thumb = player.avatar_url)
     player_team_display.add_field(name = _('{}\'s team :').format(player.name), value = player_team_moves, inline = False)

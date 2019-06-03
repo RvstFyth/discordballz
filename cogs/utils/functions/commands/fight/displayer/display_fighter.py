@@ -44,21 +44,21 @@ async def Pve_display_fighter(client, ctx, fighter):
             await asyncio.sleep(0)
 
             informations += _('\n__Buff__ :')
-            informations += '{}x{} *({})* |'.format(buff.buff_icon, buff.stack, buff.duration)
+            informations += '{}x{} *({})* |'.format(buff.icon, buff.stack, buff.duration)
     
     if(len(fighter.debuff) > 0):
         for debuff in fighter.debuff:
             await asyncio.sleep(0)
 
             informations += _('\n__Debuff__ :')
-            informations += '{}x{} *({})* |'.format(debuff.debuff_icon, debuff.stack, debuff.duration)
+            informations += '{}x{} *({})* |'.format(debuff.icon, debuff.stack, debuff.duration)
     
     if(len(fighter.dot) > 0):
         for dot in fighter.dot:
             await asyncio.sleep(0)
 
             informations += _('\n__Dot__ :')
-            informations += '{}x{} *({})* |'.format(dot.dot_icon, dot.stack, dot.duration)
+            informations += '{}x{} *({})* |'.format(dot.icon, dot.stack, dot.duration)
     
     # Setting up the embed
 

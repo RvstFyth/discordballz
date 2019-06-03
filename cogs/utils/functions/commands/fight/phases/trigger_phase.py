@@ -1,7 +1,7 @@
 '''
 Manages the trigger phase of the fight.
 
-Last update: 01/06/19
+Last update: 03/06/19
 '''
 
 # Dependancies
@@ -13,131 +13,263 @@ import asyncio
 from cogs.utils.functions.translation.gettext_config import Translate
 from cogs.utils.functions.readability.embed import Basic_embed
 
-async def Triggers_phase(client, ctx, player_team, enemy_team):
+async def Triggers_phase(client, ctx, player, character_team, enemy_team, team_num):
     '''
     `coroutine`
 
-    Trigger the fighters effects.
+    Trigger the characters effects.
 
-    `player_team` : must be list of `Character` objects.
+    `client` : must be `discord.Client` object.
 
-    `enemy_team` : must be list of `Character` objects.
+    `ctx` : must be `discord.ext.commands.Context` object.
 
-    Return: void
+    `player` : must be `discord.Member` object.
+
+    `character_team` : must be list of `Character` objects.
+
+    `team_num` : must be type `int` : 0 = Player team, 1 = Enemy team.
+
+    Return: discord.Message
     '''
 
     # Init
 
     _ = await Translate(client, ctx)
 
-    # Enemy team
+    # Character team
 
-    enemy_team_display = ''
-    enemy_effects = False
-    enemy_team_triggers = ''
-    enemy_count = 1
+    team_display = ''
+    team_effects = False
+    team_triggers = ''
+
+        # Buff
+    team_buff = False
+    team_buff_display = _('\n__Effects__ : ')
+    team_buff_stack_display = _('\n__Stack__ : ')
+    team_buff_damage_display = _('\n__Healing__ : ')
+    team_buff_duration_display = _('\n__Time remaining__ : ')
+    
+    team_buff_total_stack = 0
+    team_buff_total_duration = 0
+    team_buff_total_damage = 0
+
+        # Debuff
+    team_debuff = False
+    team_debuff_display = _('\n__Effects__ : ')
+    team_debuff_stack_display = _('\n__Stack__ : ')
+    team_debuff_damage_display = _('\n__Damages__ : ')
+    team_debuff_duration_display = _('\n__Time remaining__ : ')
+    
+    team_debuff_total_stack = 0
+    team_debuff_total_duration = 0
+    team_debuff_total_damage = 0
 
         # Dot
-    enemy_dot = False
-    enemy_dot_display = _('\n__Dot__ : ') # List the enemy dots
-    enemy_dot_stack_display = _('\n__Stack__ : ')
-    enemy_dot_damage_display = _('\n__Damages__ : ')
-    enemy_dot_duration_display = _('\n__Remaining__ : ')
+    team_dot = False
+    team_dot_display = _('\n__Effects__ : ') # List the character dots
+    team_dot_stack_display = _('\n__Stack__ : ')
+    team_dot_damage_display = _('\n__Damages__ : ')
+    team_dot_duration_display = _('\n__Time remaining__ : ')
 
-    enemy_dot_total_stack = 0
-    enemy_dot_total_duration = 0
-    enemy_dot_total_damage = 0
+    team_dot_total_stack = 0
+    team_dot_total_duration = 0
+    team_dot_total_damage = 0
 
-    for fighter in player_team:
-            await asyncio.sleep(0)
-            
-            # Ki
-
-            fighter.current_ki += fighter.ki_regen
-            
-            if(fighter.current_ki > fighter.max_ki):
-                fighter.current_ki = fighter.max_ki
-
-            # Dot
-            for dot in fighter.dot:
-                await asyncio.sleep(0)
-
-                if(dot.duration <= 0):
-                    fighter.dot.remove(dot)
-
-                    if(len(fighter.dot) == 0):
-                        break
-                
-                await dot.apply_dot(fighter)
-
-    # Enemy team
+    # Calculating
         
-    for enemy in enemy_team:
+    for character in character_team:
         await asyncio.sleep(0)
+        
+        # Effects
+        # If there is any effects, we display it
 
-        if(enemy_effects):
+        if team_effects:  # If there is already an effect, we do dot anything
             pass
         
         else:
-            enemy_effects = False
-        
-        enemy_dot = False  # If the enemy has active effects pass to true
-        
-        # Ki
+            team_effects = False
 
-        enemy.current_ki += enemy.ki_regen
+        # Is buff effect ?
 
-        if(enemy.current_ki > enemy.max_ki):
-            enemy.current_ki = enemy.max_ki
+        if team_buff :
+            pass
+        
+        else:
+            team_buff = False
+
+        # Is debuff effect ?
+
+        if team_debuff :
+            pass
+        
+        else:
+            team_debuff = False
+
+        # Is dot effect ?
+
+        if team_dot:  # If there is already a dot we don't do anything
+            pass
+        
+        else:
+            team_dot = False  # If the character has active effects pass to true
+
+        # Effects
+        # Buff
+
+        for buff in character.buff : 
+            await asyncio.sleep(0)
+
+            # Check if the effect is active
+            if buff.duration <= 0:
+                character.buff.remove(buff)  # The effect is, over, removing it
+
+                if(len(character.buff) == 0):
+                    break  # No more buff to check, we go out of the loop
+            
+            buff_damage_done = await buff.apply(character, character_team, enemy_team)  # Apply the buff's effects
+
+            # Duration
+            buff.duration -= 1
+
+            team_effects = True
+            team_buff = True
+
+            # Set buff display
+
+            team_buff_display += '`{}`{} | '.format(buff.name, buff.icon)
+            team_buff_total_stack += buff.stack
+            team_buff_total_damage += buff_damage_done
+            team_buff_total_duration += buff.duration
+        
+        # Debuff
+
+        for debuff in character.debuff :
+            await asyncio.sleep(0)
+
+            # Check if the effect is active or not
+            if debuff.duration <= 0:
+                character.debuff.remove(debuff)
+
+                if(len(character.debuff) == 0):
+                    break
+            
+            debuff_damage_done = await debuff.apply(character)
+
+            # Duration
+            debuff.duration -= 1
+
+            team_effects = True
+            team_debuff = True
+
+            # Set debuff display
+
+            team_debuff_display += '`{}`{} | '.format(debuff.name, debuff.icon)
+            team_debuff_total_stack += debuff.stack
+            team_debuff_total_damage += debuff_damage_done
+            team_debuff_total_duration += debuff.duration
 
         # Dot
-        for dot in enemy.dot :
+        for dot in character.dot :
             await asyncio.sleep(0)
 
             # If one of the effect is over
             if(dot.duration <= 0):
-                enemy.dot.remove(dot)
+                character.dot.remove(dot)
 
-                if(len(enemy.dot) == 0):
+                if(len(character.dot) == 0):  # If the character has no dot, we go out of the loop
                     break
 
             # If the effect is not over, apply the effect
 
-            enemy_effects = True
-            enemy_dot = True
+            team_effects = True
+            team_dot = True
 
-            await dot.apply_dot(enemy)
+            dot_damage_done = await dot.apply(character)
 
-            # The enemy has an effect on him, we display
+            # The character has a dot on him, we display
             
-            enemy_dot_display += '`{}`{} | '.format(dot.dot_name, dot.dot_icon)
-            enemy_dot_total_stack += dot.stack
-            enemy_dot_total_damage += dot.tick_damage
-            enemy_dot_total_duration += dot.duration
+            team_dot_display += '`{}`{} | '.format(dot.name, dot.icon)
+            team_dot_total_stack += dot.stack
+            team_dot_total_damage += dot_damage_done
+            team_dot_total_duration += dot.duration
+        
+        # Regens
+        # Ki   
 
-    # End
+        character.current_ki += character.ki_regen  # Apply the ki regen
+
+        if(character.current_ki > character.max_ki):  # If the ki regen is over the max, we set to max
+            character.current_ki = character.max_ki
+        
+        # Health
+
+        character.current_hp += character.health_regen
+
+        if(character.current_hp > character.max_hp):
+            character.current_hp = character.max_hp
+    
+    ### END CALCULATION ###
+
+    # End check effects for team
     # Display
-    if enemy_effects:
-        if enemy_dot :
+
+    if team_effects:
+        if team_buff:
+
+            # Buff
+            team_triggers += _('------------ Buffs ------------')
+            team_buff_stack_display += '{:,}'.format(team_buff_total_stack)
+            team_buff_duration_display += '{:,}'.format(team_buff_total_duration)
+
+            # Buff name
+            team_triggers += team_buff_display
+            # Buff stack
+            team_triggers += team_buff_stack_display
+            # Buff damage
+            team_buff_damage_display += '**+ {:,}** :hearts:'.format(team_buff_total_damage)
+            team_triggers += team_buff_damage_display
+            # Buff duration
+            team_triggers += team_buff_duration_display + '\n'
+        
+        if team_debuff:
+
+            # Debuff
+            team_triggers += _('------------ Debuffs ------------')
+            team_debuff_stack_display += '{:,}'.format(team_buff_total_stack)
+            team_debuff_duration_display += '{:,}'.format(team_buff_total_duration)
+
+            # Debuff name
+            team_triggers += team_debuff_display
+            # Debuff stack
+            team_triggers += team_debuff_stack_display
+            # Debuff damage
+            team_debuff_damage_display += '**{:,}**'.format(team_debuff_total_damage)
+            team_triggers += team_debuff_damage_display
+            # Debuff duration
+            team_triggers += team_debuff_duration_display + '\n'
+
+        if team_dot:
             
             # DOT
-            enemy_team_triggers += _('\n------------ Damages over time ------------')
-            enemy_dot_stack_display += '{:,}'.format(enemy_dot_total_stack)
-            enemy_dot_damage_display += '**{:,}**'.format(enemy_dot_total_damage)
-            enemy_dot_duration_display += '{:,}'.format(enemy_dot_total_duration)
+            team_triggers += _('------------ Damages over time ------------')
+            team_dot_stack_display += '{:,}'.format(team_dot_total_stack)
+            team_dot_damage_display += '**{:,}**'.format(team_dot_total_damage)
+            team_dot_duration_display += '{:,}'.format(team_dot_total_duration) + _(' turns')
             
             # Dot name
-            enemy_team_triggers += enemy_dot_display
+            team_triggers += team_dot_display
             # Dot stack
-            enemy_team_triggers += enemy_dot_stack_display
+            team_triggers += team_dot_stack_display
             # Dot damages
-            enemy_team_triggers += enemy_dot_damage_display
+            team_triggers += team_dot_damage_display
             # Dot duration
-            enemy_team_triggers += enemy_dot_duration_display
+            team_triggers += team_dot_duration_display + '\n'
 
-            enemy_team_display += _('🔴 - Enemy Team :\n')+ enemy_team_triggers
+        if(team_num == 0):
+            team_display += _('\n🔵 - {}\'s Team :\n').format(player.name) + team_triggers + '\n'
         
-            # Send
-            await ctx.send(enemy_team_display)
+        elif(team_num == 1):
+            team_display += _('\n🔴 - Enemy Team :\n').format(player.name) + team_triggers + '\n'
 
-        enemy_count += 1
+        # Send
+        await ctx.send(team_display)

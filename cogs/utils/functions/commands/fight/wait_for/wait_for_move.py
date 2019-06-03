@@ -1,7 +1,7 @@
 '''
 Get the player's move.
 
-Last update: 29/05/19
+Last update: 02/06/19
 '''
 
 # Dependancies
@@ -74,7 +74,7 @@ async def Wait_for_move(client, player, fighter, all_fighter):
     
     except asyncio.TimeoutError:
         success = False
-        pass
+        return(success, 'flee')
     
     except Exception as error:
         error_time = strftime('%d/%m/%y - %H:%M', gmtime())

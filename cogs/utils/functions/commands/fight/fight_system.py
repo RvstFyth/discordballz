@@ -1,7 +1,7 @@
 '''
 Manages the fight system.
 
-Last update: 01/06/19
+Last update: 02/06/19
 '''
 
 # Dependancies
@@ -23,6 +23,7 @@ from cogs.utils.functions.readability.displayer.character_displayer import Displ
 from cogs.utils.functions.commands.fight.player.player_team import Get_player_team
 from cogs.utils.functions.commands.fight.displayer.display_fighter import Pve_display_fighter
 from cogs.utils.functions.commands.fight.wait_for.wait_for_move import Wait_for_move
+from cogs.utils.functions.commands.fight.functions.stat_manager import Reset_stat
 
 # Phases
 
@@ -108,7 +109,8 @@ async def Pve_Fight(client, ctx, player, enemy):
         await ctx.send(_('🌀 - Triggers Phase'))
         await asyncio.sleep(1)
 
-        await Triggers_phase(client, ctx, player_team, enemy_team)
+        await Triggers_phase(client, ctx, player, player_team, enemy_team, 0)
+        await Triggers_phase(client, ctx, player, enemy_team, enemy_team, 1)
         
         # Turn maker
         # For PvE the player starts always first
@@ -133,6 +135,20 @@ async def Pve_Fight(client, ctx, player, enemy):
         # End of turn
 
         turn += 1
+
+        # Reset stats
+
+        for character in player_team:
+            await asyncio.sleep(0)
+            
+            await Reset_stat(client, ctx, character)
+        
+        for enemy in enemy_team:
+            await asyncio.sleep(0)
+
+            await Reset_stat(client, ctx, enemy)
+        
+        # End of turn
     
     # End of Pve_Fight
 

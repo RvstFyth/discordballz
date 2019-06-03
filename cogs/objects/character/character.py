@@ -1,7 +1,7 @@
 '''
 Store the character's basic informations using its global id.
 
-Last update: 01/06/19
+Last update: 02/06/19
 '''
 
 # Dependancies
@@ -49,7 +49,7 @@ class Character:
         - ki_regen : int
         - health_regen : int
 
-        - flag : int (0 atk, 1 charging, 2 def)
+        - flag : int (0 atk, 1 charging, 2 def, 3 stun)
 
         Abilities :
         - ability_count : int
@@ -149,7 +149,7 @@ class Character:
         self.ki_regen = 0
         self.health_regen = 0
 
-        self.flag = 0  # 0 : Attack, 1 : Charge, 2 : Def
+        self.flag = 0  # 0 : Attack, 1 : Charge, 2 : Def, 3 : stun
 
         # Effects handlers
         self.buff = []

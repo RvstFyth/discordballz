@@ -1,7 +1,7 @@
 '''
 Manages the fight selection phase.
 
-Last update: 29/05/19
+Last update: 02/06/19
 '''
 
 # Dependancies
@@ -50,27 +50,27 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
 
             # Set fighter kit
 
-            fighter_kit = _('`1. Sequence` | `2. Ki charge` | `3. Flee` | ')
+            fighter_kit = _('`1. Sequence 👊` | `2. Ki charge 🔥` | `3. Flee 🏃` | ')
             fighter_ability_count = fighter.ability_count 
 
             if(fighter_ability_count > 0):
                 if(fighter_ability_count == 1):
-                    fighter_kit += '`4. {}` | '.format(fighter.first_ability_name)
+                    fighter_kit += '\n`4. {}`{} | '.format(fighter.first_ability_name, fighter.first_ability_icon)
                 
                 elif(fighter_ability_count == 2):
-                    fighter_kit += '`4. {}` | '.format(fighter.first_ability_name)
-                    fighter_kit += '`5. {}` | '.format(fighter.second_ability_name)
+                    fighter_kit += '`\n4. {}`{} | '.format(fighter.first_ability_name, fighter.first_ability_icon)
+                    fighter_kit += '`5. {}`{} | '.format(fighter.second_ability_name, fighter.second_ability_icon)
                 
                 elif(fighter_ability_count == 3):
-                    fighter_kit += '`4. {}` | '.format(fighter.first_ability_name)
-                    fighter_kit += '`5. {}` | '.format(fighter.second_ability_name)
-                    fighter_kit += '`6. {}` | '.format(fighter.third_ability_name)
+                    fighter_kit += '\n`4. {}`{} | '.format(fighter.first_ability_name, fighter.first_ability_icon)
+                    fighter_kit += '`5. {}`{} | '.format(fighter.second_ability_name, fighter.second_ability_icon)
+                    fighter_kit += '`6. {}`{} | '.format(fighter.third_ability_name, fighter.third_ability_icon)
                 
                 elif(fighter_ability_count == 4):
-                    fighter_kit += '`4. {}` | '.format(fighter.first_ability_name)
-                    fighter_kit += '`5. {}` | '.format(fighter.second_ability_name)
-                    fighter_kit += '`6. {}` | '.format(fighter.third_ability_name)
-                    fighter_kit += '`7. {}` | '.format(fighter.fourth_ability_name)
+                    fighter_kit += '\n`4. {}`{} | '.format(fighter.first_ability_name, fighter.first_ability_icon)
+                    fighter_kit += '`5. {}`{} | '.format(fighter.second_ability_name, fighter.second_ability_icon)
+                    fighter_kit += '`6. {}`{} | '.format(fighter.third_ability_name, fighter.third_ability_icon)
+                    fighter_kit += '`7. {}`{} | '.format(fighter.fourth_ability_name, fighter.fourth_ability_icon)
                 
                 else:
                     pass
@@ -101,7 +101,7 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
 
             # Show the possible actions :
 
-            action_display = _('<@{}> Please select an action and a target among the following for **{}** {}.\n(type their number right above : like `[action number]`  `[target number]`) :\n\n{}').format(player.id, fighter.name, fighter.type, fighter_kit)
+            action_display = _('<@{}> Please select an action and a target among the following for **{}** {}.\n(type their number right above)\nLike `[action number]`  `[target number]` :\n\n{}').format(player.id, fighter.name, fighter.type, fighter_kit)
 
             # Then ask action
         
@@ -213,7 +213,11 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
                         player_move.append(move)
 
                 else:  # If move is not correct we re-ask
-                    pass 
+                    if(move == 'flee'):  # In that case it's an error raised by Asyncio.TimeOutError
+                        return('flee')
+                    
+                    else:
+                        pass 
             
             # If the player wants to flee :
 

@@ -21,6 +21,7 @@ class Dummy(Enemy):
 
     def __init__(self):
         # Basic infos
+        self.id = 1
         self.name = 'Dummy'
         self.image = 'https://i.imgur.com/qNzaU4B.png'  # Image URL
         self.category = 0
