@@ -1,7 +1,7 @@
 '''
 Manage the character_1
 
-Last update: 02/06/19
+Last update: 04/06/19
 '''
 
 # Dependancies
@@ -40,7 +40,7 @@ class Char_1(Character):
     def __init__(self):
         Character.__init__(self)
         # Basic
-        self.level = 25
+        self.level = 1
         self.id = 1
         self.name = 'Saibaiman'
         self.image = 'https://i.imgur.com/1m8rA7L.png'
@@ -80,11 +80,16 @@ class Char_1(Character):
         # Syphon
         self.second_ability_name = 'Syphon'
         self.second_ability_description = ''
-        self.second_ability_icon = 'None'
+        self.second_ability_icon = '<:syphon:585503902846418961>'
         self.second_ability_cost = 25
         self.second_ability_cooldown = 0
 
         # Unity is strenght
+        self.third_ability_name = 'Unity is strenght'
+        self.third_ability_description = ''
+        self.third_ability_icon = '<:unity_is_strenght:585503883133059074>'
+        self.third_ability_cost = 80
+        self.third_ability_cooldown = 0
 
     # Method
 
@@ -117,11 +122,15 @@ class Char_1(Character):
         # Ability 
         # Acid
         self.first_ability_name = _('Acid')
-        self.first_ability_description = _('Applies a stack of **Acid** on the target. Each stack of **Acid** deals an amount of *2 %* of the target\'s maximum health as damages per turn.Ignore the target defense.')
+        self.first_ability_description = _('Applies a stack of **[{}]**{} on the target. Each stack of **[{}]**{} deals an amount of **2 %** of the target\'s maximum health as damages per turn.').format(Acid().name, Acid().icon, Acid().name, Acid().icon, )
         
         # Syphon
         self.second_ability_name = _('Syphon')
-        self.second_ability_description = _('Sucks up all **[{}]**{} active stacks on the target dealing **2 %** of target missing health as damage per stacks plus **{:,}** Ki damage, remove all **[{}]**{} acid stacks of the target.\nHeal up for **50 %** of damage dealt.').format(Acid().name, Acid().icon, (0.1*self.ki_damage_max), Acid().name, Acid().icon)
+        self.second_ability_description = _('Sucks up all **[{}]**{} active stacks on the target dealing **2 %** of target missing health as damage per stacks plus **{:,}** Ki damage, remove all **[{}]**{} acid stacks of the target.\nHeal up for **50 %** of damage dealt.').format(Acid().name, Acid().icon, int(0.1*self.ki_damage_max), Acid().name, Acid().icon)
+        
+        # Unity is strenght
+        self.third_ability_name = _('Unity is strenght')
+        self.third_ability_description = _('For each stack of **[{}]**{} active this turn, **{}** is healed for **{:,}** per active stack, lasts **2 turns**.\nMoreover, the maximum **[{}]**{} stacks are increased by **2**, it stacks up **2x** faster and their duration is increased by **1** turn (Stacks applied from other sabimen are also doubled).').format(Acid().name, Acid().icon, self.name, int(0.1*self.ki_damage_max), Acid().name, Acid().icon)
 
         return
 
@@ -266,6 +275,6 @@ class Char_1(Character):
 
         damage_done = 0
         
-        move += await Display_move(client, ctx, self.first_ability_name, self.third_ability_name, damage_done, self, target) 
+        move += await Display_move(client, ctx, self.third_ability_name, self.third_ability_icon, damage_done, self, target) 
         
         return(move)

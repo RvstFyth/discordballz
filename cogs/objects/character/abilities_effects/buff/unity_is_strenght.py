@@ -1,7 +1,7 @@
 '''
 Manages Unity is Strenght buff
 
-Last update: 03/06/19
+Last update: 04/06/19
 '''
 
 # Dependancies
@@ -11,7 +11,7 @@ import asyncio
 # Object
 
 from cogs.objects.character.abilities_effects.damages_over_time.acid import Acid
-from cogs.objects.character.abilities_effects.buff.buff_object import Buff
+from cogs.objects.character.abilities_effects.buff._buff_object import Buff
 
 # Utils
 
@@ -26,7 +26,7 @@ class Unity_is_strenght(Buff):
 
     name = 'Unity is strenght'
     id = 1
-    icon = ''
+    icon = '<:unity_is_strenght:585503883133059074>'
 
     # Instance attributes
 
@@ -42,7 +42,7 @@ class Unity_is_strenght(Buff):
         '''
         `coroutine`
 
-
+        Heal up the character for each active Acid satck.
         '''
 
         # Init

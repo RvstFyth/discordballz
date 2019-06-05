@@ -94,10 +94,7 @@ async def Pve_Fight(client, ctx, player, enemy):
         player_move = []
         enemy_move = []
 
-        # Display both team
-
-        if(turn == 1):
-            await Pve_display_team(client, ctx, player, player_team, enemy_team)
+        await asyncio.sleep(2)
 
         ##### NEW TURN ##### 
 
@@ -118,6 +115,9 @@ async def Pve_Fight(client, ctx, player, enemy):
         await ctx.send(_('💠 - Selection Phase'))
         await asyncio.sleep(1)
 
+        # Display both team
+        await Pve_display_team(client, ctx, player, player_team, enemy_team)
+        
         player_move = await Selection_phase(client, ctx, player, player_team, enemy_team, all_fighter)
 
         if(player_move == 'flee'):

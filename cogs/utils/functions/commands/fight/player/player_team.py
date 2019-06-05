@@ -17,7 +17,6 @@ from cogs.objects.character.characters_list.all_char import Get_char
 # Objects
 
 from cogs.objects.character.character import Character
-from cogs.objects.character.fighter import Fighter
 
 async def Get_player_team(client, player):
     '''

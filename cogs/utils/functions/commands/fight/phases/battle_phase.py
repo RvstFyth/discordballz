@@ -155,7 +155,6 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
     player_team_display.add_field(name = _('{}\'s team :').format(player.name), value = player_team_moves, inline = False)
     
     await ctx.send(embed = player_team_display)
-    await Pve_display_fighter(client, ctx, fighter_target)
     
     # Same for enemy team
 

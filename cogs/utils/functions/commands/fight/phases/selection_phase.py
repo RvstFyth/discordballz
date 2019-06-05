@@ -1,7 +1,7 @@
 '''
 Manages the fight selection phase.
 
-Last update: 02/06/19
+Last update: 04/06/19
 '''
 
 # Dependancies
@@ -86,7 +86,10 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
             for fighter_member in player_team:
                 await asyncio.sleep(0)
 
-                fighter_kit += '{}. **{}** {} | '.format(character_count, fighter_member.name, fighter_member.type)
+                if(fighter_member.current_hp <= 0):
+                    fighter_kit += '{}.💀**{}** {} | '.format(character_count, fighter_member.name, fighter_member.type)
+                else:
+                    fighter_kit += '{}. **{}** {} | '.format(character_count, fighter_member.name, fighter_member.type)
                 character_count += 1
             
             fighter_kit += '\nEnemey team : '
@@ -96,7 +99,11 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
             for enemy_member in enemy_team:
                 await asyncio.sleep(0)
 
-                fighter_kit += '{}. **{}** {} | '.format(character_count, enemy_member.name, enemy_member.type)
+                if(enemy_member.current_hp <= 0):
+                    fighter_kit += '{}.💀**{}** {} | '.format(character_count, enemy_member.name, enemy_member.type)
+                else:
+                    fighter_kit += '{}. **{}** {} | '.format(character_count, enemy_member.name, enemy_member.type)
+
                 character_count += 1
 
             # Show the possible actions :

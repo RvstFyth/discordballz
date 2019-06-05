@@ -1,7 +1,7 @@
 '''
 Manages the displaying of the teams.
 
-Last update: 28/05/19
+Last update: 04/06/19
 '''
 
 # Dependancies
@@ -38,15 +38,27 @@ async def Pve_display_team(client, ctx, player, player_team, enemy_team):
 
     # Player_team display
 
+    count = 1
+
     for fighter in player_team:
         await asyncio.sleep(0)
 
-        display_player += _('**{}** {} {} lv.{}\n').format(fighter.name, fighter.type, fighter.rarity, fighter.level)
+        if(fighter.current_hp <= 0):
+            display_player += _('{}. **{}** {} {} lv.{} - 💀\n').format(count, fighter.name, fighter.type, fighter.rarity, fighter.level)
+        else:
+            display_player += _('{}. **{}** {} {} lv.{} - {:,} / {:,}  :hearts:\n').format(count, fighter.name, fighter.type, fighter.rarity, fighter.level, fighter.current_hp, fighter.max_hp)
+        
+        count += 1
     
     for enemy in enemy_team:
         await asyncio.sleep(0)
 
-        display_enemy += _('**{}** {} {} lv.{}\n').format(enemy.name, enemy.type, enemy.rarity, enemy.level)
+        if(enemy.current_hp <= 0):
+            display_enemy += _('{}. **{}** {} {} lv.{} - 💀\n').format(count, enemy.name, enemy.type, enemy.rarity, enemy.level)
+        else:   
+            display_enemy += _('{}. **{}** {} {} lv.{} - {:,} / {:,}  :hearts:\n').format(count, enemy.name, enemy.type, enemy.rarity, enemy.level, enemy.current_hp, enemy.max_hp)
+        
+        count += 1
     
     # Set embed
 
