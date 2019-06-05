@@ -89,7 +89,12 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
                 fighter_target.current_hp -= damages_done
 
                 player_team_moves += await Display_move(client, ctx, 'Sequence', '👊', damages_done, fighter, fighter_target)
-        
+
+                if(fighter_target.current_hp <= 0):
+                    fighter_target.current_hp = 0
+                    await fighter_target.On_being_killed(fighter_target, player_team, enemy_team)
+                    await fighter.On_killing(fighter, player_team, enemy_team)
+    
         if(fighter_choice == 2):
             # Ki charge
             move = _('Ki charge')

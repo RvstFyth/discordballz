@@ -51,14 +51,14 @@ class Char_1(Character):
 
         # Fight
         self.max_hp = 3500
-        self.current_hp = self.max_hp
+        self.current_hp = 3500
         self.max_ki = 100
-        self.current_ki = self.max_ki
+        self.current_ki = 100
 
         self.physical_damage_max = 400
-        self.physical_damage_min = int(90*(self.physical_damage_max)/100)  # The minimum damages represent 90 % of the max damages
+        self.physical_damage_min = 400  # The minimum damages represent 90 % of the max damages
         self.ki_damage_max = 850
-        self.ki_damage_min = int(90*(self.ki_damage_max)/100)
+        self.ki_damage_min = 850
 
         self.physical_defense = 475
         self.ki_defense = 400

@@ -80,6 +80,14 @@ async def Triggers_phase(client, ctx, player, character_team, enemy_team, team_n
     for character in character_team:
         await asyncio.sleep(0)
         
+        # Passive
+        
+        if character.has_leader:
+            await character.Leader_skill(character, character_team, enemy_team)
+
+        if character.has_passive:
+            await character.Passive_skill(character, character_team, enemy_team)
+            
         # Effects
         # If there is any effects, we display it
 

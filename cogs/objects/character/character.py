@@ -95,20 +95,20 @@ class Character:
         - `coro` : init(client, ctx)
         
         Passives :
-        - `coro` : Passive_skill()
-        - `coro` : Leader_skill()
+        - `coro` : Passive_skill(receiver, team_a, team_b)
+        - `coro` : Leader_skill(receiver, team_a, team_b)
 
         Event :
-        - `coro` : On_being_attacked()
-        - `coro` : On_being_killed()
-        - `coro` : On_attacking()
-        - `coro` : On_killing()
+        - `coro` : On_being_attacked(receiver, team_a, team_b)
+        - `coro` : On_being_killed(receiver, team_a, team_b)
+        - `coro` : On_attacking(receiver, team_a, team_b)
+        - `coro` : On_killing(receiver, team_a, team_b)
 
         Abilities :
-        - `coro` : First_ability()
-        - `coro` : Second_ability()
-        - `coro` : Third_ability()
-        - `coro` : Fourth_ability()
+        - `coro` : First_ability(client, ctx, target, team_a, team_b, move: str)
+        - `coro` : Second_ability(client, ctx, target, team_a, team_b, move: str)
+        - `coro` : Third_ability(client, ctx, target, team_a, team_b, move: str)
+        - `coro` : Fourth_ability(client, ctx, target, team_a, team_b, move: str)
     '''
 
     # Instance attributes
@@ -128,15 +128,15 @@ class Character:
 
         # Fight infos
         self.max_hp = 0
-        self.current_hp = self.max_hp
+        self.current_hp = 0
 
         self.max_ki = 0
         self.current_ki = 0
 
         self.physical_damage_max = 0
-        self.physical_damage_min = int(90*(self.physical_damage_max)/100)  # The minimum damages represent 90 % of the max damages
+        self.physical_damage_min = 0 # The minimum damages represent 90 % of the max damages
         self.ki_damage_max = 0
-        self.ki_damage_min = int(90*(self.ki_damage_max)/100)
+        self.ki_damage_min = 0
         
         self.physical_defense = 0
         self.ki_defense = 0
