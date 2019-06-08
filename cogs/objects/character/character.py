@@ -1,7 +1,7 @@
 '''
 Store the character's basic informations using its global id.
 
-Last update: 02/06/19
+Last update: 08/06/19
 '''
 
 # Dependancies
@@ -25,6 +25,16 @@ class Character:
         - type : int
         - rarity : int
         - rarity_value : int
+
+        Variation
+        - level : int
+            Enhancement
+            - star : 0
+            - training_item_health : int (represent the number of training item used)
+            - training_item_physical_damage : int
+            - training_item_ki_damage : int
+            - training_item_physical_defense : int
+            - training_item_ki_defense : int
 
         Fight
         - max_hp : int
@@ -119,12 +129,21 @@ class Character:
         self.name = ''
         self.image = ''  # Image URL
         self.category = 0
-        self.type = 0
-        self.rarity = 0
+        self.type_icon = 0
+        self.type_value = 0
+        self.rarity_icon = 0
         self.rarity_value = 0
 
         # Variation
         self.level = 0
+
+            # Enhancement
+        self.star = 0  # Number of stars (up to 5)
+        self.training_item_health = 0  # Number of training items used 
+        self.training_item_physical_damage = 0
+        self.training_item_ki_damage = 0
+        self.training_item_physical_defense = 0
+        self.training_item_ki_defense = 0
 
         # Fight infos
         self.max_hp = 0

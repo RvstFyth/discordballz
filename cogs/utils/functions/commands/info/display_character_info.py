@@ -35,16 +35,19 @@ async def Display_character_info(client, ctx, character_id):
     _ = await Translate(client, ctx)
     display = Basic_embed(client)
     kit = Basic_embed(client)
+
     char = await Get_char(character_id)
-    sec_char = await Get_char(character_id)
     await char.init(client, ctx)
+
+    sec_char = await Get_char(character_id)
     sec_char.level = 150
+    sec_char.rarity_value = 5
     await sec_char.init(client, ctx)
 
     # Managing the display
 
     kit_info = ''
-    basic_info = _('__Name__ : {}\n__Saga__ : {}\n__Base rarity__ : {}\n__Health__ : {:,} *({:,}* :hearts:\n__Physical damage__ : {:,}*({:,})* ⚔\n__Ki damage__ : {:,} *({:,})* 🏵\n__Physical defense__ : {:,} *({:,})* :shield:\n__Spirit__ : {:,} *({:,})* :rosette:\n').format(char.name, char.category, char.rarity, char.max_hp, sec_char.max_hp, char.physical_damage_max, sec_char.physical_damage_max, char.ki_damage_max, sec_char.ki_damage_max, char.physical_defense, sec_char.physical_defense, char.ki_defense, sec_char.ki_defense)
+    basic_info = _('__Name__ : {}\n__Saga__ : {}\n__Level__ : {} *({})*\n__Base rarity__ : {} ({})\n__Health__ : {:,} *({:,})* :hearts:\n__Physical damage__ : {:,} *({:,})* ⚔\n__Ki damage__ : {:,} *({:,})* 🏵\n__Armor__ : {:,} *({:,})* :shield:\n__Spirit__ : {:,} *({:,})* :rosette:\n').format(char.name, char.category, 1, 150, char.rarity_icon, sec_char.rarity_icon, char.max_hp, sec_char.max_hp, char.physical_damage_max, sec_char.physical_damage_max, char.ki_damage_max, sec_char.ki_damage_max, char.physical_defense, sec_char.physical_defense, char.ki_defense, sec_char.ki_defense)
     
     for a in range(char.ability_count):
         if(a+1 == 1):

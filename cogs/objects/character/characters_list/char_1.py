@@ -1,7 +1,7 @@
 '''
 Manage the character_1
 
-Last update: 04/06/19
+Last update: 08/06/19
 '''
 
 # Dependancies
@@ -45,8 +45,9 @@ class Char_1(Character):
         self.name = 'Saibaiman'
         self.image = 'https://i.imgur.com/1m8rA7L.png'
         self.category = 0
-        self.type = 0
-        self.rarity = 0
+        self.type_icon = 0
+        self.type_value = 0
+        self.rarity_icon = 0
         self.rarity_value = 0
 
         # Fight
@@ -112,8 +113,8 @@ class Char_1(Character):
 
         # Icons
 
-        self.rarity = await Get_rarity_icon(self.rarity)
-        self.type = await Get_type_icon(self.type)
+        self.rarity_icon = await Get_rarity_icon(self.rarity_value)
+        self.type_icon = await Get_type_icon(self.type_value)
 
         # Set stats
 
