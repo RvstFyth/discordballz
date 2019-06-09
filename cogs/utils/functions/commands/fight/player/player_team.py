@@ -43,18 +43,32 @@ async def Get_player_team(client, player):
 
     # Now we retrieve the global id of the characters from their unique one
 
-    fighter_a = await Select_global_id_from_unique(client, player, player_team['fighter a'])
+    '''fighter_a = await Select_global_id_from_unique(client, player, player_team['fighter a']) 
     fighter_b = await Select_global_id_from_unique(client, player, player_team['fighter b'])
     fighter_c = await Select_global_id_from_unique(client, player, player_team['fighter c'])
-    leader = await Select_global_id_from_unique(client, player, player_team['leader'])
+    leader = await Select_global_id_from_unique(client, player, player_team['leader'])'''
+
+    # During ALPHA player could directly select the char through its global id
+    
+    fighter_a, fighter_b ,fighter_c, leader = player_team['fighter a'], player_team['fighter b'], player_team['fighter c'], player_team['leader']
 
     # Convert the fighter var into object
+    player_team = []
+    
+    if(leader > 0):
+        leader = await Get_char(leader)
+        player_team.append(leader)
 
-    fighter_a, fighter_b, fighter_c = await Get_char(fighter_a), await Get_char(fighter_b), await Get_char(fighter_c)
-    leader = await Get_char(leader)
-
-    # Creating the list
-
-    player_team = [fighter_a, fighter_b, fighter_c, leader]
+    if(fighter_a > 0):
+        fighter_a = await Get_char(fighter_a)
+        player_team.append(fighter_a)
+    
+    if(fighter_b > 0):
+        fighter_b = await Get_char(fighter_b)
+        player_team.append(fighter_b)
+    
+    if(fighter_c > 0):
+        fighter_c =  await Get_char(fighter_c)
+        player_team.append(fighter_c)
 
     return(player_team)

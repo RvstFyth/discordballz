@@ -17,7 +17,7 @@ from cogs.utils.functions.check.player.player_checks import Is_not_registered
 # Database
 
 from cogs.utils.functions.logs.command_logger import Command_log
-from cogs.utils.functions.database.insert.player import Insert_in_player, Insert_in_player_ressources, Insert_in_player_experience
+from cogs.utils.functions.database.insert.player import Insert_in_player, Insert_in_player_ressources, Insert_in_player_experience, Insert_in_player_combat
 
 class Cmd_Start(Cog):
     def __init__(self, client):
@@ -44,6 +44,7 @@ class Cmd_Start(Cog):
         await Insert_in_player(self.client, player, date)
         await Insert_in_player_ressources(self.client, player)
         await Insert_in_player_experience(self.client, player)
+        await Insert_in_player_combat(self.client, player)
 
 def setup(client):
     client.add_cog(Cmd_Start(client))

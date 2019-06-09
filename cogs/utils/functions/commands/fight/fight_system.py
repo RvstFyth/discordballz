@@ -1,7 +1,7 @@
 '''
 Manages the fight system.
 
-Last update: 02/06/19
+Last update: 08/06/19
 '''
 
 # Dependancies
@@ -51,11 +51,9 @@ async def Pve_Fight(client, ctx, player, enemy):
     # Init
 
     _ = await Translate(client, ctx)
-    enemy_fighter = enemy[0]  # List contains Dummy() at 0
-    enemy_2 = enemy[1]
     
     player_team = await Get_player_team(client, player)  # Represent the player team (Character Objects)
-    enemy_team = [enemy_fighter, enemy_2]
+    enemy_team = enemy
 
     # Init the player team
 
@@ -63,6 +61,36 @@ async def Pve_Fight(client, ctx, player, enemy):
     fighter_a, fighter_b, fighter_c = player_team[0], player_team[1], player_team[2]
 
     player_team = [fighter_a, fighter_b, fighter_c]
+
+    player_team_count = 0
+    player_team_average_hp = 0
+
+    # Init the enemy team
+
+    enemy_team_count = 0
+    enemy_team_average_hp = 0
+
+        # Calculation of player team average hps
+
+    for character in player_team:
+        await asyncio.sleep(0)
+
+        player_team_average_hp += character.current_hp
+
+        player_team_count += 1
+    
+    player_team_average_hp /= player_team_count
+
+        # Calculation of enemy team average hps
+    
+    for enemy in enemy_team:
+        await asyncio.sleep(0)
+
+        enemy_team_average_hp += enemy.current_hp
+
+        enemy_team_count += 1
+    
+    enemy_team_average_hp /= enemy_team_count
 
     # All char
     # Join the player team and enemy team to determinate the number of characters
@@ -86,17 +114,24 @@ async def Pve_Fight(client, ctx, player, enemy):
 
     turn = 1  # Begin at 1
 
-    while fighter_a.current_hp > 0 :
+    while player_team_average_hp > 0 and enemy_team_average_hp > 0:
         await asyncio.sleep(0)
 
         # Init
 
         player_move = []
         enemy_move = []
+        
+        player_team_average_hp = 0
+        enemy_team_average_hp = 0
+        player_team_count = 0
+        enemy_team_count = 0
 
         await asyncio.sleep(2)
 
         ##### NEW TURN ##### 
+
+        await Pve_display_team(client, ctx, player, player_team, enemy_team)
 
         await ctx.send(_('---------- 📣 Round {} ! ----------').format(turn))
         await asyncio.sleep(2)
@@ -108,6 +143,45 @@ async def Pve_Fight(client, ctx, player, enemy):
 
         await Triggers_phase(client, ctx, player, player_team, enemy_team, 0)
         await Triggers_phase(client, ctx, player, enemy_team, enemy_team, 1)
+
+        # Calculation of player team average hps
+
+        for character in player_team:
+            await asyncio.sleep(0)
+
+            player_team_average_hp += character.current_hp
+
+            player_team_count += 1
+        
+        player_team_average_hp = int(player_team_average_hp / player_team_count)
+
+            # Calculation of enemy team average hps
+        
+        for enemy in enemy_team:
+            await asyncio.sleep(0)
+
+            enemy_team_average_hp += enemy.current_hp
+
+            enemy_team_count += 1
+        
+        enemy_team_average_hp = int(enemy_team_average_hp / enemy_team_count)
+
+                # If winner 
+
+        if(player_team_average_hp <= 0 and enemy_team_average_hp > 0):
+            await ctx.send(_('Enemy team won !'))
+            break
+        
+        elif(enemy_team_average_hp <= 0 and player_team_average_hp > 0):
+            await ctx.send(_('Player team won !'))
+            break
+        
+        elif(enemy_team_average_hp <= 0 and player_team_average_hp <= 0):
+            await ctx.send('Draw !')
+            break
+        
+        else:
+            pass
         
         # Turn maker
         # For PvE the player starts always first
@@ -147,9 +221,9 @@ async def Pve_Fight(client, ctx, player, enemy):
             await asyncio.sleep(0)
 
             await Reset_stat(client, ctx, enemy)
-        
-        # End of turn
     
+        # End of turn
+
     # End of Pve_Fight
 
     return

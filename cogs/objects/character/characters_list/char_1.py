@@ -57,9 +57,9 @@ class Char_1(Character):
         self.current_ki = 100
 
         self.physical_damage_max = 400
-        self.physical_damage_min = 400  # The minimum damages represent 90 % of the max damages
+        self.physical_damage_min = 360  # The minimum damages represent 90 % of the max damages (90*max)/100
         self.ki_damage_max = 850
-        self.ki_damage_min = 850
+        self.ki_damage_min = 765
 
         self.physical_defense = 475
         self.ki_defense = 400

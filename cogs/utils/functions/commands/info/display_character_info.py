@@ -1,7 +1,7 @@
 '''
 Display the informations about a character.
 
-Last update: 04/06/19
+Last update: 09/06/19
 '''
 
 # Dependancies
@@ -37,6 +37,8 @@ async def Display_character_info(client, ctx, character_id):
     kit = Basic_embed(client)
 
     char = await Get_char(character_id)
+    char.level = 1
+    char.rarity_value = 0
     await char.init(client, ctx)
 
     sec_char = await Get_char(character_id)

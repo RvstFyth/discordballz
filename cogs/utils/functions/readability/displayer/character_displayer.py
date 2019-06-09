@@ -36,7 +36,7 @@ async def Display_character(client, ctx, character):
         # Values
     
     informations = _('__Name__ : **{}**\n__Type__ : {}\n__Level__ : **{:,}**\n__Health__ : {:,} / {:,} :hearts:\n__Ki__ : {:,} / {:,} :fire:')
-    informations = informations.format(character.name, character.type, 1, character.current_hp, character.max_hp, character.current_ki, character.max_ki)
+    informations = informations.format(character.name, character.type_icon, 1, character.current_hp, character.max_hp, character.current_ki, character.max_ki)
 
     combat = _('__Damage range__ : {:,} - {:,} :crossed_swords:\n__Defense__ : {:,} :shield:')
     combat = combat.format(character.damage_min, character.damage_max, character.defense)

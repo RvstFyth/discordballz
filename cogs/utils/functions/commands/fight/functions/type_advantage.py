@@ -23,9 +23,9 @@ async def Is_type_advantaged(fighter, target):
 
     # Init
 
-    fighter_type = fighter.type
+    fighter_type = fighter.type_value
 
-    target_type = target.type
+    target_type = target.type_value
 
     # Advantages 
 

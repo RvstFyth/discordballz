@@ -217,36 +217,36 @@ class Character:
     
     # Passives
 
-    async def Passive_skill(self):
+    async def Passive_skill(self, receiver, team_a, team_b):
         pass
     
-    async def Leader_skill(self):
+    async def Leader_skill(self, receiver, team_a, team_b):
         pass
 
     # On event
 
-    async def On_being_attacked(self):
+    async def On_being_attacked(self, receiver, team_a, team_b):
         pass
     
-    async def On_being_killed(self):
+    async def On_being_killed(self, receiver, team_a, team_b):
         pass
     
-    async def On_attacking(self):
+    async def On_attacking(self, receiver, team_a, team_b):
         pass
     
-    async def On_killing(self):
+    async def On_killing(self, receiver, team_a, team_b):
         pass
 
     # Abilities
 
-    async def First_ability(self):
+    async def First_ability(self, client, ctx, target, team_a, team_b, move: str):
         pass
     
-    async def Second_ability(self):
+    async def Second_ability(self, client, ctx, target, team_a, team_b, move: str):
         pass
     
-    async def Third_ability(self):
+    async def Third_ability(self, client, ctx, target, team_a, team_b, move: str):
         pass
     
-    async def Fourth_ability(self):
+    async def Fourth_ability(self, client, ctx, target, team_a, team_b, move: str):
         pass

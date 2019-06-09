@@ -9,7 +9,7 @@ from discord.ext.commands import Cog
 
 from cogs.utils.functions.commands.fight.fight_system import Pve_Fight
 
-from cogs.objects.enemy.enemy_list.dummy import Dummy
+from cogs.objects.character.characters_list.char_1 import Char_1
 
 class Cmd_Fight(Cog):
     def __init__(self, client):
@@ -18,9 +18,8 @@ class Cmd_Fight(Cog):
     @commands.command()
     async def fight(self, ctx):
         
-        enemy = Dummy()
-        enemy_2 = Dummy()
-        liste = [enemy, enemy_2]
+        enemy = Char_1()
+        liste = [enemy]
         
         await Pve_Fight(self.client, ctx, ctx.message.author, liste)
         

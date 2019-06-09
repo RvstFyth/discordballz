@@ -87,9 +87,9 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
                 await asyncio.sleep(0)
 
                 if(fighter_member.current_hp <= 0):
-                    fighter_kit += '{}.💀**{}** {} | '.format(character_count, fighter_member.name, fighter_member.type)
+                    fighter_kit += '{}.💀**{}** {} | '.format(character_count, fighter_member.name, fighter_member.type_icon)
                 else:
-                    fighter_kit += '{}. **{}** {} | '.format(character_count, fighter_member.name, fighter_member.type)
+                    fighter_kit += '{}. **{}** {} | '.format(character_count, fighter_member.name, fighter_member.type_icon)
                 character_count += 1
             
             fighter_kit += '\nEnemey team : '
@@ -100,15 +100,15 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
                 await asyncio.sleep(0)
 
                 if(enemy_member.current_hp <= 0):
-                    fighter_kit += '{}.💀**{}** {} | '.format(character_count, enemy_member.name, enemy_member.type)
+                    fighter_kit += '{}.💀**{}** {} | '.format(character_count, enemy_member.name, enemy_member.type_icon)
                 else:
-                    fighter_kit += '{}. **{}** {} | '.format(character_count, enemy_member.name, enemy_member.type)
+                    fighter_kit += '{}. **{}** {} | '.format(character_count, enemy_member.name, enemy_member.type_icon)
 
                 character_count += 1
 
             # Show the possible actions :
 
-            action_display = _('<@{}> Please select an action and a target among the following for **{}** {}.\n(type their number right above)\nLike `[action number]`  `[target number]` :\n\n{}').format(player.id, fighter.name, fighter.type, fighter_kit)
+            action_display = _('<@{}> Please select an action and a target among the following for **{}** {}.\n(type their number right above)\nLike `[action number]`  `[target number]` :\n\n{}').format(player.id, fighter.name, fighter.type_icon, fighter_kit)
 
             # Then ask action
         

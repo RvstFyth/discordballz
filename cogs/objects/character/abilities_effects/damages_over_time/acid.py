@@ -1,7 +1,7 @@
 '''
 Manages the effect of the Acid dot.
 
-Last update: 04/06/19
+Last update: 08/06/19
 '''
 
 # Dependancies
@@ -44,6 +44,8 @@ class Acid(Dot):
 
         Return: damages (int)
         '''
+
+        damage_done = 0
 
         if(self.duration > 0):
             # Dealing damages

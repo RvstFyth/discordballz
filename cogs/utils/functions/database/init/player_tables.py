@@ -101,10 +101,10 @@ async def Create_player_tables(client):
     CREATE TABLE IF NOT EXISTS player_combat(
         register_order BIGINT PRIMARY KEY DEFAULT nextval('player_combat_register_order_seq') NOT NULL,
         player_id BIGINT,
-        fighter_a TEXT DEFAULT 'NONE',
-        fighter_b TEXT DEFAULT 'NONE',
-        fighter_c TEXT DEFAULT 'NONE',
-        team_leader TEXT DEFAULT 'NONE'
+        fighter_a INTEGER DEFAULT 0,
+        fighter_b INTEGER DEFAULT 0,
+        fighter_c INTEGER DEFAULT 0,
+        team_leader INTEGER DEFAULT 0
     );
     '''
 

@@ -56,7 +56,7 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
 
         # 7 possible choices
 
-        player_team_moves += _('{} - **{}** {} to **{}** {} :\n').format(order+1, fighter.name, fighter.type, fighter_target.name, fighter.type)
+        player_team_moves += _('{} - **{}** {} to **{}** {} :\n').format(order+1, fighter.name, fighter.type_icon, fighter_target.name, fighter.type_icon)
 
         if(fighter_choice == 1):
             # Sequence

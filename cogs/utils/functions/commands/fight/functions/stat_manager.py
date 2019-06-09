@@ -97,8 +97,6 @@ async def Set_stat(client, ctx, character):
         divided_level = 1
     over_multiplier = (divided_level + ((character.star * 10) / 100))
 
-    print(level, health_multiplier, over_multiplier)
-
     # Upgrade
 
         # Basics

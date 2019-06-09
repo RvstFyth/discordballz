@@ -98,3 +98,36 @@ async def Insert_in_player_experience(client, player):
     
     finally:
         await client.db.release(conn)
+
+async def Insert_in_player_combat(client, player):
+    '''
+    `coroutine`
+
+    Insert player's info into player_combat table.
+
+    `client` : must be `discord.Client` object.
+
+    `player` : must be `discord.Member` object.
+
+    Return: void
+    '''
+
+    # Init
+
+    conn = await client.db.acquire()
+
+    query = '''
+    INSERT INTO player_combat(player_id)
+    VALUES($1);
+    '''
+
+    try:
+        await conn.execute(query, player.id)
+    
+    except Exception as error:
+        error_time = time.strftime('%d/%m/%y - %H:%M', time.gmtime())
+        print('{} - Error in cogs.utils.functions.database.insert.player.Insert_in_player_combat() : {}'.format(error_time, error))
+        pass
+    
+    finally:
+        await client.db.release(conn)

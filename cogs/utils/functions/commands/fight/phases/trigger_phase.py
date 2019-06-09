@@ -1,7 +1,7 @@
 '''
 Manages the trigger phase of the fight.
 
-Last update: 03/06/19
+Last update: 08/06/19
 '''
 
 # Dependancies
@@ -134,20 +134,21 @@ async def Triggers_phase(client, ctx, player, character_team, enemy_team, team_n
                 if(len(character.buff) == 0):
                     break  # No more buff to check, we go out of the loop
             
-            buff_damage_done = await buff.apply(character, character_team, enemy_team)  # Apply the buff's effects
+            else:
+                buff_damage_done = await buff.apply(character, character_team, enemy_team)  # Apply the buff's effects
 
-            # Duration
-            buff.duration -= 1
+                # Duration
+                buff.duration -= 1
 
-            team_effects = True
-            team_buff = True
+                team_effects = True
+                team_buff = True
 
-            # Set buff display
+                # Set buff display
 
-            team_buff_display += '`{}`{} | '.format(buff.name, buff.icon)
-            team_buff_total_stack += buff.stack
-            team_buff_total_damage += buff_damage_done
-            team_buff_total_duration += buff.duration
+                team_buff_display += '`{}`{} | '.format(buff.name, buff.icon)
+                team_buff_total_stack += buff.stack
+                team_buff_total_damage += buff_damage_done
+                team_buff_total_duration += buff.duration
         
         # Debuff
 
@@ -161,20 +162,21 @@ async def Triggers_phase(client, ctx, player, character_team, enemy_team, team_n
                 if(len(character.debuff) == 0):
                     break
             
-            debuff_damage_done = await debuff.apply(character)
+            else:
+                debuff_damage_done = await debuff.apply(character)
 
-            # Duration
-            debuff.duration -= 1
+                # Duration
+                debuff.duration -= 1
 
-            team_effects = True
-            team_debuff = True
+                team_effects = True
+                team_debuff = True
 
-            # Set debuff display
+                # Set debuff display
 
-            team_debuff_display += '`{}`{} | '.format(debuff.name, debuff.icon)
-            team_debuff_total_stack += debuff.stack
-            team_debuff_total_damage += debuff_damage_done
-            team_debuff_total_duration += debuff.duration
+                team_debuff_display += '`{}`{} | '.format(debuff.name, debuff.icon)
+                team_debuff_total_stack += debuff.stack
+                team_debuff_total_damage += debuff_damage_done
+                team_debuff_total_duration += debuff.duration
 
         # Dot
         for dot in character.dot :
@@ -186,20 +188,24 @@ async def Triggers_phase(client, ctx, player, character_team, enemy_team, team_n
 
                 if(len(character.dot) == 0):  # If the character has no dot, we go out of the loop
                     break
-
-            # If the effect is not over, apply the effect
-
-            team_effects = True
-            team_dot = True
-
-            dot_damage_done = await dot.apply(character)
-
-            # The character has a dot on him, we display
             
-            team_dot_display += '`{}`{} | '.format(dot.name, dot.icon)
-            team_dot_total_stack += dot.stack
-            team_dot_total_damage += dot_damage_done
-            team_dot_total_duration += dot.duration
+            else:
+            
+                # Duration
+                dot_damage_done = await dot.apply(character)
+                dot.duration -= 1
+
+                # If the effect is not over, apply the effect
+
+                team_effects = True
+                team_dot = True
+
+                # The character has a dot on him, we display
+                
+                team_dot_display += '`{}`{} | '.format(dot.name, dot.icon)
+                team_dot_total_stack += dot.stack
+                team_dot_total_damage += dot_damage_done
+                team_dot_total_duration += dot.duration
         
         # Regens
         # Ki   

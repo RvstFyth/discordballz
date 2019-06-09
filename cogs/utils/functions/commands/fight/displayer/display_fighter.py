@@ -37,7 +37,7 @@ async def Pve_display_fighter(client, ctx, fighter):
 
     display = Basic_embed(client)
 
-    informations = _('__Name__ : **{}** {}\n__Health__ : {:,} / {:,} :hearts:\n__Damage range__ : {:,} - {:,} :crossed_swords:\n__Physical defense__ : {:,} :shield:\n__Ki defense__ : {:,} :rosette:').format(fighter.name, fighter.type, fighter.current_hp, fighter.max_hp, fighter.physical_damage_min, fighter.physical_damage_max, fighter.physical_defense, fighter.ki_defense)
+    informations = _('__Name__ : **{}** {}\n__Health__ : {:,} / {:,} :hearts:\n__Damage range__ : {:,} - {:,} :crossed_swords:\n__Physical defense__ : {:,} :shield:\n__Ki defense__ : {:,} :rosette:').format(fighter.name, fighter.type_icon, fighter.current_hp, fighter.max_hp, fighter.physical_damage_min, fighter.physical_damage_max, fighter.physical_defense, fighter.ki_defense)
     
     if(len(fighter.buff) > 0):  # If the fighter has at least one buff, displays its icon and the durations
         for buff in fighter.buff:

@@ -41,6 +41,6 @@ async def Display_move(client, ctx, move_name, move_icon, damage_done, fighter, 
 
     _ = await Translate(client, ctx)
 
-    move = _('__Move__ : `{}`{}\n__Damages__ : **{:,}**\n__Target__ : **{}** {}\n__Ki gain__ : {:,}\n__Ki remaining__ : {:,} / {:,}\n\n').format(move_name, move_icon, damage_done, target.name, target.type, fighter.ki_regen+ki_gain, fighter.current_ki, fighter.max_ki)
+    move = _('__Move__ : `{}`{}\n__Damages__ : **{:,}**\n__Target__ : **{}** {}\n__Ki gain__ : {:,}\n__Ki remaining__ : {:,} / {:,}\n\n').format(move_name, move_icon, damage_done, target.name, target.type_icon, fighter.ki_regen+ki_gain, fighter.current_ki, fighter.max_ki)
 
     return(move)
