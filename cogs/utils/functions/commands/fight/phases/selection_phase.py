@@ -1,7 +1,7 @@
 '''
 Manages the fight selection phase.
 
-Last update: 04/06/19
+Last update: 10/06/19
 '''
 
 # Dependancies
@@ -39,6 +39,7 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
     _ = await Translate(client, ctx)
 
     player_move = []
+    order = 1
 
     for fighter in player_team:
         await asyncio.sleep(0)
@@ -46,7 +47,7 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
         if(fighter.current_hp > 0):
             # Display fighter's turn
 
-            await Pve_display_fighter(client, ctx, fighter)
+            await Pve_display_fighter(client, ctx, fighter, order)
 
             # Set fighter kit
 
@@ -233,5 +234,7 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
 
         else:
             pass
+
+        order += 1
     
     return(player_move)

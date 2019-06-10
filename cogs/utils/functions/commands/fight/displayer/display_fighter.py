@@ -1,7 +1,7 @@
 '''
 Manages the informations displayed about a fighter.
 
-Last update: 28/05/19
+Last update: 10/06/19
 '''
 
 # Dependancies
@@ -14,7 +14,7 @@ from cogs.utils.functions.translation.gettext_config import Translate
 from cogs.utils.functions.readability.embed import Basic_embed
 from cogs.utils.functions.readability.displayer.icon_displayer import Get_type_icon
 
-async def Pve_display_fighter(client, ctx, fighter):
+async def Pve_display_fighter(client, ctx, fighter, order_number:int):
     '''
     `coroutine`
 
@@ -35,9 +35,9 @@ async def Pve_display_fighter(client, ctx, fighter):
 
     _ = await Translate(client, ctx)
 
-    display = Basic_embed(client)
+    display = Basic_embed(client, thumb = ctx.message.author.avatar_url)
 
-    informations = _('__Name__ : **{}** {}\n__Health__ : {:,} / {:,} :hearts:\n__Damage range__ : {:,} - {:,} :crossed_swords:\n__Physical defense__ : {:,} :shield:\n__Ki defense__ : {:,} :rosette:').format(fighter.name, fighter.type_icon, fighter.current_hp, fighter.max_hp, fighter.physical_damage_min, fighter.physical_damage_max, fighter.physical_defense, fighter.ki_defense)
+    informations = _('__Name__ : **{}** {}\n__Health__ : {:,} / {:,}:hearts:\n__Ki__ : {:,} / {:,}:fire:\n__Physical damage__ : {:,} - {:,}:crossed_swords:\n__Ki damage__: {:,} - {:,}:rosette:\n__Armor__ : {:,} :shield:\n__Spirit__ : {:,} :rosette:').format(fighter.name, fighter.type_icon, fighter.current_hp, fighter.max_hp, fighter.current_ki, fighter.max_ki, fighter.physical_damage_min, fighter.physical_damage_max, fighter.ki_damage_max, fighter.ki_damage_min, fighter.physical_defense, fighter.ki_defense)
     
     if(len(fighter.buff) > 0):  # If the fighter has at least one buff, displays its icon and the durations
         for buff in fighter.buff:
@@ -62,6 +62,6 @@ async def Pve_display_fighter(client, ctx, fighter):
     
     # Setting up the embed
 
-    display.add_field(name = _('{}\'s turn :').format(fighter.name), value = informations, inline = False)
+    display.add_field(name = _('#{} - {}\'s turn :').format(order_number, fighter.name), value = informations, inline = False)
 
     await ctx.send(embed = display)
