@@ -1,7 +1,7 @@
 '''
 Manage the character_1
 
-Last update: 08/06/19
+Last update: 14/06/19
 '''
 
 # Dependancies
@@ -12,6 +12,9 @@ import asyncio
 
 from cogs.objects.character.character import Character
 from cogs.objects.character.abilities_effects.damages_over_time.acid import Acid
+from cogs.objects.character.abilities.offensive.ability_acid import Ability_Acid
+from cogs.objects.character.abilities.offensive.ability_syphon import Ability_Syphon
+from cogs.objects.character.abilities.support.ability_unityIsStrenght import Ability_UnityIsStrenght
 from cogs.objects.character.abilities_effects.buff.unity_is_strenght import Unity_is_strenght
 
 # Utils
@@ -40,7 +43,7 @@ class Char_1(Character):
     def __init__(self):
         Character.__init__(self)
         # Basic
-        self.level = 1
+        self.level = 150
         self.id = 1
         self.name = 'Saibaiman'
         self.image = 'https://i.imgur.com/1m8rA7L.png'
@@ -48,7 +51,7 @@ class Char_1(Character):
         self.type_icon = 0
         self.type_value = 0
         self.rarity_icon = 0
-        self.rarity_value = 0
+        self.rarity_value = 5
 
         # Fight
         self.max_hp = 3500
@@ -68,8 +71,12 @@ class Char_1(Character):
         self.ki_regen = 2
         self.health_regen = 0
 
+        self.dot = []
+        self.debuff = []
+        self.buff = []
+
         # Abilities
-        self.ability_count = 3  # Represents the number of abilities a character has
+        self.ability_list = [Ability_Acid(), Ability_Syphon(), Ability_UnityIsStrenght()]  # Represents the number of abilities a character has
 
         # Acid
         self.first_ability_name = 'Acid'
@@ -119,23 +126,23 @@ class Char_1(Character):
         # Set stats
 
         await Set_stat(client, ctx, self)
-
-        # Ability 
-        # Acid
-        self.first_ability_name = _('Acid')
-        self.first_ability_description = _('Applies a stack of **[{}]**{} on the target. Each stack of **[{}]**{} deals an amount of **2 %** of the target\'s maximum health as damages per turn.').format(Acid().name, Acid().icon, Acid().name, Acid().icon, )
-        
-        # Syphon
-        self.second_ability_name = _('Syphon')
-        self.second_ability_description = _('Sucks up all **[{}]**{} active stacks on the target dealing **2 %** of target missing health as damage per stacks plus **{:,}** Ki damage, remove all **[{}]**{} acid stacks of the target.\nHeal up for **50 %** of damage dealt.').format(Acid().name, Acid().icon, int(0.1*self.ki_damage_max), Acid().name, Acid().icon)
-        
-        # Unity is strenght
-        self.third_ability_name = _('Unity is strenght')
-        self.third_ability_description = _('For each stack of **[{}]**{} active this turn, **{}** is healed for **{:,}** per active stack, lasts **2 turns**.\nMoreover, the maximum **[{}]**{} stacks are increased by **2**, it stacks up **2x** faster and their duration is increased by **1** turn (Stacks applied from other sabimen are also doubled).').format(Acid().name, Acid().icon, self.name, int(0.1*self.ki_damage_max), Acid().name, Acid().icon)
-
         return
 
     # Abilities
+
+    async def Use_ability(self, client, ctx, caster, target, team_a, team_b, move: str, ability):
+        '''
+        `coroutine`
+
+        Acid
+        '''
+
+        # Init
+
+        ability_ = self.ability_list[ability]
+        await ability_.init(client, ctx, caster)
+
+        return(ability_)
 
     async def First_ability(self, client, ctx, target, player_team, enemy_team, move):
         '''

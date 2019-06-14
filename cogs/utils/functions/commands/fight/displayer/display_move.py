@@ -1,7 +1,7 @@
 '''
 Manages the displaying of the move
 
-Last update: 01/06/19
+Last update: 14/06/19
 '''
 
 # Dependancies
@@ -12,7 +12,7 @@ import asyncio
 
 from cogs.utils.functions.translation.gettext_config import Translate
 
-async def Display_move(client, ctx, move_name, move_icon, damage_done, fighter, target,  ki_gain = 0):
+async def Display_move(client, ctx, move_name, move_icon, damage_done, caster, target,  ki_gain = 0, is_ki = False):
     '''
     `coroutine`
 
@@ -28,9 +28,9 @@ async def Display_move(client, ctx, move_name, move_icon, damage_done, fighter, 
 
     `damage_done` : must be type `int` and represent the damage the move has done.
 
-    `ki_gain` : must be type `int` and represent the ki the fighter has gain thanks to the move, default : 0
+    `ki_gain` : must be type `int` and represent the ki the caster has gain thanks to the move, default : 0
 
-    `fighter` : must be `Character` object.
+    `caster` : must be `Character` object.
 
     `target` : must be `Character` object.
 
@@ -41,6 +41,9 @@ async def Display_move(client, ctx, move_name, move_icon, damage_done, fighter, 
 
     _ = await Translate(client, ctx)
 
-    move = _('__Move__ : `{}`{}\n__Damages__ : **{:,}**\n__Target__ : **{}** {}\n__Ki gain__ : {:,}\n__Ki remaining__ : {:,} / {:,}\n\n').format(move_name, move_icon, damage_done, target.name, target.type_icon, fighter.ki_regen+ki_gain, fighter.current_ki, fighter.max_ki)
+    if is_ki:
+        move = _('__Move__ : `{}`{}\n__Damages__ : **-{:,}**:rosette:\n__Ki gain__ : {:,}\n__Ki remaining__ : {:,} / {:,}\n\n').format(move_name, move_icon, damage_done, caster.ki_regen+ki_gain, caster.current_ki, caster.max_ki)
+    else:
+        move = _('__Move__ : `{}`{}\n__Damages__ : **-{:,}**:boom:\n__Ki gain__ : {:,}\n__Ki remaining__ : {:,} / {:,}\n\n').format(move_name, move_icon, damage_done, caster.ki_regen+ki_gain, caster.current_ki, caster.max_ki)
 
     return(move)

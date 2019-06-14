@@ -1,7 +1,7 @@
 '''
 Manages the DoT object.
 
-Last update: 03/06/19
+Last update: 12/06/19
 '''
 
 class Dot:
@@ -31,6 +31,8 @@ class Dot:
     # Instance attributes
 
     def __init__(self):
+        # Infos
+        self.name = ''
         # Duration
         self.duration = 1
 

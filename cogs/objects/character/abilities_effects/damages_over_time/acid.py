@@ -8,6 +8,10 @@ Last update: 08/06/19
 
 from cogs.objects.character.abilities_effects.damages_over_time._dot_object import Dot
 
+# Utils
+
+from cogs.utils.functions.translation.gettext_config import Translate
+
 class Acid(Dot):
     '''
     Ignore the defense of the target.
@@ -15,7 +19,6 @@ class Acid(Dot):
 
     # Class attribute
 
-    name = 'Acid'
     id = 1
     icon = '<:acid:583953112406949888>'
     
@@ -23,6 +26,8 @@ class Acid(Dot):
 
     def __init__(self):
         Dot.__init__(self)
+        # Info
+        self.name = 'Acid'
         # Duration
         self.duration = 4
 
@@ -35,6 +40,19 @@ class Acid(Dot):
         self.tick_damage = 0
     
     # Method
+
+    async def init(self, client, ctx):
+        '''
+        `coroutine`
+
+        Translate the names.
+        '''
+
+        _ = await Translate(client, ctx)
+
+        self.name = _('Acid')
+
+        return
 
     async def apply(self, target):
         '''
@@ -53,9 +71,15 @@ class Acid(Dot):
             if(self.stack >= 3):
                 damage_done = int(self.tick_damage * 1.5)  # If there is more than 3 stacks the damages are increased by 50 %
                 target.current_hp -= damage_done
+
+                if(target.current_hp <= 0):
+                    target.current_hp = 0
             
             else:
                 damage_done = self.tick_damage  # Ignores the defense
                 target.current_hp -= damage_done
+
+                if(target.current_hp <= 0):
+                    target.current_hp = 0
         
         return(damage_done)

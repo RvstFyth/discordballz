@@ -51,22 +51,10 @@ async def Display_character_info(client, ctx, character_id):
     kit_info = ''
     basic_info = _('__Name__ : {}\n__Saga__ : {}\n__Level__ : {} *({})*\n__Base rarity__ : {} ({})\n__Health__ : {:,} *({:,})* :hearts:\n__Physical damage__ : {:,} *({:,})* ⚔\n__Ki damage__ : {:,} *({:,})* 🏵\n__Armor__ : {:,} *({:,})* :shield:\n__Spirit__ : {:,} *({:,})* :rosette:\n').format(char.name, char.category, 1, 150, char.rarity_icon, sec_char.rarity_icon, char.max_hp, sec_char.max_hp, char.physical_damage_max, sec_char.physical_damage_max, char.ki_damage_max, sec_char.ki_damage_max, char.physical_defense, sec_char.physical_defense, char.ki_defense, sec_char.ki_defense)
     
-    for a in range(char.ability_count):
-        if(a+1 == 1):
-            kit_info += _('{}__{}__ : {}\n\n').format(char.first_ability_icon, char.first_ability_name, char.first_ability_description)
+    for ability in char.ability_list:
+        await ability.init(client, ctx, sec_char)
         
-        if(a+1 == 2):
-            kit_info += _('{}__{}__ : {}\n\n').format(char.second_ability_icon, char.second_ability_name, char.second_ability_description)
-        
-        if(a+1 == 3):
-            kit_info += _('{}__{}__ : {}\n\n').format(char.third_ability_icon, char.third_ability_name, char.third_ability_description)
-        
-        if(a+1 == 4):
-            kit_info += _('{}__{}__ : {}\n\n').format(char.third_ability_icon, char.fourth_ability_name, char.fourth_ability_description)
-        
-        else:
-            pass
-    
+        kit_info += _('{}__{}__ : {}\n\n').format(ability.icon, ability.name, ability.description)
 
     display.add_field(name = _('{}\'s informations :').format(char.name), value = basic_info, inline = False)
     display.set_image(url = char.image)

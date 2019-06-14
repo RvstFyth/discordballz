@@ -1,7 +1,7 @@
 '''
 Store the character's basic informations using its global id.
 
-Last update: 08/06/19
+Last update: 12/06/19
 '''
 
 # Dependancies
@@ -62,43 +62,26 @@ class Character:
         - flag : int (0 atk, 1 charging, 2 def, 3 stun)
 
         Abilities :
-        - ability_count : int
+        - ability_list : list of object `Ability()`
 
         - has_passive : bool
         - passive_name : str (init to NONE)
         - passive_description : str
+
         - has_leader : bool
         - leader_name : str (init to NONE)
         - leader_description : str
-
-        - first_ability_name : str
-        - first_ability_description : str
-        - first_ability_icon : str
-        - first_ability_cost : int
-        - first_ability_cooldown : int (init to a certain value to avoid player to use an ability at the beginning of the fight)
-
-        - second_ability_name : str
-        - second_ability_description : str
-        - second_ability_icon : str
-        - second_ability_cost : int
-        - second_ability_cooldown : int (init to a certain value to avoid player to use an ability at the beginning of the fight)
-
-        - third_ability_name : str
-        - third_ability_description : str
-        - third_ability_icon : str
-        - third_ability_cost : int
-        - third_ability_cooldown : int (init to a certain value to avoid player to use an ability at the beginning of the fight)
-
-        - fourth_ability_name : str
-        - fourth_ability_description : str
-        - fourth_ability_icon : str
-        - fourth_ability_cost : int
-        - fourth_ability_cooldown : int (init to a certain value to avoid player to use an ability at the beginning of the fight)
 
         Effects :
         - buff : list
         - debuff : list
         - dot : list
+
+        Specials :
+        - being_attacked_triggered : bool
+        - being_killed_triggered : bool
+        - attacking_triggered : bool
+        - killing_triggered : bool
 
     Methods :
         Init :
@@ -115,10 +98,7 @@ class Character:
         - `coro` : On_killing(receiver, team_a, team_b)
 
         Abilities :
-        - `coro` : First_ability(client, ctx, target, team_a, team_b, move: str)
-        - `coro` : Second_ability(client, ctx, target, team_a, team_b, move: str)
-        - `coro` : Third_ability(client, ctx, target, team_a, team_b, move: str)
-        - `coro` : Fourth_ability(client, ctx, target, team_a, team_b, move: str)
+        - `coro` : Use_ability(self, client, ctx, caster, target, team_a, team_b, move: str, ability: )
     '''
 
     # Instance attributes
@@ -176,7 +156,7 @@ class Character:
         self.dot = []
 
         # Abilities infos
-        self.ability_count = 0  # Represents the number of abilities a character has
+        self.ability_list = []  # Contains the list of abilities
 
         self.has_passive = False  # True if the character has a passive ability
         self.passive_name = None  # None if it has no name, string if it has one
@@ -186,29 +166,12 @@ class Character:
         self.leader_name = None
         self.leader_description = ''
 
-        self.first_ability_name = ''
-        self.first_ability_description = ''
-        self.first_ability_icon = ''
-        self.first_ability_cost = 0
-        self.first_ability_cooldown = 0
+        # Sepcials
 
-        self.second_ability_name = ''
-        self.second_ability_description = ''
-        self.second_ability_icon = ''
-        self.second_ability_cost = 0
-        self.second_ability_cooldown = 0
-
-        self.third_ability_name = ''
-        self.third_ability_description = ''
-        self.third_ability_icon = ''
-        self.third_ability_cost = 0
-        self.third_ability_cooldown = 0
-
-        self.fourth_ability_name = ''
-        self.fourth_ability_description = ''
-        self.fourth_ability_icon = ''
-        self.fourth_ability_cost = 0
-        self.fourth_ability_cooldown = 0
+        self.being_attacked_triggered = False
+        self.being_killed_triggered = False
+        self.attacking_triggered = False
+        self.killing_triggered = False
 
     # Methods
 
@@ -239,14 +202,5 @@ class Character:
 
     # Abilities
 
-    async def First_ability(self, client, ctx, target, team_a, team_b, move: str):
-        pass
-    
-    async def Second_ability(self, client, ctx, target, team_a, team_b, move: str):
-        pass
-    
-    async def Third_ability(self, client, ctx, target, team_a, team_b, move: str):
-        pass
-    
-    async def Fourth_ability(self, client, ctx, target, team_a, team_b, move: str):
+    async def Use_ability(self, client, ctx, caster, target, team_a, team_b, move: str, ability):
         pass

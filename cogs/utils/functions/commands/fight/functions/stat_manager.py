@@ -1,7 +1,7 @@
 '''
 Manages the stat of a character.
 
-Last update: 08/06/19
+Last update: 13/06/19
 '''
 
 # Dependancies
@@ -35,6 +35,7 @@ async def Reset_stat(client, ctx, character):
 
     reference = await Get_char(character.id)
     reference.level = character.level
+    reference.rarity_value = character.rarity_value
     await reference.init(client, ctx)
 
     # Now edit the character

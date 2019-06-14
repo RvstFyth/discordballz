@@ -36,7 +36,7 @@ class Unity_is_strenght(Buff):
         # Init
         self.duration = 2
         self.max_stack = 1
-        self.stack = 0
+        self.stack = 1
     
     async def apply(self, target, player_team, enemy_team):
         '''
@@ -69,8 +69,7 @@ class Unity_is_strenght(Buff):
 
                 # Increase the max stack and duration
 
-                acid_.max_stack += 2
-                acid_.duration += 1
+                acid_.max_stack = 5
                 await Replace_dot(character, acid_)
         
             # Enemy team
