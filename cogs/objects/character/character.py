@@ -108,6 +108,7 @@ class Character:
         self.id = 0
         self.name = ''
         self.image = ''  # Image URL
+        self.icon = ''
         self.category = 0
         self.type_icon = 0
         self.type_value = 0

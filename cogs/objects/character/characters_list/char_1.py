@@ -47,6 +47,7 @@ class Char_1(Character):
         self.id = 1
         self.name = 'Saibaiman'
         self.image = 'https://i.imgur.com/1m8rA7L.png'
+        self.icon = '<:saibaiman_a:589485375685263373>'
         self.category = 0
         self.type_icon = 0
         self.type_value = 0

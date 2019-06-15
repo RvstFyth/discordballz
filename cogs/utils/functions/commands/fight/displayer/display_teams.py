@@ -44,9 +44,9 @@ async def Pve_display_team(client, ctx, player, player_team, enemy_team):
         await asyncio.sleep(0)
 
         if(fighter.current_hp <= 0):
-            display_player += _('{}. **{}** {} {} lv.{} - 💀\n').format(count, fighter.name, fighter.type_icon, fighter.rarity_icon, fighter.level)
+            display_player += _('{}. {}**{}** {} {} lv.{} - 💀\n').format(count, fighter.icon, fighter.name, fighter.type_icon, fighter.rarity_icon, fighter.level)
         else:
-            display_player += _('{}. **{}** {} {} lv.{} - {:,} / {:,}  :hearts:\n').format(count, fighter.name, fighter.type_icon, fighter.rarity_icon, fighter.level, fighter.current_hp, fighter.max_hp)
+            display_player += _('{}. {}**{}** {} {} lv.{} - {:,} / {:,}  :hearts:\n').format(count, fighter.icon, fighter.name, fighter.type_icon, fighter.rarity_icon, fighter.level, fighter.current_hp, fighter.max_hp)
         
         count += 1
     
@@ -54,9 +54,9 @@ async def Pve_display_team(client, ctx, player, player_team, enemy_team):
         await asyncio.sleep(0)
 
         if(enemy.current_hp <= 0):
-            display_enemy += _('{}. **{}** {} {} lv.{} - 💀\n').format(count, enemy.name, enemy.type_icon, enemy.rarity_icon, enemy.level)
+            display_enemy += _('{}. {}**{}** {} {} lv.{} - 💀\n').format(count, enemy.icon, enemy.name, enemy.type_icon, enemy.rarity_icon, enemy.level)
         else:   
-            display_enemy += _('{}. **{}** {} {} lv.{} - {:,} / {:,}  :hearts:\n').format(count, enemy.name, enemy.type_icon, enemy.rarity_icon, enemy.level, enemy.current_hp, enemy.max_hp)
+            display_enemy += _('{}. {}**{}** {} {} lv.{} - {:,} / {:,}  :hearts:\n').format(count, enemy.icon, enemy.name, enemy.type_icon, enemy.rarity_icon, enemy.level, enemy.current_hp, enemy.max_hp)
         
         count += 1
     

@@ -87,9 +87,9 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
                 await asyncio.sleep(0)
 
                 if(fighter_member.current_hp <= 0):
-                    teams_display += '{}.💀**{}** {} | '.format(character_count, fighter_member.name, fighter_member.type_icon)
+                    teams_display += '{}.💀{}**{}** {} | '.format(character_count, fighter_member.icon, fighter_member.name, fighter_member.type_icon)
                 else:
-                    teams_display += '{}. **{}** {} | '.format(character_count, fighter_member.name, fighter_member.type_icon)
+                    teams_display += '{}. {}**{}** {} | '.format(character_count, fighter_member.icon, fighter_member.name, fighter_member.type_icon)
                 character_count += 1
             
             teams_display += '\n🔴 - Enemey team : '
@@ -100,9 +100,9 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
                 await asyncio.sleep(0)
 
                 if(enemy_member.current_hp <= 0):
-                    teams_display += '{}.💀**{}** {} | '.format(character_count, enemy_member.name, enemy_member.type_icon)
+                    teams_display += '{}.💀{}**{}** {} | '.format(character_count, enemy_member.icon, enemy_member.name, enemy_member.type_icon)
                 else:
-                    teams_display += '{}. **{}** {} | '.format(character_count, enemy_member.name, enemy_member.type_icon)
+                    teams_display += '{}. {}**{}** {} | '.format(character_count, enemy_member.icon, enemy_member.name, enemy_member.type_icon)
 
                 character_count += 1
 
