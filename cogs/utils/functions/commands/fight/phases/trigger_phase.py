@@ -7,6 +7,7 @@ Last update: 13/06/19
 # Dependancies
 
 import asyncio
+from random import randint
 
 # Utils
 
@@ -217,8 +218,17 @@ async def Triggers_phase(client, ctx, player, character_team, enemy_team, team_n
         
         # Regens
         # Ki   
-
-        character.current_ki += character.ki_regen  # Apply the ki regen
+        if(character.flag == 0):  # If character is attacking
+            character.current_ki += character.ki_regen + randint(1, 5) # Apply the ki regen
+        
+        if(character.flag == 1):  # If character is charging we don't do anything as it gains ki while battle phase
+            pass
+        
+        if(character.flag == 2):  # If defending
+            character.current_ki += character.ki_regen
+        
+        if(character.flag == 3):  # If stunned, doesn't gain anything
+            pass
 
         if(character.current_ki > character.max_ki):  # If the ki regen is over the max, we set to max
             character.current_ki = character.max_ki

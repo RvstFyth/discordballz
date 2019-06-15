@@ -42,8 +42,8 @@ async def Display_move(client, ctx, move_name, move_icon, damage_done, caster, t
     _ = await Translate(client, ctx)
 
     if is_ki:
-        move = _('__Move__ : `{}`{}\n__Damages__ : **-{:,}**:rosette:\n__Ki gain__ : {:,}\n__Ki remaining__ : {:,} / {:,}\n\n').format(move_name, move_icon, damage_done, caster.ki_regen+ki_gain, caster.current_ki, caster.max_ki)
+        move = _('__Move__ : `{}`{}\n__Damages__ : **-{:,}**:rosette:\n__Ki gain__ : {:,}\n__Ki remaining__ : {:,} / {:,}\n\n').format(move_name, move_icon, damage_done, ki_gain, caster.current_ki, caster.max_ki)
     else:
-        move = _('__Move__ : `{}`{}\n__Damages__ : **-{:,}**:boom:\n__Ki gain__ : {:,}\n__Ki remaining__ : {:,} / {:,}\n\n').format(move_name, move_icon, damage_done, caster.ki_regen+ki_gain, caster.current_ki, caster.max_ki)
+        move = _('__Move__ : `{}`{}\n__Damages__ : **-{:,}**:boom:\n__Ki gain__ : {:,}\n__Ki remaining__ : {:,} / {:,}\n\n').format(move_name, move_icon, damage_done, ki_gain, caster.current_ki, caster.max_ki)
 
     return(move)
