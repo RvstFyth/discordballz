@@ -20,9 +20,10 @@ from cogs.objects.character.abilities_effects.debuff.acid_explosion import Acid_
 
 from cogs.utils.functions.translation.gettext_config import Translate
 from cogs.utils.functions.commands.fight.displayer.display_move import Display_move
+from cogs.utils.functions.commands.fight.functions.damage_calculator import Damage_calculator
 
-from cogs.utils.functions.commands.fight.functions.effect.has_effect import Has_debuff
-from cogs.utils.functions.commands.fight.functions.effect.get_effect import Get_debuff
+from cogs.utils.functions.commands.fight.functions.effect.has_effect import Has_debuff, Has_dot
+from cogs.utils.functions.commands.fight.functions.effect.get_effect import Get_debuff, Get_dot
 
 class Ability_AcidExplosion(Ability):
 
@@ -69,11 +70,58 @@ class Ability_AcidExplosion(Ability):
 
             target.debuff.remove(acid_explosion)
             acid_explosion.duration = 2
-            target.debuf.append(acid_explosion)
+            target.debuff.append(acid_explosion)
         
         else:  # If not, we add the debuff
             acid_explosion = Acid_Explosion()
             target.debuff.append(acid_explosion)
 
-        move += await Display_move(client, ctx, self.name, self.icon, 0, caster, target, is_ki = True)
+        # Splash acid
+
+        has_acid = await Has_dot(target, Acid())
+
+        if has_acid:
+            # If the target has acid 
+            acid_ = await Get_dot(target, Acid())
+
+            # Now spread
+            for char_a in team_b:  # For each character in enemy team
+                await asyncio.sleep(0)
+                
+                has_dot = await Has_dot(char_a, Acid())
+
+                if has_dot:  # If the character has dot we just add a stack
+                    dot = await Get_dot(char_a, Acid())
+
+                    char_a.dot.remove(dot)
+
+                    if(dot.stack < dot.max_stack): 
+                        dot.stack += 1
+                    
+                    else:
+                        pass
+                    
+                    char_a.dot.append(dot)
+                
+                else:
+                    dot = Acid()
+                    dot.stack = 1
+                    dot.total_damage = int(((1+((caster.ki_damage_max/100)*0.5))*char_a.max_hp)/100)
+                    dot.tick_damage = int((dot.total_damage/dot.duration))*dot.stack
+
+                    char_a.dot.append(dot)
+
+        # inflict damages
+
+        damage_done = await Damage_calculator(caster, target, is_ki = True)
+
+        damage_done = int(damage_done*0.5)
+
+        target.current_hp -= damage_done
+
+        # Check if the target is dead
+        if(target.current_hp <= 0): 
+            target.current_hp = 0
+
+        move += await Display_move(client, ctx, self.name, self.icon, damage_done, caster, target, is_ki = True)
         return(move)

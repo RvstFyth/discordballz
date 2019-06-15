@@ -49,7 +49,7 @@ class Acid_Explosion(Debuff):
 
             # Reduce the target damage reduction
 
-            target.damage_reduction += (1 + (2/100))*stacks
+            target.ki_defense -= (1 + (2/100))*stacks
         
         else:  # Don't do anything if the target doesn't have active acid dot
             return
