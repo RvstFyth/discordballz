@@ -27,5 +27,5 @@ class Buff:
     
     # Method
 
-    async def apply(self):
+    async def apply(self, target, team_a, team_b):
         pass

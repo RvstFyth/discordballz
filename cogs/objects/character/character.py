@@ -21,7 +21,7 @@ class Character:
         - id : int
         - name : str
         - image : str (url)
-        - category : int
+        - saga : int
         - type : int
         - rarity : int
         - rarity_value : int
@@ -109,7 +109,7 @@ class Character:
         self.name = ''
         self.image = ''  # Image URL
         self.icon = ''
-        self.category = 0
+        self.saga = 0
         self.type_icon = 0
         self.type_value = 0
         self.rarity_icon = 0
@@ -140,7 +140,7 @@ class Character:
         
         self.physical_defense = 0
         self.ki_defense = 0
-        self.damage_reduction = 0  # In % : damage_reduction = 1 +/- (dmg_reduction/100)
+        self.damage_reduction = 0  # In % : damage_reduction = 1 +/- (dmg_reduction/100), if > 0 = takes more damages, else, reduce damages
         
         self.critical_chance = 0 # In %
         self.critical_bonus = 0  # In % represent the critical damages bonus

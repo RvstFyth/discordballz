@@ -62,6 +62,6 @@ async def Pve_display_fighter(client, ctx, fighter, order_number:int):
     
     # Setting up the embed
 
-    display.add_field(name = _('#{} - {}\'s turn :').format(order_number, fighter.name), value = informations, inline = False)
+    display.add_field(name = _('#{} - {}{}\'s turn :').format(order_number, fighter.icon, fighter.name), value = informations, inline = False)
 
     await ctx.send(embed = display)

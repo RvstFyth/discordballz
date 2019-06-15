@@ -41,6 +41,9 @@ class Ability:
           `caster` : must be `Character` object and represent the caster ; `target` : must be `Character` object ;
           `team_a` and `team_b` : must be `list of Character` objects ; `move` : must be `str`.
     '''
+    
+    icon = ''
+    id = 0
 
     def __init__(self):
         # Informations

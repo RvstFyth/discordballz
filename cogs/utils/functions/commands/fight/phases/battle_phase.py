@@ -58,7 +58,7 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
 
         else:
             fighter_choice, fighter_target = fighter_move_list[0], all_fighter[fighter_move_list[1] - 1]  # -1 because we have counted the list from 1 not from 0
-            player_team_moves += _('{} - {}**{}** {} to **{}** {} :\n').format(order+1, fighter.icon, fighter.name, fighter.type_icon, fighter_target.name, fighter_target.type_icon)
+            player_team_moves += _('{} - {}**{}** {} to {}**{}** {} :\n').format(order+1, fighter.icon, fighter.name, fighter.type_icon, fighter_target.icon, fighter_target.name, fighter_target.type_icon)
 
         if(fighter_choice == 1):
             # Sequence

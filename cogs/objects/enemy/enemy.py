@@ -20,7 +20,7 @@ class Enemy:
     Basic
     - name : str
     - image : str (url)
-    - category : int
+    - saga : int
     - type : int
     - rarity : int
 

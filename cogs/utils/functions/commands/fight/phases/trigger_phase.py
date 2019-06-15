@@ -1,7 +1,7 @@
 '''
 Manages the trigger phase of the fight.
 
-Last update: 13/06/19
+Last update: 15/06/19
 '''
 
 # Dependancies
@@ -149,13 +149,13 @@ async def Triggers_phase(client, ctx, player, character_team, enemy_team, team_n
 
                 # Check if the effect is active or not
                 if debuff.duration <= 0:
-                    character.debuff.remove(debuff)
+                    character.debuff.remove(debuff) 
 
                     if(len(character.debuff) == 0):
                         break
                 
                 else:
-                    debuff_damage_done = await debuff.apply(character)
+                    debuff_damage_done = await debuff.apply(character, character_team, enemy_team)
 
                     # Duration
                     debuff.duration -= 1
