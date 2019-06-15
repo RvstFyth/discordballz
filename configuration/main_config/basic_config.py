@@ -1,7 +1,7 @@
 '''
 Manages the basic configuration for the program. Such as the prefixes, the cogs, the version, etc.
 
-Last update: 14/06/19
+Last update: 15/06/19
 '''
 
 # Dependancies
@@ -10,7 +10,7 @@ import os
 
 # Bot Token
 
-BOT_TOKEN = os.environ['BOT_TOKEN']
+BOT_TOKEN = os.environ['BOT_TOKEN3']
 
 # Prefix
 
@@ -21,7 +21,7 @@ PREFIX = ['Db', 'db', 'D!', 'd!']
 # Any file update increases the V_MIN value by 1 (or V_BUILD value if it's active)
 # Only one increase per file
 
-V_MAJ,V_MED,V_MIN,V_BUILD,V_PHASE = 3,0,0,378, 'Early Alpha'
+V_MAJ,V_MED,V_MIN,V_BUILD,V_PHASE = 3,0,0,386, 'Early Alpha'
 
 # Cogs
 # To add a cog, type the path to the cog as a string (do not use `/`, it's represented by `.`)
