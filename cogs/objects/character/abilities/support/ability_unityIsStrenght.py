@@ -83,20 +83,21 @@ class Ability_UnityIsStrenght(Ability):
         # Applies the buff on the whole team
         # If they already have the buff, we reset the duration
 
-        # Check if the character has the buff
-        new_buff = Unity_is_strenght()  # New buff instance per character
-        has_buff = await Has_buff(caster, Unity_is_strenght())
+        for character in team_a:
+            # Check if the character has the buff
+            new_buff = Unity_is_strenght()  # New buff instance per character
+            has_buff = await Has_buff(character, Unity_is_strenght())
 
-        if has_buff:
-            # get the buff
-            char_buff = await Get_buff(caster, Unity_is_strenght())
+            if has_buff:
+                # get the buff
+                char_buff = await Get_buff(character, Unity_is_strenght())
 
-            # Remove the buff and replace it
-            caster.buff.remove(char_buff)
-            caster.buff.append(new_buff)
-        
-        else:
-            caster.buff.append(new_buff)
+                # Remove the buff and replace it
+                character.buff.remove(char_buff)
+                character.buff.append(new_buff)
+            
+            else:
+                character.buff.append(new_buff)
         
         move += await Display_move(client, ctx, self.name, self.icon, 0, caster, caster, is_ki = True)
 

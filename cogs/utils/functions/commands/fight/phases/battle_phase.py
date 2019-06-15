@@ -117,6 +117,7 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
                 # Init
             
             ability = fighter.ability_list[fighter_choice-4]  # -4 because we ignore the first 3 abilities (sequence, ki, flee) and we start counting at 0
+            ability = ability()
             cost = ability.cost
             fighter.current_ki -= cost
 

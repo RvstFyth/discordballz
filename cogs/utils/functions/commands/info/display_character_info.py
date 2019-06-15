@@ -53,6 +53,8 @@ async def Display_character_info(client, ctx, character_id):
     
     for ability in char.ability_list:
         await ability.init(client, ctx, sec_char)
+
+        ability = ability()
         
         kit_info += _('{}__{}__ : {}\n\n').format(ability.icon, ability.name, ability.description)
 

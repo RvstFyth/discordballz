@@ -49,7 +49,7 @@ async def Triggers_phase(client, ctx, player, character_team, enemy_team, team_n
         await asyncio.sleep(0)
         
         # Trigger the death effects if they haven't been triggered
-
+        '''
         for character in character_team:
             await asyncio.sleep(0)
 
@@ -65,7 +65,7 @@ async def Triggers_phase(client, ctx, player, character_team, enemy_team, team_n
                 if(enemy.current_hp <= 0):  # If the char is dead
                     if(enemy.being_killed_triggered == False):  # If his dead effect didn't trigger
                         await enemy.On_being_killed(enemy, character_team, enemy_team)
-                        enemy.being_killed_triggered = True
+                        enemy.being_killed_triggered = True'''
 
         # Reinit
         character_trigger = ''
@@ -118,7 +118,6 @@ async def Triggers_phase(client, ctx, player, character_team, enemy_team, team_n
                         break  # No more buff to check, we go out of the loop
                 
                 else:
-                    print(character.buff)
                     buff_damage_done = await buff.apply(character, character_team, enemy_team)  # Apply the buff's effects
 
                     # Duration
@@ -249,7 +248,7 @@ async def Triggers_phase(client, ctx, player, character_team, enemy_team, team_n
             final_display = _('🔵 - {}\'s Team :').format(player.name) + team_triggers + '\n'
         
         elif(team_num == 1):
-            final_display = _('\n\n🔴 - Enemy Team :').format(player.name) + team_triggers + '\n'
+            final_display = _('🔴 - Enemy Team :').format(player.name) + team_triggers + '\n'
 
         # Send
         await ctx.send(final_display)

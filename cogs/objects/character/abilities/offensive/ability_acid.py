@@ -117,6 +117,7 @@ class Ability_Acid(Ability):
                 
                 if unity:
                     new_acid.stack += 2
+                    new_acid.duration = 5
                 
                 else:
                     new_acid.stack += 1

@@ -65,6 +65,8 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
                     for ability in fighter.ability_list:
                         await asyncio.sleep(0)
 
+                        ability = ability()
+
                         fighter_kit += '`{}. {}`{} *({})* | '.format(ability_count, ability.name, ability.icon, ability.cost)
 
                         # End turn
@@ -124,6 +126,8 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
                     # Check if the ability is not in cooldown
                     if(move > 3 and move <= len(fighter.ability_list)+3):  # If the move is an ability
                         chosen_ability = fighter.ability_list[move-4]  # -4 because we remove the sequence, ki, and flee option and the list begins at 0
+                        chosen_ability = chosen_ability()
+                        
                         cooldown = chosen_ability.cooldown
                         need_target = chosen_ability.need_target
 

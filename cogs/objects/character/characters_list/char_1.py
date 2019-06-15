@@ -76,7 +76,7 @@ class Char_1(Character):
         self.buff = []
 
         # Abilities
-        self.ability_list = [Ability_Acid(), Ability_Syphon(), Ability_UnityIsStrenght()]  # Represents the number of abilities a character has
+        self.ability_list = [Ability_Acid, Ability_Syphon, Ability_UnityIsStrenght]  # Represents the number of abilities a character has
 
         # Acid
         self.first_ability_name = 'Acid'
@@ -139,7 +139,9 @@ class Char_1(Character):
 
         # Init
 
-        ability_ = self.ability_list[ability]
+        get_ability = self.ability_list[ability]
+        ability_ = get_ability()
+        
         await ability_.init(client, ctx, caster)
 
         return(ability_)
