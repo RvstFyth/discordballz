@@ -117,6 +117,23 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
             cost = ability.cost
             fighter.current_ki -= cost
 
+            # Define the target in function of the defenders
+            defenders = []
+            for enemy in enemy_team:
+                await asyncio.sleep(0)
+                
+                if(enemy.flag == 2):
+                    defenders.append(enemy)
+                
+                else:
+                    pass
+
+            if(len(defenders) == 0):
+                pass
+            
+            else:
+                fighter_target = defenders[randint(0, len(defenders)-1)]  # Select a random defender as the new target
+
             # We get the ability
 
             ability_ = await player_team[order].Use_ability(client, ctx, fighter, fighter_target, player_team, enemy_team, player_team_moves, fighter_choice-4)
