@@ -79,16 +79,12 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
             else:
                 fighter_target = defenders[randint(0, len(defenders)-1)]  # Select a random defender as the new target
 
-            fighter.flag = 0
+            fighter.flag = 0  # Changes the flag to 'attack'
             damages_done = await Damage_calculator(fighter, fighter_target, is_sequence = True)
-            fighter_target.current_hp -= damages_done
+
+            await fighter_target.inflict_damage(fighter, damages_done, player_team, enemy_team)
 
             player_team_moves += await Display_move(client, ctx, 'Sequence', '👊', damages_done, fighter, fighter_target)
-
-            if(fighter_target.current_hp <= 0):
-                fighter_target.current_hp = 0
-                await fighter_target.On_being_killed(fighter_target, player_team, enemy_team)
-                await fighter.On_killing(fighter, player_team, enemy_team)
     
         elif(fighter_choice == 2):
             # Ki charge

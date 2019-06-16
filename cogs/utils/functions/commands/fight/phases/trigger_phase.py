@@ -91,14 +91,6 @@ async def Triggers_phase(client, ctx, player, character_team, enemy_team, team_n
         team_dot_stack_display = _('\n__Stack__ : ')
         team_dot_damage_display = _('\n__Damages__ : ')
         team_dot_duration_display = _('\n__Time remaining__ : ')
-        
-        # Passives
-
-        if character.has_leader:
-            await character.Leader_skill(character, character_team, enemy_team)
-
-        if character.has_passive:
-            await character.Passive_skill(character, character_team, enemy_team)
             
         # Effects
         # If there is any effects, we display it
@@ -107,144 +99,145 @@ async def Triggers_phase(client, ctx, player, character_team, enemy_team, team_n
 
         # Effects
         # Buff
-        if(len(character.buff) > 0):
-            for buff in character.buff : 
-                await asyncio.sleep(0)
+        if(character.current_hp > 0):  # Only check if the character is still alive
+            if(len(character.buff) > 0):
+                for buff in character.buff : 
+                    await asyncio.sleep(0)
 
-                # Check if the effect is active
-                if buff.duration <= 0:
-                    character.buff.remove(buff)  # The effect is, over, removing it
+                    # Check if the effect is active
+                    if buff.duration <= 0:
+                        character.buff.remove(buff)  # The effect is, over, removing it
 
-                    if(len(character.buff) == 0):
-                        break  # No more buff to check, we go out of the loop
-                
-                else:
-                    buff_damage_done = await buff.apply(character, character_team, enemy_team)  # Apply the buff's effects
+                        if(len(character.buff) == 0):
+                            break  # No more buff to check, we go out of the loop
+                    
+                    else:
+                        buff_damage_done = await buff.apply(character, character_team, enemy_team)  # Apply the buff's effects
 
-                    # Duration
-                    buff.duration -= 1
+                        # Duration
+                        buff.duration -= 1
 
-                    team_effects = True
-                    char_effect = True
-                    char_buff = True
+                        team_effects = True
+                        char_effect = True
+                        char_buff = True
 
-                    # Set buff display
-                    team_buff_display += '`{}`{} | '.format(buff.name, buff.icon)
-                    team_buff_stack_display += '**{}** | '.format(buff.stack)
-                    team_buff_damage_display += '+ **{}**:hearts: | '.format(buff_damage_done)
-                    team_buff_duration_display += '**{}** | '.format(buff.duration)
-        
-        if(char_buff):  # If the character has a buff we display it
-            character_trigger += _('\n------------ Buffs ------------')
-            character_trigger += team_buff_display
-            character_trigger += team_buff_stack_display
-            character_trigger += team_buff_damage_display
-            character_trigger += team_buff_duration_display
-            character_trigger += '\n'
-        
-        # Debuff
-        if(len(character.debuff) > 0):
-            for debuff in character.debuff :
-                await asyncio.sleep(0)
+                        # Set buff display
+                        team_buff_display += '`{}`{} | '.format(buff.name, buff.icon)
+                        team_buff_stack_display += '**{}** | '.format(buff.stack)
+                        team_buff_damage_display += '+ **{}**:hearts: | '.format(buff_damage_done)
+                        team_buff_duration_display += '**{}** | '.format(buff.duration)
+            
+            if(char_buff):  # If the character has a buff we display it
+                character_trigger += _('\n------------ Buffs ------------')
+                character_trigger += team_buff_display
+                character_trigger += team_buff_stack_display
+                character_trigger += team_buff_damage_display
+                character_trigger += team_buff_duration_display
+                character_trigger += '\n'
+            
+            # Debuff
+            if(len(character.debuff) > 0):
+                for debuff in character.debuff :
+                    await asyncio.sleep(0)
 
-                # Check if the effect is active or not
-                if debuff.duration <= 0:
-                    character.debuff.remove(debuff) 
+                    # Check if the effect is active or not
+                    if debuff.duration <= 0:
+                        character.debuff.remove(debuff) 
 
-                    if(len(character.debuff) == 0):
-                        break
-                
-                else:
-                    debuff_damage_done = await debuff.apply(character, character_team, enemy_team)
+                        if(len(character.debuff) == 0):
+                            break
+                    
+                    else:
+                        debuff_damage_done = await debuff.apply(character, character_team, enemy_team)
 
-                    # Duration
-                    debuff.duration -= 1
+                        # Duration
+                        debuff.duration -= 1
 
-                    team_effects = True
-                    char_effect = True
-                    char_debuff = True
+                        team_effects = True
+                        char_effect = True
+                        char_debuff = True
 
-                    # Set debuff display
-                    team_debuff_display += '`{}`{} | '.format(debuff.name, debuff.icon)
-                    team_debuff_stack_display += '**{}** | '.format(debuff.stack)
-                    team_debuff_damage_display += '- **{}** | '.format(debuff_damage_done)
-                    team_debuff_duration_display += '**{}** | '.format(debuff.duration)
-        
-        if(char_debuff):  # If character has a debuff we display it
-            character_trigger += _('\n------------ Debuffs ------------')
-            character_trigger += team_debuff_display
-            character_trigger += team_debuff_stack_display
-            character_trigger += team_debuff_damage_display
-            character_trigger += team_debuff_duration_display
-            character_trigger += '\n'
+                        # Set debuff display
+                        team_debuff_display += '`{}`{} | '.format(debuff.name, debuff.icon)
+                        team_debuff_stack_display += '**{}** | '.format(debuff.stack)
+                        team_debuff_damage_display += '- **{}** | '.format(debuff_damage_done)
+                        team_debuff_duration_display += '**{}** | '.format(debuff.duration)
+            
+            if(char_debuff):  # If character has a debuff we display it
+                character_trigger += _('\n------------ Debuffs ------------')
+                character_trigger += team_debuff_display
+                character_trigger += team_debuff_stack_display
+                character_trigger += team_debuff_damage_display
+                character_trigger += team_debuff_duration_display
+                character_trigger += '\n'
 
-        # Dot
-        if(len(character.dot) > 0):
-            for dot in character.dot :
-                await asyncio.sleep(0)
+            # Dot
+            if(len(character.dot) > 0):
+                for dot in character.dot :
+                    await asyncio.sleep(0)
 
-                # If one of the effect is over
-                if(dot.duration <= 0):
-                    character.dot.remove(dot)
+                    # If one of the effect is over
+                    if(dot.duration <= 0):
+                        character.dot.remove(dot)
 
-                    if(len(character.dot) == 0):  # If the character has no dot, we go out of the loop
-                        break
-                
-                else:
-                
-                    # Duration
-                    dot_damage_done = await dot.apply(character)
-                    dot.duration -= 1
+                        if(len(character.dot) == 0):  # If the character has no dot, we go out of the loop
+                            break
+                    
+                    else:
+                    
+                        # Duration
+                        dot_damage_done = await dot.apply(character, character_team, enemy_team)
+                        dot.duration -= 1
 
-                    # If the effect is not over, apply the effect
+                        # If the effect is not over, apply the effect
 
-                    team_effects = True
-                    char_effect = True 
-                    char_dot = True
+                        team_effects = True
+                        char_effect = True 
+                        char_dot = True
 
-                    # The character has a dot on him, we display
-                    team_dot_display += '`{}`{} | '.format(dot.name, dot.icon)
-                    team_dot_stack_display += '**{}** | '.format(dot.stack)
-                    team_dot_damage_display += '- **{}** | '.format(dot_damage_done)
-                    team_dot_duration_display += '**{}** | '.format(dot.duration)
-        
-        if(char_dot):  # if character has a dot we display it
-            character_trigger += _('\n------------ Damages over time ------------')
-            character_trigger += team_dot_display
-            character_trigger += team_dot_stack_display
-            character_trigger += team_dot_damage_display
-            character_trigger += team_dot_duration_display
-            character_trigger += '\n'
-        
-        # Regens
-        # Ki   
-        if(character.flag == 0):  # If character is attacking
-            character.current_ki += character.ki_regen + randint(1, 5) # Apply the ki regen
-        
-        if(character.flag == 1):  # If character is charging we don't do anything as it gains ki while battle phase
-            pass
-        
-        if(character.flag == 2):  # If defending
-            character.current_ki += character.ki_regen
-        
-        if(character.flag == 3):  # If stunned, doesn't gain anything
-            pass
+                        # The character has a dot on him, we display
+                        team_dot_display += '`{}`{} | '.format(dot.name, dot.icon)
+                        team_dot_stack_display += '**{}** | '.format(dot.stack)
+                        team_dot_damage_display += '- **{}** | '.format(dot_damage_done)
+                        team_dot_duration_display += '**{}** | '.format(dot.duration)
+            
+            if(char_dot):  # if character has a dot we display it
+                character_trigger += _('\n------------ Damages over time ------------')
+                character_trigger += team_dot_display
+                character_trigger += team_dot_stack_display
+                character_trigger += team_dot_damage_display
+                character_trigger += team_dot_duration_display
+                character_trigger += '\n'
+            
+            # Regens
+            # Ki   
+            if(character.flag == 0):  # If character is attacking
+                character.current_ki += character.ki_regen + randint(1, 5) # Apply the ki regen
+            
+            if(character.flag == 1):  # If character is charging we don't do anything as it gains ki while battle phase
+                pass
+            
+            if(character.flag == 2):  # If defending
+                character.current_ki += character.ki_regen
+            
+            if(character.flag == 3):  # If stunned, doesn't gain anything
+                pass
 
-        if(character.current_ki > character.max_ki):  # If the ki regen is over the max, we set to max
-            character.current_ki = character.max_ki
-        
-        # Health
+            if(character.current_ki > character.max_ki):  # If the ki regen is over the max, we set to max
+                character.current_ki = character.max_ki
+            
+            # Health
 
-        if(character.current_hp > 0):
-            character.current_hp += character.health_regen
+            if(character.current_hp > 0):
+                character.current_hp += character.health_regen
 
-            if(character.current_hp > character.max_hp):
-                character.current_hp = character.max_hp
-        
-        # Display character name
+                if(character.current_hp > character.max_hp):
+                    character.current_hp = character.max_hp
+            
+            # Display character name
 
-        if(char_effect):
-            team_triggers += '\n#{} - **{}**{}{} :{}'.format(character_count, character.name, character.rarity_icon, character.type_icon, character_trigger)
+            if(char_effect):
+                team_triggers += '\n#{} - **{}**{}{} :{}'.format(character_count, character.name, character.rarity_icon, character.type_icon, character_trigger)
 
         character_count += 1
 

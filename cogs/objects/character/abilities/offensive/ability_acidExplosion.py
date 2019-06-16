@@ -118,11 +118,7 @@ class Ability_AcidExplosion(Ability):
 
         damage_done = int(damage_done*0.5)
 
-        target.current_hp -= damage_done
-
-        # Check if the target is dead
-        if(target.current_hp <= 0): 
-            target.current_hp = 0
+        await target.inflict_damage(caster, damage_done, team_a, team_b)
 
         move += await Display_move(client, ctx, self.name, self.icon, damage_done, caster, target, is_ki = True)
         return(move)

@@ -28,6 +28,7 @@ class Acid(Dot):
         Dot.__init__(self)
         # Info
         self.name = 'Acid'
+        self.caster = None  # Represent the character who has launched this effect
         # Duration
         self.duration = 4
 
@@ -54,7 +55,7 @@ class Acid(Dot):
 
         return
 
-    async def apply(self, target):
+    async def apply(self, target, team_a, team_b):
         '''
         `coroutine`
 
@@ -70,16 +71,12 @@ class Acid(Dot):
 
             if(self.stack >= 3):
                 damage_done = int(self.tick_damage * 1.5)  # If there is more than 3 stacks the damages are increased by 50 %
-                target.current_hp -= damage_done
 
-                if(target.current_hp <= 0):
-                    target.current_hp = 0
+                await target.inflict_damage(self.caster, damage_done, team_a, team_b)
             
             else:
                 damage_done = self.tick_damage  # Ignores the defense
-                target.current_hp -= damage_done
 
-                if(target.current_hp <= 0):
-                    target.current_hp = 0
+                await target.inflict_damage(self.caster, damage_done, team_a, team_b)
         
         return(damage_done)

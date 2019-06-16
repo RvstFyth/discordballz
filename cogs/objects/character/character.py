@@ -1,7 +1,7 @@
 '''
 Store the character's basic informations using its global id.
 
-Last update: 12/06/19
+Last update: 16/06/19
 '''
 
 # Dependancies
@@ -182,8 +182,95 @@ class Character:
 
     async def init(self, client, ctx):
         pass
+    
+    async def inflict_damage(self, attacker, damage, team_a, team_b):
+        '''
+        `coroutine`
 
+        Reduce the current health in function of the damages received.
+
+        If the character dies, trigger all the self.dying effects.
+
+        `attacker` : represents the character who is attacking.
+
+        `damage` : must be type `int`.
+
+        `team_a` : represents the player team
+
+        `team_b` : represents the enemy team
+        '''
+
+        # init
+
+        if(self.current_hp > 0):  # Only applies the changes if the character is alive
+            gonna_die = False  # tell if the character is gonna die or not
+
+            # receive damages
+
+            if(damage >= self.current_hp):  # If the damages are too high it means the char is just gonna die
+                gonna_die = True
+
+            self.current_hp -= damage 
+
+            # if dies
+
+            if gonna_die:  # If the damages killed the character
+                # Trigger the dying effects
+
+                for effect in self.dying:
+                    await asyncio.sleep(0)
+
+                    await effect.trigger(self, attacker, team_a, team_b)
+
+        return
+
+    def stat_limit(self):
+        '''
+        Force the stat to 0 if their value is under 0
+        '''
+
+        # Health
+
+        if(self.max_hp < 0):
+            self.max_hp = 0
+
+        if(self.current_hp < 0):
+            self.current_hp = 0
+        
+        return
     # Abilities
 
     async def Use_ability(self, client, ctx, caster, target, team_a, team_b, move: str, ability):
         pass
+    
+    # Triggers
+
+    async def trigger_passive(self, character, team_a, team_b):
+        '''
+        `coroutine`
+
+        Triggers all the passive in passive list
+        '''
+
+        if(len(self.passive_list) > 0):  # if not empty
+            for passive in self.passive_list:
+                await asyncio.sleep(0)
+
+                passive.trigger(character, team_a, team_b)
+        
+        return
+    
+    async def trigger_leader(self, character, team_a, team_b):
+        '''
+        `coroutine`
+
+        Triggers all the leader skill in leader list
+        '''
+
+        if(len(self.leader_list) > 0):  # if not empty
+            for leader in self.leader_list:
+                await asyncio.sleep(0)
+
+                leader.trigger(Character, team_a, team_b)
+        
+        return

@@ -106,11 +106,9 @@ class Ability_Syphon(Ability):
 
         # Now deal damage and heal
 
-        target.current_hp -= damage_done
-        caster.current_hp += healing
+        await target.inflict_damage(caster, damage_done, team_a, team_b)
 
-        if(target.current_hp <= 0):
-            target.current_hp = 0
+        caster.current_hp += healing
         
         if(caster.current_hp > caster.max_hp):
             caster.current_hp = caster.max_hp
