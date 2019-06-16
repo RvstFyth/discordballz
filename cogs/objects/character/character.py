@@ -158,10 +158,14 @@ class Character:
 
         # Abilities infos
         self.ability_list = []  # Contains the list of abilities
+        self.passive_list = []  # Contains all the passive abilities
+        self.leader_list = []  # Contains all the leader skill abilities
 
-        self.has_passive = False  # True if the character has a passive ability
-        self.passive_name = None  # None if it has no name, string if it has one
-        self.passive_description = ''
+        self.while_attacked = []  # Contains all the behaviour on being attacked
+        self.while_attacking = []  # Same but when this character attacks
+
+        self.dying = []  # Do something when dying
+        self.while_dead = []  # Do something while dead
 
         self.has_leader = False  # True if the character has a leader skill
         self.leader_name = None
@@ -177,28 +181,6 @@ class Character:
     # Methods
 
     async def init(self, client, ctx):
-        pass
-    
-    # Passives
-
-    async def Passive_skill(self, receiver, team_a, team_b):
-        pass
-    
-    async def Leader_skill(self, receiver, team_a, team_b):
-        pass
-
-    # On event
-
-    async def On_being_attacked(self, receiver, team_a, team_b):
-        pass
-    
-    async def On_being_killed(self, receiver, team_a, team_b):
-        pass
-    
-    async def On_attacking(self, receiver, team_a, team_b):
-        pass
-    
-    async def On_killing(self, receiver, team_a, team_b):
         pass
 
     # Abilities
