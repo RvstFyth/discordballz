@@ -84,32 +84,33 @@ class Ability_AcidExplosion(Ability):
             # If the target has acid 
             acid_ = await Get_dot(target, Acid())
 
-            # Now spread
-            for char_a in team_b:  # For each character in enemy team
-                await asyncio.sleep(0)
-                
-                has_dot = await Has_dot(char_a, Acid())
+            if acid_.stack >= 3:  # Spread if the target has at least 3 stacks
+                # Now spread
+                for char_a in team_b:  # For each character in enemy team
+                    await asyncio.sleep(0)
+                    
+                    has_dot = await Has_dot(char_a, Acid())
 
-                if has_dot:  # If the character has dot we just add a stack
-                    dot = await Get_dot(char_a, Acid())
+                    if has_dot:  # If the character has dot we just add a stack
+                        dot = await Get_dot(char_a, Acid())
 
-                    char_a.dot.remove(dot)
+                        char_a.dot.remove(dot)
 
-                    if(dot.stack < dot.max_stack): 
-                        dot.stack += 1
+                        if(dot.stack < dot.max_stack): 
+                            dot.stack += 1
+                        
+                        else:
+                            pass
+                        
+                        char_a.dot.append(dot)
                     
                     else:
-                        pass
-                    
-                    char_a.dot.append(dot)
-                
-                else:
-                    dot = Acid()
-                    dot.stack = 1
-                    dot.total_damage = int(((1+((caster.ki_damage_max/100)*0.5))*char_a.max_hp)/100)
-                    dot.tick_damage = int((dot.total_damage/dot.duration))*dot.stack
+                        dot = Acid()
+                        dot.stack = 1
+                        dot.total_damage = int(((1+((caster.ki_damage_max/100)*0.5))*char_a.max_hp)/100)
+                        dot.tick_damage = int((dot.total_damage/dot.duration))*dot.stack
 
-                    char_a.dot.append(dot)
+                        char_a.dot.append(dot)
 
         # inflict damages
 
