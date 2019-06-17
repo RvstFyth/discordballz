@@ -51,3 +51,6 @@ class Dot:
         Return: damage done (int)
         '''
         pass
+    
+    async def on_remove(self, client, ctx, target, team_a, team_b):  # Do seomthing when rempved
+        pass

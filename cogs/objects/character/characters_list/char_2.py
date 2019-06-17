@@ -12,6 +12,7 @@ from cogs.objects.character.character import Character
     # Abilities
 from cogs.objects.character.abilities.offensive.ability_acid import Ability_Acid
 from cogs.objects.character.abilities.offensive.ability_acidExplosion import Ability_AcidExplosion
+from cogs.objects.character.abilities.support.ability_replenishTheRanks import Ability_ReplenishTheRanks
 
 # Utils
 
@@ -63,7 +64,7 @@ class Char_2(Character):
         self.buff = []
         self.debuff = []
 
-        self.ability_list = [Ability_Acid, Ability_AcidExplosion]
+        self.ability_list = [Ability_Acid, Ability_AcidExplosion, Ability_ReplenishTheRanks]
 
     # Methods
 

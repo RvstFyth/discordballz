@@ -1,7 +1,7 @@
 '''
 Display the informations about a character.
 
-Last update: 09/06/19
+Last update: 17/06/19
 '''
 
 # Dependancies
@@ -50,14 +50,6 @@ async def Display_character_info(client, ctx, character_id):
 
     kit_info = ''
     basic_info = _('__Name__ : {}\n__Saga__ : {}\n__Level__ : {} *({})*\n__Base rarity__ : {} ({})\n__Health__ : {:,} *({:,})* :hearts:\n__Physical damage__ : {:,} *({:,})* ⚔\n__Ki damage__ : {:,} *({:,})* 🏵\n__Armor__ : {:,} *({:,})* :shield:\n__Spirit__ : {:,} *({:,})* :rosette:\n').format(char.name, char.saga, 1, 150, char.rarity_icon, sec_char.rarity_icon, char.max_hp, sec_char.max_hp, char.physical_damage_max, sec_char.physical_damage_max, char.ki_damage_max, sec_char.ki_damage_max, char.physical_defense, sec_char.physical_defense, char.ki_defense, sec_char.ki_defense)
-    
-    for ability in char.ability_list:
-        await asyncio.sleep(0)
-
-        ability = ability()
-        await ability.init(client, ctx, sec_char)
-        
-        kit_info += _('{}__{}__ : {}\n\n').format(ability.icon, ability.name, ability.description)
 
     display.add_field(name = _('{}\'s informations :').format(char.name), value = basic_info, inline = False)
     display.set_image(url = char.image)
@@ -65,5 +57,20 @@ async def Display_character_info(client, ctx, character_id):
     kit.add_field(name = _('{}\'s kit : ').format(char.name), value = kit_info, inline = False)
 
     await ctx.send(embed = display)
-    await ctx.send(embed = kit)
+
+    ability_count = 1
+    for ability in char.ability_list:  # display each abilities
+        await asyncio.sleep(0)
+
+        ability = ability()
+        await ability.init(client, ctx, sec_char)
+        
+        kit_info = _('{}__{}__ *({:,})*: {}\n\n').format(ability.icon, ability.name, ability.cost, ability.description)
+        
+        ability_display = Basic_embed(client)
+        ability_display.add_field(name = _('{}\'s Ability #{} :').format(char.name, ability_count), value = kit_info, inline = False)
+
+        await ctx.send(embed = ability_display)
+        ability_count += 1
+
     return

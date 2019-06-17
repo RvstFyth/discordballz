@@ -167,9 +167,7 @@ class Character:
         self.dying = []  # Do something when dying
         self.while_dead = []  # Do something while dead
 
-        self.has_leader = False  # True if the character has a leader skill
-        self.leader_name = None
-        self.leader_description = ''
+        self.can_resurrect = True  # If false, the character cant be resurrected
 
         # Sepcials
 
@@ -183,7 +181,7 @@ class Character:
     async def init(self, client, ctx):
         pass
     
-    async def inflict_damage(self, attacker, damage, team_a, team_b):
+    async def inflict_damage(self, client, ctx, attacker, damage, team_a, team_b):
         '''
         `coroutine`
 
@@ -220,7 +218,14 @@ class Character:
                 for effect in self.dying:
                     await asyncio.sleep(0)
 
-                    await effect.trigger(self, attacker, team_a, team_b)
+                    if(effect.resurrect):  # if the on_dying does resurrect a character
+                        resurrected = await effect.apply(client, ctx, self, team_a, team_b)
+                        await resurrected.init(client, ctx)
+
+                        self.__dict__.update(resurrected.__dict__)  # change the object
+                    
+                    else:
+                        await effect.apply(client, ctx, self, team_a, team_b)
 
         return
 
@@ -238,6 +243,7 @@ class Character:
             self.current_hp = 0
         
         return
+
     # Abilities
 
     async def Use_ability(self, client, ctx, caster, target, team_a, team_b, move: str, ability):

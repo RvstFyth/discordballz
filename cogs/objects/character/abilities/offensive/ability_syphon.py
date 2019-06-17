@@ -106,7 +106,7 @@ class Ability_Syphon(Ability):
 
         # Now deal damage and heal
 
-        await target.inflict_damage(caster, damage_done, team_a, team_b)
+        await target.inflict_damage(client, ctx, caster, damage_done, team_a, team_b)
 
         caster.current_hp += healing
         

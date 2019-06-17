@@ -108,11 +108,13 @@ async def Triggers_phase(client, ctx, player, character_team, enemy_team, team_n
                     if buff.duration <= 0:
                         character.buff.remove(buff)  # The effect is, over, removing it
 
+                        await buff.on_remove(client, ctx, character, character_team, enemy_team)
+                        
                         if(len(character.buff) == 0):
                             break  # No more buff to check, we go out of the loop
                     
                     else:
-                        buff_damage_done = await buff.apply(character, character_team, enemy_team)  # Apply the buff's effects
+                        buff_damage_done = await buff.apply(client, ctx, character, character_team, enemy_team)  # Apply the buff's effects
 
                         # Duration
                         buff.duration -= 1
@@ -148,7 +150,7 @@ async def Triggers_phase(client, ctx, player, character_team, enemy_team, team_n
                             break
                     
                     else:
-                        debuff_damage_done = await debuff.apply(character, character_team, enemy_team)
+                        debuff_damage_done = await debuff.apply(client, ctx, character, character_team, enemy_team)
 
                         # Duration
                         debuff.duration -= 1
@@ -186,7 +188,7 @@ async def Triggers_phase(client, ctx, player, character_team, enemy_team, team_n
                     else:
                     
                         # Duration
-                        dot_damage_done = await dot.apply(character, character_team, enemy_team)
+                        dot_damage_done = await dot.apply(client, ctx, character, character_team, enemy_team)
                         dot.duration -= 1
 
                         # If the effect is not over, apply the effect

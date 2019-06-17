@@ -55,7 +55,7 @@ class Acid(Dot):
 
         return
 
-    async def apply(self, target, team_a, team_b):
+    async def apply(self, client, ctx, target, team_a, team_b):
         '''
         `coroutine`
 
@@ -72,11 +72,11 @@ class Acid(Dot):
             if(self.stack >= 3):
                 damage_done = int(self.tick_damage * 1.5)  # If there is more than 3 stacks the damages are increased by 50 %
 
-                await target.inflict_damage(self.caster, damage_done, team_a, team_b)
+                await target.inflict_damage(client, ctx, self.caster, damage_done, team_a, team_b)
             
             else:
                 damage_done = self.tick_damage  # Ignores the defense
 
-                await target.inflict_damage(self.caster, damage_done, team_a, team_b)
+                await target.inflict_damage(client, ctx, self.caster, damage_done, team_a, team_b)
         
         return(damage_done)

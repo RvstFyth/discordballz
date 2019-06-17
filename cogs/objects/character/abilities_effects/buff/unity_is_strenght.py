@@ -38,7 +38,7 @@ class Unity_is_strenght(Buff):
         self.max_stack = 1
         self.stack = 1
     
-    async def apply(self, target, player_team, enemy_team):
+    async def apply(self, client, ctx, target, player_team, enemy_team):
         '''
         `coroutine`
 

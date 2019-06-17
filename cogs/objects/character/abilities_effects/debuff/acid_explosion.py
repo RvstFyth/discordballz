@@ -22,7 +22,7 @@ class Acid_Explosion(Debuff):
 
     name = 'Acid Explosion'
     id = 1
-    icon = '<:acid_explosion:589512633640550406>'
+    icon = '<:acid_explosion:590111720127594497>'
 
     def __init__(self):
         Debuff.__init__(self)
@@ -31,7 +31,7 @@ class Acid_Explosion(Debuff):
         self.max_stack = 1
         self.stack = 1
     
-    async def apply(self, target, team_a, team_b):
+    async def apply(self, client, ctx, target, team_a, team_b):
         '''
         `coroutine`
 

@@ -135,7 +135,7 @@ class Ability_Acid(Ability):
 
         damage_done = int(damage_done*0.25)  # This ability inflicts only 25 % of the Ki damage
 
-        await target.inflict_damage(caster, damage_done, team_a, team_b)
+        await target.inflict_damage(client, ctx, caster, damage_done, team_a, team_b)
 
         move += await Display_move(client, ctx, self.name, self.icon, damage_done, caster, target, ki_gain = caster.ki_regen, is_ki = True)
         

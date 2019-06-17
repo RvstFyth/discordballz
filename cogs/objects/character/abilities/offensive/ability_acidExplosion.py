@@ -27,7 +27,7 @@ from cogs.utils.functions.commands.fight.functions.effect.get_effect import Get_
 
 class Ability_AcidExplosion(Ability):
 
-    icon = '<:acid_explosion_ki:589512689181786142>'
+    icon = '<:acid_explosion_ki:590111692751372288>'
     id = 3
 
     def __init__(self):
@@ -118,7 +118,7 @@ class Ability_AcidExplosion(Ability):
 
         damage_done = int(damage_done*0.5)
 
-        await target.inflict_damage(caster, damage_done, team_a, team_b)
+        await target.inflict_damage(client, ctx, caster, damage_done, team_a, team_b)
 
         move += await Display_move(client, ctx, self.name, self.icon, damage_done, caster, target, is_ki = True)
         return(move)
