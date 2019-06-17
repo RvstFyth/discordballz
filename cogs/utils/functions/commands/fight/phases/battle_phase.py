@@ -50,7 +50,7 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
     for fighter in player_team:
         await asyncio.sleep(0)
 
-        if(fighter.current_hp > 0):  # fighter is alive
+        if(fighter.current_hp > 0 and fighter.flag != 3):  # fighter is alive
             fighter_move_list = player_move[fighter_move_id]  # Player_move = [[move, target], [move, target]], now fighter_move_list = [move,target]
 
             if fighter_move_list[1] == None:  # If there is no target

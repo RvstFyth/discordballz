@@ -1,7 +1,7 @@
 '''
 Manages the fight selection phase.
 
-Last update: 12/06/19
+Last update: 17/06/19
 '''
 
 # Dependancies
@@ -48,7 +48,7 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
     for fighter in player_team:
         await asyncio.sleep(0)
         
-        if(fighter.current_hp > 0):
+        if(fighter.current_hp > 0 and fighter.flag != 3):  # If fighter is alive and not stunned
             # Display fighter's turn
 
             await Pve_display_fighter(client, ctx, fighter, order)
@@ -87,7 +87,7 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
                 await asyncio.sleep(0)
 
                 if(fighter_member.current_hp <= 0):
-                    teams_display += '{}.💀{}**{}** {} | '.format(character_count, fighter_member.icon, fighter_member.name, fighter_member.type_icon)
+                    teams_display += '{}.💀**{}** {} | '.format(character_count, fighter_member.name, fighter_member.type_icon)
                 else:
                     teams_display += '{}. {}**{}** {} | '.format(character_count, fighter_member.icon, fighter_member.name, fighter_member.type_icon)
                 character_count += 1
@@ -100,7 +100,7 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
                 await asyncio.sleep(0)
 
                 if(enemy_member.current_hp <= 0):
-                    teams_display += '{}.💀{}**{}** {} | '.format(character_count, enemy_member.icon, enemy_member.name, enemy_member.type_icon)
+                    teams_display += '{}.💀**{}** {} | '.format(character_count, enemy_member.name, enemy_member.type_icon)
                 else:
                     teams_display += '{}. {}**{}** {} | '.format(character_count, enemy_member.icon, enemy_member.name, enemy_member.type_icon)
 

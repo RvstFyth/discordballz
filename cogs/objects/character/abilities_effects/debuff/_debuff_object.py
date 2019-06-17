@@ -10,8 +10,9 @@ import asyncio
 
 class Debuff:
 
-    effect_type = 'debuff'
-    effect_description = 'Gives character malus effects'
+    name = ''
+    icon = ''
+    id = 0
 
     def __init__(self):
         self.duration = 0
@@ -19,7 +20,7 @@ class Debuff:
         self.max_stack = 1
         self.stack = 0
 
-    async def apply(self):
+    async def apply(self, client, ctx, target, team_a, team_b):
         pass
     
     async def on_remove(self, client, ctx, target, team_a, team_b):  # Do seomthing when rempved

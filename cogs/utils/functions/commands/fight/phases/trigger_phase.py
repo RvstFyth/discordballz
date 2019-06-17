@@ -1,7 +1,7 @@
 '''
 Manages the trigger phase of the fight.
 
-Last update: 15/06/19
+Last update: 17/06/19
 '''
 
 # Dependancies
@@ -239,7 +239,7 @@ async def Triggers_phase(client, ctx, player, character_team, enemy_team, team_n
             # Display character name
 
             if(char_effect):
-                team_triggers += '\n#{} - **{}**{}{} :{}'.format(character_count, character.name, character.rarity_icon, character.type_icon, character_trigger)
+                team_triggers += '\n#{} - {}**{}**{}{} :{}'.format(character_count, character.icon, character.name, character.rarity_icon, character.type_icon, character_trigger)
 
         character_count += 1
 

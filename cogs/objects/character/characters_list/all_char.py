@@ -1,7 +1,7 @@
 '''
 Return the correct character object in function of the global id passed.
 
-Last update: 15/06/19
+Last update: 17/06/19
 '''
 
 # Dependancies
@@ -34,6 +34,14 @@ async def Get_char(char_id):
         from cogs.objects.character.characters_list.char_2 import Char_2
 
         char_ = Char_2()
+
+        return(char_)
+    
+    if(char_id == 3):
+
+        from cogs.objects.character.characters_list.char_3 import Char_3 
+
+        char_ = Char_3()
 
         return(char_)
 
