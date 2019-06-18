@@ -310,6 +310,11 @@ class Character:
         if(self.ability_list[len(self.ability_list)-1]().need_target):
             target = enemy_team[randint(0, len(enemy_team)-1)]  # Pick a random target
 
+            while target.current_hp <= 0:
+                await asyncio.sleep(0)
+
+                target = enemy_team[randint(0, len(enemy_team)-1)]
+
         else:  # If we don't have max ki, just check all the ability and launch random
             for ability in self.ability_list:
                 await asyncio.sleep(0)
@@ -324,6 +329,11 @@ class Character:
 
                         if(ability.need_target):
                             target = enemy_team[randint(0, len(enemy_team)-1)]
+
+                            while target.current_hp <= 0:
+                                await asyncio.sleep(0)
+                                
+                                target = enemy_team[randint(0, len(enemy_team)-1)]
                 
                 if(match):  # If we have found an ability to use, we go out
                     break
@@ -335,6 +345,14 @@ class Character:
 
                 if move == 1:  # If sequence
                     target = enemy_team[randint(0, len(enemy_team)-1)]
+
+                    while target.current_hp <= 0:
+                        await asyncio.sleep(0)
+                        
+                        target = enemy_team[randint(0, len(enemy_team)-1)]
+        
+        if(move == 2):
+            target = None
             
         decision = [move, target]
         return(decision)

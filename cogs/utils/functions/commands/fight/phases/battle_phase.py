@@ -179,7 +179,7 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
 
             # Define npc_team_moves 
             if npc_move[1] == None:  # If there is no Target
-                npc_team_moves += _('{} - {}**{}** {} to **{}** : \n').format(order+1, npc.icon, npc.name, npc.type_icon, _('Himself'))
+                npc_team_moves += _('{} - {}**{}** {} to **{}** : \n').format(npc_order+1, npc.icon, npc.name, npc.type_icon, _('Himself'))
             
             else:  # If there is a defined target
                 npc_team_moves += _('{} - {}**{}** {} to {}**{}** {} : \n').format(order+1, npc.icon, npc.name, npc.type_icon, npc_target.icon, npc_target.name, npc_target.type_icon)
