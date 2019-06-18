@@ -1,12 +1,13 @@
 '''
 Store the character's basic informations using its global id.
 
-Last update: 16/06/19
+Last update: 18/06/19
 '''
 
 # Dependancies
 
 import asyncio
+from random import randint
 
 # Utils
 
@@ -280,3 +281,60 @@ class Character:
                 leader.trigger(Character, team_a, team_b)
         
         return
+    
+    # AI
+
+    async def artificial_intelligence(self, client, ctx, caster, npc_team, enemy_team):
+        '''
+        `coroutine`
+
+        Manages the basic artificial intellignece of characters. Please note that 
+
+        `npc_team` represent the `enemy_team`, it's the ally team of this npc.
+
+        `enemy_team` is `player_team`, but represents the enemy team of this npc.
+
+        Return: list[move[1;len(ability_list)], target]
+        '''
+
+        # First the check the highly ability cost
+
+        match = False
+        ability_id = 0
+
+        move, target = 1, None
+
+        if(self.current_ki >= self.ability_list[len(self.ability_list)-1]().cost):  # If i have enough ki to launch the most expensive ability
+            move = randint(1, len(self.ability_list)+1)  # +1 because we also count ki_charge that is '2'
+
+        if(self.ability_list[len(self.ability_list)-1]().need_target):
+            target = enemy_team[randint(0, len(enemy_team)-1)]  # Pick a random target
+
+        else:  # If we don't have max ki, just check all the ability and launch random
+            for ability in self.ability_list:
+                await asyncio.sleep(0)
+
+                ability = ability()
+
+                if(self.current_ki >= ability.cost):
+                    move = randint(1, ability_id+3)  # +3 because the list starts at 0 and we count seqsuence and ki
+
+                    if(move > 2):  # If move is an ability
+                        match = True
+
+                        if(ability.need_target):
+                            target = enemy_team[randint(0, len(enemy_team)-1)]
+                
+                if(match):  # If we have found an ability to use, we go out
+                    break
+
+                ability_id += 1
+            
+            if not match:  # If we have not found any ability to launch, do sequence or charge ki
+                move = randint(1, 2)
+
+                if move == 1:  # If sequence
+                    target = enemy_team[randint(0, len(enemy_team)-1)]
+            
+        decision = [move, target]
+        return(decision)

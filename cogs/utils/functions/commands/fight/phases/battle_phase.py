@@ -1,7 +1,7 @@
 '''
 Manages the fight battle phase.
 
-Last update: 13/06/19
+Last update: 18/06/19
 '''
 
 # Dependancies
@@ -43,14 +43,20 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
 
     _ = await Translate(client, ctx)
     fighter_move_id = 0
+    npc_move_id = 0
     player_team_moves = ''
-    enemy_team_moves = ''
+    npc_team_moves = ''
+    npc_order = 0
     order = 0
 
+    npc_team_alive = False
+    player_team_alive = False
     for fighter in player_team:
         await asyncio.sleep(0)
 
         if(fighter.current_hp > 0 and fighter.flag != 3):  # fighter is alive
+            player_team_alive = True
+
             fighter_move_list = player_move[fighter_move_id]  # Player_move = [[move, target], [move, target]], now fighter_move_list = [move,target]
 
             if fighter_move_list[1] == None:  # If there is no target
@@ -154,12 +160,122 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
     # Player team actions
     order = 1
 
-    player_team_display = Basic_embed(client, thumb = player.avatar_url)
-    player_team_display.add_field(name = _('{}\'s team :').format(player.name), value = player_team_moves, inline = False)
-    
-    await ctx.send(embed = player_team_display)
+    if(player_team_alive):
+        player_team_display = Basic_embed(client, thumb = player.avatar_url)
+        player_team_display.add_field(name = _('{}\'s team :').format(player.name), value = player_team_moves, inline = False)
+        
+        await ctx.send(embed = player_team_display)
     
     # Same for enemy team
+    
+    for npc in enemy_team:
+        await asyncio.sleep(0)
+
+        if(npc.current_hp > 0 and npc.flag != 3):  # If the NPC isn't dead or stunned
+            # Get the npc move 
+            npc_team_alive = True
+            npc_move = await npc.artificial_intelligence(client, ctx, npc, enemy_team, player_team)
+            npc_target = npc_move[1]
+
+            # Define npc_team_moves 
+            if npc_move[1] == None:  # If there is no Target
+                npc_team_moves += _('{} - {}**{}** {} to **{}** : \n').format(order+1, npc.icon, npc.name, npc.type_icon, _('Himself'))
+            
+            else:  # If there is a defined target
+                npc_team_moves += _('{} - {}**{}** {} to {}**{}** {} : \n').format(order+1, npc.icon, npc.name, npc.type_icon, npc_target.icon, npc_target.name, npc_target.type_icon)
+    
+            if(npc_move[0] == 1):  # If the npc has chosen to use sequence
+                # SEQUENCE MOVE
+
+                npc_target = npc_move[1]   
+
+                # Get the list of defenders
+                defenders = []
+                for character in player_team:
+                    await asyncio.sleep(0)
+
+                    if(character.flag == 2):  # If posture = defense
+                        defenders.append(character)
+                    
+                    else:
+                        pass
+                
+                if(len(defenders) == 0):  # If there is no defenders
+                    pass
+                
+                else:
+                    npc_target = defenders[randint(0, len(defenders)-1)]  # Pick a random defender as the target
+                
+                npc.flag = 0  # The npc is now in attack posture
+
+                damages_done = await Damage_calculator(npc, npc_target, is_sequence = True) 
+
+                await npc_target.inflict_damage(client, ctx, npc, damages_done, enemy_team, player_team)  # reverse player team and enemy team as the npc is part of the enemy team
+
+                npc_team_moves += await Display_move(client, ctx, 'Sequence', '👊', damages_done, npc, npc_target)
+            
+            elif(npc_move[0] == 2):  # If the npc decides to charge ki
+                npc.flag = 1
+
+                npc_move = _('Ki charge')
+                npc_move_icon = ':fire:'
+
+                missing_ki = npc.max_ki - npc.current_ki
+                missing_ki = (10*missing_ki)/100  # 10 % of missing ki
+
+                ki_gain = randint(1, 5) + npc.rarity_value + missing_ki
+
+                ki_gain = int(ki_gain)
+
+                npc.current_ki += ki_gain
+
+                if(npc.current_ki > npc.max_ki):
+                    npc.current_ki = npc.max_ki
+                
+                npc_team_moves += await Display_move(client, ctx, npc_move, npc_move_icon, 0, npc, npc, ki_gain = ki_gain)
+            
+            else:  # If it's an ability
+                ability = npc.ability_list[npc_move[0]-3]
+                ability = ability()
+                cost = ability.cost
+                npc.current_ki -= cost
+
+                # Get the list of defenders
+                defenders = []
+                for character in player_team:
+                    await asyncio.sleep(0)
+
+                    if(character.flag == 2):  # If posture = defense
+                        defenders.append(character)
+                    
+                    else:
+                        pass
+                
+                if(len(defenders) == 0):  # If there is no defenders
+                    pass
+                
+                else:
+                    npc_target = defenders[randint(0, len(defenders)-1)]  # Pick a random defender as the target
+                
+                # Now get the ability
+
+                ability_ = await enemy_team[npc_order].Use_ability(client, ctx, npc, npc_target, enemy_team, player_team, npc_team_moves, npc_move[0]-3)
+
+                # Init
+
+                await ability_.init(client, ctx, npc)
+
+                # Trigger
+
+                npc_team_moves = await ability_.trigger(client, ctx, npc, npc_target, enemy_team, player_team, npc_team_moves, npc_move[0]-3)
+        
+    npc_order += 1
+
+    if(npc_team_alive):
+        npc_display = Basic_embed(client)
+        npc_display.add_field(name = _('Enemy team :'), value = npc_team_moves, inline = False)
+
+        await ctx.send(embed = npc_display)
 
     # End Enemery_team turn
 

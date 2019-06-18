@@ -33,17 +33,7 @@ class Cmd_Fight(Cog):
         enemy_c.type_value = 2
         enemy_c.level = 60
 
-        enemy_d = Char_1()
-        enemy_d.rarity_value = 3
-        enemy_d.type_value = 3
-        enemy_d.level = 80
-
-        enemy_e = Char_1()
-        enemy_e.rarity_value = 4
-        enemy_e.type_value = 4
-        enemy_e.level = 120
-
-        liste = [enemy, enemy_b, enemy_c, enemy_d, enemy_e]
+        liste = [enemy, enemy_b, enemy_c]
         
         await Pve_Fight(self.client, ctx, ctx.message.author, liste)
         
