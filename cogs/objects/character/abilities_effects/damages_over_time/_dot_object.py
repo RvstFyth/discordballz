@@ -1,8 +1,10 @@
 '''
 Manages the DoT object.
 
-Last update: 12/06/19
+Last update: 23/06/19
 '''
+
+import asyncio
 
 class Dot:
     '''
@@ -45,6 +47,12 @@ class Dot:
         self.tick_damage = (self.total_damage/self.duration)*self.stack
     
     # Method
+
+    async def set_tick_damage(self, caster, target, team_a, team_b):
+        pass
+    
+    async def add_stack(self, caster, target, team_a, team_b):
+        pass
 
     async def apply(self):
         '''

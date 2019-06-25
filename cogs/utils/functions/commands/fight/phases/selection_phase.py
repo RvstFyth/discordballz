@@ -1,7 +1,7 @@
 '''
 Manages the fight selection phase.
 
-Last update: 17/06/19
+Last update: 24/06/19
 '''
 
 # Dependancies
@@ -11,11 +11,12 @@ import asyncio
 # Utils
 
 from cogs.utils.functions.translation.gettext_config import Translate
-
+from cogs.utils.functions.commands.fight.functions.team_selection import Get_targetable
 from cogs.utils.functions.commands.fight.displayer.display_fighter import Pve_display_fighter
 
 # Waiters
 from cogs.utils.functions.commands.fight.wait_for.wait_for_move import Wait_for_move
+from cogs.utils.functions.commands.fight.displayer.display_targets import Display_targets
 from cogs.utils.functions.commands.fight.wait_for.wait_for_target import Wait_for_target
 
 async def Selection_phase(client, ctx, player, player_team, enemy_team, all_fighter):
@@ -55,7 +56,7 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
 
             # Set fighter kit
 
-            fighter_kit = _('`1. Sequence 👊` | `2. Ki charge 🔥` | `3. Flee 🏃`\n')
+            fighter_kit = _('`1. Sequence 👊` | `2. Ki charge 🔥` | `3. Defend 🏰`\n')
             fighter_ability_count = len(fighter.ability_list)
 
             if(fighter_ability_count > 0):
@@ -75,41 +76,8 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
                 else:
                     pass
             
-            # Displays the targets
-
-            teams_display = _('\n__Targets__ :\n🔵 - Your team : ')
-
-            character_count = 1
-            
-            # Player team
-
-            for fighter_member in player_team:
-                await asyncio.sleep(0)
-
-                if(fighter_member.current_hp <= 0):
-                    teams_display += '{}.💀**{}** {} | '.format(character_count, fighter_member.name, fighter_member.type_icon)
-                else:
-                    teams_display += '{}. {}**{}** {} | '.format(character_count, fighter_member.icon, fighter_member.name, fighter_member.type_icon)
-                character_count += 1
-            
-            teams_display += '\n🔴 - Enemey team : '
-            
-            # Enemy team
-
-            for enemy_member in enemy_team:
-                await asyncio.sleep(0)
-
-                if(enemy_member.current_hp <= 0):
-                    teams_display += '{}.💀**{}** {} | '.format(character_count, enemy_member.name, enemy_member.type_icon)
-                else:
-                    teams_display += '{}. {}**{}** {} | '.format(character_count, enemy_member.icon, enemy_member.name, enemy_member.type_icon)
-
-                character_count += 1
-
-            # Show the possible actions :
-
+            # Shows possible actions
             action_display = _('<@{}> Please select an action among the following for **{}**{}.\n{}').format(player.id, fighter.name, fighter.type_icon, fighter_kit)
-
             # Then ask action
         
             decision_made = False
@@ -123,8 +91,16 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
                 # We get the move
 
                 if(correct_move):
+                    # init
+                    teams_display = ''
+
+                    # check if the move isn't a text
+                    if(type(move) == str):  # if its a text
+                        if(move == 'flee'):
+                            return('flee')
+
                     # Check if the ability is not in cooldown
-                    if(move > 3 and move <= len(fighter.ability_list)+3):  # If the move is an ability
+                    elif(move > 3 and move <= len(fighter.ability_list)+3):  # If the move is an ability
                         chosen_ability = fighter.ability_list[move-4]  # -4 because we remove the sequence, ki, and flee option and the list begins at 0
                         chosen_ability = chosen_ability()
                         
@@ -141,24 +117,37 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
                                     decision_made = True  # The decision has been made, we can go out of the loop
                                 
                                 else:  # The ability needs a target, we ask for one
+
+                                    targetable_list_ally, targetable_list_enemy = await Get_targetable(chosen_ability, player_team, enemy_team)  # get the targetable units
+                                    
+                                    # Displays the targets
+                                    character_count = 1
+
+                                    # Ally
+                                    if(len(targetable_list_ally) > 0):  # if not empty
+                                        
+                                        teams_display = _('\n__Targets__ :\n🔵 - Your team : ')
+                                        
+                                        character_count, teams_display = await Display_targets(teams_display, character_count, targetable_list_ally)
+                                    
+                                    # Enemy
+                                    if(len(targetable_list_enemy) > 0):
+                                        teams_display += '\n🔴 - Enemy team : ' 
+                                            
+                                        character_count, teams_display = await Display_targets(teams_display, character_count, targetable_list_enemy)
+
                                     target_display = _('<@{}> Please select a target among the following for `{}`{} :\n{}').format(player.id, chosen_ability.name, chosen_ability.icon, teams_display)
                                     await ctx.send(target_display)
 
-                                    correct_target, target = await Wait_for_target(client, player, fighter, all_fighter)
+                                    targetable_list = targetable_list_ally + targetable_list_enemy  # fusion the list 
+
+                                    # then pass the list to wait for
+                                    correct_target, target = await Wait_for_target(client, player, fighter, targetable_list)
 
                                     if correct_target:
                                         # Check if the ability can be used on an anlly
-                                        if chosen_ability.can_target_ally:  # If it can, its ok
-                                            player_move.append([move, target])
-                                            decision_made = True
-
-                                        elif(chosen_ability.can_target_ally == False and target <= len(player_team)):  # Else we re-ask
-                                            decision_made = False
-                                            await ctx.send(_('<@{}> You cannot target an ally with this ability.').format(player.id))
-                                        
-                                        else:  # If the target is correct
-                                            player_move.append([move, target])
-                                            decision_made = True
+                                        player_move.append([move, target])
+                                        decision_made = True
                                     
                                     else:
                                         decision_made = False
@@ -179,30 +168,49 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
 
                     else:  # If its not an ability, its ok
                         if(move == 1):
+                            # get the targets
+                            targetable_list_ally, targetable_list_enemy = await Get_targetable('sequence', player_team, enemy_team)  # get the targetable units
+                                    
+                            # Displays the targets
+                            character_count = 1
+
+                            # Ally
+                            if(len(targetable_list_ally) > 0):  # if not empty
+                                
+                                teams_display = _('\n__Targets__ :\n🔵 - Your team : ')
+                                
+                                character_count, teams_display = await Display_targets(teams_display, character_count, targetable_list_ally)
+                            
+                            # Enemy
+                            if(len(targetable_list_enemy) > 0):
+                                teams_display += '\n🔴 - Enemy team : ' 
+                                    
+                                character_count, teams_display = await Display_targets(teams_display, character_count, targetable_list_enemy)
+
                             target_display = _('<@{}> Please select a target among the following for `Sequence 👊` :\n{}').format(player.id, teams_display)
                             await ctx.send(target_display)
-                            correct_target, target = await Wait_for_target(client, player, fighter, all_fighter)
+
+                            targetable_list = targetable_list_ally + targetable_list_enemy  # fusion the list 
+
+                            correct_target, target = await Wait_for_target(client, player, fighter, targetable_list)  # get the new targets
 
                             if correct_target:
-                                if(target > len(player_team)):
-                                    player_move.append([move, target])
-                                    decision_made = True
-
-                                else:  # If target is ally
-                                    await ctx.send(_('<@{}> You cannot target an ally with this ability.').format(player.id))
-                                    decision_made = False
+                                player_move.append([move, target])
+                                decision_made = True
                             
                             else:  # If target is incorrect
                                 decision_made = False
 
                         elif(move == 2 or move == 3):
-                            if(move == 2):
+                            if(move == 2):  # ki 
                                 move = [2, None]
                                 player_move.append(move)
                                 decision_made = True
 
-                            if(move == 3):
-                                return('flee')
+                            if(move == 3):  # def
+                                move = [3, None]
+                                player_move.append(move)
+                                decision_made = True
 
                 else:  # If move is not correct we re-ask
                     if(move == 'flee'):  # In that case it's an error raised by Asyncio.TimeOutError

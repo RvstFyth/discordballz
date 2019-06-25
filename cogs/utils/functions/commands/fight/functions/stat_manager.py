@@ -64,9 +64,6 @@ async def Reset_stat(client, ctx, character):
     character.ki_regen = reference.ki_regen
     character.health_regen = reference.health_regen
 
-        # Flag
-    character.flag = reference.flag
-
     return(character)
 
 async def Set_stat(client, ctx, character):

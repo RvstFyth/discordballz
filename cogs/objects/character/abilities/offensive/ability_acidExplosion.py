@@ -1,7 +1,7 @@
 '''
 Manages the Acid explosion ability.
 
-Last update: 15/06/19
+Last update: 24/06/19
 '''
 
 # Dependancies
@@ -41,6 +41,7 @@ class Ability_AcidExplosion(Ability):
 
         self.need_target = True
         self.can_target_ally = False
+        self.can_target_enemy = True
 
     async def init(self, client, ctx, caster):
         '''
@@ -89,29 +90,8 @@ class Ability_AcidExplosion(Ability):
                 for char_a in team_b:  # For each character in enemy team
                     await asyncio.sleep(0)
                     
-                    has_dot = await Has_dot(char_a, Acid())
-
-                    if has_dot:  # If the character has dot we just add a stack
-                        dot = await Get_dot(char_a, Acid())
-
-                        char_a.dot.remove(dot)
-
-                        if(dot.stack < dot.max_stack): 
-                            dot.stack += 1
-                        
-                        else:
-                            pass
-                        
-                        char_a.dot.append(dot)
+                    await acid_.add_stack(caster, char_a, team_a, team_b)
                     
-                    else:
-                        dot = Acid()
-                        dot.stack = 1
-                        dot.total_damage = int(((1+((caster.ki_damage_max/100)*0.5))*char_a.max_hp)/100)
-                        dot.tick_damage = int((dot.total_damage/dot.duration))*dot.stack
-
-                        char_a.dot.append(dot)
-
         # inflict damages
 
         damage_done = await Damage_calculator(caster, target, is_ki = True)

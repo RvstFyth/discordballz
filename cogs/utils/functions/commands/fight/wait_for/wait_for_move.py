@@ -45,7 +45,11 @@ async def Wait_for_move(client, player, fighter, all_fighter):
                         return(False)
                 
                 else:  # Non digit
-                    return(False)
+                    if(choice[0].upper() == 'FLEE'):  # if flee
+                        return(True)
+                    
+                    else:  # if not flee or see
+                        return(False)
         
         else:  # message author
             return(False)
@@ -75,9 +79,13 @@ async def Wait_for_move(client, player, fighter, all_fighter):
         choice = choice.split()
 
         if(len(choice) == 1):
-            choice[0] = int(choice[0])
-            return(success, choice[0])
-        
+            if(choice[0].isdigit()):  # if num
+                choice[0] = int(choice[0])
+                return(success, choice[0])
+            
+            else:  # if not digit
+                if(choice[0].upper() == 'FLEE'):  # if flee
+                    return(success, 'flee')
         else:
             pass
 

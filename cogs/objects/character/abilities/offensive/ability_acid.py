@@ -40,6 +40,7 @@ class Ability_Acid(Ability):
         
         # Config
         self.can_target_ally = False
+        self.can_target_enemy = True
         self.need_target = True
         self.cost = 8
         self.cooldown = 0
@@ -89,46 +90,10 @@ class Ability_Acid(Ability):
         caster.flag = 0  # Attack
 
             # init dot
-        new_acid.stack = 1
-        new_acid.total_damage = int(((1+((caster.ki_damage_max/1000)*0.5))*target.max_hp)/100)
-        new_acid.tick_damage = int((new_acid.total_damage/new_acid.duration))*new_acid.stack
-
-        # Check if the target already has the dot or not
-
-        has_dot = await Has_dot(target, Acid())
-
-        if has_dot:
-            # If has dot, we get the dot, add a new stack, change the dmg if needed
-            # remove it, then apply the new dot
-            new_acid = await Get_dot(target, Acid())
-            target.dot.remove(new_acid)  # Remove the old dot to apply a new one
-
-            # If the old acid has less stacks than the maximum, we add a new one
-
-            if(new_acid.stack < new_acid.max_stack):
-                
-                for character in team_a:
-                    has_unity = await Has_buff(character, Unity_is_strenght())
-                    if has_unity:
-                        unity = True
-                    
-                    else:
-                        pass
-                
-                if unity:
-                    new_acid.stack += 2
-                    new_acid.duration = 5
-                
-                else:
-                    new_acid.stack += 1
-            
-            new_acid.duration = 4  # Reset the duration
-            new_acid.tick_damage = int((new_acid.total_damage/new_acid.duration))*new_acid.stack  # Reset the damages
-
-            target.dot.append(new_acid)
         
-        else:  # If the target doesn't have the dot
-            target.dot.append(new_acid)
+        await new_acid.set_total_damage(caster, target, team_a, team_b)
+        await new_acid.add_stack(caster, target, team_a, team_b)
+        await new_acid.set_tick_damage(caster, target, team_a, team_b)
         
         # Inflict Ki damages
         damage_done = await Damage_calculator(caster, target, is_ki = True)

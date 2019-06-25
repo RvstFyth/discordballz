@@ -41,6 +41,7 @@ class Ability_Syphon(Ability):
         # Config
         self.can_target_ally = False
         self.need_target = True
+        self.can_target_enemy = True
         self.cost = 25
         self.cooldown = 0
 

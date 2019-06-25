@@ -1,7 +1,7 @@
 '''
 Manages Unity is Strenght buff
 
-Last update: 04/06/19
+Last update: 23/06/19
 '''
 
 # Dependancies
@@ -9,8 +9,7 @@ Last update: 04/06/19
 import asyncio
 
 # Object
-
-from cogs.objects.character.abilities_effects.damages_over_time.acid import Acid
+from cogs.objects.class_referencer import Get_class
 from cogs.objects.character.abilities_effects.buff._buff_object import Buff
 
 # Utils
@@ -52,6 +51,10 @@ class Unity_is_strenght(Buff):
         acid_ = None
         healing = 0
 
+        # class
+        acid_ = await Get_class(1)
+        acid_ = acid_()
+
         # Find there is acid
         # If acid found, increase acid_stacks counter
         # also increase their duration and max stack
@@ -61,31 +64,32 @@ class Unity_is_strenght(Buff):
             await asyncio.sleep(0)
 
             # Test if the character has acid 
-            has_acid = await Has_dot(character, Acid())
+            has_acid = await Has_dot(character, acid_)
 
             if has_acid:  # If he does
-                acid_ = await Get_dot(character, Acid())
+                acid_ = await Get_dot(character, acid_)
                 acid_stacks += acid_.stack  # Increase acid stack count
 
                 # Increase the max stack and duration
 
                 acid_.max_stack = 5
+                acid_.initial_duration += 1
                 await Replace_dot(character, acid_)
         
             # Enemy team
         for enemy in enemy_team:
             await asyncio.sleep(0)
 
-            has_acid = await Has_dot(enemy, Acid())
+            has_acid = await Has_dot(enemy, acid_)
 
             if has_acid:
-                acid_ = await Get_dot(enemy, Acid())
+                acid_ = await Get_dot(enemy, acid_)
                 acid_stacks += acid_.stack
 
                 # Increase the max stack and duration
 
                 acid_.max_stack = 5
-                acid_.duration += 1
+                acid_.initial_duration += 1
 
                 await Replace_dot(character, acid_)
         

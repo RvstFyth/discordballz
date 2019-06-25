@@ -1,7 +1,7 @@
 '''
 Manages the wait for target.
 
-Last update: 12/06/19
+Last update: 25/06/19
 '''
 
 # Dependancies
@@ -77,7 +77,7 @@ async def Wait_for_target(client, player, fighter, all_fighter):
         target = target.split()
 
         if(len(target) == 1):
-            target[0] = int(target[0])
+            target[0] = all_fighter[int(target[0])-1]  # Return the character object
             return(success, target[0])
         
         else:

@@ -182,59 +182,62 @@ class Char_1(Character):
                         # Then we decide to use unity is strenght or to charge Ki to use it
                         if(self.current_ki >= self.ability_list[1]().cost):
                             if(self.current_ki >= self.ability_list[2]().cost):  # if I have enough ki to use Unity is strenght
-                                move = randint(4, 5)  # -3 = 2 so ability[2] = Unity is strebnght
+                                move = randint(5, 6)  # -3 = 2 so ability[2] = Unity is strebnght
                                 target = tankiest
 
                             else:
-                                move = randint(1, 4)
+                                move = randint(1, 5)
                                 target = tankiest
                         
                         else:  # if not enought ki to use
-                            move = randint(1, 2)  # then ki charge
+                            move = randint(1, 3)  # then ki charge
 
                             target = random_target
                     
                     else:  # target has 3 stacks of acid and more less 50 % of hp
                         if(self.current_ki >= self.ability_list[1]().cost):  # if enough ki to use syphon
-                            move = 4  # use syphon
+                            move = 5  # use syphon
 
                             target = tankiest
                         
                         else:
-                            move = randint(1, 2)  # else charge
+                            move = randint(1, 3)  # else charge
 
                             target = random_target
                 
                 elif(acid_.stack < acid_.max_stack):  # if acid stack are not max
                     if(self.current_ki >= self.ability_list[0]().cost):  # if enouth ki to acid
-                        move = 3
+                        move = 4
                         target = tankiest
                     
                     else:  # else charge
-                        move = randint(1, 2)
+                        move = randint(1, 3)
 
                         target = random_target
 
             else:  # doesn't have acid stack on him
                 # we want to stack up acid
                 if(self.current_ki >= self.ability_list[0]().cost):
-                    move = 3
+                    move = 4
 
                     target = tankiest
                 
-                else:  # charge or dps
-                    move = randint(1, 2)
+                else:  # charge or dps or defend
+                    move = randint(1, 3)
 
                     target = random_target
 
         else:  # if not enough ki to launch acid
             # randomly do something
-            move = randint(1, 2)
+            move = randint(1, 3)
 
             target = random_target
         
         # END
         if(move == 2):  # No target if charging
+            target = None
+        
+        if(move == 3):
             target = None
     
         decision = [move, target]

@@ -322,9 +322,9 @@ class Character:
                 ability = ability()
 
                 if(self.current_ki >= ability.cost):
-                    move = randint(1, ability_id+3)  # +3 because the list starts at 0 and we count seqsuence and ki
+                    move = randint(1, ability_id+4)  # +3 because the list starts at 0 and we count seqsuence and ki
 
-                    if(move > 2):  # If move is an ability
+                    if(move > 3):  # If move is an ability
                         match = True
 
                         if(ability.need_target):
@@ -352,6 +352,9 @@ class Character:
                         target = enemy_team[randint(0, len(enemy_team)-1)]
         
         if(move == 2):
+            target = None
+        
+        if(move == 3):
             target = None
             
         decision = [move, target]

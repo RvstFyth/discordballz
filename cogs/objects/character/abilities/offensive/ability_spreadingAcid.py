@@ -1,7 +1,7 @@
 '''
 Manages the spreading acid ability
 
-Last update: 17/06/19
+Last update: 24/06/19
 '''
 
 # dependancies
@@ -27,6 +27,7 @@ class Ability_SpreadingAcid(Ability):
         Ability.__init__(self)
         self.can_target_ally = False
         self.need_target = False
+        self.can_target_enemy = True
         self.name = 'Spreading Acid'
         self.id = 6
         self.icon = '<:spreading_acid_ki:590184731232960523>'
@@ -66,19 +67,8 @@ class Ability_SpreadingAcid(Ability):
 
             if has_acid:
                 acid_ = await Get_dot(character, Acid())
-                character.dot.remove(acid_)
-
-                # Now add a new stack to it
-
-                if(acid_.stack < acid_.max_stack):
-                    acid_.stack += 1
-                    acid_.duration = 4
-
-                    # New tick damages
-
-                    acid_.tick_damage = int((acid_.total_damage/acid_.duration)*acid_.stack)
-
-                    character.dot.append(acid_)
+                
+                await acid_.add_stack(caster, character, team_a, team_b)
         
         move += await Display_move(client, ctx, self.name, self.icon, 0, caster, target)
 

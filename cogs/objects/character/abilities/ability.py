@@ -1,7 +1,7 @@
 '''
 Manages the ability object.
 
-Last update: 11/06/19
+Last update: 24/06/19
 '''
 
 # Dependnancies 
@@ -57,6 +57,7 @@ class Ability:
         # Target
         self.need_target = False
         self.can_target_ally = False
+        self.can_target_enemy = False
 
     # Method
 

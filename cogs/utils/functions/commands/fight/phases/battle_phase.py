@@ -64,28 +64,12 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
                 player_team_moves += _('{} - {}**{}** {} to **{}** :\n').format(order+1, fighter.icon, fighter.name, fighter.type_icon, _('Himself'))
 
             else:
-                fighter_choice, fighter_target = fighter_move_list[0], all_fighter[fighter_move_list[1] - 1]  # -1 because we have counted the list from 1 not from 0
+                fighter_choice, fighter_target = fighter_move_list[0], fighter_move_list[1]  # -1 because we have counted the list from 1 not from 0
                 player_team_moves += _('{} - {}**{}** {} to {}**{}** {} :\n').format(order+1, fighter.icon, fighter.name, fighter.type_icon, fighter_target.icon, fighter_target.name, fighter_target.type_icon)
 
             if(fighter_choice == 1):
                 # Sequence
                 # Get the defenders
-                defenders = []
-                for enemy in enemy_team:
-                    await asyncio.sleep(0)
-                    
-                    if(enemy.flag == 2):
-                        defenders.append(enemy)
-                    
-                    else:
-                        pass
-
-                if(len(defenders) == 0):
-                    pass
-                
-                else:
-                    fighter_target = defenders[randint(0, len(defenders)-1)]  # Select a random defender as the new target
-
                 fighter.flag = 0  # Changes the flag to 'attack'
                 damages_done = await Damage_calculator(fighter, fighter_target, is_sequence = True)
 
@@ -112,34 +96,25 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
                 player_team_moves += await Display_move(client, ctx, move, move_icon, 0, fighter, fighter, ki_gain = ki_gain)
             
             elif(fighter_choice == 3):
-                # Flee
-                pass
+                # def
+                # pass the fighter flag to 2
+                fighter.flag = 2
+
+                move = _('Defend')
+                move_icon = '🏰'
+
+                player_team_moves += await Display_move(client, ctx, move, move_icon, 0, fighter, fighter)
             
             else:
                 # Ability
                     # Init
                 
+                fighter.flag = 0
+                
                 ability = fighter.ability_list[fighter_choice-4]  # -4 because we ignore the first 3 abilities (sequence, ki, flee) and we start counting at 0
                 ability = ability()
                 cost = ability.cost
                 fighter.current_ki -= cost
-
-                # Define the target in function of the defenders
-                defenders = []
-                for enemy in enemy_team:
-                    await asyncio.sleep(0)
-                    
-                    if(enemy.flag == 2):
-                        defenders.append(enemy)
-                    
-                    else:
-                        pass
-
-                if(len(defenders) == 0):
-                    pass
-                
-                else:
-                    fighter_target = defenders[randint(0, len(defenders)-1)]  # Select a random defender as the new target
 
                 # We get the ability
 
@@ -180,9 +155,6 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
             # Define npc_team_moves 
             if npc_move[1] == None:  # If there is no Target
                 npc_team_moves += _('{} - {}**{}** {} to **{}** : \n').format(npc_order+1, npc.icon, npc.name, npc.type_icon, _('Himself'))
-            
-            else:  # If there is a defined target
-                npc_team_moves += _('{} - {}**{}** {} to {}**{}** {} : \n').format(order+1, npc.icon, npc.name, npc.type_icon, npc_target.icon, npc_target.name, npc_target.type_icon)
     
             if(npc_move[0] == 1):  # If the npc has chosen to use sequence
                 # SEQUENCE MOVE
@@ -191,11 +163,11 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
 
                 # Get the list of defenders
                 defenders = []
-                for character in player_team:
+                for character_a in player_team:
                     await asyncio.sleep(0)
 
-                    if(character.flag == 2):  # If posture = defense
-                        defenders.append(character)
+                    if(character_a.flag == 2):  # If posture = defense
+                        defenders.append(character_a)
                     
                     else:
                         pass
@@ -212,6 +184,7 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
 
                 await npc_target.inflict_damage(client, ctx, npc, damages_done, enemy_team, player_team)  # reverse player team and enemy team as the npc is part of the enemy team
 
+                npc_team_moves += _('{} - {}**{}** {} to {}**{}** {} : \n').format(order+1, npc.icon, npc.name, npc.type_icon, npc_target.icon, npc_target.name, npc_target.type_icon)
                 npc_team_moves += await Display_move(client, ctx, 'Sequence', '👊', damages_done, npc, npc_target)
             
             elif(npc_move[0] == 2):  # If the npc decides to charge ki
@@ -232,21 +205,32 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
                 if(npc.current_ki > npc.max_ki):
                     npc.current_ki = npc.max_ki
                 
+                npc_team_moves += _('{} - {}**{}** {} to {}**{}** {} : \n').format(order+1, npc.icon, npc.name, npc.type_icon, npc_target.icon, npc_target.name, npc_target.type_icon)
                 npc_team_moves += await Display_move(client, ctx, npc_move, npc_move_icon, 0, npc, npc, ki_gain = ki_gain)
+            
+            elif(npc_move[0] == 3):  # set a new defender
+                npc.flag = 2
+
+                npc_move = _('Defend')
+                npc_move_icon = '🏰'
+
+                npc_team_moves += _('{} - {}**{}** {} to {}**{}** {} : \n').format(order+1, npc.icon, npc.name, npc.type_icon, npc_target.icon, npc_target.name, npc_target.type_icon)
+                npc_team_moves += await Display_move(client, ctx, npc_move, npc_move_icon, 0, npc, npc)
             
             else:  # If it's an ability
                 ability = npc.ability_list[npc_move[0]-3]
                 ability = ability()
                 cost = ability.cost
                 npc.current_ki -= cost
+                npc_target = npc_move[1]
 
                 # Get the list of defenders
                 defenders = []
-                for character in player_team:
+                for character_b in player_team:
                     await asyncio.sleep(0)
 
-                    if(character.flag == 2):  # If posture = defense
-                        defenders.append(character)
+                    if(character_b.flag == 2):  # If posture = defense
+                        defenders.append(character_b)
                     
                     else:
                         pass
@@ -267,8 +251,9 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
 
                 # Trigger
 
+                npc_team_moves += _('{} - {}**{}** {} to {}**{}** {} : \n').format(order+1, npc.icon, npc.name, npc.type_icon, npc_target.icon, npc_target.name, npc_target.type_icon)
                 npc_team_moves = await ability_.trigger(client, ctx, npc, npc_target, enemy_team, player_team, npc_team_moves, npc_move[0]-3)
-        
+    
     npc_order += 1
 
     if(npc_team_alive):
