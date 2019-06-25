@@ -151,10 +151,6 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
             npc_team_alive = True
             npc_move = await npc.artificial_intelligence(client, ctx, npc, enemy_team, player_team)
             npc_target = npc_move[1]
-
-            # Define npc_team_moves 
-            if npc_move[1] == None:  # If there is no Target
-                npc_team_moves += _('{} - {}**{}** {} to **{}** : \n').format(npc_order+1, npc.icon, npc.name, npc.type_icon, _('Himself'))
     
             if(npc_move[0] == 1):  # If the npc has chosen to use sequence
                 # SEQUENCE MOVE
@@ -183,8 +179,14 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
                 damages_done = await Damage_calculator(npc, npc_target, is_sequence = True) 
 
                 await npc_target.inflict_damage(client, ctx, npc, damages_done, enemy_team, player_team)  # reverse player team and enemy team as the npc is part of the enemy team
+                
+                # move
+                if npc_target == None:  # If there is no Target
+                    npc_team_moves += _('{} - {}**{}** {} to **{}** : \n').format(npc_order+1, npc.icon, npc.name, npc.type_icon, _('Himself'))
+                    
+                else:
+                    npc_team_moves += _('{} - {}**{}** {} to {}**{}** {} : \n').format(npc_order+1, npc.icon, npc.name, npc.type_icon, npc_target.icon, npc_target.name, npc_target.type_icon)
 
-                npc_team_moves += _('{} - {}**{}** {} to {}**{}** {} : \n').format(order+1, npc.icon, npc.name, npc.type_icon, npc_target.icon, npc_target.name, npc_target.type_icon)
                 npc_team_moves += await Display_move(client, ctx, 'Sequence', '👊', damages_done, npc, npc_target)
             
             elif(npc_move[0] == 2):  # If the npc decides to charge ki
@@ -205,7 +207,13 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
                 if(npc.current_ki > npc.max_ki):
                     npc.current_ki = npc.max_ki
                 
-                npc_team_moves += _('{} - {}**{}** {} to {}**{}** {} : \n').format(order+1, npc.icon, npc.name, npc.type_icon, npc_target.icon, npc_target.name, npc_target.type_icon)
+                # move
+                if npc_target == None:  # If there is no Target
+                    npc_team_moves += _('{} - {}**{}** {} to **{}** : \n').format(npc_order+1, npc.icon, npc.name, npc.type_icon, _('Himself'))
+
+                else:
+                    npc_team_moves += _('{} - {}**{}** {} to {}**{}** {} : \n').format(npc_order+1, npc.icon, npc.name, npc.type_icon, npc_target.icon, npc_target.name, npc_target.type_icon)
+
                 npc_team_moves += await Display_move(client, ctx, npc_move, npc_move_icon, 0, npc, npc, ki_gain = ki_gain)
             
             elif(npc_move[0] == 3):  # set a new defender
@@ -214,7 +222,13 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
                 npc_move = _('Defend')
                 npc_move_icon = '🏰'
 
-                npc_team_moves += _('{} - {}**{}** {} to {}**{}** {} : \n').format(order+1, npc.icon, npc.name, npc.type_icon, npc_target.icon, npc_target.name, npc_target.type_icon)
+                # move
+                if npc_target == None:  # If there is no Target
+                    npc_team_moves += _('{} - {}**{}** {} to **{}** : \n').format(npc_order+1, npc.icon, npc.name, npc.type_icon, _('Himself'))
+                
+                else:
+                    npc_team_moves += _('{} - {}**{}** {} to {}**{}** {} : \n').format(npc_order+1, npc.icon, npc.name, npc.type_icon, npc_target.icon, npc_target.name, npc_target.type_icon)
+                
                 npc_team_moves += await Display_move(client, ctx, npc_move, npc_move_icon, 0, npc, npc)
             
             else:  # If it's an ability
@@ -251,10 +265,16 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
 
                 # Trigger
 
-                npc_team_moves += _('{} - {}**{}** {} to {}**{}** {} : \n').format(order+1, npc.icon, npc.name, npc.type_icon, npc_target.icon, npc_target.name, npc_target.type_icon)
+                # move
+                if npc_move[1] == None:  # If there is no Target
+                    npc_team_moves += _('{} - {}**{}** {} to **{}** : \n').format(npc_order+1, npc.icon, npc.name, npc.type_icon, _('Himself'))
+                
+                else:
+                    npc_team_moves += _('{} - {}**{}** {} to {}**{}** {} : \n').format(npc_order+1, npc.icon, npc.name, npc.type_icon, npc_target.icon, npc_target.name, npc_target.type_icon)
+                
                 npc_team_moves = await ability_.trigger(client, ctx, npc, npc_target, enemy_team, player_team, npc_team_moves, npc_move[0]-3)
     
-    npc_order += 1
+        npc_order += 1
 
     if(npc_team_alive):
         npc_display = Basic_embed(client)
