@@ -1,7 +1,7 @@
 '''
 Manages the trigger phase of the fight.
 
-Last update: 17/06/19
+Last update: 26/06/19
 '''
 
 # Dependancies
@@ -126,7 +126,7 @@ async def Triggers_phase(client, ctx, player, character_team, enemy_team, team_n
                         # Set buff display
                         team_buff_display += '`{}`{} | '.format(buff.name, buff.icon)
                         team_buff_stack_display += '**{}** | '.format(buff.stack)
-                        team_buff_damage_display += '+ **{}**:hearts: | '.format(buff_damage_done)
+                        team_buff_damage_display += '+ **{:,}**:hearts: | '.format(buff_damage_done)
                         team_buff_duration_display += '**{}** | '.format(buff.duration)
             
             if(char_buff):  # If the character has a buff we display it
@@ -162,7 +162,7 @@ async def Triggers_phase(client, ctx, player, character_team, enemy_team, team_n
                         # Set debuff display
                         team_debuff_display += '`{}`{} | '.format(debuff.name, debuff.icon)
                         team_debuff_stack_display += '**{}** | '.format(debuff.stack)
-                        team_debuff_damage_display += '- **{}** | '.format(debuff_damage_done)
+                        team_debuff_damage_display += '- **{:,}** | '.format(debuff_damage_done)
                         team_debuff_duration_display += '**{}** | '.format(debuff.duration)
             
             if(char_debuff):  # If character has a debuff we display it
@@ -200,7 +200,7 @@ async def Triggers_phase(client, ctx, player, character_team, enemy_team, team_n
                         # The character has a dot on him, we display
                         team_dot_display += '`{}`{} | '.format(dot.name, dot.icon)
                         team_dot_stack_display += '**{}** | '.format(dot.stack)
-                        team_dot_damage_display += '- **{}** | '.format(dot_damage_done)
+                        team_dot_damage_display += '- **{:,}** | '.format(dot_damage_done)
                         team_dot_duration_display += '**{}** | '.format(dot.duration)
             
             if(char_dot):  # if character has a dot we display it

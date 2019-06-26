@@ -1,7 +1,7 @@
 '''
 Manages the fight battle phase.
 
-Last update: 18/06/19
+Last update: 26/06/19
 '''
 
 # Dependancies
@@ -71,11 +71,13 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
                 # Sequence
                 # Get the defenders
                 fighter.flag = 0  # Changes the flag to 'attack'
-                damages_done = await Damage_calculator(fighter, fighter_target, is_sequence = True)
 
-                await fighter_target.inflict_damage(client, ctx, fighter, damages_done, player_team, enemy_team)
+                damage = randint(fighter.physical_damage_min, fighter.physical_damage_max)
+                damages_done = await Damage_calculator(fighter, damage, fighter_target, is_sequence = True, damage_reduction = fighter_target.damage_reduction, can_crit = True, crit_bonus = fighter.critical_bonus, crit_chance = fighter.critical_chance)
 
-                player_team_moves += await Display_move(client, ctx, 'Sequence', '👊', damages_done, fighter, fighter_target)
+                await fighter_target.inflict_damage(client, ctx, fighter, damages_done[1], player_team, enemy_team)
+
+                player_team_moves += await Display_move(client, ctx, 'Sequence', '👊', damages_done[1], fighter, fighter_target, crit = damages_done[0])
 
             elif(fighter_choice == 2):
                 # Ki charge
@@ -140,6 +142,8 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
         player_team_display.add_field(name = _('{}\'s team :').format(player.name), value = player_team_moves, inline = False)
         
         await ctx.send(embed = player_team_display)
+        await asyncio.sleep(2)
+        await ctx.send('```\n```')  # sep
     
     # Same for enemy team
     
@@ -176,9 +180,10 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
                 
                 npc.flag = 0  # The npc is now in attack posture
 
-                damages_done = await Damage_calculator(npc, npc_target, is_sequence = True) 
+                damage = randint(npc.physical_damage_min, npc.physical_damage_min)
+                damages_done = await Damage_calculator(npc, damage, npc_target, is_sequence = True, damage_reduction = npc_target.damage_reduction, can_crit = True, crit_bonus = npc.critical_bonus, crit_chance = npc.critical_chance) 
 
-                await npc_target.inflict_damage(client, ctx, npc, damages_done, enemy_team, player_team)  # reverse player team and enemy team as the npc is part of the enemy team
+                await npc_target.inflict_damage(client, ctx, npc, damages_done[1], enemy_team, player_team)  # reverse player team and enemy team as the npc is part of the enemy team
                 
                 # move
                 if npc_target == None:  # If there is no Target
@@ -187,7 +192,7 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
                 else:
                     npc_team_moves += _('{} - {}**{}** {} to {}**{}** {} : \n').format(npc_order+1, npc.icon, npc.name, npc.type_icon, npc_target.icon, npc_target.name, npc_target.type_icon)
 
-                npc_team_moves += await Display_move(client, ctx, 'Sequence', '👊', damages_done, npc, npc_target)
+                npc_team_moves += await Display_move(client, ctx, 'Sequence', '👊', damages_done[1], npc, npc_target, crit = damages_done[0])
             
             elif(npc_move[0] == 2):  # If the npc decides to charge ki
                 npc.flag = 1
@@ -281,6 +286,7 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
         npc_display.add_field(name = _('Enemy team :'), value = npc_team_moves, inline = False)
 
         await ctx.send(embed = npc_display)
+        await asyncio.sleep(2)
 
     # End Enemery_team turn
 

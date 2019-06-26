@@ -1,7 +1,7 @@
 '''
 Manages how the damages are calculated.
 
-Last update: 01/06/19
+Last update: 26/06/19
 '''
 
 # Dependancies 
@@ -13,7 +13,7 @@ from random import randint
 
 from cogs.utils.functions.commands.fight.functions.type_advantage import Is_type_advantaged
 
-async def Damage_calculator(fighter, target, is_sequence = False, is_ki = False, ignore_defense = False, can_crit = False):
+async def Damage_calculator(fighter, damage, target, damage_reduction = 0, is_sequence = False, is_ki = False, ignore_defense = False, can_crit = False, crit_chance = 0, crit_bonus = 0):
     '''
     `coroutine`
 
@@ -21,17 +21,29 @@ async def Damage_calculator(fighter, target, is_sequence = False, is_ki = False,
 
     `fighter` : must be `Character` object.
 
+    `damage` : must be type `int` and represent the pre-drawn damage (based on the char damage range)
+
     `target` : must be `Character` object.
 
-    `is_sequence` : must be type `bool` default `False`, pass True if its a sequence attack.
+    `damage_reduction` **[Optional]** : must be type `int`
 
-    `is_ki` : must be type `bool` default set to `False` and tells if the incoming damages are from a ki ability or not.
+    `is_sequence` **[Optional]** : must be type `bool` default `False`, pass True if its a sequence attack.
 
-    `ignore_defense` : must be type `bool` default set to `False`
+    `is_ki` **[Optional]** : must be type `bool` default set to `False` and tells if the incoming damages are from a ki ability or not.
 
-    `can_crit` : must be type `bool` determines if an attack is able to crit or not.
+    `ignore_defense` **[Optional]** : must be type `bool` default set to `False`
 
-    Return: int (damage value)
+    `can_crit` **[Optional]** : must be type `bool` determines if an attack is able to crit or not.
+
+    `crit_chance` **[Optional]** : must be type `int`
+
+    `crit_bonus` **[Optional]** : must be type `int`
+
+    Return: list (list[code, new_damage])
+
+    Code :
+    0. Normal damage
+    1. Critical damages
     '''
 
     # Init 
@@ -59,6 +71,9 @@ async def Damage_calculator(fighter, target, is_sequence = False, is_ki = False,
     # Init
 
     calculated_damages = 0
+    did_crit = 0
+
+    result = []
     
     # Type 
 
@@ -76,19 +91,7 @@ async def Damage_calculator(fighter, target, is_sequence = False, is_ki = False,
      
     # Damages
 
-    if is_ki:
-        fighter_damage = randint(fighter.ki_damage_min, fighter.ki_damage_max)
-    
-    else:
-        fighter_damage = randint(fighter.physical_damage_min, fighter.physical_damage_max)
-
-    if is_sequence:
-        fighter_damage = fighter_damage*0.8
-    
-    else:
-        pass
-
-    damage_reduction = 1+(fighter.damage_reduction) 
+    damage_reduction = 1+(damage_reduction) 
 
     # Defense
 
@@ -98,8 +101,9 @@ async def Damage_calculator(fighter, target, is_sequence = False, is_ki = False,
 
     if can_crit:
         roll = randint(0, 100)
-        if(roll <= fighter.critical_chance):
-            critical_bonus = 1.5 + (fighter.critical_bonus)/100
+        if(roll <= crit_chance):
+            critical_bonus = 1.5 + (crit_bonus)/100
+            did_crit = 1
         
         else:
             critical_bonus = 1
@@ -109,12 +113,13 @@ async def Damage_calculator(fighter, target, is_sequence = False, is_ki = False,
 
     if not ignore_defense:  # If the defense is not ignored
         if not is_ki:
-            calculated_damages = (fighter_damage)*type_advantage*damage_reduction*phy_defense*critical_bonus
+            calculated_damages = (damage)*type_advantage*damage_reduction*phy_defense*critical_bonus
             
         else:  # If KI ability
-            calculated_damages = (fighter_damage)*type_advantage*damage_reduction*ki_defense*critical_bonus
+            calculated_damages = (damage)*type_advantage*damage_reduction*ki_defense*critical_bonus
     
     else:  # If ignore defense
-        calculated_damages = (fighter_damage)*type_advantage*damage_reduction*critical_bonus
+        calculated_damages = (damage)*type_advantage*damage_reduction*critical_bonus
 
-    return(int(calculated_damages))
+    result = [did_crit, int(calculated_damages)]
+    return(result)

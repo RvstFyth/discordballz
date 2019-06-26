@@ -1,7 +1,7 @@
 '''
 Manage the character_1
 
-Last update: 18/06/19
+Last update: 26/06/19
 '''
 
 # Dependancies
@@ -49,6 +49,7 @@ class Char_1(Character):
         self.id = 1
         self.name = 'Green Saibaiman'
         self.image = 'https://i.imgur.com/1m8rA7L.png'
+        self.thumb = 'https://i.imgur.com/SITD9VY.png'
         self.icon = '<:saibaiman_a:589485375685263373>'
         self.saga = 0
         self.type_icon = 0

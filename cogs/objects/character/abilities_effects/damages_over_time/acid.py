@@ -1,7 +1,7 @@
 '''
 Manages the effect of the Acid dot.
 
-Last update: 08/06/19
+Last update: 26/06/19
 '''
 
 # Dependancies
@@ -13,6 +13,7 @@ from cogs.objects.character.abilities_effects.damages_over_time._dot_object impo
 
 # Utils
 
+from cogs.utils.functions.commands.fight.functions.damage_calculator import Damage_calculator
 from cogs.utils.functions.commands.fight.functions.effect.get_effect import Get_buff, Get_dot
 from cogs.utils.functions.commands.fight.functions.effect.has_effect import Has_buff, Has_dot
 from cogs.utils.functions.translation.gettext_config import Translate
@@ -87,7 +88,7 @@ class Acid(Dot):
             else:
                 pass
 
-        self.total_damage = int(((1+((highest_ki/1000)*0.5))*target.max_hp)/100) 
+        self.total_damage = int(((1.5+((highest_ki/250)*0.05))*target.max_hp)/100) 
 
         return(self.total_damage)
     
@@ -102,7 +103,7 @@ class Acid(Dot):
 
         self.caster = caster
 
-        self.tick_damage = int((self.total_damage/self.initial_duration)*self.stack)
+        self.tick_damage = int(self.total_damage*self.stack)
 
         return(self.tick_damage)
 
@@ -218,12 +219,14 @@ class Acid(Dot):
 
             if(self.stack >= 3):
                 damage_done = int(self.tick_damage * 1.5)  # If there is more than 3 stacks the damages are increased by 50 %
+                damage_done = await Damage_calculator(self.caster, damage_done, target, damage_reduction = target.damage_reduction, is_ki = True)
 
-                await target.inflict_damage(client, ctx, self.caster, damage_done, team_a, team_b)
+                await target.inflict_damage(client, ctx, self.caster, damage_done[1], team_a, team_b)
             
             else:
                 damage_done = self.tick_damage  # Ignores the defense
+                damage_done = await Damage_calculator(self.caster, damage_done, target, damage_reduction = target.damage_reduction, is_ki = True)
 
-                await target.inflict_damage(client, ctx, self.caster, damage_done, team_a, team_b)
+                await target.inflict_damage(client, ctx, self.caster, damage_done[1], team_a, team_b)
         
-        return(damage_done)
+        return(damage_done[1])

@@ -52,6 +52,6 @@ class Acid_Explosion(Debuff):
             target.ki_defense *= (1 - (2/100))*stacks
         
         else:  # Don't do anything if the target doesn't have active acid dot
-            return
+            return(0)
 
         return(0)

@@ -1,7 +1,7 @@
 '''
 Manages the informations displayed about a fighter.
 
-Last update: 10/06/19
+Last update: 26/06/19
 '''
 
 # Dependancies
@@ -35,9 +35,23 @@ async def Pve_display_fighter(client, ctx, fighter, order_number:int):
 
     _ = await Translate(client, ctx)
 
-    display = Basic_embed(client, thumb = ctx.message.author.avatar_url)
+    display = Basic_embed(client, thumb = fighter.thumb)
 
-    informations = _('__Name__ : **{}** {}\n__Health__ : {:,} / {:,}:hearts:\n__Ki__ : {:,} / {:,}:fire:\n__Physical damage__ : {:,} - {:,}:crossed_swords:\n__Ki damage__: {:,} - {:,}:rosette:\n__Armor__ : {:,} :shield:\n__Spirit__ : {:,} :rosette:').format(fighter.name, fighter.type_icon, fighter.current_hp, fighter.max_hp, fighter.current_ki, fighter.max_ki, fighter.physical_damage_min, fighter.physical_damage_max, fighter.ki_damage_max, fighter.ki_damage_min, fighter.physical_defense, fighter.ki_defense)
+    posture = [':crossed_swords:', ':fire:', ':shield:', ':confused:']
+
+    if(fighter.flag == 0):
+        posture = posture[0]
+    
+    elif(fighter.flag == 1):
+        posture = posture[1]
+    
+    elif(fighter.flag == 2):
+        posture = posture[2]
+    
+    elif(fighter.flag == 3):
+        posture = posture[3]
+
+    informations = _('__Name__ : **{}** {}\n__Health__ : {:,} / {:,}:hearts:\n__Ki__ : {:,}:fire:\n__Posture__ : {}\n\n__Physical damage__ : {:,} - {:,}:crossed_swords:\n__Ki damage__: {:,} - {:,}:rosette:\n\n__Armor__ : {:,} :shield:\n__Spirit__ : {:,} :rosette:\n').format(fighter.name, fighter.type_icon, fighter.current_hp, fighter.max_hp, fighter.current_ki, posture, fighter.physical_damage_min, fighter.physical_damage_max, fighter.ki_damage_min, fighter.ki_damage_max, fighter.physical_defense, fighter.ki_defense)
     
     if(len(fighter.buff) > 0):  # If the fighter has at least one buff, displays its icon and the durations
         for buff in fighter.buff:

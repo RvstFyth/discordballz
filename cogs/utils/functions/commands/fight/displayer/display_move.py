@@ -1,7 +1,7 @@
 '''
 Manages the displaying of the move
 
-Last update: 14/06/19
+Last update: 26/06/19
 '''
 
 # Dependancies
@@ -12,7 +12,7 @@ import asyncio
 
 from cogs.utils.functions.translation.gettext_config import Translate
 
-async def Display_move(client, ctx, move_name, move_icon, damage_done, caster, target,  ki_gain = 0, is_ki = False):
+async def Display_move(client, ctx, move_name, move_icon, damage_done, caster, target,  ki_gain = 0, is_ki = False, crit = 0):
     '''
     `coroutine`
 
@@ -41,9 +41,23 @@ async def Display_move(client, ctx, move_name, move_icon, damage_done, caster, t
 
     _ = await Translate(client, ctx)
 
-    if is_ki:
-        move = _('__Move__ : `{}`{}\n__Damages__ : **-{:,}**:rosette:\n__Ki gain__ : {:,}\n__Ki remaining__ : {:,} / {:,}\n\n').format(move_name, move_icon, damage_done, ki_gain, caster.current_ki, caster.max_ki)
+    if(crit == 1):  # means crit
+        crit = True
+    
     else:
-        move = _('__Move__ : `{}`{}\n__Damages__ : **-{:,}**:boom:\n__Ki gain__ : {:,}\n__Ki remaining__ : {:,} / {:,}\n\n').format(move_name, move_icon, damage_done, ki_gain, caster.current_ki, caster.max_ki)
+        crit = False
+
+    if is_ki:
+        if crit:
+            move = _('__Move__ : `{}`{}\n__Damages__ : **-{:,}**:rosette: **CRITICAL** :boom:\n__Ki gain__ : {:,}\n__Ki remaining__ : {:,} / {:,}\n\n').format(move_name, move_icon, damage_done, ki_gain, caster.current_ki, caster.max_ki)
+        
+        else:
+            move = _('__Move__ : `{}`{}\n__Damages__ : **-{:,}**:rosette:\n__Ki gain__ : {:,}\n__Ki remaining__ : {:,} / {:,}\n\n').format(move_name, move_icon, damage_done, ki_gain, caster.current_ki, caster.max_ki)
+    else:
+        if crit:
+            move = _('__Move__ : `{}`{}\n__Damages__ : **-{:,}** **CRITICAL** :boom:\n__Ki gain__ : {:,}\n__Ki remaining__ : {:,} / {:,}\n\n').format(move_name, move_icon, damage_done, ki_gain, caster.current_ki, caster.max_ki)
+        
+        else:
+            move = _('__Move__ : `{}`{}\n__Damages__ : **-{:,}**\n__Ki gain__ : {:,}\n__Ki remaining__ : {:,} / {:,}\n\n').format(move_name, move_icon, damage_done, ki_gain, caster.current_ki, caster.max_ki)
 
     return(move)

@@ -1,12 +1,13 @@
 '''
 Acid ability.
 
-Last update: 14/06/19
+Last update: 26/06/19
 '''
 
 # Dependancies
 
 import asyncio
+from random import randint
 
 # Object
 
@@ -96,12 +97,14 @@ class Ability_Acid(Ability):
         await new_acid.set_tick_damage(caster, target, team_a, team_b)
         
         # Inflict Ki damages
-        damage_done = await Damage_calculator(caster, target, is_ki = True)
 
-        damage_done = int(damage_done*0.25)  # This ability inflicts only 25 % of the Ki damage
+        damage = randint(caster.ki_damage_min, caster.ki_damage_max)
+        damage_done = await Damage_calculator(caster, damage, target, damage_reduction = target.damage_reduction, is_ki = True, can_crit = True, crit_chance = caster.critical_chance, crit_bonus = caster.critical_bonus)
 
-        await target.inflict_damage(client, ctx, caster, damage_done, team_a, team_b)
+        damage_done[1] = int(damage_done[1]*0.25)  # This ability inflicts only 25 % of the Ki damage
 
-        move += await Display_move(client, ctx, self.name, self.icon, damage_done, caster, target, ki_gain = caster.ki_regen, is_ki = True)
+        await target.inflict_damage(client, ctx, caster, damage_done[1], team_a, team_b)
+
+        move += await Display_move(client, ctx, self.name, self.icon, damage_done[1], caster, target, ki_gain = caster.ki_regen, is_ki = True, crit = damage_done[0])
         
         return(move)

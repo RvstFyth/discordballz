@@ -1,7 +1,7 @@
 '''
 Return the targetable units
 
-Last update: 25/06/19
+Last update: 26/06/19
 '''
 
 # dependancies
@@ -34,7 +34,8 @@ async def Get_targetable(ability, allies, enemies):
             for ally in allies:
                 await asyncio.sleep(0)
 
-                ally_list.append(ally)
+                if(ally.current_hp > 0):  # if alive
+                    ally_list.append(ally)
     
     # enemy
 
@@ -43,7 +44,8 @@ async def Get_targetable(ability, allies, enemies):
             for enemy in enemies:
                 await asyncio.sleep(0)
 
-                enemy_list.append(enemy)
+                if(enemy.current_hp > 0):
+                    enemy_list.append(enemy)
             
             # now get the enemy defenders
             defender_list = []
@@ -61,7 +63,8 @@ async def Get_targetable(ability, allies, enemies):
         for enemy in enemies:
             await asyncio.sleep(0)
 
-            enemy_list.append(enemy)
+            if(enemy.current_hp > 0):
+                enemy_list.append(enemy)
         
         # now get the enemy defenders
         defender_list = []

@@ -1,7 +1,7 @@
 '''
 Manages Unity is Strenght buff
 
-Last update: 23/06/19
+Last update: 26/06/19
 '''
 
 # Dependancies
@@ -73,7 +73,7 @@ class Unity_is_strenght(Buff):
                 # Increase the max stack and duration
 
                 acid_.max_stack = 5
-                acid_.initial_duration += 1
+                acid_.initial_duration = 5
                 await Replace_dot(character, acid_)
         
             # Enemy team
@@ -89,7 +89,7 @@ class Unity_is_strenght(Buff):
                 # Increase the max stack and duration
 
                 acid_.max_stack = 5
-                acid_.initial_duration += 1
+                acid_.initial_duration = 5
 
                 await Replace_dot(character, acid_)
         

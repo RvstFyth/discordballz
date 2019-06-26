@@ -1,5 +1,7 @@
 '''
 Manage the character 2
+
+Last update: 26/06/19
 '''
 
 # Dependancies
@@ -33,6 +35,7 @@ class Char_2(Character):
         self.id = 2
         self.name = 'Blue Saibaiman'
         self.image = 'https://i.imgur.com/syjNBd2.png'
+        self.thumb = 'https://i.imgur.com/wcKoXiB.png'
         self.icon = '<:saibaiman_b:589492373130706964>'
         self.saga = 0
         self.type_icon = 0

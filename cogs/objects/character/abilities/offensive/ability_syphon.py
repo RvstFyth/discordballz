@@ -1,12 +1,13 @@
 '''
 Manages the behavour of Syphon ability
 
-Last update: 14/06/19
+Last update: 26/06/19
 '''
 
 # Dependancies
 
 import asyncio
+from random import randint
 
 # Object
 
@@ -87,8 +88,9 @@ class Ability_Syphon(Ability):
         _ = await Translate(client, ctx)
 
         target_missing_hp = target.max_hp - target.current_hp
-        damage_done = await Damage_calculator(caster, target, is_ki = True)
-        damage_done = int(damage_done*0.1)  # Inflict 10 % of the ki damage
+        damage = randint(caster.ki_damage_min, caster.ki_damage_max)
+        damage_done = await Damage_calculator(caster, damage, target, is_ki = True, damage_reduction = target.damage_reduction, can_crit = True, crit_bonus = caster.critical_bonus, crit_chance = caster.critical_chance)
+        damage_done[1] = int(damage_done[1]*0.1)  # Inflict 10 % of the ki damage
 
         # Now we get the acid stacks
 
@@ -97,23 +99,27 @@ class Ability_Syphon(Ability):
         if has_acid:  # If the target has acid stack
             # Get the acid dot
             acid_ = await Get_dot(target, Acid())
-            damage_done += int(((2*target_missing_hp)/100)*acid_.stack)
+            damage_done[1] += int(((2*target_missing_hp)/100)*acid_.stack)
 
             # Now remove acid
             target.dot.remove(acid_)
 
         # Now heal the caster 
-        healing = int(damage_done/2)  # 50 % damages
+        healing = int(damage_done[1]/2)  # 50 % damages
 
         # Now deal damage and heal
-
-        await target.inflict_damage(client, ctx, caster, damage_done, team_a, team_b)
+        
+        await target.inflict_damage(client, ctx, caster, damage_done[1], team_a, team_b)
 
         caster.current_hp += healing
         
         if(caster.current_hp > caster.max_hp):
             caster.current_hp = caster.max_hp
 
-        move += _('__Move__ : `{}`{}\n__Damages__ : **-{:,}**:rosette:\n__Heal__ : **+{:,}**:hearts:\n__Ki gain__ : {:,}\n__Ki remaining__ : {:,} / {:,}\n\n').format(self.name, self.icon, damage_done, healing, caster.ki_regen+0, caster.current_ki, caster.max_ki)
+        if damage_done[0] == 0:  # if not crit
+            move += _('__Move__ : `{}`{}\n__Damages__ : **-{:,}**:rosette:\n__Heal__ : **+{:,}**:hearts:\n__Ki gain__ : {:,}\n__Ki remaining__ : {:,} / {:,}\n\n').format(self.name, self.icon, damage_done[1], healing, caster.ki_regen+0, caster.current_ki, caster.max_ki)
+        
+        else:
+            move += _('__Move__ : `{}`{}\n__Damages__ : **-{:,}**:rosette: **CRITICAL**\n__Heal__ : **+{:,}**:hearts:\n__Ki gain__ : {:,}\n__Ki remaining__ : {:,} / {:,}\n\n').format(self.name, self.icon, damage_done[1], healing, caster.ki_regen+0, caster.current_ki, caster.max_ki)
         
         return(move)

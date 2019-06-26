@@ -1,7 +1,7 @@
 '''
 Get the player's move.
 
-Last update: 12/06/19
+Last update: 26/06/19
 '''
 
 # Dependancies
@@ -50,7 +50,24 @@ async def Wait_for_move(client, player, fighter, all_fighter):
                     
                     else:  # if not flee or see
                         return(False)
-        
+            
+            elif(len(choice) == 2):
+                if(choice[0].upper() == 'CHECK'):  # if player want to check a character
+                    if(choice[1].isdigit()):  # if he defined the target
+                        choice[1] = int(choice[1])
+
+                        if(choice[1] <= len(all_fighter)):  # if the target is ok
+                            return(True)
+                        
+                        else:  # if target not ok
+                            return(False)
+                    
+                    else:  # if not target
+                        return(False)
+                
+                else:  # if not check
+                    return(False)
+
         else:  # message author
             return(False)
     
@@ -86,8 +103,19 @@ async def Wait_for_move(client, player, fighter, all_fighter):
             else:  # if not digit
                 if(choice[0].upper() == 'FLEE'):  # if flee
                     return(success, 'flee')
+
+        elif(len(choice) == 2):
+            if(choice[0].upper() == 'CHECK'):  # if check target
+                if(choice[1].isdigit()):  # if correct
+                    choice[1] = int(choice[1])
+
+                    if(choice[1] <= len(all_fighter)):
+                        choice[1] = int(choice[1])  
+                        choice = ['CHECK', all_fighter[choice[1]-1], choice[1]]  # return ['CHECK', target.object, order]
+                        return(success, choice)
+
         else:
-            pass
+            return(False)
 
     else:
         return(False)

@@ -1,7 +1,7 @@
 '''
 Store the character's basic informations using its global id.
 
-Last update: 18/06/19
+Last update: 26/06/19
 '''
 
 # Dependancies
@@ -109,6 +109,7 @@ class Character:
         self.id = 0
         self.name = ''
         self.image = ''  # Image URL
+        self.thumb = 'https://i.imgur.com/eMiHxeP.png'  # thumb image url
         self.icon = ''
         self.saga = 0
         self.type_icon = 0

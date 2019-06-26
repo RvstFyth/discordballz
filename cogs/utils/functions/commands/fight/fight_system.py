@@ -1,7 +1,7 @@
 '''
 Manages the fight system.
 
-Last update: 08/06/19
+Last update: 26/06/19
 '''
 
 # Dependancies
@@ -131,8 +131,6 @@ async def Pve_Fight(client, ctx, player, enemy):
 
         ##### NEW TURN ##### 
 
-        await Pve_display_team(client, ctx, player, player_team, enemy_team)
-
         await ctx.send(_('---------- 📣 Round {} ! ----------').format(turn))
         await asyncio.sleep(2)
         
@@ -142,6 +140,7 @@ async def Pve_Fight(client, ctx, player, enemy):
         await asyncio.sleep(1)
 
         await Triggers_phase(client, ctx, player, player_team, enemy_team, 0)
+        await ctx.send('```\n```')  # sep
         await Triggers_phase(client, ctx, player, enemy_team, enemy_team, 1)
 
         # Calculation of player team average hps

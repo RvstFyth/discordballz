@@ -35,6 +35,7 @@ async def Pve_display_team(client, ctx, player, player_team, enemy_team):
     _ = await Translate(client, ctx)
 
     display_player, display_enemy = '', ''
+    posture = [':crossed_swords:', ':fire:', ':shield:', ':confused:']
 
     # Player_team display
 
@@ -42,27 +43,58 @@ async def Pve_display_team(client, ctx, player, player_team, enemy_team):
 
     for fighter in player_team:
         await asyncio.sleep(0)
+        
+        posture = [':crossed_swords:', ':fire:', ':shield:', ':confused:']
+
+        # Posture icon
+
+        if(fighter.flag == 0):
+            posture = posture[0]
+        
+        elif(fighter.flag == 1):
+            posture = posture[1]
+        
+        elif(fighter.flag == 2):
+            posture = posture[2]
+        
+        elif(fighter.flag == 3):
+            posture = posture[3]
 
         if(fighter.current_hp <= 0):
             display_player += _('{}. {}**{}** {} {} lv.{} - 💀\n').format(count, fighter.icon, fighter.name, fighter.type_icon, fighter.rarity_icon, fighter.level)
         else:
-            display_player += _('{}. {}**{}** {} {} lv.{} - {:,} / {:,}  :hearts:\n').format(count, fighter.icon, fighter.name, fighter.type_icon, fighter.rarity_icon, fighter.level, fighter.current_hp, fighter.max_hp)
+            display_player += _('{}. {}**{}** {} {} lv.{} - {:,} / {:,}  :hearts:\nPosture : {}\n\n').format(count, fighter.icon, fighter.name, fighter.type_icon, fighter.rarity_icon, fighter.level, fighter.current_hp, fighter.max_hp, posture)
         
         count += 1
     
     for enemy in enemy_team:
         await asyncio.sleep(0)
 
+        posture = [':crossed_swords:', ':fire:', ':shield:', ':confused:']
+
+        # posture Icon
+        if(enemy.flag == 0):
+            posture = posture[0]
+        
+        elif(enemy.flag == 1):
+            posture = posture[1]
+        
+        elif(enemy.flag == 2):
+            posture = posture[2]
+        
+        elif(enemy.flag == 3):
+            posture = posture[3]
+
         if(enemy.current_hp <= 0):
             display_enemy += _('{}. {}**{}** {} {} lv.{} - 💀\n').format(count, enemy.icon, enemy.name, enemy.type_icon, enemy.rarity_icon, enemy.level)
         else:   
-            display_enemy += _('{}. {}**{}** {} {} lv.{} - {:,} / {:,}  :hearts:\n').format(count, enemy.icon, enemy.name, enemy.type_icon, enemy.rarity_icon, enemy.level, enemy.current_hp, enemy.max_hp)
+            display_enemy += _('{}. {}**{}** {} {} lv.{} - {:,} / {:,}  :hearts:\nPosture : {}\n\n').format(count, enemy.icon, enemy.name, enemy.type_icon, enemy.rarity_icon, enemy.level, enemy.current_hp, enemy.max_hp, posture)
         
         count += 1
     
     # Set embed
 
-    display = Basic_embed(client)
+    display = Basic_embed(client, thumb = player.avatar_url)
     display.add_field(name = _('🔵 - {}\'s team :').format(player.name), value = display_player, inline = True)
     display.add_field(name = _('🔴 - Enemy team :'), value = display_enemy, inline = True)
 

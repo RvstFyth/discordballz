@@ -1,7 +1,7 @@
 '''
 Displays the available targets
 
-Last update: 25/06/19
+Last update: 26/06/19
 '''
 
 # dependancies
@@ -27,10 +27,10 @@ async def Display_targets(display, count, team_list):
         await asyncio.sleep(0)
 
         if(character.current_hp <= 0):  # if dead
-            display += '{}.💀**{}** {} | '.format(count, character.name, character.type_icon)
+            display += '{}.💀**{}** {}\n'.format(count, character.name, character.type_icon)
         
         else:  # alive
-            display += '{}. {}**{}** {} | '.format(count, character.icon, character.name, character.type_icon)
+            display += '{}. {}**{}** {}\n'.format(count, character.icon, character.name, character.type_icon)
         
         count += 1
     

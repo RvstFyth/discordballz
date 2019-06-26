@@ -1,12 +1,13 @@
 '''
 Manages the Acid explosion ability.
 
-Last update: 24/06/19
+Last update: 26/06/19
 '''
 
 # Dependancies
 
 import asyncio
+from random import randint
 
 # Object
 
@@ -93,12 +94,12 @@ class Ability_AcidExplosion(Ability):
                     await acid_.add_stack(caster, char_a, team_a, team_b)
                     
         # inflict damages
+        damage = randint(caster.ki_damage_min, caster.ki_damage_max)
+        damage_done = await Damage_calculator(caster, damage, target, is_ki = True, damage_reduction = target.damage_reduction, can_crit = True, crit_chance = caster.critical_chance, crit_bonus = caster.critical_bonus)
 
-        damage_done = await Damage_calculator(caster, target, is_ki = True)
+        damage_done[1] = int(damage_done[1]*0.5)
 
-        damage_done = int(damage_done*0.5)
+        await target.inflict_damage(client, ctx, caster, damage_done[1], team_a, team_b)
 
-        await target.inflict_damage(client, ctx, caster, damage_done, team_a, team_b)
-
-        move += await Display_move(client, ctx, self.name, self.icon, damage_done, caster, target, is_ki = True)
+        move += await Display_move(client, ctx, self.name, self.icon, damage_done[1], caster, target, is_ki = True, crit = damage_done[0])
         return(move)

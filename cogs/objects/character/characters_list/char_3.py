@@ -1,7 +1,7 @@
 '''
 Manages the Char_3.
 
-Last update : 17/06/19
+Last update : 26/06/19
 '''
 
 # dependancies
@@ -33,6 +33,7 @@ class Char_3(Character):
         self.id = 3
         self.name = 'Red Saibaiman'
         self.image = 'https://i.imgur.com/mIIt7jL.png'
+        self.thumb = 'https://i.imgur.com/LEjhrtw.png'
         self.icon = '<:saibaiman_c:589492379447197699>'
         self.saga = 0
         self.type_icon = 0

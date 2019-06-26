@@ -1,7 +1,7 @@
 '''
 Manages the fight selection phase.
 
-Last update: 24/06/19
+Last update: 26/06/19
 '''
 
 # Dependancies
@@ -56,7 +56,7 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
 
             # Set fighter kit
 
-            fighter_kit = _('`1. Sequence 👊` | `2. Ki charge 🔥` | `3. Defend 🏰`\n')
+            fighter_kit = _('`1. Sequence 👊` | `2. Ki charge 🔥` | `3. Defend 🏰`\n\n__Abilities__ :\n\n')
             fighter_ability_count = len(fighter.ability_list)
 
             if(fighter_ability_count > 0):
@@ -68,16 +68,18 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
 
                         ability = ability()
 
-                        fighter_kit += '`{}. {}`{} *({})* | '.format(ability_count, ability.name, ability.icon, ability.cost)
+                        fighter_kit += '`{}. {}`{} *({})*\n'.format(ability_count, ability.name, ability.icon, ability.cost)
 
                         # End turn
                         ability_count += 1
                 
                 else:
                     pass
+                
+                fighter_kit += _('\nTo **flee** the fight, type `\'flee\'`, to **take a look at** a specific unit, type `\'check {num}\'`')
             
             # Shows possible actions
-            action_display = _('<@{}> Please select an action among the following for **{}**{}.\n{}').format(player.id, fighter.name, fighter.type_icon, fighter_kit)
+            action_display = _('<@{}> Please select an action among the following for {}**{}**{}.\n{}').format(player.id, fighter.icon, fighter.name, fighter.type_icon, fighter_kit)
             # Then ask action
         
             decision_made = False
@@ -96,8 +98,15 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
 
                     # check if the move isn't a text
                     if(type(move) == str):  # if its a text
-                        if(move == 'flee'):
+                        if(move.upper() == 'FLEE'):
                             return('flee')
+                    
+                    if(type(move) == list):  # if list
+                        if(move[0].upper() == 'CHECK'):
+                            await ctx.send(_('<@{}> Here are some infos about {}**{}**').format(player.id, move[1].icon, move[1].name))
+                            await Pve_display_fighter(client, ctx, move[1], move[2])
+                            await asyncio.sleep(2)
+                            decision_made = False
 
                     # Check if the ability is not in cooldown
                     elif(move > 3 and move <= len(fighter.ability_list)+3):  # If the move is an ability
@@ -126,13 +135,13 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
                                     # Ally
                                     if(len(targetable_list_ally) > 0):  # if not empty
                                         
-                                        teams_display = _('\n__Targets__ :\n🔵 - Your team : ')
+                                        teams_display = _('\n__Targets__ :\n🔵 - Your team :\n')
                                         
                                         character_count, teams_display = await Display_targets(teams_display, character_count, targetable_list_ally)
                                     
                                     # Enemy
                                     if(len(targetable_list_enemy) > 0):
-                                        teams_display += '\n🔴 - Enemy team : ' 
+                                        teams_display += '\n🔴 - Enemy team :\n' 
                                             
                                         character_count, teams_display = await Display_targets(teams_display, character_count, targetable_list_enemy)
 
@@ -177,13 +186,13 @@ async def Selection_phase(client, ctx, player, player_team, enemy_team, all_figh
                             # Ally
                             if(len(targetable_list_ally) > 0):  # if not empty
                                 
-                                teams_display = _('\n__Targets__ :\n🔵 - Your team : ')
+                                teams_display = _('\n__Targets__ :\n🔵 - Your team :\n')
                                 
                                 character_count, teams_display = await Display_targets(teams_display, character_count, targetable_list_ally)
                             
                             # Enemy
                             if(len(targetable_list_enemy) > 0):
-                                teams_display += '\n🔴 - Enemy team : ' 
+                                teams_display += '\n🔴 - Enemy team :\n' 
                                     
                                 character_count, teams_display = await Display_targets(teams_display, character_count, targetable_list_enemy)
 
