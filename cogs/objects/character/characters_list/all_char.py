@@ -1,7 +1,7 @@
 '''
 Return the correct character object in function of the global id passed.
 
-Last update: 17/06/19
+Last update: 28/06/19
 '''
 
 # Dependancies
@@ -16,7 +16,7 @@ async def Get_char(char_id):
 
     `char_id` : must be type `int` and represent a global id.
 
-    Return: `Character` object, if not found return None.
+    Return: `Character` instance, if not found return None.
     '''
 
     if(char_id == 1):

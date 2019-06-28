@@ -4,11 +4,13 @@
 import discord, asyncio
 from discord.ext import commands
 from discord.ext.commands import Cog
+from random import randint
 
 # Utils
 
 from cogs.utils.functions.commands.fight.fight_system import Pve_Fight
 
+from cogs.objects.character.characters_list.all_char import Get_char
 from cogs.objects.character.characters_list.char_1 import Char_1
 from cogs.objects.character.characters_list.char_2 import Char_2
 from cogs.objects.character.characters_list.char_3 import Char_3
@@ -19,23 +21,22 @@ class Cmd_Fight(Cog):
 
     @commands.command()
     async def fight(self, ctx):
-        
-        enemy = Char_1()
-        enemy.rarity_value = 5
-        enemy.level = 150
-        enemy.type_value = 0
 
-        enemy_b = Char_2()
-        enemy_b.rarity_value = 5
-        enemy_b.type_value = 1
-        enemy_b.level = 150
+        # just randomly generate a team for test
+        liste = []
+        lenght = randint(1,3)
+        char_num = 3  # represent the number of character in the game
 
-        enemy_c = Char_3()
-        enemy_c.rarity_value = 5
-        enemy_c.type_value = 2
-        enemy_c.level = 150
+        for generate in range(lenght):
+            await asyncio.sleep(0)
 
-        liste = [enemy, enemy_b, enemy_c]
+            random_char = await Get_char(randint(1,char_num))
+
+            random_char.level = randint(1,150)
+            random_char.rarity_value = randint(0,5)
+            random_char.type_value = randint(0,5)
+
+            liste.append(random_char)
         
         await Pve_Fight(self.client, ctx, ctx.message.author, liste)
         
