@@ -1,7 +1,7 @@
 '''
 Manages the informations displayed about a fighter.
 
-Last update: 26/06/19
+Last update: 27/06/19
 '''
 
 # Dependancies
@@ -57,22 +57,22 @@ async def Pve_display_fighter(client, ctx, fighter, order_number:int):
         for buff in fighter.buff:
             await asyncio.sleep(0)
 
-            informations += _('\n__Buff__ :')
-            informations += '{}x{} *({})* |'.format(buff.icon, buff.stack, buff.duration)
+            informations += _('\n__Buff__ : ')
+            informations += '{} x{} *({})* |'.format(buff.icon, buff.stack, buff.duration)
     
     if(len(fighter.debuff) > 0):
         for debuff in fighter.debuff:
             await asyncio.sleep(0)
 
-            informations += _('\n__Debuff__ :')
-            informations += '{}x{} *({})* |'.format(debuff.icon, debuff.stack, debuff.duration)
+            informations += _('\n__Debuff__ : ')
+            informations += '{} x{} *({})* |'.format(debuff.icon, debuff.stack, debuff.duration)
     
     if(len(fighter.dot) > 0):
         for dot in fighter.dot:
             await asyncio.sleep(0)
 
-            informations += _('\n__Dot__ :')
-            informations += '{}x{} *({})* |'.format(dot.icon, dot.stack, dot.duration)
+            informations += _('\n__Dot__ : ')
+            informations += '{} x{} *({})* |'.format(dot.icon, dot.stack, dot.duration)
     
     # Setting up the embed
 
