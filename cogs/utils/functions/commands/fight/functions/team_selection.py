@@ -1,7 +1,7 @@
 '''
 Return the targetable units
 
-Last update: 26/06/19
+Last update: 29/06/19
 '''
 
 # dependancies
@@ -25,7 +25,7 @@ async def Get_targetable(ability, allies, enemies):
 
     # init
 
-    ally_list, enemy_list = [], []
+    ally_list, enemy_list, defender_list = [], [], []
 
     # ally
 

@@ -1,7 +1,7 @@
 '''
 Manages the fight system.
 
-Last update: 26/06/19
+Last update: 29/06/19
 '''
 
 # Dependancies
@@ -27,7 +27,7 @@ from cogs.utils.functions.commands.fight.functions.stat_manager import Reset_sta
 
 # Phases
 
-from cogs.utils.functions.commands.fight.phases.trigger_phase import Triggers_phase
+from cogs.utils.functions.commands.fight.phases.trigger_phase import Passive_trigger
 from cogs.utils.functions.commands.fight.phases.selection_phase import Selection_phase
 from cogs.utils.functions.commands.fight.phases.battle_phase import Battle_phase
 
@@ -139,9 +139,12 @@ async def Pve_Fight(client, ctx, player, enemy):
         await ctx.send(_('🌀 - Triggers Phase'))
         await asyncio.sleep(1)
 
-        await Triggers_phase(client, ctx, player, player_team, enemy_team, 0)
+        await ctx.send(_('```🔵 - {}\'s team```').format(player.name))
+        await Passive_trigger(client, ctx, player, player_team, enemy_team, 0)
+
         await ctx.send('```\n```')  # sep
-        await Triggers_phase(client, ctx, player, enemy_team, enemy_team, 1)
+        await ctx.send(_('```🔴 - Enemy\'s team```').format(player.name))
+        await Passive_trigger(client, ctx, player, enemy_team, enemy_team, 1)
 
         # Calculation of player team average hps
 
@@ -190,8 +193,9 @@ async def Pve_Fight(client, ctx, player, enemy):
 
         # Display both team
         await Pve_display_team(client, ctx, player, player_team, enemy_team)
+        await ctx.send('```\n```')
         
-        player_move = await Selection_phase(client, ctx, player, player_team, enemy_team, all_fighter)
+        player_move = await Selection_phase(client, ctx, player, player_team, enemy_team, all_fighter, turn)
 
         if(player_move == 'flee'):
             await ctx.send(_('<@{}> You flee the fight.').format(player.id))
@@ -203,7 +207,7 @@ async def Pve_Fight(client, ctx, player, enemy):
         await ctx.send(_('⚔ - Battle Phase'))
         await asyncio.sleep(1)
 
-        await Battle_phase(client, ctx, player, player_move, player_team, enemy_team, all_fighter)
+        await Battle_phase(client, ctx, player, player_move, player_team, enemy_team, all_fighter, turn)
 
         # End of turn
 

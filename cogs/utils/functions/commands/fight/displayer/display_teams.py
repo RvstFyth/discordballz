@@ -1,7 +1,7 @@
 '''
 Manages the displaying of the teams.
 
-Last update: 08/06/19
+Last update: 29/06/19
 '''
 
 # Dependancies
@@ -12,6 +12,10 @@ import asyncio
 
 from cogs.utils.functions.translation.gettext_config import Translate
 from cogs.utils.functions.readability.embed import Basic_embed
+
+# config
+
+from configuration.graphic_config.icons_config import ENEMY_THUMB
 
 async def Pve_display_team(client, ctx, player, player_team, enemy_team):
     '''
@@ -94,8 +98,13 @@ async def Pve_display_team(client, ctx, player, player_team, enemy_team):
     
     # Set embed
 
-    display = Basic_embed(client, thumb = player.avatar_url)
-    display.add_field(name = _('🔵 - {}\'s team :').format(player.name), value = display_player, inline = True)
-    display.add_field(name = _('🔴 - Enemy team :'), value = display_enemy, inline = True)
+    player_display = Basic_embed(client, thumb = player.avatar_url)
+    player_display.add_field(name = _('🔵 - {}\'s team :').format(player.name), value = display_player, inline = True)
+    
+    enemy_display = Basic_embed(client, thumb = ENEMY_THUMB)
+    enemy_display.add_field(name = _('🔴 - Enemy team :'), value = display_enemy, inline = True)
 
-    await ctx.send(embed = display)
+    await ctx.send(embed = player_display)
+    await asyncio.sleep(2)
+    await ctx.send(embed = enemy_display)
+    await asyncio.sleep(2)

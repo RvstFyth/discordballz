@@ -1,7 +1,7 @@
 '''
 Manages the ability Paralyzing burns
 
-Last update : 17/06/19
+Last update : 29/06/19
 '''
 
 # dependancies
@@ -32,6 +32,7 @@ class Ability_ParalyzingBurns(Ability):
         Ability.__init__(self)
         self.can_target_ally = False
         self.need_target = True
+        self.can_target_enemy = True
         self.name = 'Paralyzing Burns'
         self.description = ''
         self.cost = 75

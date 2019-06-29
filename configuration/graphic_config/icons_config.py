@@ -1,7 +1,7 @@
 '''
 Manages the icons
 
-Last update: 28/05/19
+Last update: 29/09/19
 '''
 
 # Rarity 
@@ -20,3 +20,7 @@ ICON_INT = '<:int:582934074658783253>'
 ICON_PHY = '<:phy:582934077812768769>'
 ICON_STR = '<:str:582934078685184000>'
 ICON_TEQ = '<:teq:582934078831984665>'
+
+# Thumb
+
+ENEMY_THUMB = 'https://i.imgur.com/7EKBpmG.png'

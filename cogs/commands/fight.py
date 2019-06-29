@@ -34,7 +34,7 @@ class Cmd_Fight(Cog):
 
             random_char.level = randint(1,150)
             random_char.rarity_value = randint(0,5)
-            random_char.type_value = randint(0,5)
+            random_char.type_value = randint(0,4)
 
             liste.append(random_char)
         
