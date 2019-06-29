@@ -1,13 +1,17 @@
 '''
 Simple database manager.
 
-Last update: 09/06/19
+Last update: 29/06/19
 '''
 
 # Dependancies
 
 import asyncio, asyncpg
 from time import strftime, gmtime
+
+# utils
+
+from cogs.utils.functions.database.init.database_connection import Connection_to_database
 
 class Database:
     '''
@@ -29,7 +33,7 @@ class Database:
 
     def __init__(self, client):
         # Basic
-        self.client = client.db
+        self.client = client
         self.conn = None
     
     # Method
@@ -41,7 +45,7 @@ class Database:
         Connection to the database.
         '''
 
-        self.conn = await self.client.acquire()
+        self.conn = await self.client.db.acquire()
 
         return
     
@@ -52,7 +56,7 @@ class Database:
         Close the connection to the database.
         '''
 
-        await self.client.release(self.conn)
+        await self.client.db.release(self.conn)
 
         return
     

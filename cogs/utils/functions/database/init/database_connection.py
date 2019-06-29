@@ -1,7 +1,7 @@
 '''
 Allow you to manage the connection to a database.
 
-Last update: 07/05/19
+Last update: 29/05/19
 '''
 
 # Dependancies
@@ -26,3 +26,5 @@ async def Connection_to_database(client):
     # Init
     
     client.db = await asyncpg.create_pool(user = DB_USER, host = DB_HOST, database = DB_NAME, password = DB_PASSWORD)
+
+    return
