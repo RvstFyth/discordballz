@@ -1,7 +1,7 @@
 '''
 Manages the fight system.
 
-Last update: 29/06/19
+Last update: 30/06/19
 '''
 
 # Dependancies
@@ -133,18 +133,6 @@ async def Pve_Fight(client, ctx, player, enemy):
 
         await ctx.send(_('---------- 📣 Round {} ! ----------').format(turn))
         await asyncio.sleep(2)
-        
-        # Trigger the effects
-        
-        await ctx.send(_('🌀 - Triggers Phase'))
-        await asyncio.sleep(1)
-
-        await ctx.send(_('```🔵 - {}\'s team```').format(player.name))
-        await Passive_trigger(client, ctx, player, player_team, enemy_team, 0)
-
-        await ctx.send('```\n```')  # sep
-        await ctx.send(_('```🔴 - Enemy\'s team```').format(player.name))
-        await Passive_trigger(client, ctx, player, enemy_team, enemy_team, 1)
 
         # Calculation of player team average hps
 
@@ -224,6 +212,18 @@ async def Pve_Fight(client, ctx, player, enemy):
             await asyncio.sleep(0)
 
             await Reset_stat(client, ctx, enemy)
+        
+        # Trigger the effects
+        
+        await ctx.send(_('🌀 - Triggers Phase'))
+        await asyncio.sleep(1)
+
+        await ctx.send(_('```🔵 - {}\'s team```').format(player.name))
+        await Passive_trigger(client, ctx, player, player_team, enemy_team, 0)
+
+        await ctx.send('```\n```')  # sep
+        await ctx.send(_('```🔴 - Enemy\'s team```').format(player.name))
+        await Passive_trigger(client, ctx, player, enemy_team, enemy_team, 1)
     
         # End of turn
 
