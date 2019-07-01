@@ -42,7 +42,7 @@ class Regular_banner:
     def __init__(self, client):
         self.client = client
         self.db = Database(self.client)
-        self.cost = 5
+        self.cost = 0
 
         # attr
         self.name = None
