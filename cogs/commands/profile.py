@@ -1,7 +1,7 @@
 '''
 Manages the player's profile.
 
-Last update: 09/05/19
+Last update: 30/06/19
 '''
 
 # Dependancies
@@ -41,20 +41,12 @@ class Cmd_Profile(Cog):
 
         if(target == None):
             player = ctx.message.author
-
-            # Log
-
-            await Command_log(self.client, ctx, caller)
         
         else:
             
             # If he mentionned someone, we replace him by the mentionned person
 
             player = target
-
-            # Log
-
-            await Command_log(self.client, ctx, caller, target = player)
         
         await Display_profile(self.client, ctx, player)
 

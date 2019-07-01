@@ -1,12 +1,16 @@
 '''
 Manages the player's checks.
 
-Last update: 09/05/19
+Last update: 30/06/19
 '''
 
 # Dependancies
 
 import asyncio, time
+
+# object
+
+from cogs.objects.database import Database
 
 # Translation
 
@@ -31,9 +35,17 @@ async def Is_registered(ctx):
     # This represents the bot, it works like a discord.Client object, only use it when you can get the original discord.Client object
 
     client = ctx.bot
+
     _ = await Translate(client, ctx)
+
     player = ctx.message.author
-    player_name = await Select_player_name(client, player)
+    db = Database(client)
+    await db.init()
+    
+    player_name = 'SELECT player_name FROM player_info WHERE player_id = {};'.format(player.id)
+    player_name = await db.fetchval(player_name)
+
+    await db.close()
 
     if(player_name == None):
         await ctx.send(_('<@{}> You must be registered to perform this action, to do so, use the `d!start` command.').format(player.id))
@@ -55,9 +67,17 @@ async def Is_not_registered(ctx):
     # Init
 
     client = ctx.bot
+
     _ = await Translate(client, ctx)
+
     player = ctx.message.author
-    player_name = await Select_player_name(client, player)
+    db = Database(client)
+    await db.init()
+    
+    player_name = 'SELECT player_name FROM player_info WHERE player_id = {};'.format(player.id)
+    player_name = await db.fetchval(player_name)
+
+    await db.close()
 
     if(player_name == None):
         return(True)

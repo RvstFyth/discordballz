@@ -1,7 +1,7 @@
 '''
 Manages the trigger phase of the fight.
 
-Last update: 29/06/19
+Last update: 30/06/19
 '''
 
 # Dependancies
@@ -195,7 +195,7 @@ async def Character_trigger(client, ctx, player, character, character_team, enem
                 if debuff.duration <= 0:
                     character.debuff.remove(debuff) 
 
-                    await debuff.remove(client, ctx, character, character_team, enemy_team)
+                    await debuff.on_remove(client, ctx, character, character_team, enemy_team)
 
                     if(len(character.debuff) == 0):
                         break

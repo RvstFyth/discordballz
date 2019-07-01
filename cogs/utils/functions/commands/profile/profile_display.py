@@ -1,7 +1,7 @@
 '''
 Manages the displaying of the profile.
 
-Last update: 09/05/19
+Last update: 30/06/19
 '''
 
 # Dependancies
@@ -19,6 +19,7 @@ from cogs.utils.functions.translation.gettext_config import Translate
 # Config
 
 from cogs.utils.functions.readability.embed import Basic_embed
+from configuration.graphic_config.icons_config import ICON_DS, ICON_STAR, ICON_ZENIS, ICON_LEVEL
 
 async def Display_profile(client, ctx, player):
     '''
@@ -39,13 +40,14 @@ async def Display_profile(client, ctx, player):
         return
 
     _ = await Translate(client, ctx)
+
     player_ = Player(client, player)
+    await player_.init()
 
         # Init player's info
         
-    player_register, player_ava = await player_.register_date(), player_.avatar
-    player_stones, player_zenis = await player_.stones(), await player_.zenis()
-    player_level, player_xp = await player_.level(), await player_.xp()
+    player_register, player_ava = player_.register_date, player_.avatar
+    player_stones, player_zenis = player_.stone, player_.zenis
 
     # Set up the embed
 
@@ -53,13 +55,13 @@ async def Display_profile(client, ctx, player):
 
         # Fields
     
-    profile.add_field(name = _('Level :'), value = '{:,}'.format(player_level), inline = True)
-    profile.add_field(name = _('Experience :'), value = '{:,}'.format(player_xp), inline = True)
-    profile.add_field(name = _('Dragon stones :'), value = '{:,}'.format(player_stones), inline = True)
-    profile.add_field(name = _('Zenis :'), value = '{:,}'.format(player_zenis), inline = True)
+    profile.add_field(name = _('{}Level :').format(ICON_LEVEL), value = '{:,}'.format(0), inline = True)
+    profile.add_field(name = _('{}Experience :').format(ICON_STAR), value = '{:,}'.format(0), inline = True)
+    profile.add_field(name = _('{}Dragon stones :').format(ICON_DS), value = '{:,}'.format(player_stones), inline = True)
+    profile.add_field(name = _('{}Zenis :').format(ICON_ZENIS), value = '{:,}'.format(player_zenis), inline = True)
     profile.add_field(name = _('Play since :'), value = player_register, inline = True)
-    profile.add_field(name = _('Language :'), value = await player_.language(), inline = True)
-    profile.add_field(name = _('Location :'), value = await player_.location(), inline = True)
+    profile.add_field(name = _('Language :'), value = player_.language, inline = True)
+    profile.add_field(name = _('Location :'), value = player_.location, inline = True)
     
     # Send
 

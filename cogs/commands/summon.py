@@ -1,7 +1,7 @@
 '''
 Manages the summon feature.
 
-Last update: 28/05/19
+Last update: 01/07/19
 '''
 
 # Dependancies
@@ -9,34 +9,29 @@ Last update: 28/05/19
 import discord, asyncio, time
 from discord.ext import commands
 from discord.ext.commands import Cog
+from random import randint
 
 # Config
 
-from configuration.main_config.portal_config import REGULAR_PORTAL
+from configuration.main_config.banner_config import REGULAR_PORTAL
+from configuration.graphic_config.icons_config import ICON_DS
 
 # Object
 
-from cogs.objects.character.character import Character
+from cogs.objects.database import Database
 from cogs.objects.player import Player
-
-from cogs.objects.character.characters_list.all_char import Get_char
+from cogs.objects.banner import Regular_banner
 
 # Translation
 
 from cogs.utils.functions.translation.gettext_config import Translate
 
-# Embed
+# Utils
 
-from cogs.utils.functions.readability.embed import Basic_embed
-
-# Summon
-
-from cogs.utils.functions.commands.summon.summoner import Summoner
+from cogs.utils.functions.readability.displayer.character_displayer import Display_character
 
 # Database
 
-from cogs.utils.functions.database.insert.character import Insert_unique_character
-from cogs.utils.functions.database.select.portal.regular_portal import Select_regular_portal_infos
 from cogs.utils.functions.commands.summon.id_generator import Create_unique_id
 
 class Cmd_Summon(Cog):
@@ -53,37 +48,47 @@ class Cmd_Summon(Cog):
 
         _ = await Translate(self.client, ctx)
         player = ctx.message.author
+
+        db = Database(self.client)
+
         player_ = Player(self.client, player)
-        portal = await Select_regular_portal_infos(self.client, REGULAR_PORTAL)
+        await player_.init()
 
-        if(await player_.stones() >= portal['cost']):
+        portal_ = Regular_banner(self.client)
+        await portal_.init()
 
-            drawn_char = await Summoner(self.client, REGULAR_PORTAL)
+        if(player_.stone >= portal_.cost):  # if the player has enough stone to summon a character
+            drawn_character = await portal_.summon()
+            drawn_character.type_value = randint(0, 4)
 
-            if(drawn_char != 'NONE'):
-                # If the player actually drawn an existing character
+            # remove al lhe resources from the player's inventory
+            await player_.remove_dragonstone(portal_.cost)
 
-                await player_.remove_stones(portal['cost'])
-                character_ = await Get_char(drawn_char)
-                
+            # insert the character into the db
+            await db.init()
 
-                # Embed
+            insert_drawn_character = '''
+            INSERT INTO character_unique(character_global_id, character_type, character_rarity, character_owner_id, character_owner_name)
+            VALUES({}, {}, {}, {}, '{}');
+            '''
+            insert_drawn_character = insert_drawn_character.format(drawn_character.id, drawn_character.type_value, drawn_character.rarity_value, player.id, player.name)
 
-                summon_embed = Basic_embed(self.client, thumb = player.avatar_url)
-                summon_embed.add_field(name = _('{}\'s summon :').format(player.name), value = _('Congratulation **{}** ! You\'ve summoned **{}** !').format(player.name, character_.name))
-                summon_embed.set_image(url = character_.image)
+            await db.execute(insert_drawn_character)
 
-                # Unique character
+            await db.close()
 
-                await Insert_unique_character(self.client, player, drawn_char)
-                await Create_unique_id(self.client)
+            # generat unique id
 
-                await ctx.send(embed = summon_embed)
+            await Create_unique_id(self.client)
+
+            # display the character
+            await Display_character(self.client, ctx, drawn_character)
+
+            return
         
         else:
-            # If the player doesn't have enough ressources to summon
-
-            await ctx.send(_('<@{}> You don\'t have enough **Dragon stones** to summon in this portal. You need **{}** but you have *{}*.').format(player.id, portal['cost'], await player_.stones()))
-
+            await ctx.send(_('<@{}> You do not have enough {}**Dragon stones** to summon *({:,} / {:,})*.').format(player_.id, ICON_DS, player_.stone, portal_.cost))
+            return
+        
 def setup(client):
     client.add_cog(Cmd_Summon(client))

@@ -35,7 +35,7 @@ async def Select_player_team(client, player):
     conn = await client.db.acquire()
 
     query = '''
-    SELECT * FROM player_combat WHERE player_id = $1;
+    SELECT * FROM player_combat_info WHERE player_id = $1;
     '''
 
     try:

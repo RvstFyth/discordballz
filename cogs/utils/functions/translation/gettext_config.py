@@ -8,9 +8,10 @@ Last update: 08/05/19
 
 import gettext, asyncio, time
 
-# Database
+# object
 
-from cogs.utils.functions.database.select.player.player import Select_player_language
+from cogs.objects.database import Database
+
 async def Translate(client, ctx):
     '''
     Translate an `str` object passed to the `_()` as parameter.
@@ -23,7 +24,12 @@ async def Translate(client, ctx):
     # Init
 
     player = ctx.message.author
-    player_language = await Select_player_language(client, player)
+    db = Database(client)
+
+    await db.init()
+    player_language = await db.fetchval('SELECT player_lang FROM player_info WHERE player_id = {};'.format(player.id))
+
+    await db.close()
 
     if(type(player_language) == str):
         player_language = player_language.upper()

@@ -1,7 +1,7 @@
 '''
 Manages the player team.
 
-Last update: 09/06/19
+Last update: 01/07/19
 '''
 
 # Dependancies
@@ -56,7 +56,7 @@ class Cmd_fighter(Cog):
                 
                 else:
                     query = f'''
-                    UPDATE player_combat SET team_leader = {character} WHERE player_id = {player.id};
+                    UPDATE player_combat_info SET player_leader = {character} WHERE player_id = {player.id};
                     '''
 
                     await db.execute(query)
@@ -74,7 +74,7 @@ class Cmd_fighter(Cog):
                 
                 else:
                     query = f'''
-                    UPDATE player_combat SET fighter_a = {character} WHERE player_id = {player.id};
+                    UPDATE player_combat_info SET player_fighter_a = {character} WHERE player_id = {player.id};
                     '''
 
                     await db.execute(query)
@@ -92,7 +92,7 @@ class Cmd_fighter(Cog):
                 
                 else:
                     query = f'''
-                    UPDATE player_combat SET fighter_b = {character} WHERE player_id = {player.id};
+                    UPDATE player_combat_info SET player_fighter_b = {character} WHERE player_id = {player.id};
                     '''
 
                     await db.execute(query)
@@ -110,7 +110,7 @@ class Cmd_fighter(Cog):
                 
                 else:
                     query = f'''
-                    UPDATE player_combat SET fighter_c = {character} WHERE player_id = {player.id};
+                    UPDATE player_combat_info SET player_fighter_c = {character} WHERE player_id = {player.id};
                     '''
 
                     await db.execute(query)

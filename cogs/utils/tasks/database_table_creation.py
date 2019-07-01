@@ -1,7 +1,7 @@
 '''
 Create the database tables
 
-Last update: 29/06/19
+Last update: 30/06/19
 '''
 
 # dependancies
@@ -23,6 +23,15 @@ class Create_tables(commands.Cog):
         self.db = Database(self.client)
         self.create_tables.start()
     
+    def cog_unload(self):
+        '''
+        On unload
+        '''
+
+        self.create_tables.close()
+
+        return
+
     # method
 
     @tasks.loop(count = 1)
@@ -44,7 +53,7 @@ class Create_tables(commands.Cog):
             player_id BIGINT,
             player_name TEXT,
             player_register_date TEXT,
-            player_lang TEXT,
+            player_lang TEXT DEFAULT 'EN',
             player_location TEXT DEFAULT 'UNKNOWN'
         );
 
@@ -59,10 +68,10 @@ class Create_tables(commands.Cog):
         CREATE TABLE IF NOT EXISTS player_combat_info(
             player_id BIGINT,
             player_name TEXT,
-            player_leader TEXT,
-            player_fighter_a TEXT,
-            player_fighter_b TEXT,
-            player_fighter_c TEXT
+            player_leader TEXT DEFAULT 'NONE',
+            player_fighter_a TEXT DEFAULT 'NONE',
+            player_fighter_b TEXT DEFAULT 'NONE',
+            player_fighter_c TEXT DEFAULT 'NONE'
         );
 
         CREATE UNIQUE INDEX IF NOT EXISTS player_combat_info_id ON player_combat_info(player_id);
@@ -75,19 +84,51 @@ class Create_tables(commands.Cog):
         CREATE SEQUENCE IF NOT EXISTS character_unique_reference_seq;
         CREATE TABLE IF NOT EXISTS character_unique(
             reference BIGINT PRIMARY KEY DEFAULT nextval('character_unique_reference_seq') NOT NULL,
+            character_owner_id BIGINT,
+            character_owner_name TEXT,
             character_unique_id TEXT DEFAULT 'NONE',
             character_global_id BIGINT,
             character_type INTEGER DEFAULT 0,
             character_rarity INTEGER DEFAULT 0,
-            character_level BIGINT DEFAULT 0,
-            character_owner_id BIGINT,
-            character_owner_name TEXT
+            character_level BIGINT DEFAULT 1
         );
 
         CREATE UNIQUE INDEX IF NOT EXISTS character_unique_reference ON character_unique(reference);
         '''
         
         await self.db.execute(char_unique)
+
+        # Banner
+        banner_regular = '''
+        CREATE SEQUENCE IF NOT EXISTS banner_regular_reference_seq;
+        CREATE TABLE IF NOT EXISTS banner_regular(
+            reference BIGINT PRIMARY KEY DEFAULT nextval('banner_regular_reference_seq') NOT NULL,
+            banner_name TEXT DEFAULT 'NAME',
+            banner_content TEXT DEFAULT '1 2 3',
+            banner_image TEXT DEFAULT 'NONE'
+        );
+
+        CREATE UNIQUE INDEX IF NOT EXISTS banner_reference ON banner_regular(reference);
+        '''
+
+        await self.db.execute(banner_regular)
+
+        # resources
+
+        player_ressource = '''
+        CREATE SEQUENCE IF NOT EXISTS player_resource_reference_seq;
+        CREATE TABLE IF NOT EXISTS player_resource(
+            reference BIGINT PRIMARY KEY DEFAULT nextval('player_resource_reference_seq') NOT NULL,
+            player_id BIGINT,
+            player_name TEXT,
+            player_dragonstone BIGINT DEFAULT 0,
+            player_zenis BIGINT DEFAULT 0
+        );
+
+        CREATE UNIQUE INDEX IF NOT EXISTS player_resource_id ON player_resource(player_id);
+        '''
+
+        await self.db.execute(player_ressource)
 
         # close the database
         await self.db.close()

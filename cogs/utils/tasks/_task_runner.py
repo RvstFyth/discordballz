@@ -1,7 +1,7 @@
 '''
 Runs all the tasks.
 
-Last update: 29/06/19
+Last update: 30/06/19
 '''
 
 # Dependancies
@@ -9,6 +9,7 @@ Last update: 29/06/19
 # tasks
 
 from cogs.utils.tasks.database_table_creation import Create_tables
+from cogs.utils.tasks.presence import Presence_manager
 
 class Task_runner:
     '''
@@ -33,6 +34,10 @@ class Task_runner:
         # tables creation
 
         Create_tables(self.client)
+
+        # Change presence
+
+        Presence_manager(self.client)
 
         # return the instances
         return(instance)

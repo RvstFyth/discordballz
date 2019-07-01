@@ -29,6 +29,8 @@ from cogs.utils.functions.readability.displayer.icon_displayer import Get_rarity
 from cogs.utils.functions.translation.gettext_config import Translate
 from cogs.utils.functions.commands.fight.functions.damage_calculator import Damage_calculator
 
+from cogs.utils.functions.readability.displayer.saga_displayer import Get_Saga
+
 # Ai
 from cogs.utils.functions.commands.fight.functions.effect.get_effect import Get_dot
 from cogs.utils.functions.commands.fight.functions.effect.has_effect import Has_dot
@@ -100,6 +102,7 @@ class Char_1(Character):
         # Name
 
         self.name = _('Green Saibaiman')
+        self.saga = await Get_Saga(client, ctx, self)
 
         # Icons
 

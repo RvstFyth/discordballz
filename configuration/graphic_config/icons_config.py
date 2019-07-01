@@ -1,8 +1,15 @@
 '''
 Manages the icons
 
-Last update: 29/09/19
+Last update: 30/09/19
 '''
+
+# ressource
+
+ICON_ZENIS = '<:zenis:594954191999336514>'
+ICON_DS = '<:dragonstone:594954189579354112>'
+ICON_STAR = '<:star_:594954189885669406>'
+ICON_LEVEL = '<:level:594965283395993601>'
 
 # Rarity 
 

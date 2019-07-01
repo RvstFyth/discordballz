@@ -1,17 +1,13 @@
 '''
 Simple database manager.
 
-Last update: 29/06/19
+Last update: 30/06/19
 '''
 
 # Dependancies
 
 import asyncio, asyncpg
 from time import strftime, gmtime
-
-# utils
-
-from cogs.utils.functions.database.init.database_connection import Connection_to_database
 
 class Database:
     '''
@@ -20,7 +16,7 @@ class Database:
     `client` : must be `discord.Client` object.
 
     Attributes :
-    - client : represent `discord.Client.db`
+    - client : represent `discord.Client`
     - conn : represent a connection to the database.
 
     Methods :
@@ -76,6 +72,9 @@ class Database:
         try:
             await self.conn.execute(query)
         
+        except asyncpg.UniqueViolationError:
+            pass
+
         except Exception as error:
             error_time = strftime('%d/%m/%y - %H:%M', gmtime())
             print('{} - (EXECUTE) Error with the query : \'{}\' ({})'.format(error_time, query, error))

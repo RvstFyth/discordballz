@@ -1,7 +1,7 @@
 '''
 Generates ids for characters.
 
-Last update: 12/05/19
+Last update: 30/06/19
 '''
 
 # Dependancies
@@ -9,6 +9,10 @@ Last update: 12/05/19
 import asyncio, time, string
 from time import strftime, gmtime
 from string import ascii_letters
+
+# object
+
+from cogs.objects.database import Database
 
 async def Unique_id_generator(client, reference):
     '''
@@ -72,20 +76,14 @@ async def Create_unique_id(client):
 
     # Init
 
+    db = Database(client)
+    await db.init()
+
     all_unique_char = []  # Fetch
-    conn = await client.db.acquire()
 
-    query = '''
-    SELECT * FROM unique_characters WHERE unique_id = 'NONE';
-    '''
+    query = "SELECT * FROM character_unique WHERE character_unique_id = 'NONE';"
 
-    try:
-        all_unique_char = await conn.fetch(query)
-    
-    except Exception as error:
-        error_time = strftime('%d/%m/%y - %H:%M', gmtime())
-        print('{} Error in cogs.utils.functions.commands.summon.id_generator.Create_unique_id() : l.85 : {}'.format(error_time, error))
-        pass
+    all_unique_char = await db.fetch(query)
     
     # Now we generate a new id for all the char
 
@@ -98,20 +96,12 @@ async def Create_unique_id(client):
         # Once we have the unique id we update the unique at 
         # the reference
 
-        query = '''
-        UPDATE unique_characters SET unique_id = $1 WHERE reference = $2;
-        '''
+        query = "UPDATE character_unique SET character_unique_id = '{}' WHERE reference = {};".format(unique_id, reference)
 
-        try:
-            await conn.execute(query, unique_id, reference)
-        
-        except Exception as error:
-            error_time = strftime('%d/%m/%y - %H:%M', gmtime())
-            print('{} Error in cogs.utils.functions.commands.summon.id_generator.Create_unique_id() : l.106 : {}'.format(error_time, error))
-            pass
+        await db.execute(query)
 
     # End
 
-    await client.db.release(conn)
+    await db.close()
 
     return

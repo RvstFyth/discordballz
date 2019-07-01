@@ -23,6 +23,8 @@ from cogs.utils.functions.translation.gettext_config import Translate
 from cogs.utils.functions.readability.displayer.icon_displayer import Get_rarity_icon, Get_type_icon
 from cogs.utils.functions.commands.fight.functions.stat_manager import Set_stat
 
+from cogs.utils.functions.readability.displayer.saga_displayer import Get_Saga
+
 class Char_2(Character):
     '''
     Represents the Blue Saibaiman
@@ -83,6 +85,7 @@ class Char_2(Character):
         _ = await Translate(client, ctx)
 
         self.name = _('Blue Saibaiman')
+        self.saga = await Get_Saga(client, ctx, self)
 
         self.rarity_icon = await Get_rarity_icon(self.rarity_value)
         self.type_icon = await Get_type_icon(self.type_value)

@@ -1,12 +1,16 @@
 '''
 Manages the player's informations.
 
-Last update: 14/05/19
+Last update: 30/06/19
 '''
 
 # Dependancies
 
 import asyncio
+
+# object
+
+from cogs.objects.database import Database
 
 # Database
     # Select
@@ -29,196 +33,130 @@ class Player:
     `player` : must be `discord.Member` object.
 
     Attributes :
+        name : str - Player name.
+        id : int - Player id.
+        avatar : str - Player avatar url.
+        register_date : str - Player register date, format : DD/MM/YY (None)
+        language : str - Player language, format : LL (None)
+        location : str - Player location, default : UNKNOWN (None)
 
-    1. Infos :
-    - `avatar` : Returns the player's avatar url.
+        stone : int - Player stone amount. (None)
+        zenis : int - Player zenis amount. (None)
+        level : int - Player level. (None)
+        xp : int - Player xp amount. (None)
     
-    Method list :
-    
-    1. Infos
-    - `register_date` : Returns the player's register date.
-    - language : Returns the player's language.
-    - fighter : Returns the player's fighter unique id.
-
-    2. Experience :
-    - `level` : Returns the player's level.
-    - `xp` : Returns the player's xp amount.
-
-    3. Ressources
-    - `stones` : Returns the player's stones.
-    - `zenis` : Returns the player's zenis.
-    - `remove_stones` : Remove a certain amount of stones.
-    - `remove_zenis` : Remove a certain amount of zenis.
+    Method : 
+        coroutine - init() - Init the object.
     '''
 
     def __init__(self, client, player):
         self.client = client
         self.player = player
+        self.db = Database(self.client)
+
+        # attr
+            # infos
+        self.name = player.name
+        self.id = self.player.id
         self.avatar = player.avatar_url
-    
-    # Infos
-    
-    async def register_date(self):
-        '''
-        Returns the player's register date.
+        self.register_date = None
+        self.language = None
+        self.location = None
 
-        Return : str
-        '''
+            # ressources
+        self.stone = None
+        self.zenis = None
 
-        date = await Select_player_register_date(self.client, self.player)
-
-        return(date)
+            # exp
+        self.level = None
+        self.xp = None
     
-    async def language(self):
+    # method
+
+    async def init(self):
         '''
         `coroutine`
 
-        Return the player's language.
-
-        Return: str
+        Init the object. Set the informations.
         '''
 
-        # Init
+        # init
 
-        player_lang = await Select_player_language(self.client, self.player)
+        await self.db.init()
 
-        return(player_lang)
+        # queries
+
+        register_date = 'SELECT player_register_date FROM player_info WHERE player_id = {};'.format(self.player.id)
+
+        language = 'SELECT player_lang FROM player_info WHERE player_id = {};'.format(self.player.id)
+
+        location = 'SELECT player_location FROM player_info WHERE player_id = {};'.format(self.player.id)
+
+        stone = 'SELECT player_dragonstone FROM player_resource WHERE player_id = {};'.format(self.player.id)
+
+        zenis = 'SELECT player_zenis FROM player_resource WHERE player_id = {};'.format(self.player.id)
+
+        # execute the queries
+        # set the attr
+        self.register_date = await self.db.fetchval(register_date)
+        self.language = await self.db.fetchval(language)
+        self.location = await self.db.fetchval(location)
+
+        self.stone = int(await self.db.fetchval(stone))
+        self.zenis = int(await self.db.fetchval(zenis))
+
+        await self.db.close()
+
+        return
     
-    async def location(self):
+    async def remove_dragonstone(self, amount: int):
         '''
         `coroutine`
 
-        Return the player's location.
-
-        Return: str
-        '''
-
-        player_location = await Select_player_location(self.client, self.player)
-
-        return(player_location)
-    
-    async def fighter(self):
-        '''
-        `coroutine`
-
-        Return the player's fighter unique id.
-
-        Return: str
-        '''
-
-        unique_id = await Select_player_fighter(self.client, self.player)
-
-        return(unique_id)
-
-    # Experience
-
-    async def level(self):
-        '''
-        `coroutine`
-
-        Returns the player's level.
-
-        Return: int
-        '''
-
-        level = await Select_player_level(self.client, self.player)
-
-        return(level)
-    
-    async def xp(self):
-        '''
-        `coroutine`
-
-        Returns player's xp amount.
-
-        Return: int
-        '''
-
-        xp = await Select_player_xp(self.client, self.player)
-
-        return(xp)
-    
-    # Add
-
-    async def add_xp(self, value: int):
-        '''
-        `coroutine`
-
-        Increases the amount of player's xp.
-
-        `value` : must be of type `int`.
+        Remove the amount of ds passed as `amount` from the player's inventory.
 
         Return: void
         '''
 
-        # Init
+        # init
 
-        player_xp = await Select_player_xp(self.client, self.player)
+        await self.db.init()
 
-        player_xp += value
+        self.stone -= amount
 
-        await Update_player_xp(self.client, self.player, player_xp)
+        if(self.stone < 0):
+            self.stone = 0
 
-    # Ressources
+        new_amount = 'UPDATE player_resource SET player_dragonstone = {} WHERE player_id = {};'.format(self.stone, self.id)
 
-    async def stones(self):
-        '''
-        `coroutine`
+        await self.db.execute(new_amount)
 
-        Returns the player's stones.
+        await self.db.close()
 
-        Return: int
-        '''
-
-        stone = await Select_player_stones(self.client, self.player)
-
-        return(stone)
+        return
     
-    async def zenis(self):
+    async def remove_zenis(self, amount: int):
         '''
         `coroutine`
 
-        Returns the player's zenis.
-
-        Return: int
-        '''
-
-        zenis = await Select_player_zenis(self.client, self.player)
-
-        return(zenis)
-    
-    async def remove_stones(self, amount):
-        '''
-        `coroutine`
-
-        Remove a certain amount of player's stones.
-
-        `amount` : must be type `int` and represent the amount of stones to remove.
+        Remove the amount of zenis passed as `amount` from the player's inventory.
 
         Return: void
         '''
 
-        # Init 
+        # init
 
-        stones = await Select_player_stones(self.client, self.player)
-        stones -= amount 
+        await self.db.init()
 
-        await Update_player_ressources_stones(self.client, self.player, stones)
+        self.zenis -= amount
 
-    async def remove_zenis(self, amount):
-        '''
-        `coroutine`
+        if(self.zenis < 0):
+            self.zenis = 0
+        
+        new_amount = 'UPDATE player_resource SET player_zenis = {} WHERE player_id = {};'.format(self.zenis, self.id)
 
-        Remove a certain amount of player's zenis.
+        await self.db.execute(new_amount)
 
-        `amount` : must be type `int` and represent the amount of zenis to remove.
+        await self.db.close()
 
-        Return: void
-        '''
-
-        # Init
-
-        zenis = await Select_player_zenis(self.client, self.player)
-        zenis -= amount
-
-        await Update_player_ressources_zenis(self.client, self.player, zenis)
+        return
