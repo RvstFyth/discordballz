@@ -1,7 +1,7 @@
 '''
 Get the player team informations.
 
-Last update: 01/07/19
+Last update: 04/07/19
 '''
 
 # Dependancies
@@ -49,6 +49,8 @@ async def Get_player_team(client, player):
     fighter_a = int(await db.fetchval('SELECT player_fighter_a FROM player_combat_info WHERE player_id = {};'.format(player.id)))
     fighter_b = int(await db.fetchval('SELECT player_fighter_b FROM player_combat_info WHERE player_id = {};'.format(player.id)))
     fighter_c = int(await db.fetchval('SELECT player_fighter_c FROM player_combat_info WHERE player_id = {};'.format(player.id)))
+
+    await db.close()
 
     '''fighter_a = await Select_global_id_from_unique(client, player, player_team['fighter a']) 
     fighter_b = await Select_global_id_from_unique(client, player, player_team['fighter b'])

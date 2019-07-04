@@ -1,7 +1,7 @@
 '''
 Simple database manager.
 
-Last update: 30/06/19
+Last update: 04/07/19
 '''
 
 # Dependancies
@@ -80,6 +80,7 @@ class Database:
             print('{} - (EXECUTE) Error with the query : \'{}\' ({})'.format(error_time, query, error))
             pass
         
+
         return
 
     async def fetchval(self, query):
@@ -105,6 +106,7 @@ class Database:
             print('{} - (FETCH VAL) Error with the query : \'{}\' ({})'.format(error_time, query, error))
             pass
         
+
         return(value)
     
     async def fetch(self, query):
@@ -130,4 +132,5 @@ class Database:
             print('{} - (FETCH ROW) Error with the query : \'{}\' ({})'.format(error_time, query, error))
             pass
         
+
         return(row)
