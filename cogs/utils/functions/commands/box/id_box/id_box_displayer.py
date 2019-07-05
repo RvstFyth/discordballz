@@ -57,7 +57,7 @@ async def Display_id_box(client, ctx, character_id, data = None, page: int = 1):
 
     # queries
 
-    fetch_characters = 'SELECT character_unique_id, character_type, character_level FROM character_unique WHERE character_owner_id = {} ORDER BY character_level DESC;'.format(player.id)  # normalement SELECT DISTINCT
+    fetch_characters = 'SELECT character_unique_id, character_type, character_level FROM character_unique WHERE character_owner_id = {} AND character_global_id = {} ORDER BY character_level DESC;'.format(player.id, character_id)  # normalement SELECT DISTINCT
 
     # fetching
 

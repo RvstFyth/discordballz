@@ -130,6 +130,20 @@ class Create_tables(commands.Cog):
 
         await self.db.execute(player_ressource)
 
+        # slot
+        player_slot = '''
+        CREATE SEQUENCE IF NOT EXISTS player_slot_reference_seq;
+        CREATE TABLE IF NOT EXISTS player_slot(
+            reference BIGINT PRIMARY KEY DEFAULT nextval('player_slot_reference_seq'),
+            player_name TEXT,
+            player_id BIGINT,
+            player_slot TEXT DEFAULT 'NONE'
+        );
+
+        CREATE UNIQUE INDEX IF NOT EXISTS player_slot_id ON player_slot(player_id);
+        '''
+
+        await self.db.execute(player_slot)
         # close the database
         await self.db.close()
     

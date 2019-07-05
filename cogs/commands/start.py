@@ -1,7 +1,7 @@
 '''
 Manages the start command and its behaviour.
 
-Last update: 30/06/19
+Last update: 05/06/19
 '''
 
 # Dependancies
@@ -64,10 +64,17 @@ class Cmd_Start(Cog):
         '''
         player_ressource = player_ressource.format(player.id, player.name)
 
+            # into player slot
+        player_slot = f'''
+        INSERT INTO player_slot(player_id, player_name)
+        VALUES({player.id}, {player.name})
+        '''
+
         # execute the queries
         await db.execute(player_info)
         await db.execute(player_combat)
         await db.execute(player_ressource)
+        await db.execute(player_slot)
 
         # close the connection
         await db.close()
