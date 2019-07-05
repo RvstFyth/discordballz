@@ -1,7 +1,7 @@
 '''
 Manages the displaying of the box.
 
-Last update: 01/07/19
+Last update: 05/07/19
 '''
 
 # dependancies
@@ -18,13 +18,15 @@ from cogs.utils.functions.translation.gettext_config import Translate
 from cogs.objects.character.characters_list.all_char import Get_char
 from cogs.utils.functions.readability.embed import Basic_embed
 
-async def Display_box(client, ctx, page: int = 1):
+async def Display_box(client, ctx, data = None, page: int = 1):
     '''
     Displays the player's box based on the page passed.
 
     `client` : must be `discord.Client` instance.
 
     `ctx` : must be `discord.ext.commands.Context`
+
+    `data`[Optional] : represent the data we're walking through to display the characters in the box.
 
     `page`[Optional] : must be `int` default : 1
 
@@ -56,7 +58,12 @@ async def Display_box(client, ctx, page: int = 1):
     fetch_characters = 'SELECT character_global_id FROM character_unique WHERE character_owner_id = {} ORDER BY character_global_id ASC;'.format(player.id)
 
     # fetching
-    player_characters = await db.fetch(fetch_characters)  # get the total number of distinct characters the player has
+
+    if not data == None:  # if the data is provided we use it
+        player_characters = data
+
+    else:  # if not we fetch again
+        player_characters = await db.fetch(fetch_characters)  # get the total number of distinct characters the player has
 
     total_pages = 1 + int(len(player_characters)/max_to_display)  # determines the total number of pages
 
@@ -97,4 +104,4 @@ async def Display_box(client, ctx, page: int = 1):
     await waiting_message.delete()
     displayer = await ctx.send(embed = display_box)
 
-    return(displayer, total_pages)
+    return(displayer, total_pages, data)
