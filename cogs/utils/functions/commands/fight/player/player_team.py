@@ -1,7 +1,7 @@
 '''
 Get the player team informations.
 
-Last update: 04/07/19
+Last update: 07/07/19
 '''
 
 # Dependancies
@@ -12,14 +12,14 @@ import asyncio
 
 from cogs.utils.functions.database.select.character.character import Select_global_id_from_unique
 from cogs.utils.functions.database.select.player.player_combat import Select_player_team
-from cogs.objects.character.characters_list.all_char import Get_char
+from cogs.utils.functions.database.character_unique.character_info import Character_from_unique
 
 # Objects
 
 from cogs.objects.database import Database
 from cogs.objects.character.character import Character
 
-async def Get_player_team(client, player):
+async def Get_player_team(client, ctx, player):
     '''
     `coroutine`
     
@@ -56,21 +56,33 @@ async def Get_player_team(client, player):
 
     # Convert the fighter var into object
     player_team = []
-    
-    if(leader > 0):
-        leader = await Get_char(leader)
-        player_team.append(leader)
 
-    if(fighter_a > 0):
-        fighter_a = await Get_char(fighter_a)
+    if(fighter_a == "NONE"):
         player_team.append(fighter_a)
     
-    if(fighter_b > 0):
-        fighter_b = await Get_char(fighter_b)
+    else:  # a
+        fighter_a = await Character_from_unique(client, ctx, player, fighter_a)
+        player_team.append(fighter_a)
+
+    if(fighter_b == "NONE"):
         player_team.append(fighter_b)
     
-    if(fighter_c > 0):
-        fighter_c =  await Get_char(fighter_c)
+    else:  # b
+        fighter_b = await Character_from_unique(client, ctx, player, fighter_b)
+        player_team.append(fighter_b)
+    
+    if(fighter_c == "NONE"):
         player_team.append(fighter_c)
+    
+    else:  # c
+        fighter_c = await Character_from_unique(client, ctx, player, fighter_c)
+        player_team.append(fighter_c)
+    
+    if(leader == "NONE"):
+        player_team.append(leader)
+    
+    else:  # leader
+        leader = await Character_from_unique(client, ctx, player, leader)
+        player_team.append(leader)
 
     return(player_team)

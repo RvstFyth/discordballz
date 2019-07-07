@@ -52,7 +52,7 @@ async def Pve_Fight(client, ctx, player, enemy):
 
     _ = await Translate(client, ctx)
     
-    player_team = await Get_player_team(client, player)  # Represent the player team (Character Objects)
+    player_team = await Get_player_team(client, ctx, player)  # Represent the player team (Character Objects)
     enemy_team = enemy
 
     # Init the player team
