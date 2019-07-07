@@ -1,7 +1,7 @@
 '''
 Manages the player's informations.
 
-Last update: 30/06/19
+Last update: 07/07/19
 '''
 
 # Dependancies
@@ -11,6 +11,7 @@ import asyncio
 # object
 
 from cogs.objects.database import Database
+from cogs.objects.player.slot import Slot
 
 # Database
     # Select
@@ -44,6 +45,9 @@ class Player:
         zenis : int - Player zenis amount. (None)
         level : int - Player level. (None)
         xp : int - Player xp amount. (None)
+
+        Subclass :
+            slot : Slot()
     
     Method : 
         coroutine - init() - Init the object.
@@ -70,6 +74,9 @@ class Player:
             # exp
         self.level = None
         self.xp = None
+
+        # subclass
+        self.slot = Slot(self.client, self)
     
     # method
 

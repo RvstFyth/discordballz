@@ -1,7 +1,7 @@
 '''
 Manages the player team.
 
-Last update: 01/07/19
+Last update: 07/07/19
 '''
 
 # Dependancies
@@ -24,7 +24,7 @@ class Cmd_fighter(Cog):
         self.client = client
     
     @command()
-    async def fighter(self, ctx, slot: str, character: int):
+    async def fighter(self, ctx, slot: str, character):
         '''
         `coroutine`
 
@@ -32,7 +32,7 @@ class Cmd_fighter(Cog):
 
         `slot` : must be type `str` : 'leader', 'a', 'b', 'c'
 
-        `character` : ALPHA must be type `int` (Release: str for unique id) and represent a character.
+        `character` : ALPHA must be type `str`. If the character matches with an unique id, its good, if it's a digit, we pass the id stored at the id-1
         '''
 
         # Init

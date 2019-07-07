@@ -10,7 +10,7 @@ import discord, asyncio, time
 
 # Object
 
-from cogs.objects.player import Player
+from cogs.objects.player.player import Player
 
 # Translation
 

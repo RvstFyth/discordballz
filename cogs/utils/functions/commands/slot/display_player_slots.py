@@ -16,7 +16,7 @@ from cogs.utils.functions.database.character_unique.character_info import Charac
 
 # object
 
-from cogs.objects.slot import Slot
+from cogs.objects.player.player import Player
 
 async def Display_player_slots(client, ctx, player, data = None, page = 1):
     '''
@@ -28,9 +28,9 @@ async def Display_player_slots(client, ctx, player, data = None, page = 1):
     #init
 
     _ = await Translate(client, ctx)
-    slot = Slot(client, player)
-
     player = ctx.message.author
+    player = Player(client, player)
+
     slot_lines = ''  # each line of this string represents a slot
     total_pages = 0  # represent the total number of pages the player has access to
     max_to_display = 5  # represent the max number of character to display per page
@@ -49,7 +49,7 @@ async def Display_player_slots(client, ctx, player, data = None, page = 1):
         player_slots = data
 
     else:  # if not we fetch again
-        player_slots = await slot.check()
+        player_slots = await player.slot.check()
     
     if(player_slots[0].upper() == "NONE"):
         await ctx.send(_("<@{}> You did not set a character slot yet. To do so, use `slot add [unique id]`.").format(player.id))
@@ -87,7 +87,7 @@ async def Display_player_slots(client, ctx, player, data = None, page = 1):
         slot_lines = 'DISPLAY ERROR'
 
     # setup the embed
-    display_box = Basic_embed(client, thumb = player.avatar_url)
+    display_box = Basic_embed(client, thumb = player.avatar)
 
     display_box.add_field(name = _('{}\'s slots | Page {:,} / {:,} :').format(player.name, page_to_display, total_pages), value = slot_lines, inline = False)
     

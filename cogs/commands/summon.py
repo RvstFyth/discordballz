@@ -19,7 +19,7 @@ from configuration.graphic_config.icons_config import ICON_DS
 # Object
 
 from cogs.objects.database import Database
-from cogs.objects.player import Player
+from cogs.objects.player.player import Player
 from cogs.objects.banner import Regular_banner
 
 # Translation

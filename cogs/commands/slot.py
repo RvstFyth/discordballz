@@ -12,7 +12,7 @@ from discord.ext import commands
 # object
 
 from cogs.objects.database import Database
-from cogs.objects.slot import Slot
+from cogs.objects.player.player import Player
 
 # utils
 from cogs.utils.functions.translation.gettext_config import Translate
@@ -45,9 +45,9 @@ class Cmd_slot(commands.Cog):
         '''
 
         player = ctx.message.author
-        slot = Slot(self.client, player)
+        player = Player(self.client, player)
 
-        await slot.add(ctx, unique_id)
+        await player.slot.add(ctx, unique_id)
         return
     
     @slot.command()
@@ -59,9 +59,9 @@ class Cmd_slot(commands.Cog):
         # init
 
         player = ctx.message.author
-        slot = Slot(self.client, player)
+        player = Player(self.client, player)
 
-        await slot.remove(ctx, slot_id)
+        await player.slot.remove(ctx, slot_id)
 
         return
 
