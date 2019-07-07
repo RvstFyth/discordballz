@@ -26,10 +26,7 @@ async def Translate(client, ctx):
     player = ctx.message.author
     db = Database(client)
 
-    await db.init()
     player_language = await db.fetchval('SELECT player_lang FROM player_info WHERE player_id = {};'.format(player.id))
-
-    await db.close()
 
     if(type(player_language) == str):
         player_language = player_language.upper()

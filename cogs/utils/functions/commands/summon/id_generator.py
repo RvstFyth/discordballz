@@ -77,7 +77,6 @@ async def Create_unique_id(client):
     # Init
 
     db = Database(client)
-    await db.init()
 
     all_unique_char = []  # Fetch
 
@@ -101,7 +100,5 @@ async def Create_unique_id(client):
         await db.execute(query)
 
     # End
-
-    await db.close()
 
     return

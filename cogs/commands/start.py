@@ -40,7 +40,6 @@ class Cmd_Start(Cog):
         date = time.strftime('%d/%m/%y', time.gmtime())  # register date
 
         db = Database(self.client)
-        await db.init()
 
         # Insert informations into the database
             # into player info
@@ -77,7 +76,6 @@ class Cmd_Start(Cog):
         await db.execute(player_slot)
 
         # close the connection
-        await db.close()
         await ctx.send('<@{}> Hello and welcome to the **Discord Ball Z 3.0 BETA** ! 🎉\n\nYou have access to all available characters. The only feature that you can test out for the moment is the **fight** one.\nFight are now **3vX**, so you have to set up your **3 fighters** and a **leader** to perform a fight. To do so, follow these instructions bellow :\n\nTo assign a fighter, do : `d!fighter a/b/c [num]`\nTo assign a leader : `d!fighter leader [num]`\n\nYou have access to all characters, you don\'t need to summon them or something.\n\nFinally, to access a fight, just type `d!fight`, it will generate random opponent team.\n\nDon\'t hesitate to <#585203135845236737>, to see all the character list, just go to <#585202631475986432>.\n\nI hope this new version will please you and have fun !'.format(player.id))
 
 def setup(client):

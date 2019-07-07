@@ -80,10 +80,6 @@ class Player:
         Init the object. Set the informations.
         '''
 
-        # init
-
-        await self.db.init()
-
         # queries
 
         register_date = 'SELECT player_register_date FROM player_info WHERE player_id = {};'.format(self.player.id)
@@ -105,8 +101,6 @@ class Player:
         self.stone = int(await self.db.fetchval(stone))
         self.zenis = int(await self.db.fetchval(zenis))
 
-        await self.db.close()
-
         return
     
     async def remove_dragonstone(self, amount: int):
@@ -118,10 +112,6 @@ class Player:
         Return: void
         '''
 
-        # init
-
-        await self.db.init()
-
         self.stone -= amount
 
         if(self.stone < 0):
@@ -130,8 +120,6 @@ class Player:
         new_amount = 'UPDATE player_resource SET player_dragonstone = {} WHERE player_id = {};'.format(self.stone, self.id)
 
         await self.db.execute(new_amount)
-
-        await self.db.close()
 
         return
     
@@ -144,10 +132,6 @@ class Player:
         Return: void
         '''
 
-        # init
-
-        await self.db.init()
-
         self.zenis -= amount
 
         if(self.zenis < 0):
@@ -156,7 +140,5 @@ class Player:
         new_amount = 'UPDATE player_resource SET player_zenis = {} WHERE player_id = {};'.format(self.zenis, self.id)
 
         await self.db.execute(new_amount)
-
-        await self.db.close()
 
         return

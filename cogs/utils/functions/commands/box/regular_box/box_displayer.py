@@ -38,7 +38,6 @@ async def Display_box(client, ctx, data = None, page: int = 1):
     _ = await Translate(client, ctx)
 
     db = Database(client)
-    await db.init()
     
     player = ctx.message.author
     box_lines = ''  # each line of this string represents a character
@@ -94,8 +93,6 @@ async def Display_box(client, ctx, data = None, page: int = 1):
 
         # Add a line to the display
         box_lines += '`#{}`- {}__{}__ : x*{}*\n'.format(char_id, character.icon, character.name, character_quantity)
-    
-    await db.close()
 
     if(box_lines == ''):
         box_lines = 'DISPLAY ERROR'

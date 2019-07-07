@@ -40,7 +40,6 @@ class Cmd_fighter(Cog):
         _ = await Translate(self.client, ctx)
 
         db = Database(self.client)
-        await db.init()
 
         player = ctx.message.author
         slot = slot.upper()
@@ -60,7 +59,6 @@ class Cmd_fighter(Cog):
                     '''
 
                     await db.execute(query)
-                    await db.close()
 
                     await ctx.send(_('<@{}> `Leader` assigned succesfully.').format(player.id))
         
@@ -78,7 +76,6 @@ class Cmd_fighter(Cog):
                     '''
 
                     await db.execute(query)
-                    await db.close()
 
                     await ctx.send(_('<@{}> `Fighter A` assigned succesfully.').format(player.id))
 
@@ -96,7 +93,6 @@ class Cmd_fighter(Cog):
                     '''
 
                     await db.execute(query)
-                    await db.close()
 
                     await ctx.send(_('<@{}> `Fighter B` assigned succesfully.').format(player.id))
         
@@ -114,7 +110,6 @@ class Cmd_fighter(Cog):
                     '''
 
                     await db.execute(query)
-                    await db.close()
 
                     await ctx.send(_('<@{}> `Fighter C` assigned succesfully.').format(player.id))
                     

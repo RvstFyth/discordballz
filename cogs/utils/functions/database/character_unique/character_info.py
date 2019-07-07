@@ -41,9 +41,7 @@ async def Character_from_unique(client, ctx, player, unique_id):
     fetch_char_infos = f"SELECT character_global_id, character_level, character_type, character_rarity FROM character_unique WHERE character_owner_id = {player.id} AND character_unique_id = '{unique_id}';"
 
     # fetching
-    await db.init()
     character_info = await db.fetch(fetch_char_infos)
-    await db.close()
 
     character_info = character_info[0]
 

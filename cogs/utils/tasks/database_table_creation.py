@@ -42,9 +42,6 @@ class Create_tables(commands.Cog):
         Task : create the tables.
         '''
 
-        # init
-        await self.db.init()
-
         # Player info query
         player_info = '''
         CREATE SEQUENCE IF NOT EXISTS player_info_reference_seq;
@@ -144,8 +141,6 @@ class Create_tables(commands.Cog):
         '''
 
         await self.db.execute(player_slot)
-        # close the database
-        await self.db.close()
     
     @create_tables.before_loop
     async def before_creation(self):

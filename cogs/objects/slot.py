@@ -58,9 +58,7 @@ class Slot:
         
         # execute the queries
 
-        await db.init()
         player_slot = await db.fetchval(fetch_slot)
-        await db.close()
 
         player_slot = player_slot.split()
 
@@ -74,9 +72,7 @@ class Slot:
 
                 fetch_character = f'SELECT character_global_id FROM character_unique WHERE character_owner_id = {self.player.id} AND character_unique_id = \'{unique_id}\';'
                 
-                await db.init()
                 character = await db.fetchval(fetch_character)
-                await db.close()
 
                 # check if the player owns the character
                 if character is None:  # if the player doesn't own the character, just remove it
@@ -89,9 +85,7 @@ class Slot:
             if not len(player_slot) > 0:  # if the list is empty, return NONE at 0
                 update_slot = f"UPDATE player_slot SET player_slot = 'NONE' WHERE player_id = {self.player.id};"
 
-                await db.init()
                 await db.execute(update_slot)
-                await db.close()
 
                 player_slot = ["NONE"]
 
@@ -123,9 +117,7 @@ class Slot:
         fetch_character = f"SELECT character_global_id FROM character_unique WHERE character_owner_id = {self.player.id} AND character_unique_id = '{unique_id}';"
 
         # execute
-        await db.init()
         global_id = await db.fetchval(fetch_character)
-        await db.close()
 
         if not global_id is None:  # if the character has been found
 
@@ -142,9 +134,7 @@ class Slot:
             # now update the player_slot
             update_slot = f"UPDATE player_slot SET player_slot = '{player_slot}' WHERE player_id = {self.player.id};"
 
-            await db.init()
             await db.execute(update_slot)
-            await db.close()
 
             # get the character
 
@@ -185,9 +175,7 @@ class Slot:
             # quries
             update_slot = f"UPDATE player_slot SET player_slot = '{new_slot}';"
 
-            await db.init()
             await db.execute(update_slot)
-            await db.close()
 
             character = await Character_from_unique(self.client, ctx, self.player, unique_id)
 

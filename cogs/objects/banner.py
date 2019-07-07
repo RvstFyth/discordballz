@@ -58,10 +58,6 @@ class Regular_banner:
         Init the banner object.
         '''
 
-        # init
-
-        await self.db.init()  # connect the database
-
         # queries
 
         name_query = 'SELECT banner_name FROM banner_regular WHERE reference = {};'.format(REGULAR_PORTAL)
@@ -104,8 +100,6 @@ class Regular_banner:
         # replace the list
 
         self.content = character_instances
-
-        await self.db.close()
 
         return
     

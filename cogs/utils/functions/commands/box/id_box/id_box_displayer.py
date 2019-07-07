@@ -40,7 +40,6 @@ async def Display_id_box(client, ctx, character_id, data = None, page: int = 1):
     _ = await Translate(client, ctx)
 
     db = Database(client)
-    await db.init()
     
     player = ctx.message.author
     box_lines = ''  # each line of this string represents a character
@@ -96,8 +95,6 @@ async def Display_id_box(client, ctx, character_id, data = None, page: int = 1):
 
         # Add a line to the display
         box_lines += _('`{}`- {}__{}__ : lv.*{:,}* | {} | {}\n').format(unique_id, character.icon, character.name, character.level, character.type_icon, character.rarity_icon)
-    
-    await db.close()
 
     if(box_lines == ''):
         box_lines = 'DISPLAY ERROR'

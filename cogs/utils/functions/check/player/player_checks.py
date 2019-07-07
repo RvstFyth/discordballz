@@ -40,12 +40,9 @@ async def Is_registered(ctx):
 
     player = ctx.message.author
     db = Database(client)
-    await db.init()
     
     player_name = 'SELECT player_name FROM player_info WHERE player_id = {};'.format(player.id)
     player_name = await db.fetchval(player_name)
-
-    await db.close()
 
     if(player_name == None):
         await ctx.send(_('<@{}> You must be registered to perform this action, to do so, use the `d!start` command.').format(player.id))
@@ -72,12 +69,9 @@ async def Is_not_registered(ctx):
 
     player = ctx.message.author
     db = Database(client)
-    await db.init()
     
     player_name = 'SELECT player_name FROM player_info WHERE player_id = {};'.format(player.id)
     player_name = await db.fetchval(player_name)
-
-    await db.close()
 
     if(player_name == None):
         return(True)

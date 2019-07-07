@@ -65,7 +65,6 @@ class Cmd_Summon(Cog):
             await player_.remove_dragonstone(portal_.cost)
 
             # insert the character into the db
-            await db.init()
 
             insert_drawn_character = '''
             INSERT INTO character_unique(character_global_id, character_type, character_rarity, character_owner_id, character_owner_name)
@@ -74,8 +73,6 @@ class Cmd_Summon(Cog):
             insert_drawn_character = insert_drawn_character.format(drawn_character.id, drawn_character.type_value, drawn_character.rarity_value, player.id, player.name)
 
             await db.execute(insert_drawn_character)
-
-            await db.close()
 
             # generat unique id
 

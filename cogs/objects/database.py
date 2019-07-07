@@ -1,7 +1,7 @@
 '''
 Simple database manager.
 
-Last update: 04/07/19
+Last update: 07/07/19
 '''
 
 # Dependancies
@@ -69,18 +69,22 @@ class Database:
         Return: void
         '''
 
+        await self.init()
+
         try:
             await self.conn.execute(query)
         
         except asyncpg.UniqueViolationError:
+            await self.close()
             pass
 
         except Exception as error:
+            self.close()
             error_time = strftime('%d/%m/%y - %H:%M', gmtime())
             print('{} - (EXECUTE) Error with the query : \'{}\' ({})'.format(error_time, query, error))
             pass
         
-
+        await self.close()
         return
 
     async def fetchval(self, query):
@@ -95,18 +99,19 @@ class Database:
         '''
         
         # Init
-
+        await self.init()
         value = None
 
         try:
             value = await self.conn.fetchval(query)
         
         except Exception as error:
+            self.close()
             error_time = strftime('%d/%m/%y - %H:%M', gmtime())
             print('{} - (FETCH VAL) Error with the query : \'{}\' ({})'.format(error_time, query, error))
             pass
         
-
+        await self.close()
         return(value)
     
     async def fetch(self, query):
@@ -121,16 +126,17 @@ class Database:
         '''
         
         # Init
-
+        await self.init()
         row = None
 
         try:
             row = await self.conn.fetch(query)
         
         except Exception as error:
+            await self.close()
             error_time = strftime('%d/%m/%y - %H:%M', gmtime())
             print('{} - (FETCH ROW) Error with the query : \'{}\' ({})'.format(error_time, query, error))
             pass
         
-
+        await self.close()
         return(row)
