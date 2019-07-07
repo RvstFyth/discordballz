@@ -1,7 +1,7 @@
 '''
 Manages the displaying of the box.
 
-Last update: 05/07/19
+Last update: 07/07/19
 '''
 
 # dependancies
@@ -43,9 +43,9 @@ async def Display_box(client, ctx, data = None, page: int = 1):
     player = ctx.message.author
     box_lines = ''  # each line of this string represents a character
     total_pages = 0  # represent the total number of pages the player has access to
-    max_to_display = 10  # represent the max number of character to display per page
+    max_to_display = 5  # represent the max number of character to display per page
     start_at = 0  # start the display at pos 0
-    end_at = 9 # end after 10 character fetched
+    end_at = 4 # end after 10 character fetched
     page_to_display = page  # represent the page to display, default 1
 
     # manege which characters to display
@@ -96,6 +96,10 @@ async def Display_box(client, ctx, data = None, page: int = 1):
         box_lines += '`#{}`- {}__{}__ : x*{}*\n'.format(char_id, character.icon, character.name, character_quantity)
     
     await db.close()
+
+    if(box_lines == ''):
+        box_lines = 'DISPLAY ERROR'
+    
     # setup the embed
     display_box = Basic_embed(client, thumb = player.avatar_url)
 

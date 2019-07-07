@@ -1,7 +1,7 @@
 '''
 Manages the basic embed of the bot.
 
-Last update: 14/05/19
+Last update: 06/07/19
 '''
 
 # Dependancies
@@ -23,7 +23,7 @@ def Basic_embed(client, title = None, thumb = None, footer = None, colour = None
     # Init
 
     basic_embed = discord.Embed()
-    footer_ = '{} v{}.{}.{}::{} {} | © 2019 - DrLarck & DrMegas'.format(client.user.name, V_MAJ, V_MED, V_MIN, V_BUILD, V_PHASE)
+    footer_ = '{} v{}.{}.{}.{} {} | © 2019 - DrLarck & DrMegas'.format(client.user.name, V_MAJ, V_MED, V_MIN, V_BUILD, V_PHASE)
 
     if(colour != None):
         colour_ = colour

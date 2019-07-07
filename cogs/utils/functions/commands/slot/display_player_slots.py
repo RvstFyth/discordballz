@@ -1,7 +1,7 @@
 '''
 Manages the displaying of the player's slots.
 
-Last update: 05/07/19
+Last update: 07/07/19
 '''
 
 # dependancies
@@ -12,10 +12,11 @@ import asyncio
 from cogs.utils.functions.translation.gettext_config import Translate
 from cogs.utils.functions.readability.embed import Basic_embed
 from cogs.objects.character.characters_list.all_char import Get_char
+from cogs.utils.functions.database.character_unique.character_info import Character_from_unique
 
 # object
 
-from cogs.objects.database import Database
+from cogs.objects.slot import Slot
 
 async def Display_player_slots(client, ctx, player, data = None, page = 1):
     '''
@@ -27,10 +28,8 @@ async def Display_player_slots(client, ctx, player, data = None, page = 1):
     #init
 
     _ = await Translate(client, ctx)
+    slot = Slot(client, player)
 
-    db = Database(client)
-    await db.init()
-    
     player = ctx.message.author
     slot_lines = ''  # each line of this string represents a slot
     total_pages = 0  # represent the total number of pages the player has access to
@@ -44,18 +43,13 @@ async def Display_player_slots(client, ctx, player, data = None, page = 1):
         start_at += (end_at+1)*(page_to_display-1)  # determines the first character to display, each page must display the char above the last char of the previous page
         end_at += max_to_display*(page_to_display-1)  # determines the max character to display, it displays +10 character more than the previous page
 
-    # queries
-
-    fetch_slot = 'SELECT player_slot FROM player_slot WHERE player_id = {};'.format(player.id)
-
     # fetching
 
     if not data == None:  # if the data is provided we use it
         player_slots = data
 
     else:  # if not we fetch again
-        player_slots = await db.fetchval(fetch_slot)  # get the total number of distinct characters the player has
-        player_slots = player_slots.split()
+        player_slots = await slot.check()
     
     if(player_slots[0].upper() == "NONE"):
         await ctx.send(_("<@{}> You did not set a character slot yet. To do so, use `slot add [unique id]`.").format(player.id))
@@ -82,28 +76,20 @@ async def Display_player_slots(client, ctx, player, data = None, page = 1):
         
         unique_id = player_slots[row]  # each pos represent a unique id
 
-        # get the character informations
-        fetch_char_info = "SELECT character_global_id, character_level, character_rarity, character_type FROM character_unique WHERE character_unique_id = '{}';".format(unique_id)
-        character_info = await db.fetch(fetch_char_info)
-
-        global_id, level, rarity, char_type = character_info[0][0], character_info[0][1], character_info[0][2], character_info[0][3]
-
         # Get the character and init
-        character = await Get_char(global_id)
-
-        # set up the attributes
-        character.level, character.rarity_value, character.type_value = level, rarity, char_type
-        await character.init(client, ctx)
+        character = await Character_from_unique(client, ctx, player, unique_id)
 
         # Add a line to the display
         slot_lines += _('`#{}`- {}__{}__ : lv.*{}* | {} | {}\n').format(slot_id, character.icon, character.name, character.level, character.type_icon, character.rarity_icon)
         slot_id += 1
     
-    await db.close()
+    if(slot_lines == ''):
+        slot_lines = 'DISPLAY ERROR'
+
     # setup the embed
     display_box = Basic_embed(client, thumb = player.avatar_url)
 
-    display_box.add_field(name = _('{}\'s box | Page {:,} / {:,} :').format(player.name, page_to_display, total_pages), value = slot_lines, inline = False)
+    display_box.add_field(name = _('{}\'s slots | Page {:,} / {:,} :').format(player.name, page_to_display, total_pages), value = slot_lines, inline = False)
     
     await waiting_message.delete()
     displayer = await ctx.send(embed = display_box)

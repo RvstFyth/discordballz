@@ -1,7 +1,7 @@
 '''
 Manages the display of the unique id box
 
-Last update: 05/07/19
+Last update: 07/07/19
 '''
 
 # dependancies
@@ -98,6 +98,9 @@ async def Display_id_box(client, ctx, character_id, data = None, page: int = 1):
         box_lines += _('`{}`- {}__{}__ : lv.*{:,}* | {} | {}\n').format(unique_id, character.icon, character.name, character.level, character.type_icon, character.rarity_icon)
     
     await db.close()
+
+    if(box_lines == ''):
+        box_lines = 'DISPLAY ERROR'
     # setup the embed
     display_box = Basic_embed(client, thumb = player.avatar_url)
 
