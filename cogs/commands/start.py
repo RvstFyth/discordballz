@@ -66,7 +66,7 @@ class Cmd_Start(Cog):
             # into player slot
         player_slot = f'''
         INSERT INTO player_slot(player_id, player_name)
-        VALUES({player.id}, {player.name})
+        VALUES({player.id}, '{player.name}'')
         '''
 
         # execute the queries
