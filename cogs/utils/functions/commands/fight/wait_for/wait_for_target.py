@@ -29,7 +29,7 @@ async def Wait_for_target(client, player, fighter, all_fighter):
     success = False
 
     def Correct_target(message):
-        if(message.author == player):
+        if(message.author.id == player.id):
             target = message.content
             target = target.split()
 

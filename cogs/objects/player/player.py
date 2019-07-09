@@ -1,7 +1,7 @@
 '''
 Manages the player's informations.
 
-Last update: 07/07/19
+Last update: 09/07/19
 '''
 
 # Dependancies
@@ -12,6 +12,7 @@ import asyncio
 
 from cogs.objects.database import Database
 from cogs.objects.player.slot import Slot
+from cogs.objects.player.fighter import Fighter
 
 # Database
     # Select
@@ -77,6 +78,7 @@ class Player:
 
         # subclass
         self.slot = Slot(self.client, self)
+        self.fighter = Fighter(self.client, self)
     
     # method
 

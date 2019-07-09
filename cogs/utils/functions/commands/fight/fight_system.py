@@ -1,7 +1,7 @@
 '''
 Manages the fight system.
 
-Last update: 30/06/19
+Last update: 09/07/19
 '''
 
 # Dependancies
@@ -11,6 +11,7 @@ from random import randint
 
 # Object
 
+from cogs.objects.player.player import Player
 from cogs.objects.character.character import Character
 from cogs.objects.character.characters_list import char_1
 
@@ -52,15 +53,9 @@ async def Pve_Fight(client, ctx, player, enemy):
 
     _ = await Translate(client, ctx)
     
-    player_team = await Get_player_team(client, ctx, player)  # Represent the player team (Character Objects)
+    player = Player(client, player)
+    player_team = await player.fighter.get_team(ctx)
     enemy_team = enemy
-
-    # Init the player team
-
-    fighter_leader = player_team[3]
-    fighter_a, fighter_b, fighter_c = player_team[0], player_team[1], player_team[2]
-
-    player_team = [fighter_a, fighter_b, fighter_c]
 
     player_team_count = 0
     player_team_average_hp = 0
@@ -98,11 +93,6 @@ async def Pve_Fight(client, ctx, player, enemy):
     all_fighter = player_team + enemy_team
 
     # Init Teams
-
-    for fighter in player_team :
-        await asyncio.sleep(0)
-
-        await fighter.init(client, ctx)
     
     for enemy in enemy_team :
         await asyncio.sleep(0)

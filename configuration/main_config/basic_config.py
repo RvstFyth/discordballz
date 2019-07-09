@@ -1,7 +1,7 @@
 '''
 Manages the basic configuration for the program. Such as the prefixes, the cogs, the version, etc.
 
-Last update: 07/07/19
+Last update: 09/07/19
 '''
 
 # Dependancies
@@ -21,7 +21,7 @@ PREFIX = ['Db', 'db', 'D!', 'd!']
 # Any file update increases the V_MIN value by 1 (or V_BUILD value if it's active)
 # Only one increase per file
 
-V_MAJ,V_MED,V_MIN,V_BUILD,V_PHASE = 3,0,0,627, 'BETA'
+V_MAJ,V_MED,V_MIN,V_BUILD,V_PHASE = 3,0,0,639, 'BETA'
 
 # Cogs
 # To add a cog, type the path to the cog as a string (do not use `/`, it's represented by `.`)
@@ -29,4 +29,5 @@ V_MAJ,V_MED,V_MIN,V_BUILD,V_PHASE = 3,0,0,627, 'BETA'
 
 COGS = ['cogs.commands.summon', 'cogs.commands.start', 'cogs.commands.profile',
         'cogs.commands.fight', 'cogs.commands.info', 'cogs.commands.fighter',
-        'cogs.commands.box', 'cogs.commands.slot', 'cogs.event.on_ready']
+        'cogs.commands.box', 'cogs.commands.slot', 'cogs.commands.team',
+        'cogs.event.on_ready']

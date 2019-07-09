@@ -30,7 +30,7 @@ async def Wait_for_move(client, player, fighter, all_fighter):
     success = False
 
     def Correct_move(message):
-        if(message.author == player):
+        if(message.author.id == player.id):
             choice = message.content
             choice = choice.split()
 

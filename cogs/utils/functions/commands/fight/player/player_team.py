@@ -1,7 +1,7 @@
 '''
 Get the player team informations.
 
-Last update: 07/07/19
+Last update: 09/07/19
 '''
 
 # Dependancies
@@ -44,15 +44,10 @@ async def Get_player_team(client, ctx, player):
 
     # Now we retrieve the global id of the characters from their unique one
 
-    leader = int(await db.fetchval('SELECT player_leader FROM player_combat_info WHERE player_id = {};'.format(player.id)))
-    fighter_a = int(await db.fetchval('SELECT player_fighter_a FROM player_combat_info WHERE player_id = {};'.format(player.id)))
-    fighter_b = int(await db.fetchval('SELECT player_fighter_b FROM player_combat_info WHERE player_id = {};'.format(player.id)))
-    fighter_c = int(await db.fetchval('SELECT player_fighter_c FROM player_combat_info WHERE player_id = {};'.format(player.id)))
-
-    '''fighter_a = await Select_global_id_from_unique(client, player, player_team['fighter a']) 
-    fighter_b = await Select_global_id_from_unique(client, player, player_team['fighter b'])
-    fighter_c = await Select_global_id_from_unique(client, player, player_team['fighter c'])
-    leader = await Select_global_id_from_unique(client, player, player_team['leader'])'''
+    leader = await db.fetchval('SELECT player_leader FROM player_combat_info WHERE player_id = {};'.format(player.id))
+    fighter_a = await db.fetchval('SELECT player_fighter_a FROM player_combat_info WHERE player_id = {};'.format(player.id))
+    fighter_b = await db.fetchval('SELECT player_fighter_b FROM player_combat_info WHERE player_id = {};'.format(player.id))
+    fighter_c = await db.fetchval('SELECT player_fighter_c FROM player_combat_info WHERE player_id = {};'.format(player.id))
 
     # Convert the fighter var into object
     player_team = []

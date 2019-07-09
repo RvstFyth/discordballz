@@ -98,7 +98,7 @@ async def Pve_display_team(client, ctx, player, player_team, enemy_team):
     
     # Set embed
 
-    player_display = Basic_embed(client, thumb = player.avatar_url)
+    player_display = Basic_embed(client, thumb = player.avatar)
     player_display.add_field(name = _('🔵 - {}\'s team :').format(player.name), value = display_player, inline = True)
     
     enemy_display = Basic_embed(client, thumb = ENEMY_THUMB)

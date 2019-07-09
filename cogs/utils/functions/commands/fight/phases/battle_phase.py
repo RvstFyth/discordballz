@@ -1,7 +1,7 @@
 '''
 Manages the fight battle phase.
 
-Last update: 29/06/19
+Last update: 09/07/19
 '''
 
 # Dependancies
@@ -159,7 +159,7 @@ async def Battle_phase(client, ctx, player, player_move, player_team, enemy_team
     order = 1
 
     if(player_team_alive):
-        player_team_display = Basic_embed(client, thumb = player.avatar_url)
+        player_team_display = Basic_embed(client, thumb = player.avatar)
         player_team_display.add_field(name = _('{}\'s team :').format(player.name), value = player_team_moves, inline = False)
         
         await ctx.send(embed = player_team_display)
