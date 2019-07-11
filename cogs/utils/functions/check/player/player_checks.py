@@ -16,10 +16,6 @@ from cogs.objects.database import Database
 
 from cogs.utils.functions.translation.gettext_config import Translate
 
-# Database
-
-from cogs.utils.functions.database.select.player.player import Select_player_name
-
 async def Is_registered(ctx):
     '''
     Checks if the player is already registered in the database. If not, it returns `False` and invites him to do so.

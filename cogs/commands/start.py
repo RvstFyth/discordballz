@@ -1,7 +1,7 @@
 '''
 Manages the start command and its behaviour.
 
-Last update: 05/06/19
+Last update: 11/07/19
 '''
 
 # Dependancies
@@ -17,11 +17,6 @@ from cogs.objects.database import Database
 # Check
 
 from cogs.utils.functions.check.player.player_checks import Is_not_registered
-
-# Database
-
-from cogs.utils.functions.logs.command_logger import Command_log
-from cogs.utils.functions.database.insert.player import Insert_in_player, Insert_in_player_ressources, Insert_in_player_experience, Insert_in_player_combat
 
 class Cmd_Start(Cog):
     def __init__(self, client):

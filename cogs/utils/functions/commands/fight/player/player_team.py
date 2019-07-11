@@ -1,7 +1,7 @@
 '''
 Get the player team informations.
 
-Last update: 09/07/19
+Last update: 11/07/19
 '''
 
 # Dependancies
@@ -10,8 +10,6 @@ import asyncio
 
 # Utils
 
-from cogs.utils.functions.database.select.character.character import Select_global_id_from_unique
-from cogs.utils.functions.database.select.player.player_combat import Select_player_team
 from cogs.utils.functions.database.character_unique.character_info import Character_from_unique
 
 # Objects

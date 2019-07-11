@@ -14,18 +14,6 @@ from cogs.objects.database import Database
 from cogs.objects.player.slot import Slot
 from cogs.objects.player.fighter import Fighter
 
-# Database
-    # Select
-
-from cogs.utils.functions.database.select.player.player import Select_player_register_date, Select_player_language, Select_player_location, Select_player_fighter
-from cogs.utils.functions.database.select.player.player_ressources import Select_player_stones, Select_player_zenis
-from cogs.utils.functions.database.select.player.player_experience import Select_player_level, Select_player_xp
-
-    # Update
-
-from cogs.utils.functions.database.update.player_experience import Update_player_level, Update_player_xp
-from cogs.utils.functions.database.update.player.player_ressources import Update_player_ressources_stones, Update_player_ressources_zenis
-
 class Player:
     '''
     Represent a player.

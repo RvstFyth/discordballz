@@ -1,7 +1,7 @@
 '''
 Manages the player's profile.
 
-Last update: 30/06/19
+Last update: 11/07/19
 '''
 
 # Dependancies
@@ -13,10 +13,6 @@ from discord.ext.commands import Cog
 # Check
 
 from cogs.utils.functions.check.player.player_checks import Is_registered
-
-# Database
-
-from cogs.utils.functions.logs.command_logger import Command_log
 
 # Functions
 

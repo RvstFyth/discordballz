@@ -3,7 +3,7 @@ Main file of the project.
 
 Created : 06/05/19 - 8:20 PM (GMT+1) France
 
-Last update: 29/06/19
+Last update: 11/07/19
 '''
 
 # Dependancies
@@ -19,7 +19,7 @@ from configuration.main_config.basic_config import BOT_TOKEN, PREFIX, COGS
 
 from cogs.utils.tasks._task_runner import Task_runner
 
-from cogs.utils.functions.database.init.database_connection import Connection_to_database
+from cogs.utils.functions.database.database_connection import Connection_to_database
 
 # Init
 logging.basicConfig(level = logging.INFO)
