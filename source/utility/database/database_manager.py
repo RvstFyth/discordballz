@@ -29,7 +29,15 @@ class Database:
 
     - Method :
 
+    Connection :
+
     :coro:`init()` : Return the connection pool to the database.
+
+    :coro:`connect()` : Connect the database to allow you execute queries.
+
+    :coro:`close()` : Release the connection to the database.
+
+    :coro:`stop()` : Stop the connection to the database by releasing the connection pool.
     """
 
     # attribute
@@ -47,6 +55,7 @@ class Database:
         }
     
     # method
+        # connection managment
     async def init(self):
         """
         `coroutine`
@@ -67,3 +76,51 @@ class Database:
         )
 
         return(pool)
+    
+    async def connect(self):
+        """
+        `coroutine`
+
+        Connect the database.
+
+        --
+
+        Return : None
+        """
+
+        self.connection = await self.pool.acquire()
+
+        return
+    
+    async def close(self):
+        """
+        `coroutine`
+
+        Release the connection to the database.
+
+        --
+
+        Return : None
+        """
+
+        await self.pool.release(self.connection)
+
+        return
+    
+    async def stop(self):
+        """
+        `coroutine`
+
+        Stop the connection to the database by releasing the connection pool.
+
+        --
+
+        Return : None
+        """
+
+        await self.pool.close()
+
+        return
+    
+        # queries managment
+    
