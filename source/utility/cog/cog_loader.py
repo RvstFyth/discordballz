@@ -13,13 +13,17 @@ class Cog_loader:
     Load the cogs and throw an error in the console if a cog cannot be loaded properly.
 
     - Parameter : 
+
     `client` : Represents the `Client`.
 
     - Attribute :
+
     `cog` : List of cogs to load.
+
     `client` : Represents the `Client`.
 
     - Method :
+    
     `load_cog()` : Loads all the cogs stored in the `cog` attribute.
     """
 
