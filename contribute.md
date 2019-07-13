@@ -28,6 +28,21 @@ For more readability and to reduce the amount of time spent to look for a file, 
 
     > Do not put some **character** stuff in a file that manages **player**'s resources.
 
+    - Start your file with a short **description**. Here's a template : 
+
+    ```python
+    """
+
+    SHORT_DESCRIPTION
+
+    --
+
+    Author : NAME
+
+    Last update : 00/00/00 (YOUR_NAME)
+    """
+    ```
+
 ### Method and Function :
 
 For more readability it's highly recommended to use **class methods** as much as possible *(except in the case that it would reduce the readability)*.
@@ -37,6 +52,16 @@ For more readability it's highly recommended to use **class methods** as much as
 Please choose your **class name** wisely.
 
 The **command** classes name should always begin with the `Cmd_` prefix.
+
+### String : 
+
+Please use the **python3.7+** formatting style *(`f" "`)* to format your **string**.
+
+```python
+user_name = "John"
+
+print(f"Hello {user_name} !")
+```
 
 ### Comment :
 
