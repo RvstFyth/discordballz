@@ -10,7 +10,7 @@ Hello and welcome to the official **Discord Ball Z** repository.
 
 ## What are you able to find in this repository ?
 
-In this repository you will find the **full code** of the **Discord Ball Z** project and some informations about **How to contribute to the project ?** in the `contribute.md` file.
+In this repository you will find the **full code** of the **Discord Ball Z** project and some informations about **How to contribute to the project ?** in the [`contribute.md`](https://github.com/DrLarck/discordballz/blob/rewrite/contribute.md) file.
 
 ## Technical informations :
 
