@@ -1,7 +1,7 @@
 '''
 Manages the player's informations.
 
-Last update: 09/07/19
+Last update: 12/07/19
 '''
 
 # Dependancies
@@ -39,7 +39,11 @@ class Player:
             slot : Slot()
     
     Method : 
-        coroutine - init() - Init the object.
+        :coro:`init()` : Init the object. Get the resources values.
+
+        :coro:`remove_dragonstones(amount)` : Remove the passed amount of dragonstones from the player resources.
+
+        :coro:`remove_zenis(amount)` : Same as remove_dragonstones method but for zenis.
     '''
 
     def __init__(self, client, player):
@@ -109,6 +113,9 @@ class Player:
         Return: void
         '''
 
+        # init
+        await self.init()
+
         self.stone -= amount
 
         if(self.stone < 0):
@@ -117,6 +124,8 @@ class Player:
         new_amount = 'UPDATE player_resource SET player_dragonstone = {} WHERE player_id = {};'.format(self.stone, self.id)
 
         await self.db.execute(new_amount)
+        # update the object
+        await self.init()
 
         return
     
@@ -129,6 +138,9 @@ class Player:
         Return: void
         '''
 
+        # init
+        await self.init()
+
         self.zenis -= amount
 
         if(self.zenis < 0):
@@ -137,5 +149,46 @@ class Player:
         new_amount = 'UPDATE player_resource SET player_zenis = {} WHERE player_id = {};'.format(self.zenis, self.id)
 
         await self.db.execute(new_amount)
+        # update the object
+        await self.init()
+
+        return
+    
+    async def add_dragonstones(self, amount):
+        """
+        `coroutine`
+
+        Add a certain amount of stones to the player dragonstone count.
+        """
+
+        # init
+        await self.init()
+
+        new_amount = self.stone + amount
+
+        update = f"UPDATE player_resource SET player_dragonstone = {new_amount} WHERE player_id = {self.id};"
+
+        await self.db.execute(update)
+
+        await self.init()
+
+        return
+    
+    async def add_zenis(self, amount):
+        """
+        `coroutine`
+
+        Add a certain amount of zenis to the player resources.
+        """
+
+        # init
+        await self.init()
+
+        new_amount = self.zenis + amount
+
+        update = f"UPDATE player_resource SET player_zenis = {new_amount} WHERE player_id = {self.id};"
+        await self.db.execute(update)
+
+        await self.init()
 
         return

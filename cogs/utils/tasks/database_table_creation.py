@@ -1,7 +1,7 @@
 '''
 Create the database tables
 
-Last update: 30/06/19
+Last update: 12/07/19
 '''
 
 # dependancies
@@ -111,7 +111,6 @@ class Create_tables(commands.Cog):
         await self.db.execute(banner_regular)
 
         # resources
-
         player_ressource = '''
         CREATE SEQUENCE IF NOT EXISTS player_resource_reference_seq;
         CREATE TABLE IF NOT EXISTS player_resource(
@@ -141,6 +140,38 @@ class Create_tables(commands.Cog):
         '''
 
         await self.db.execute(player_slot)
+
+        # hourly
+        player_hourly = """
+        CREATE SEQUENCE IF NOT EXISTS player_hourly_reference_seq;
+        CREATE TABLE IF NOT EXISTS player_hourly(
+            reference BIGINT PRIMARY KEY DEFAULT nextval('player_hourly_reference_seq') NOT NULL,
+            player_name TEXT,
+            player_id BIGINT,
+            player_hourly BIGINT DEFAULT 0,
+            player_hourly_combo BIGINT DEFAULT 0
+        );
+
+        CREATE UNIQUE INDEX IF NOT EXISTS player_id ON player_hourly(reference, player_id);
+        """
+
+        await self.db.execute(player_hourly)
+
+        # daily
+        player_daily = """
+        CREATE SEQUENCE IF NOT EXISTS player_daily_reference_seq;
+        CREATE TABLE IF NOT EXISTS player_daily(
+            reference BIGINT PRIMARY KEY DEFAULT nextval('player_daily_reference_seq') NOT NULL,
+            player_name TEXT,
+            player_id BIGINT,
+            player_daily BIGINT DEFAULT 0,
+            player_daily_combo BIGINT DEFAULT 0
+        );
+
+        CREATE UNIQUE INDEX IF NOT EXISTS player_id ON player_daily(reference, player_id);
+        """
+
+        await self.db.execute(player_daily)
     
     @create_tables.before_loop
     async def before_creation(self):
