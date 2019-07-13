@@ -123,4 +123,97 @@ class Database:
         return
     
         # queries managment
+    async def execute(self, query):
+        """
+        `coroutine`
+        
+        Execute the passed `query` as parameter.
+
+        - Parameter :
+
+        `query` : Represent a `PostgreSQL` query.
+
+        --
+
+        Return : None
+        """
+
+        # init
+        await self.connect()
+
+        try:
+            await self.connection.execute(query)
+        
+        except asyncpg.UniqueViolationError:  # ignore the unique constraint violation
+            pass
+        
+        except Exception as error:
+            print(f"(DATABASE : EXECUTE) - Error while executing the query : {query} : {error}.")
+            pass
+        
+        finally:
+            await self.close()
+
+        return
     
+    async def fetchval(self, query):
+        """
+        `coroutine`
+
+        Fetch a value from the database.
+
+        - Parameter :
+
+        `query` : Represent a `PostgreSQL` query.
+
+        --
+
+        Return : fetched value or None if not found
+        """
+
+        # init
+        await self.connect()
+        value = None
+
+        try:
+            value = await self.connection.fetchval(query)
+        
+        except Exception as error:
+            print(f"(DATABASE : FETCH VAL) - Error while executing the query : {query} : {error}.")
+            pass
+        
+        finally:
+            await self.close()
+        
+        return(value)
+    
+    async def fetch(self, query):
+        """
+        `coroutine`
+
+        Fetch rows by executing the query.
+
+        - Parameter : 
+
+        `query` : Represent a `PostgreSQL` query.
+
+        --
+
+        Return : list of rows or None if not found
+        """
+
+        # init
+        await self.connect()
+        rows = None
+
+        try:
+            rows = await self.connection.fetch(query)
+        
+        except Exception as error:
+            print(f"(DATABASE : FETCH) - Error while executing the query : {query} : {error}.")
+            pass
+        
+        finally:
+            await self.close()
+        
+        return(rows)
