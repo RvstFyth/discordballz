@@ -1,3 +1,8 @@
+![python3](https://img.shields.io/badge/python-3.7-yellow.svg)
+
+![discord.py](https://img.shields.io/badge/discord-py-blue.svg?logo=discord) 
+![postgresql](https://img.shields.io/badge/postgre-sql-blue.svg?logo=postgresql)
+
 # Discord Ball Z
 
 Hello and welcome to the official **Discord Ball Z** repository.
