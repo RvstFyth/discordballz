@@ -4,7 +4,7 @@
 ![MIT](https://img.shields.io/github/license/DrLarck/pantheist.svg)
 ![discord.py](https://img.shields.io/badge/discord-py-blue.svg) 
 ![postgresql](https://img.shields.io/badge/postgre-sql-blue.svg?logo=postgresql)
-![discordguild](https://discordapp.com/api/guilds/531560539638202368/widget.png)
+[![discordguild](https://discordapp.com/api/guilds/531560539638202368/widget.png)](https://discord.gg/gwpJgtS)
 
 # Discord Ball Z
 
