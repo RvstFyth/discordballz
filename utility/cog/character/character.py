@@ -18,11 +18,115 @@ class Character:
 
     Defines what a character is and all the possible interaction you can have with it.
 
-    - Parameter :
-
     - Attribute : 
 
+    `info` : dict {
+        "id" : 0,
+        "name" : None,
+        "image" : None,
+        "icon" : None,
+        "thumb" : None,
+        "saga" : None,
+        "type" : dict {
+            "icon" : None,
+            "value" : 0
+        },
+        "rarity" : dict {
+            "icon" : None,
+            "value" : 0
+        }
+    }
+
+    `level` = 0
+
+    `posture` : dict {
+        "attacking" : True,
+        "defending" : False,
+        "charging" : False,
+        "stunned" : False,
+        "ghost" : False
+    }
+
+    `health` : dict {
+        "maximum" : 0,
+        "current" : 0
+    }
+
+    `ki` : dict {
+        "maximum" : 100,
+        "current" : 0
+    }
+
+    `damage` : dict  {
+        "physical" : dict {
+            "maximum" : 0,
+            "minimum" : 0
+        },
+        "ki" : dict {
+            "maximum" : 0,
+            "minimum" : 0
+        }
+    }
+
+    `critical` : dict  {
+        "chance" : 0,
+        "bonus" : 0
+    }
+
+    `defense` : dict  {
+        "armor" : 0,
+        "spirit" : 0,
+        "dodge" : 0,
+        "parry" : 0,
+        "reduction" : 0
+    }
+
+    `regeneration` : dict  {
+        "health" : 0,
+        "ki" : 0
+    }
+
+    `enhancement` : dict  {
+        "star" : 0,
+        "training" : dict {
+            "defense" : dict {
+                "health" : 0,
+                "armor" : 0,
+                "spirit" : 0
+            },
+            "damage" : dict {
+                "physical" : 0,
+                "ki" : 0
+            }
+        }
+    }
+
+    `effect` : dict  {
+        "bonus" : [],
+        "malus" : []
+    }
+
+    `ability` : dict  {
+        "ability" : [],
+        "passive" : [],
+        "leader" : []
+    }
+
     - Method :
+
+    :coro:`init()` : Translates strings and initializes the stats.
+
+    :coro:`set_stat()` : Initializes the stats.
+
+    :coro:`receive_damage()` : Inflicts the damages to the character and triggers the effects based on the type of the attack and if the character dies or not.
+
+    :coro:`use_ability()` : Uses the passed ability as parameter.
+
+    :coro:`trigger_passive()` : Triggers the passive ability.
+
+    :coro:`trigger_leader()` : Triggers the leader skill.
+
+    :coro:`bot()` : Triggers the AI.
     """
 
     # attribute
@@ -32,6 +136,7 @@ class Character:
             "id" : 0,
             "name" : None,
             "image" : None,
+            "icon" : None,
             "thumb" : None,
             "saga" : None,
             "type" : {
@@ -57,7 +162,7 @@ class Character:
             "charging" : False,
             "stunned" : False,
             # if "ghost" = True, the character cannot be resurrected
-            "ghost" : False,
+            "ghost" : False
         }
 
         # if the current health reaches 0, the character dies

@@ -32,16 +32,55 @@ class Fight:
     """
 
     # attribute
-    def __init__(self, client, caller):
+    def __init__(self, client, ctx, caller):
         self.client = client
+        self.ctx = ctx
         self.player = caller
 
         # phase
         self.trigger_phase = Trigger_phase()
-        self.selection_phase = Selection_phase()
+        self.selection_phase = None
         self.battle_phae = Battle_phase()
     
     # method
+    async def get_average_hp(self, team):
+        """
+        `coroutine`
+
+        Calculates then return the average hp of each team.
+
+        --
+
+        Return : int, int (team_a then team_b)
+        """
+
+        # init
+        team_a_average_hp = 1
+        team_b_average_hp = 1
+
+        # determines the number of characters in each team
+        team_a_length = len(team[0])
+        team_b_length = len(team[1])
+
+        # get the average team hps
+            # for team_a
+        for character_a in team[0]:
+            await asyncio.sleep(0)
+
+            team_a_average_hp += character_a.health["current"]
+
+            # for team_b
+        for character_b in team[1]:
+            await asyncio.sleep(0)
+
+            team_b_average_hp += character_b.health["current"]
+        
+        # get the average amount of hps
+        team_a_average_hp = int(team_a_average_hp / team_a_length)
+        team_b_average_hp = int(team_b_average_hp / team_b_length)
+
+        return(team_a_average_hp, team_b_average_hp)
+
     async def run_fight(self, team):
         """
         `coroutine`
@@ -58,36 +97,44 @@ class Fight:
         """
 
         # init
+            # translation
         translation = Translator(self.client.db, self.player)
+        #_ = await translation.translate()
 
-        team_a_average_hp = 0
-        team_b_average_hp = 0
+            # turn displaying
+        turn = 1  # begins at 1
 
-        # determines the number of characters in each team
+            # subclass
+        self.selection_phase = Selection_phase(self.client, self.ctx, self.player, turn)
+
+            # init at 1 to loop at least one time
+        team_a_average_hp = 1  
+        team_b_average_hp = 1
+
+            # determines the number of characters in each team
         team_a_length = len(team[0])
         team_b_length = len(team[1])
 
-        # get the average team hps
-            # for team_a
-        for character_a in team[0]:
-            await asyncio.sleep(0)
-
-            team_a_average_hp += character_a.current_health
-
-            # for team_b
-        for character_b in team[1]:
-            await asyncio.sleep(0)
-
-            team_b_average_hp += character_b.current_health
-        
-        # get the average amount of hps
-        team_a_average_hp = int(team_a_average_hp / team_a_length)
-        team_b_average_hp = int(team_b_average_hp / team_b_length)
-
         # main loop
-        turn = 1  # begins at 1
-
         while(team_a_average_hp > 0 and team_b_average_hp > 0):  # if one of the teams is defeated, stops the loop
             await asyncio.sleep(0)
+
+            # new turn
+            await self.ctx.send(f"########## 📣 Round {turn} ! ##########")
+            await asyncio.sleep(2)
+
+                # phases
+            await self.ctx.send(f"💠 - Selection Phase")
+            await asyncio.sleep(1)
+
+            team_a_move = await self.selection_phase.start_selection(team[0])
+
+            # end of turn
+                # calculate average hps
+            team_a_average_hp, team_b_average_hp = await self.get_average_hp(team)
+
+                # increase the turn value
+            turn += 1
+            await asyncio.sleep(5)
 
         return

@@ -13,8 +13,14 @@ import asyncio
 
 from discord.ext import commands
 
-# translation
+# utils
+from utility.cog.fight_system.fight import Fight
+
+    # translation
 from utility.translation.translator import Translator
+
+# test
+from utility.cog.character.list.c1 import Character_1
 
 # command
 class Cmd_train(commands.Cog):
@@ -34,10 +40,22 @@ class Cmd_train(commands.Cog):
         If the player wins the fight, his character gain some xp.
         """
 
-        translator = Translator(self.client.db, ctx.message.author)
-        _ = await translator.translate()
+        caller = ctx.message.author 
 
-        await ctx.send(_(f"<@{ctx.message.author.id}> Hello"))
+        # test shit
+        chara = Character_1()
+        charb = Character_1()
+        charc = Character_1()
+
+        caller_team = [chara, charb, charc]
+
+        for char in caller_team:
+            await char.init()
+
+        team = [caller_team, caller_team]
+
+        fight = Fight(self.client, ctx, caller)
+        await fight.run_fight(team)
         
         return
 
