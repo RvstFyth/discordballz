@@ -39,7 +39,6 @@ class Custom_embed:
         self.footer = footer
         self.thumb = thumb
 
-
     # method
     async def setup_embed(self):
         """

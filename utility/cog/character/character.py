@@ -5,7 +5,7 @@ Every character classes inherit from the :class:`Character()` defined below.
 
 Author : DrLarck
 
-Last update : 18/07/19
+Last update : 21/07/19
 """
 
 # dependancies
@@ -201,16 +201,36 @@ class Character:
 
         return
     
-    async def receive_damage(self):
+    async def receive_damage(self, damage):
         """
         `coroutine`
 
         Applies the received damages.
 
+        - Parameter :
+
+        `damage` : Represents the damage received. (int)
+
         --
 
         Return : None
         """
+        
+        # only applies the effect if the character is alive
+        if(self.health.current > 0):
+            # check if the target is gonna die after this attack
+            gonna_die = False
+
+            if(damage >= self.health.current):  # the damages are going to kill it
+                gonna_die = True
+
+            # apply the damage
+            self.health.current -= damage
+            await self.health.health_limit()
+
+            if(gonna_die):  # if the attack killed the character
+                # trigger the dying effects.
+                pass
 
         return
     

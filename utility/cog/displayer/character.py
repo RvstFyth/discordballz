@@ -11,6 +11,9 @@ Last update : 20/07/19
 # dependancies
 import asyncio
 
+# icons
+from configuration.icon import game_icon
+
 # utils
     # translation
 from utility.translation.translator import Translator
@@ -92,7 +95,7 @@ class Character_displayer:
             combat_format = f"__Name__ : **{self.character.info.name}**{self.character.type.icon}\n"
             combat_format += f"__Health__ : \n**{self.character.health.current:,}** / **{self.character.health.maximum}** :hearts: \n"
             combat_format += f"__Posture__ : {posture}\n"
-            combat_format += f"__Damage__ :\n:crossed_swords: **{self.character.damage.physical_min}** - **{self.character.damage.physical_max}** \n:rosette: **{self.character.damage.ki_min}** - **{self.character.damage.ki_max}** \n"
+            combat_format += f"__Damage__ :\n:crossed_swords: **{self.character.damage.physical_min}** - **{self.character.damage.physical_max}** \n{game_icon['ki_ability']} **{self.character.damage.ki_min}** - **{self.character.damage.ki_max}** \n"
             combat_format += f"__Defense__ :\n:shield: **{self.character.defense.armor}**\n:rosette: **{self.character.defense.spirit}**\n"
             combat_format += f"__Ki__ : **{self.character.ki.current}** :fire:"
 

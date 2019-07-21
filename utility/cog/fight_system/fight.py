@@ -40,7 +40,7 @@ class Fight:
         # phase
         self.trigger_phase = Trigger_phase()
         self.selection_phase = None
-        self.battle_phae = Battle_phase()
+        self.battle_phae = None
     
     # method
     async def get_average_hp(self, team):
@@ -118,6 +118,7 @@ class Fight:
 
             # subclasses
             self.selection_phase = Selection_phase(self.client, self.ctx, self.player, turn)
+            self.battle_phae = Battle_phase(self.client, self.ctx, self.player, None)
 
             # new turn
             await self.ctx.send(f"########## 📣 Round {turn} ! ##########")
@@ -134,6 +135,12 @@ class Fight:
                 if(team_a_move.lower() == "flee"):
                     await self.ctx.send(f"<@{self.player.id}> You flee the fight ...")
                     break
+            
+            # battle phase
+            await self.ctx.send(f"⚔ - Battle phase")
+            await asyncio.sleep(2)
+
+            await self.battle_phae.start_battle(team, team_a_move, None, turn)
 
             # end of turn
                 # calculate average hps
