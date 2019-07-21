@@ -5,11 +5,25 @@ Every character classes inherit from the :class:`Character()` defined below.
 
 Author : DrLarck
 
-Last update : 15/07/19
+Last update : 18/07/19
 """
 
 # dependancies
 import asyncio
+
+# attribute
+from utility.cog.character.attribute.info import Character_info
+from utility.cog.character.attribute.image import Character_image
+from utility.cog.character.attribute.type import Character_type
+from utility.cog.character.attribute.rarity import Character_rarity
+
+from utility.cog.character.attribute.posture import Character_posture
+from utility.cog.character.attribute.health import Character_health
+from utility.cog.character.attribute.ki import Character_ki
+from utility.cog.character.attribute.damage import Character_damage
+
+from utility.cog.character.attribute.defense import Character_defense
+from utility.cog.character.attribute.regenation import Character_regen
 
 # character class
 class Character:
@@ -20,71 +34,41 @@ class Character:
 
     - Attribute : 
 
-    `info` : dict {
-        "id" : 0,
-        "name" : None,
-        "image" : None,
-        "icon" : None,
-        "thumb" : None,
-        "saga" : None,
-        "type" : dict {
-            "icon" : None,
-            "value" : 0
-        },
-        "rarity" : dict {
-            "icon" : None,
-            "value" : 0
-        }
-    }
+    `info` : Represents the character's basic infos.
 
-    `level` = 0
+    `image` : Represents the character's images
 
-    `posture` : dict {
-        "attacking" : True,
-        "defending" : False,
-        "charging" : False,
-        "stunned" : False,
-        "ghost" : False
-    }
+    `type` : Represents the character's type.
 
-    `health` : dict {
-        "maximum" : 0,
-        "current" : 0
-    }
+    `rarity` : Represents the character's rarity.
 
-    `ki` : dict {
-        "maximum" : 100,
-        "current" : 0
-    }
+    `level` : Represents the character's level.
 
-    `damage` : dict  {
-        "physical" : dict {
-            "maximum" : 0,
-            "minimum" : 0
-        },
-        "ki" : dict {
-            "maximum" : 0,
-            "minimum" : 0
-        }
-    }
+    `posture` : Represents the character's posture.
 
-    `critical` : dict  {
-        "chance" : 0,
-        "bonus" : 0
-    }
+    `health` = Represents the character's health.
 
-    `defense` : dict  {
-        "armor" : 0,
-        "spirit" : 0,
-        "dodge" : 0,
-        "parry" : 0,
-        "reduction" : 0
-    }
+    `ki` : Represents the character's ki.
 
-    `regeneration` : dict  {
-        "health" : 0,
-        "ki" : 0
-    }
+    `damage` : Represents the character's damage.
+
+    `critical_chance` : Represents the character's crit chance.
+
+    `critical_bonus` : Represents the character's crit bonus.
+
+    `defense` : Represents the character's defense.
+
+    `regeneration` : Represents the character's regen.
+
+    `bonus` : Represents the character's bonus effect.
+
+    `malus` Represents the character's malus effect.
+
+    `ability` : Represents the character's abilities.
+
+    `passive` : Represents the character's passive.
+
+    `leader` : Represents the character's leader.
 
     `enhancement` : dict  {
         "star" : 0,
@@ -99,17 +83,6 @@ class Character:
                 "ki" : 0
             }
         }
-    }
-
-    `effect` : dict  {
-        "bonus" : [],
-        "malus" : []
-    }
-
-    `ability` : dict  {
-        "ability" : [],
-        "passive" : [],
-        "leader" : []
     }
 
     - Method :
@@ -132,22 +105,10 @@ class Character:
     # attribute
     def __init__(self):
         # basic info
-        self.info = {
-            "id" : 0,
-            "name" : None,
-            "image" : None,
-            "icon" : None,
-            "thumb" : None,
-            "saga" : None,
-            "type" : {
-                "icon" : None,
-                "value" : 0
-            },
-            "rarity" : {
-                "icon" : None,
-                "value" : 0
-            }
-        }
+        self.info = Character_info()
+        self.image = Character_image()
+        self.type = Character_type()
+        self.rarity = Character_rarity()
 
         # characteristics
         self.level = 0
@@ -156,60 +117,27 @@ class Character:
         # if all the postures are set to False it means that the character is
         # attacking
         # default : "attacking" = True
-        self.posture = {
-            "attacking" : True,
-            "defending" : False,
-            "charging" : False,
-            "stunned" : False,
-            # if "ghost" = True, the character cannot be resurrected
-            "ghost" : False
-        }
+        self.posture = Character_posture()
 
         # if the current health reaches 0, the character dies
-        self.health = {
-            "maximum" : 0,
-            "current" : 0
-        }
+        self.health = Character_health()
 
         # by default the maximum ki is 100
-        self.ki = {
-            "maximum" : 100,
-            "current" : 0
-        }
+        self.ki = Character_ki()
 
         # 2 types of damage : Physical and Ki one
-        self.damage = {
-            "physical" : {
-                "maximum" : 0,
-                "minimum" : 0
-            },
-            "ki" : {
-                "maximum" : 0,
-                "minimum" : 0
-            }
-        }
+        self.damage = Character_damage()
 
         # the critical values are in %
-        self.critical = {
-            "chance" : 0,
-            "bonus" : 0
-        }
+        self.critical_chance = 0
+        self.critical_bonus = 0
 
         # 2 types of defense : Physical and Ki, repectively "Armor" and "Spirit"
         # the "reduction" key value is in % as well as "parry" and "dodge"
-        self.defense = {
-            "armor" : 0,
-            "spirit" : 0,
-            "dodge" : 0,
-            "parry" : 0,
-            "reduction" : 0
-        }
+        self.defense = Character_defense()
 
         # represents the stats that are generated by the character at each turn
-        self.regeneration = {
-            "health" : 0,
-            "ki" : 0
-        }
+        self.regeneration = Character_regen()
 
             # bonus stat
             # used for the stats calculation
@@ -233,18 +161,14 @@ class Character:
 
         # effect
         # list of effects
-        self.effect = {
-            "bonus" : [],
-            "malus" : []
-        }
+        self.bonus = []
+        self.malus = []
 
         # ability
         # list of abilities
-        self.ability = {
-            "ability" : [],
-            "passive" : [],
-            "leader" : []
-        }
+        self.ability = []
+        self.passive = []
+        self.leader = []
         
     #####################
     # method
@@ -317,7 +241,7 @@ class Character:
         """
 
         # init
-        passive = self.ability["passive"]
+        passive = self.passive
 
         if(len(passive) > 0):  # if there is some passive skills in it
             for _passive in passive:  # triggers the effects one by one
@@ -342,7 +266,7 @@ class Character:
         """
 
         # init
-        leader = self.ability["leader"]
+        leader = self.leader
 
         if(len(leader) > 0):
             for _leader in leader:

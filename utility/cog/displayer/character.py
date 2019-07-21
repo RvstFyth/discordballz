@@ -5,7 +5,7 @@ Manages the displaying of the characters.
 
 Author : DrLarck
 
-Last update : 15/07/19
+Last update : 20/07/19
 """
 
 # dependancies
@@ -43,7 +43,7 @@ class Character_displayer:
         self.ctx = ctx
 
         # class
-        self.character = []
+        self.character = None
     
     # method
     async def display(self, combat_format = False):
@@ -65,65 +65,61 @@ class Character_displayer:
             # posture icons
             posture_icon = [":crossed_swords:", ":fire:", ":shield:", ":confused:"]
 
-            for character in self.character:
-                await asyncio.sleep(0)
+            # embed
+            embed = Custom_embed(
+                self.client,
+                thumb = self.character.image.thumb
+            )
 
-                # embed
-                embed = Custom_embed(
-                    self.client,
-                    thumb = character.info['thumb']
-                )
+            embed = await embed.setup_embed()
 
-                embed = await embed.setup_embed()
+            # posture
+            posture = None
 
-                # posture
-                posture = None
+            if(self.character.posture.attacking == True):
+                posture = posture_icon[0]
+            
+            if(self.character.posture.charging == True):
+                posture = posture_icon[1]
 
-                if(character.posture["attacking"] == True):
-                    posture = posture_icon[0]
+            if(self.character.posture.defending == True):
+                posture = posture_icon[2]
+            
+            if(self.character.posture.stunned == True):
+                posture = posture_icon[3]
+            
+            # formatting the embed
+            combat_format = f"__Name__ : **{self.character.info.name}**{self.character.type.icon}\n"
+            combat_format += f"__Health__ : \n**{self.character.health.current:,}** / **{self.character.health.maximum}** :hearts: \n"
+            combat_format += f"__Posture__ : {posture}\n"
+            combat_format += f"__Damage__ :\n:crossed_swords: **{self.character.damage.physical_min}** - **{self.character.damage.physical_max}** \n:rosette: **{self.character.damage.ki_min}** - **{self.character.damage.ki_max}** \n"
+            combat_format += f"__Defense__ :\n:shield: **{self.character.defense.armor}**\n:rosette: **{self.character.defense.spirit}**\n"
+            combat_format += f"__Ki__ : **{self.character.ki.current}** :fire:"
+
+            # now the effects
+                # buff
+            if(len(self.character.bonus) > 0):  # if the character has a buff
+                combat_format += f"__Bonus__ : "
+
+                for buff in self.character.bonus:
+                    await asyncio.sleep(0)
+
+                    combat_format += f"{buff.icon} x{buff.stack} ({buff.duration}) |"
+            
+            if(len(self.character.malus) > 0):
+                combat_format += f"\n__Malus__ : "
                 
-                if(character.posture["charging"] == True):
-                    posture = posture_icon[1]
+                for debuff in self.character.malus:
+                    await asyncio.sleep(0)
 
-                if(character.posture["defending"] == True):
-                    posture = posture_icon[2]
-                
-                if(character.posture["stunned"] == True):
-                    posture = posture_icon[3]
-                
-                # formatting the embed
-                combat_format = f"__Name__ : **{character.info['name']}**\n"
-                combat_format += f"__Health__ : **{character.health['current']:,}** / **{character.health['maximum']:,} :hearts: \n"
-                combat_format += f"__Ki__ : **{character.ki['current']:,} :fire: \n"
-                combat_format += f"__Posture__ : {posture}\n"
-                combat_format += f"__Damage__ :\n:crossed_swords: **{character.damage['physical']['minimum']}** - **{character.damage['physical']['maximum']}** \n:rosette: **{character.damage['ki']['minimum']}** - **{character.damage['ki']['maximum']}** \n"
-                combat_format += f"__Defense__ :\n:shield: **{character.defense['armor']}\n:rosette: **{character.defense['spirit']}\n"
+                    combat_format += f"{debuff.icon} x{debuff.stac} ({debuff.duration}) |"
+            
+            # send the messages
+            embed.add_field(name = f"{self.character.image.icon}{self.character.info.name}'s infos :", value = combat_format)
 
-                # now the effects
-                    # buff
-                if(len(character.effect["bonus"]) > 0):  # if the character has a buff
-                    combat_format += f"__Bonus__ : "
+            await self.ctx.send(embed = embed)
 
-                    for buff in character.effect["buff"]:
-                        await asyncio.sleep(0)
-
-                        combat_format += f"{buff.icon} x{buff.stack} ({buff.duration}) |"
-                
-                if(len(character.effect["malus"]) > 0):
-                    combat_format += f"\n__Malus__ : "
-                    
-                    for debuff in character.effect["malus"]:
-                        await asyncio.sleep(0)
-
-                        combat_format += f"{debuff.icon} x{debuff.stac} ({debuff.duration}) |"
-                
-                # send the messages
-                embed.add_field(name = f"{character.info['icon']}{character.info['name']}'s infos :", value = combat_format)
-
-                await self.ctx.send(embed = embed)
-
-        else:
+        else:  # if not in combat format
             pass
         
         return
-

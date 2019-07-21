@@ -5,7 +5,7 @@ The :class:`Fight()` manages a fight, from the beginning to the end and returns 
 
 Author : DrLarck
 
-Last update : 14/07/19
+Last update : 18/07/19
 """
 
 # dependancies
@@ -67,13 +67,13 @@ class Fight:
         for character_a in team[0]:
             await asyncio.sleep(0)
 
-            team_a_average_hp += character_a.health["current"]
+            team_a_average_hp += character_a.health.current
 
             # for team_b
         for character_b in team[1]:
             await asyncio.sleep(0)
 
-            team_b_average_hp += character_b.health["current"]
+            team_b_average_hp += character_b.health.current
         
         # get the average amount of hps
         team_a_average_hp = int(team_a_average_hp / team_a_length)
@@ -104,9 +104,6 @@ class Fight:
             # turn displaying
         turn = 1  # begins at 1
 
-            # subclass
-        self.selection_phase = Selection_phase(self.client, self.ctx, self.player, turn)
-
             # init at 1 to loop at least one time
         team_a_average_hp = 1  
         team_b_average_hp = 1
@@ -119,6 +116,9 @@ class Fight:
         while(team_a_average_hp > 0 and team_b_average_hp > 0):  # if one of the teams is defeated, stops the loop
             await asyncio.sleep(0)
 
+            # subclasses
+            self.selection_phase = Selection_phase(self.client, self.ctx, self.player, turn)
+
             # new turn
             await self.ctx.send(f"########## 📣 Round {turn} ! ##########")
             await asyncio.sleep(2)
@@ -127,7 +127,7 @@ class Fight:
             await self.ctx.send(f"💠 - Selection Phase")
             await asyncio.sleep(1)
 
-            team_a_move = await self.selection_phase.start_selection(team[0])
+            team_a_move = await self.selection_phase.start_selection(team[0], team)
 
             # end of turn
                 # calculate average hps

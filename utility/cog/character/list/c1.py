@@ -5,7 +5,7 @@ Manages the character 1
 
 Author : DrLarck
 
-Last update : 15/07/19
+Last update : 18/07/19
 """
 
 # dependancies
@@ -26,25 +26,31 @@ class Character_1(Character):
 
         # characteristics
             # infos
-        self.info["id"] = 1
-        self.info["name"] = "Green Saibaiman"
-        self.info["saga"] = "Saiyan"
-        self.info["rarity"]["value"] = 0 
+        self.info.id = 1
+        self.info.name = "Green Saibaiman"
+        self.info.saga = "Saiyan"
+
+            # image
+        self.image.icon = "<:saibaiman_a:589485375685263373>"
+        self.image.image = "https://i.imgur.com/1m8rA7L.png"
+        self.image.thumb = "https://i.imgur.com/SITD9VY.png"
+
+        self.rarity.value = 0 
 
             # health
-        self.health["maximum"] = 3500
-        self.health["current"] = 3500
+        self.health.maximum = 3500
+        self.health.current = 3500
 
             # damage
-        self.damage["physical"]["maximum"] = 400
-        self.damage["physical"]["minimum"] = 360
-        self.damage["ki"]["maximum"] = 850
-        self.damage["ki"]["minimum"] = 765
+        self.damage.physical_max = 400
+        self.damage.physical_min = 360
+        self.damage.ki_max = 850
+        self.damage.ki_min = 765
 
             # defense
-        self.defense["armor"] = 475
-        self.defense["spirit"] = 400
-        self.defense["dodge"] = 10
+        self.defense.armor = 475
+        self.defense.spirit = 400
+        self.defense.dodge = 10
 
             # critical
-        self.critical["chance"] = 10
+        self.critical_chance = 10
