@@ -127,7 +127,13 @@ class Fight:
             await self.ctx.send(f"💠 - Selection Phase")
             await asyncio.sleep(1)
 
+            # get move
             team_a_move = await self.selection_phase.start_selection(team[0], team)
+                # check if the player want to flee
+            if(type(team_a_move) == str):
+                if(team_a_move.lower() == "flee"):
+                    await self.ctx.send(f"<@{self.player.id}> You flee the fight ...")
+                    break
 
             # end of turn
                 # calculate average hps

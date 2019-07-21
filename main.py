@@ -7,11 +7,11 @@ Project started : 06/05/19 - 8:20 PM France
 
 Author : DrLarck
 
-Last update : 11/07/19 (DrLarck)
+Last update : 21/07/19 (DrLarck)
 """
 
 # dependancies
-import asyncio, logging
+import asyncio, logging, discord
 
 from discord.ext import commands
 
@@ -26,11 +26,16 @@ from utility.database.database_manager import Database
 from configuration.bot import bot_config
 
 # init
-logging.basicConfig(level = logging.INFO)
-
 client = commands.AutoShardedBot(command_prefix = bot_config["prefix"], help_command = None)
 
 cog = Cog_loader(client)
+
+# logs
+logger = logging.getLogger('discord')
+logger.setLevel(logging.DEBUG)
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+logger.addHandler(handler)
 
 # create the database connection pool
 database = Database(None)  # pass None as we do not have set up a connection pool yet

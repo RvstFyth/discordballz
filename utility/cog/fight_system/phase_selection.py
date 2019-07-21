@@ -64,16 +64,18 @@ class Selection_phase:
         
         # stores the move in it.
         move_list = []  # stores the move_choice
-        move_choice = {
-            "move" : None,
-            "target" : None
-        }  
 
         # choice
         choice = Player_choice(self.client, self.player)
 
         for character in player_team:
             await asyncio.sleep(0)
+
+            # init
+            move_choice = {
+                "move" : None,
+                "target" : None
+            }  
 
             if(character.health.current > 0 and character.posture.stunned == False):
                 # displying the character
@@ -132,9 +134,7 @@ class Selection_phase:
 
                         if(type(move) == str):
                             if(move.lower() == "flee"):
-                                move_choice["move"] = "flee"
-                                move_list.append(move_choice)
-                                decision = True
+                                return("flee")
                             
                             elif(move.lower() == "1"):
                                 move_choice["move"] = "skip"

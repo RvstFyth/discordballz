@@ -133,6 +133,9 @@ class Player_choice:
                             return("flee")
                 
                 elif(len(choice) > 1):  # if more than one elem
+                    if(choice[0].isdigit()):
+                        return(choice[0])  # return the action
+                        
                     if(choice[0].lower() == "check"):
                         if(choice[1].isdigit()):  # if the target is specified
                             if(int(choice[1])-1 <= len(team)):  # if the target is found
@@ -153,6 +156,8 @@ class Player_choice:
 
             else:
                 return("flee")
+        
+        return("flee")
     
     async def wait_for_target(self, possible_target):
         """
