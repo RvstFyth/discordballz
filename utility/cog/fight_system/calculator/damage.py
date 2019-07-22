@@ -80,11 +80,12 @@ class Damage_calculator:
                 self.damage["critical"] = True
                 self.critical_bonus = 1.5 + (self.attacker.critical_bonus)/100
         
-        if(ignore_defense == False):
-            self.damage["calculated"] = (roll_damage) * self.type_bonus * self.damage_reduction * self.armor * self.critical_bonus
-        
-        else:  # ignore the armor
-            self.damage["calculated"] = (roll_damage) * self.type_bonus * self.damage_reduction * self.critical_bonus
-        
-        self.damage["calculated"] = int(self.damage["calculated"])
+            if(ignore_defense == False):
+                self.damage["calculated"] = (roll_damage) * self.type_bonus * self.damage_reduction * self.armor * self.critical_bonus
+            
+            else:  # ignore the armor
+                self.damage["calculated"] = (roll_damage) * self.type_bonus * self.damage_reduction * self.critical_bonus
+            
+            self.damage["calculated"] = int(self.damage["calculated"])
+            
         return(self.damage)
