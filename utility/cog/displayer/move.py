@@ -59,7 +59,7 @@ class Move_displayer:
         # init
         offensive_display = ""
 
-        offensive_display += f"__Move__ : **{move['name']}**{move['icon']}\n"
+        offensive_display += f"__Move__ : `{move['name']}`{move['icon']}\n"
 
         # type of damage
         if(move["dodge"]):
@@ -75,9 +75,41 @@ class Move_displayer:
         if(move["dodge"] == False):
             # a dodge cannot be crit
             if(move["critical"]):
-                offensive_display += "**(CRITICAL ! :boom:)"
+                offensive_display += "**(CRITICAL ! :boom:)**\n"
             
             else:
                 offensive_display += "\n"
 
         return(offensive_display)
+    
+    async def ki_move(self, move):
+        """
+        `coroutine`
+
+        Manages the displaying of a ki move.
+        
+        damage key represents the ki gain.
+
+        - Parameter : 
+
+        `move` : Represents the move infos as a `dict` 
+        - "name" : The move name (str)
+        - "icon" : The move icon (emoji)
+        - "damage" : The ki gained (int)
+        - "critical" : Is critical (bool)
+        - "dodge" : Is dodged (bool)
+        - "physical" : Are the damage physical damage (bool)
+        - "ki" : Are the damage ki damage (bool)
+
+        -- 
+
+        Return : str formatted to display the ki move
+        """
+
+        # init
+        ki_display = ""
+
+        ki_display += f"__Move__ : `{move['name']}`{move['icon']}\n"
+        ki_display += f"__Ki gain__ : +**{move['damage']}** :fire: \n"
+        
+        return(ki_display)
