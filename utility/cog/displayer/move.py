@@ -5,7 +5,7 @@ Manages the way the move are displayed.
 
 Author : DrLarck
 
-Last update : 21/07/19 (DrLarck)
+Last update : 25/07/19 (DrLarck)
 """
 
 # dependancies
@@ -113,3 +113,21 @@ class Move_displayer:
         ki_display += f"__Ki gain__ : +**{move['damage']}** :fire: \n"
         
         return(ki_display)
+    
+    async def defense_move(self):
+        """
+        `coroutine`
+
+        Manages the displaying of the defending move.
+
+        --
+
+        Return : str formatted to display defending move
+        """
+
+        # init
+        defend_display = ""
+
+        defend_display += f"__Move__ : Defending :shield:"
+
+        return(defend_display)

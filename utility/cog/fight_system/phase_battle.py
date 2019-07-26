@@ -5,7 +5,7 @@ Manages the battle phase.
 
 Author : DrLarck
 
-Last update : 21/07/19
+Last update : 26/07/19
 """
 
 # dependancies
@@ -57,10 +57,6 @@ class Battle_phase:
 
         # init
         _move_display = Move_displayer()
-        team_a = {
-            "index" : 0,
-            "display" : ""
-        }
 
         team_b= {
             "index" : 0,
@@ -75,6 +71,11 @@ class Battle_phase:
         
         for character in team[0]:
             await asyncio.sleep(0)
+
+            team_a = {
+                "index" : 0,
+                "display" : ""
+            }
 
             # check if the character is able to fight
             if(character.health.current > 0 and character.posture.stunned == False):
@@ -145,24 +146,47 @@ class Battle_phase:
                     }
 
                     team_a["display"] += await _move_display.ki_move(move_info)
+                
+                if(character_move["move"] == 3):  # defending
+                    await character.posture.change_posture("defending")
+
+                    team_a["display"] += await _move_display.defense_move()
+                
+                if(character_move["move"] > 3):  # if ability
+                    await character.posture.change_posture("attacking")
+
+                    # find the ability the player wants to use
+                    ability =  await character.get_ability(
+                        self.client,
+                        self.ctx,
+                        character_move["target"],
+                        team,
+                        character_move["move"] - 4
+                    )
+
+                    # use the ability
+                    # the ability returns the display
+                    team_a["display"] += await ability.use()
+            
+            # end of loop
 
             # update the index
             team_a["index"] += 1
             unit_index += 1
         
-        # display the team_a move
-        # test
-        if(turn > 1):
-            team_a_embed = Custom_embed(self.client)
-            team_a_embed = await team_a_embed.setup_embed()
+            # display the team_a move
+            # test
+            if(turn > 1):
+                team_a_embed = Custom_embed(self.client)
+                team_a_embed = await team_a_embed.setup_embed()
 
-            print(f"Team_display : {team_a['display']}")
-            team_a_embed.add_field(
-                name = f"{self.player_a.name} team :",
-                value = team_a["display"],
-                inline = False
-            )
+                print(f"Team_display : {team_a['display']}")
+                team_a_embed.add_field(
+                    name = f"{self.player_a.name} team :",
+                    value = team_a["display"],
+                    inline = False
+                )
 
-            await self.ctx.send(embed = team_a_embed)
+                await self.ctx.send(embed = team_a_embed)
         
         return

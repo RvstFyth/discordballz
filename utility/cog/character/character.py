@@ -5,7 +5,7 @@ Every character classes inherit from the :class:`Character()` defined below.
 
 Author : DrLarck
 
-Last update : 21/07/19
+Last update : 26/07/19
 """
 
 # dependancies
@@ -235,18 +235,36 @@ class Character:
         return
     
     # ability
-    async def use_ability(self):
+    async def get_ability(self, client, ctx, target, team, ability_index):
         """
         `coroutine`
 
         Uses the passed ability.
 
+        - Parameter : 
+
+        `client` : Represents the `discord.Client`.
+
+        `ctx` : Represents the `commands.Context`.
+
+        `target` : Represents a `Character()` instance.
+
+        `team` : Represents a list of lists representing teams.
+
+        `ability_index` : Represents the ability index in the `ability` list.
+
         --
 
-        Return : None
+        Return : `Ability()` instance.
         """
+        
+        # find the ability then create an instance of it
+        ability = self.ability[ability_index]
 
-        return
+        # pass the parameter to the ability instance
+        ability = ability()
+
+        return(ability)
         
         # triggers
     async def trigger_passive(self):

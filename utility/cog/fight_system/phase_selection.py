@@ -5,7 +5,7 @@ Manages the selection phase.
 
 Author : DrLarck
 
-Last update : 21/07/19 (DrLarck)
+Last update : 25/07/19 (DrLarck)
 """
 
 # dependancies
@@ -162,6 +162,9 @@ class Selection_phase:
                         move = await choice.wait_for_choice(possible_action, all_character)
 
                         if(type(move) == str):
+                            if(move.lower() == "flee"):
+                                return("flee")
+
                             if(move.isdigit()):  # convert the str to int
                                 move = int(move)                    
                                 
