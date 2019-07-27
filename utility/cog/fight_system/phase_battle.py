@@ -175,6 +175,9 @@ class Battle_phase:
                         # use the ability
                         # the ability returns the display
                         team_a["display"] += await ability.use()
+
+                        character.ki.current -= ability.cost
+                        await character.ki.ki_limit()
             
             # end of loop
 

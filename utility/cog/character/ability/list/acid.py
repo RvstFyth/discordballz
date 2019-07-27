@@ -62,6 +62,8 @@ class Acid(Ability):
         # init
         move = Move_displayer()
         calculator = Damage_calculator(self.caster, self.target)
+
+        # get the damage
         damage = randint(self.caster.damage.ki_min, self.caster.damage.ki_max)
         damage = int(damage * 0.25)  # the ability inflicts only 25 % of the ki damage
         damage = await calculator.ki_damage(damage)
@@ -77,5 +79,8 @@ class Acid(Ability):
         }
 
         _move = await move.offensive_move(_move)
+
+        # inflict damage
+        await self.target.receive_damage(damage["calculated"])
 
         return(_move)
