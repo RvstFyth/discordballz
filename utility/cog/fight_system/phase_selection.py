@@ -5,7 +5,7 @@ Manages the selection phase.
 
 Author : DrLarck
 
-Last update : 25/07/19 (DrLarck)
+Last update : 26/07/19 (DrLarck)
 """
 
 # dependancies
@@ -109,6 +109,14 @@ class Selection_phase:
 
                         for ability in character.ability:
                             await asyncio.sleep(0)
+
+                            ability = ability(
+                                self.client,
+                                self.ctx,
+                                None,
+                                None,
+                                None
+                            )
 
                             # add a new possible action
                             possible_action.append(str(ability_index))
@@ -226,6 +234,13 @@ class Selection_phase:
                                     # -4 because we start counting at 4
                                     # 4(choice) == first ability 
                                     ability = character.ability[move-4]
+                                    ability = ability(
+                                        self.client,
+                                        self.ctx,
+                                        None,
+                                        None,
+                                        None
+                                    )
 
                                     # check if the ability needs a target
                                     need_target = ability.need_target

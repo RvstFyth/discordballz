@@ -5,7 +5,7 @@ Manages the displaying of teams.
 
 Author : DrLarck
 
-Last update : 20/07/19
+Last update : 26/07/19
 """
 
 # dependancies 
@@ -74,7 +74,7 @@ class Team_displayer:
                 team_b = defender
         
         else:  # not sequence
-            if(ability.can_target_ally):
+            if(ability.target_ally):
                 for ally in self.team_a:
                     await asyncio.sleep(0)
 
@@ -82,7 +82,7 @@ class Team_displayer:
                     if(ally.health.current > 0):
                         team_a.append(ally)
             
-            if(ability.can_target_enemy):
+            if(ability.target_enemy):
                 for enemy in self.team_b:
                     await asyncio.sleep(0)
 

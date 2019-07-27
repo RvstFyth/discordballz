@@ -13,6 +13,7 @@ import asyncio
 
 # utils
 from utility.cog.character.character import Character
+from utility.cog.character.ability.list.acid import Acid
 
 # saibaiman
 class Character_1(Character):
@@ -54,3 +55,6 @@ class Character_1(Character):
 
             # critical
         self.critical_chance = 10
+
+        # ability
+        self.ability = [Acid]

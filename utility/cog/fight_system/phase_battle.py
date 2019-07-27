@@ -58,6 +58,12 @@ class Battle_phase:
         # init
         _move_display = Move_displayer()
 
+        
+        team_a = {
+            "index" : 0,
+            "display" : ""
+        }
+
         team_b= {
             "index" : 0,
             "display" : ""
@@ -72,10 +78,7 @@ class Battle_phase:
         for character in team[0]:
             await asyncio.sleep(0)
 
-            team_a = {
-                "index" : 0,
-                "display" : ""
-            }
+            team_a["display"] = ""
 
             # check if the character is able to fight
             if(character.health.current > 0 and character.posture.stunned == False):
@@ -90,83 +93,88 @@ class Battle_phase:
                 
                 # manage the move
                 print(f"move : {character_move['move']} {type(character_move['move'])}")
-                if(character_move["move"] == 1):  # sequence
-                    await character.posture.change_posture("attacking")
+                if(type(character_move["move"]) == str):
+                    if(character_move["move"] == "skip"):
+                        pass
 
-                    # damage
-                    damager = Damage_calculator(character, character_move["target"])
+                else:
+                    if(character_move["move"] == 1):  # sequence
+                        await character.posture.change_posture("attacking")
 
-                    # generate a random number of damage
-                    sequence_damage = randint(character.damage.physical_min, character.damage.physical_max)
-                    damage_done = await damager.physical_damage(sequence_damage)
+                        # damage
+                        damager = Damage_calculator(character, character_move["target"])
 
-                    # inflict the damage
-                    await character_move["target"].receive_damage(damage_done["calculated"])
+                        # generate a random number of damage
+                        sequence_damage = randint(character.damage.physical_min, character.damage.physical_max)
+                        damage_done = await damager.physical_damage(sequence_damage)
+
+                        # inflict the damage
+                        await character_move["target"].receive_damage(damage_done["calculated"])
+                        
+                        # prepare the move info
+                        move_info = {
+                            "name" : "Sequence",
+                            "icon" : "👊",
+                            "damage" : damage_done["calculated"],
+                            "critical" : damage_done["critical"],
+                            "dodge" : damage_done["dodge"],
+                            "physical" : True,
+                            "ki" : False
+                        }
+
+                        # displays the move
+                        team_a["display"] += await _move_display.offensive_move(move_info)
                     
-                    # prepare the move info
-                    move_info = {
-                        "name" : "Sequence",
-                        "icon" : "👊",
-                        "damage" : damage_done["calculated"],
-                        "critical" : damage_done["critical"],
-                        "dodge" : damage_done["dodge"],
-                        "physical" : True,
-                        "ki" : False
-                    }
+                    if(character_move["move"] == 2):  # charging ki
+                        await character.posture.change_posture("charging")
 
-                    # displays the move
-                    team_a["display"] += await _move_display.offensive_move(move_info)
-                
-                if(character_move["move"] == 2):  # charging ki
-                    await character.posture.change_posture("charging")
+                        # init 
+                            # get the missing ki of the character
+                        missing_ki = character.ki.maximum - character.ki.current
+                            # take 10 % of the missing ki
+                        missing_ki *= 0.1
 
-                    # init 
-                        # get the missing ki of the character
-                    missing_ki = character.ki.maximum - character.ki.current
-                        # take 10 % of the missing ki
-                    missing_ki *= 0.1
+                        # get the ki gain
+                        # based on misisng ki and rarity of the character
+                        ki_gain = int(randint(1, 5) + character.rarity.value + missing_ki)
 
-                    # get the ki gain
-                    # based on misisng ki and rarity of the character
-                    ki_gain = int(randint(1, 5) + character.rarity.value + missing_ki)
+                        # add the ki to the character
+                        character.ki.current += ki_gain
+                        await character.ki.ki_limit()
 
-                    # add the ki to the character
-                    character.ki.current += ki_gain
-                    await character.ki.ki_limit()
+                        # prepare the move info
+                        move_info = {
+                            "name" : "Ki charge",
+                            "icon" : "🔥",
+                            "damage" : ki_gain,
+                            "critical" : False,
+                            "dodge" : False,
+                            "physical" : False,
+                            "ki" : False
+                        }
 
-                    # prepare the move info
-                    move_info = {
-                        "name" : "Ki charge",
-                        "icon" : "🔥",
-                        "damage" : ki_gain,
-                        "critical" : False,
-                        "dodge" : False,
-                        "physical" : False,
-                        "ki" : False
-                    }
+                        team_a["display"] += await _move_display.ki_move(move_info)
+                    
+                    if(character_move["move"] == 3):  # defending
+                        await character.posture.change_posture("defending")
 
-                    team_a["display"] += await _move_display.ki_move(move_info)
-                
-                if(character_move["move"] == 3):  # defending
-                    await character.posture.change_posture("defending")
+                        team_a["display"] += await _move_display.defense_move()
+                    
+                    if(character_move["move"] > 3):  # if ability
+                        await character.posture.change_posture("attacking")
 
-                    team_a["display"] += await _move_display.defense_move()
-                
-                if(character_move["move"] > 3):  # if ability
-                    await character.posture.change_posture("attacking")
+                        # find the ability the player wants to use
+                        ability =  await character.get_ability(
+                            self.client,
+                            self.ctx,
+                            character_move["target"],
+                            team,
+                            character_move["move"] - 4
+                        )
 
-                    # find the ability the player wants to use
-                    ability =  await character.get_ability(
-                        self.client,
-                        self.ctx,
-                        character_move["target"],
-                        team,
-                        character_move["move"] - 4
-                    )
-
-                    # use the ability
-                    # the ability returns the display
-                    team_a["display"] += await ability.use()
+                        # use the ability
+                        # the ability returns the display
+                        team_a["display"] += await ability.use()
             
             # end of loop
 

@@ -5,7 +5,7 @@ Manages the damage calculator.
 
 Author : DrLarck
 
-Last update : 21/07/19 (DrLarck)
+Last update : 27/07/19 (DrLarck)
 """
 
 # dependancies
@@ -82,6 +82,53 @@ class Damage_calculator:
         
             if(ignore_defense == False):
                 self.damage["calculated"] = (roll_damage) * self.type_bonus * self.damage_reduction * self.armor * self.critical_bonus
+            
+            else:  # ignore the armor
+                self.damage["calculated"] = (roll_damage) * self.type_bonus * self.damage_reduction * self.critical_bonus
+            
+            self.damage["calculated"] = int(self.damage["calculated"])
+            
+        return(self.damage)
+    
+    async def ki_damage(self, roll_damage, ignore_defense = False):
+        """
+        `coroutine`
+
+        Calculates the ki damages done to the target.
+
+        - Parameter :
+
+        `roll_damage` : Represents the generated damages.
+        
+        `ignore_defense`[Optional] : Default False, ignore the defense of the target or not.
+
+        --
+
+        Return : dict
+        - calculated (int)
+        - dodge (bool)
+        - critical (bool)
+        """
+
+        # roll to check if the target has dodged
+        # if the target has dodged, return the dict 
+        # with no calculated dmg
+        roll_dodge = uniform(0, 100)
+        if(roll_dodge <= self.target.defense.dodge):
+            # dodged
+            self.damage["dodge"] = True
+        
+        # not dodged
+        if(self.damage["dodge"] == False):
+            # roll the crit
+            roll_crit = uniform(0, 100)
+            if(roll_crit <= self.attacker.critical_chance):
+                # crit
+                self.damage["critical"] = True
+                self.critical_bonus = 1.5 + (self.attacker.critical_bonus)/100
+        
+            if(ignore_defense == False):
+                self.damage["calculated"] = (roll_damage) * self.type_bonus * self.damage_reduction * self.spirit * self.critical_bonus
             
             else:  # ignore the armor
                 self.damage["calculated"] = (roll_damage) * self.type_bonus * self.damage_reduction * self.critical_bonus

@@ -5,7 +5,7 @@ Every character classes inherit from the :class:`Character()` defined below.
 
 Author : DrLarck
 
-Last update : 26/07/19
+Last update : 27/07/19
 """
 
 # dependancies
@@ -262,7 +262,13 @@ class Character:
         ability = self.ability[ability_index]
 
         # pass the parameter to the ability instance
-        ability = ability()
+        ability = ability(
+            client,
+            ctx,
+            self,
+            target,
+            team
+        )
 
         return(ability)
         
