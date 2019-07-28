@@ -5,7 +5,7 @@ Manages the Acid ability.
 
 Author : DrLarck
 
-Last update : 27/07/19
+Last update : 28/07/19
 """
 
 # dependance
@@ -13,10 +13,12 @@ import asyncio
 from random import randint
 
 # utility
-from utility.cog.fight_system.calculator.damage import Damage_calculator
 from utility.cog.displayer.move import Move_displayer
 from utility.cog.fight_system.calculator.damage import Damage_calculator
+
 from utility.cog.character.ability.ability import Ability
+from utility.cog.character.ability.effect.dot.dot_acid import Dot_acid
+from utility.cog.character.ability.util.effect_checker import Effect_checker
 
 # ability
 class Acid(Ability):
@@ -62,6 +64,7 @@ class Acid(Ability):
         # init
         move = Move_displayer()
         calculator = Damage_calculator(self.caster, self.target)
+        checker = Effect_checker(self.target)
 
         # get the damage
         damage = randint(self.caster.damage.ki_min, self.caster.damage.ki_max)
@@ -82,5 +85,18 @@ class Acid(Ability):
 
         # inflict damage
         await self.target.receive_damage(damage["calculated"])
+
+        # applies dot
+        _acid = await checker.get_effect(1)
+
+        # check if the target already has acid on it
+        has_acid = await checker.get_debuff(_acid)
+
+        if(has_acid != None):  # if the target already has the effect on it
+            _acid = has_acid
+            
+
+        else:  # the target doesn't have acid on it
+            pass
 
         return(_move)

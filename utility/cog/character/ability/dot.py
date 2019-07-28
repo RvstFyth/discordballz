@@ -24,14 +24,16 @@ class Dot:
     """
 
     # attribute
-    def __init__(self, client, ctx):
+    def __init__(self, client, ctx, team):
         # client
         self.client = client
         self.ctx = ctx
+        self.team = team
 
         # dot
         self.name = None
         self.description = None
+        self.id = 0
         self.caster = None
 
         # duration
@@ -48,14 +50,14 @@ class Dot:
 
     # method
     async def apply(self):
-        """
-        `coroutine`
+        return
 
-        Applies the dot effect.
-
-        -- 
-
-        Return : str formatted string
-        """
-
+    # init
+    async def set_tick_damage(self):
+        return
+    
+    async def add_stack(self):
+        return
+    
+    async def on_remove(self):
         return
