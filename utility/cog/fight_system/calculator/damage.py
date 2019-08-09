@@ -5,7 +5,7 @@ Manages the damage calculator.
 
 Author : DrLarck
 
-Last update : 27/07/19 (DrLarck)
+Last update : 07/08/19 (DrLarck)
 """
 
 # dependancies
@@ -43,7 +43,7 @@ class Damage_calculator:
         self.spirit = 2500/(2500 + self.target.defense.spirit)
 
     # method
-    async def physical_damage(self, roll_damage, ignore_defense = False):
+    async def physical_damage(self, roll_damage, dodgable = False, critable = False, ignore_defense = False):
         """
         `coroutine`
 
@@ -66,19 +66,21 @@ class Damage_calculator:
         # roll to check if the target has dodged
         # if the target has dodged, return the dict 
         # with no calculated dmg
-        roll_dodge = uniform(0, 100)
-        if(roll_dodge <= self.target.defense.dodge):
-            # dodged
-            self.damage["dodge"] = True
+        if(dodgable):
+            roll_dodge = uniform(0, 100)
+            if(roll_dodge <= self.target.defense.dodge):
+                # dodged
+                self.damage["dodge"] = True
         
         # not dodged
         if(self.damage["dodge"] == False):
             # roll the crit
-            roll_crit = uniform(0, 100)
-            if(roll_crit <= self.attacker.critical_chance):
-                # crit
-                self.damage["critical"] = True
-                self.critical_bonus = 1.5 + (self.attacker.critical_bonus)/100
+            if(critable):
+                roll_crit = uniform(0, 100)
+                if(roll_crit <= self.attacker.critical_chance):
+                    # crit
+                    self.damage["critical"] = True
+                    self.critical_bonus = 1.5 + (self.attacker.critical_bonus)/100
         
             if(ignore_defense == False):
                 self.damage["calculated"] = (roll_damage) * self.type_bonus * self.damage_reduction * self.armor * self.critical_bonus
@@ -90,7 +92,7 @@ class Damage_calculator:
             
         return(self.damage)
     
-    async def ki_damage(self, roll_damage, ignore_defense = False):
+    async def ki_damage(self, roll_damage, dodgable = False, critable = False, ignore_defense = False):
         """
         `coroutine`
 
@@ -113,24 +115,26 @@ class Damage_calculator:
         # roll to check if the target has dodged
         # if the target has dodged, return the dict 
         # with no calculated dmg
-        roll_dodge = uniform(0, 100)
-        if(roll_dodge <= self.target.defense.dodge):
-            # dodged
-            self.damage["dodge"] = True
+        if(dodgable):
+            roll_dodge = uniform(0, 100)
+            if(roll_dodge <= self.target.defense.dodge):
+                # dodged
+                self.damage["dodge"] = True
         
         # not dodged
         if(self.damage["dodge"] == False):
             # roll the crit
-            roll_crit = uniform(0, 100)
-            if(roll_crit <= self.attacker.critical_chance):
-                # crit
-                self.damage["critical"] = True
-                self.critical_bonus = 1.5 + (self.attacker.critical_bonus)/100
+            if(critable):
+                roll_crit = uniform(0, 100)
+                if(roll_crit <= self.attacker.critical_chance):
+                    # crit
+                    self.damage["critical"] = True
+                    self.critical_bonus = 1.5 + (self.attacker.critical_bonus)/100
         
             if(ignore_defense == False):
                 self.damage["calculated"] = (roll_damage) * self.type_bonus * self.damage_reduction * self.spirit * self.critical_bonus
             
-            else:  # ignore the armor
+            else:  # ignore the spirit
                 self.damage["calculated"] = (roll_damage) * self.type_bonus * self.damage_reduction * self.critical_bonus
             
             self.damage["calculated"] = int(self.damage["calculated"])

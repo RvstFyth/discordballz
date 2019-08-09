@@ -27,13 +27,48 @@ class Move_displayer:
     - Attribute :
 
     - Method :
+
+    `get_new_move()` : Generates a new move dict.
     """
 
     # attribute
     def __init__(self):
-        self.a = 0
+        self.move = None
     
     # method
+    async def get_new_move(self):
+        """
+        `coroutine`
+
+        Generates a new dict move.
+
+        --
+
+        Return : dict (move)
+
+        - Key :
+
+        "name" : None,
+        "icon" : None,
+        "damage" : 0,
+        "critical" : False,
+        "dodge" : False,
+        "physical" : False,
+        "ki" : False        
+        """
+
+        self.move = {
+            "name" : None,
+            "icon" : None,
+            "damage" : 0,
+            "critical" : False,
+            "dodge" : False,
+            "physical" : False,
+            "ki" : False
+        }
+    
+        return(self.move)
+
     async def offensive_move(self, move):
         """
         `coroutine`

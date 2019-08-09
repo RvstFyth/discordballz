@@ -24,11 +24,12 @@ class Dot:
     """
 
     # attribute
-    def __init__(self, client, ctx, team):
+    def __init__(self, client, ctx, team_a, team_b):
         # client
         self.client = client
         self.ctx = ctx
-        self.team = team
+        self.team_a = team_a
+        self.team_b = team_b
 
         # dot
         self.name = None
