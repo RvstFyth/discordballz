@@ -125,10 +125,8 @@ class Dot_acid(Dot):
                 pass
         
         # set the total damage
-        # [CHECK] The damage of the ticks are equal to 1.5 % of the target's maximum health + 1 % every 1 000 Ki * stacks
-        target_amount = (1.5*100) / self.target.health.maximum
-        self.total_damage = target_amount + (((1*100) / self.target.health.maximum) * int(highest_ki / 1000))
-        
+        self.total_damage = int(((1.5 + ((highest_ki / 250) * 0.05)) * self.target.health.maximum) / 100) 
+    
         # set the tick damage
         # there is a bonus of tick damage if the target has 3 or more active acid stacks on it
             # init
