@@ -5,7 +5,7 @@ Manages the DOT super class.
 
 Author : DrLarck
 
-Last update : 27/07/19
+Last update : 13/08/19 (DrLarck)
 """
 
 # dependancies

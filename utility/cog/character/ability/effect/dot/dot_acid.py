@@ -143,7 +143,6 @@ class Dot_acid(Dot):
     async def add_stack(self):
         # init
         checker = Effect_checker(self.target)
-        highest_ki = 0
         unity = False
 
         # check if the target already has acid on it
