@@ -168,7 +168,8 @@ class Battle_phase:
                             self.client,
                             self.ctx,
                             character_move["target"],
-                            team,
+                            team_a,
+                            team_b,
                             character_move["move"] - 4
                         )
 

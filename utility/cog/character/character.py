@@ -5,7 +5,7 @@ Every character classes inherit from the :class:`Character()` defined below.
 
 Author : DrLarck
 
-Last update : 27/07/19
+Last update : 13/08/19 (DrLarck)
 """
 
 # dependancies
@@ -235,7 +235,7 @@ class Character:
         return
     
     # ability
-    async def get_ability(self, client, ctx, target, team, ability_index):
+    async def get_ability(self, client, ctx, target, team_a, team_b, ability_index):
         """
         `coroutine`
 
@@ -249,7 +249,7 @@ class Character:
 
         `target` : Represents a `Character()` instance.
 
-        `team` : Represents a list of lists representing teams.
+        `team_a` | `team_b` : Represents a list of characters representing a team. Team a is the caster's team.
 
         `ability_index` : Represents the ability index in the `ability` list.
 
@@ -267,7 +267,8 @@ class Character:
             ctx,
             self,
             target,
-            team
+            team_a,
+            team_b
         )
 
         return(ability)

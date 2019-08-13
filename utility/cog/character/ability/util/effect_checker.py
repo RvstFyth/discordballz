@@ -5,7 +5,7 @@ Check if the target has an effect active on it.
 
 Author : DrLarck
 
-Last update : 28/07/19
+Last update : 13/08/19 (DrLarck)
 """
 
 # dependancies
@@ -47,7 +47,7 @@ class Effect_checker:
         # list of the effect
         if(effect_id == 1):
             from utility.cog.character.ability.effect.dot.dot_acid import Dot_acid
-            effect = Dot_acid(None, None, None, None)
+            effect = Dot_acid(None, None, None, None, None)
 
         return(effect)
 

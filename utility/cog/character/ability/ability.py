@@ -5,7 +5,7 @@ Ability super class.
 
 Author : DrLarck
 
-Last update : 26/07/19 (DrLarck)
+Last update : 13/08/19 (DrLarck)
 """
 
 # dependance
@@ -24,7 +24,8 @@ class Ability:
 
     `target` : Represents the ability target as a `Character()` instance.
 
-    `team` : Represents a list of `Character()`.
+    `team_a` | `team_b` : Represents a list of `Character()`.
+    Team A represents the ally team of the caster, team B the opponent one.
 
     - Attribute :
 
@@ -52,13 +53,14 @@ class Ability:
     """
 
     # attribute
-    def __init__(self, client, ctx, caster, target, team):
+    def __init__(self, client, ctx, caster, target, team_a, team_b):
         # client
         self.client = client
         self.ctx = ctx
         self.caster = caster
         self.target = target
-        self.team = team
+        self.team_a = team_a
+        self.team_b = team_b
 
         # attribute
         self.name = None

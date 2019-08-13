@@ -5,7 +5,7 @@ Manages the Acid ability.
 
 Author : DrLarck
 
-Last update : 28/07/19
+Last update : 13/08/19 (DrLarck)
 """
 
 # dependance
@@ -34,14 +34,15 @@ class Acid(Ability):
     """
 
     # attribute
-    def __init__(self, client, ctx, caster, target, team):
+    def __init__(self, client, ctx, caster, target, team_a, team_b):
         Ability.__init__(
             self,
             client,
             ctx,
             caster,
             target,
-            team
+            team_a,
+            team_b
         )
 
         self.name = "Acid"
@@ -62,6 +63,8 @@ class Acid(Ability):
         """
 
         # init
+        await self.caster.posture.change_posture("attacking")
+
         move = Move_displayer()
         calculator = Damage_calculator(self.caster, self.target)
         checker = Effect_checker(self.target)
@@ -71,19 +74,30 @@ class Acid(Ability):
         damage = int(damage * 0.25)  # the ability inflicts only 25 % of the ki damage
         damage = await calculator.ki_damage(damage)
 
-        _move = {
-            "name" : self.name,
-            "icon" : self.icon,
-            "damage" : damage["calculated"],
-            "critical" : damage["critical"],
-            "dodge" : damage["dodge"],
-            "physical" : False,
-            "ki" : True
-        }
+        # define move info
+        _move = await move.get_new_move()
+
+        _move["name"] = self.name
+        _move["icon"] = self.icon
+        _move["damage"] = damage["calculated"]
+        _move["critical"] = damage["critical"]
+        _move["dodge"] = damage["dodge"]
+        _move["ki"] = True
 
         _move = await move.offensive_move(_move)
 
         # inflict damage
         await self.target.receive_damage(damage["calculated"])
+
+        # add a stack of acid on the target
+        _acid = Dot_acid(
+            self.client,
+            self.ctx,
+            self.target,
+            self.team_a,
+            self.team_b
+        )
+
+        await _acid.add_stack()
 
         return(_move)

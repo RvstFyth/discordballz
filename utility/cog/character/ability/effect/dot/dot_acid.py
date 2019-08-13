@@ -5,7 +5,7 @@ Manages the Acid Dot.
 
 Author : DrLarck
 
-Last update : 07/08/19
+Last update : 13/08/19 (DrLarck)
 """
 
 # dependance
@@ -102,8 +102,6 @@ class Dot_acid(Dot):
         # force it to be non-dodgable and non-critable to avoid the target dodge and the acid critical
         damage = await self.damager.ki_damage(
             self.tick_damage,
-            False,
-            False
         )
 
         # apply the calculated damages to the target
@@ -150,11 +148,8 @@ class Dot_acid(Dot):
         highest_ki = 0
         unity = False
 
-        # applies dot  
-        _acid = await checker.get_effect(1)
-
         # check if the target already has acid on it
-        has_acid = await checker.get_debuff(_acid)
+        has_acid = await checker.get_debuff(self)
         
         # look for someone in the team_a who has the unity is strength buff
 

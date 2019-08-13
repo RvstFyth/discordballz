@@ -5,7 +5,7 @@ Manages the selection phase.
 
 Author : DrLarck
 
-Last update : 26/07/19 (DrLarck)
+Last update : 13/08/19 (DrLarck)
 """
 
 # dependancies
@@ -113,6 +113,7 @@ class Selection_phase:
                             ability = ability(
                                 self.client,
                                 self.ctx,
+                                None,
                                 None,
                                 None,
                                 None
@@ -237,6 +238,7 @@ class Selection_phase:
                                     ability = ability(
                                         self.client,
                                         self.ctx,
+                                        None,
                                         None,
                                         None,
                                         None
