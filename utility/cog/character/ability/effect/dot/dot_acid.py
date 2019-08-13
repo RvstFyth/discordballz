@@ -71,6 +71,7 @@ class Dot_acid(Dot):
 
         # attribute
         self.name = "Acid"
+        self.icon = "<:acid:583953112406949888>"
         self.caster = None
         self.target = target
         self.id = 1
@@ -114,10 +115,11 @@ class Dot_acid(Dot):
         highest_ki = 0
 
         # get the highest ki amount
+        print(f"TEAM A : {self.team_a}")
         for ally in self.team_a:
             await asyncio.sleep(0)
             
-            if ally.id in self.saibaiman_id:  # only compare with saibaimen in the team.
+            if ally.info.id in self.saibaiman_id:  # only compare with saibaimen in the team.
                 if(ally.damage.ki_max > highest_ki):
                     highest_ki = ally.damage.ki_max
             
@@ -144,6 +146,17 @@ class Dot_acid(Dot):
         # init
         checker = Effect_checker(self.target)
         unity = False
+        print(f"acid target : {self.target}")
+
+        _acid = await checker.get_effect(
+            1,
+            self.client,
+            self.ctx,
+            self.target,
+            self.team_a,
+            self.team_b
+        )
+        print(_acid)
 
         # check if the target already has acid on it
         has_acid = await checker.get_debuff(self)
@@ -154,6 +167,7 @@ class Dot_acid(Dot):
         # get existing acid stack
         if(has_acid != None):  # if the target already has the effect on it
             _acid = has_acid
+            self.target.malus.remove(_acid)
         
             # increase only if the max stack hasn't been reached
             if(_acid.stack < _acid.max_stack):
@@ -164,12 +178,23 @@ class Dot_acid(Dot):
                 else:  # if no unity in the team
                     _acid.stack += 1
                     _acid.duration = _acid.initial_duration
-        
+
+            # add or re-add the malus
+            self.target.malus.append(_acid)
+
         else:  # if the target doesn't have acid on it
             if(unity):
                 _acid.stack = 2
                 _acid.initial_duration = 5
 
                 await _acid.set_damage()
-    
+            
+            else:
+                _acid.stack = 1
+                
+                await _acid.set_damage()
+                
+            # add or re-add the malus
+            self.target.malus.append(_acid)
+
         return

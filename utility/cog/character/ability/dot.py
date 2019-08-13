@@ -35,6 +35,7 @@ class Dot:
         self.name = None
         self.description = None
         self.id = 0
+        self.icon = None
         self.caster = None
 
         # duration

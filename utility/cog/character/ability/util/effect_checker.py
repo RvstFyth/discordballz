@@ -28,7 +28,7 @@ class Effect_checker:
         self.target = target
     
     # method
-    async def get_effect(self, effect_id):
+    async def get_effect(self, effect_id, client, ctx, target, team_a, team_b):
         """
         `coroutine`
 
@@ -47,8 +47,8 @@ class Effect_checker:
         # list of the effect
         if(effect_id == 1):
             from utility.cog.character.ability.effect.dot.dot_acid import Dot_acid
-            effect = Dot_acid(None, None, None, None, None)
-
+            effect = Dot_acid(client, ctx, target, team_a, team_b)
+            
         return(effect)
 
     async def get_buff(self, buff):

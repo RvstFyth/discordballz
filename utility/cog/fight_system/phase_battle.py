@@ -5,7 +5,7 @@ Manages the battle phase.
 
 Author : DrLarck
 
-Last update : 26/07/19
+Last update : 13/08/19 (DrLarck)
 """
 
 # dependancies
@@ -58,7 +58,8 @@ class Battle_phase:
         # init
         _move_display = Move_displayer()
 
-        
+        _team_a, _team_b = team[0], team[1]
+
         team_a = {
             "index" : 0,
             "display" : ""
@@ -168,8 +169,8 @@ class Battle_phase:
                             self.client,
                             self.ctx,
                             character_move["target"],
-                            team_a,
-                            team_b,
+                            _team_a,
+                            _team_b,
                             character_move["move"] - 4
                         )
 

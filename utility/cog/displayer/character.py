@@ -5,7 +5,7 @@ Manages the displaying of the characters.
 
 Author : DrLarck
 
-Last update : 20/07/19
+Last update : 13/08/19 (DrLarck)
 """
 
 # dependancies
@@ -115,7 +115,7 @@ class Character_displayer:
                 for debuff in self.character.malus:
                     await asyncio.sleep(0)
 
-                    combat_format += f"{debuff.icon} x{debuff.stac} ({debuff.duration}) |"
+                    combat_format += f"{debuff.icon} x{debuff.stack} ({debuff.duration}) |"
             
             # send the messages
             embed.add_field(name = f"{self.character.image.icon}{self.character.info.name}'s infos :", value = combat_format)

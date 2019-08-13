@@ -5,7 +5,7 @@ Manages the character's ki attribute.
 
 Author : DrLarck
 
-Last update : 18/07/19
+Last update : 13/08/19 (DrLarck)
 """
 
 # ki managment
@@ -27,7 +27,7 @@ class Character_ki:
     # attribute
     def __init__(self):
         self.maximum = 100
-        self.current = 0
+        self.current = 100
     
     # method
     async def ki_limit(self):

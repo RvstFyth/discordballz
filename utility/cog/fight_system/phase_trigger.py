@@ -54,8 +54,8 @@ class Trigger_phase:
         health_change = character.health.current  # allow us to check the health change
         displaying = f"{character.image.icon} **{character.info.name}**{character.type.icon} :\n"
         effect = {
-            "bonus" : None,
-            "malus" : None
+            "bonus" : "",
+            "malus" : ""
         }
         send = False
 
@@ -94,22 +94,22 @@ class Trigger_phase:
         # displaying
             # health
         health_change = character.health.current - health_change  # check if there is health change
-
+        print(f"change : {health_change}\nmalus : {len(character.malus)}")
         if(health_change != 0):
             if(health_change > 0):
-                displaying += f"__Health__ : + {health_change:,} :hearts:\n"
+                displaying += f"__Health__ : +**{health_change:,}** :hearts:\n"
             
             else:
-                displaying += f"__Health__ : - {health_change:,} :hearts:\n"
+                displaying += f"__Health__ : **{health_change:,}** :hearts:\n"
             
             send = True
         
             # final
-        if(effect["bonus"] != None):
+        if(effect["bonus"] != ""):
             displaying += f"__Bonus__ : {effect['bonus']}\n"
             send = True
         
-        if(effect["malus"] != None):
+        if(effect["malus"] != ""):
             displaying += f"__Malus__ : {effect['malus']}\n"
             send = True
         
