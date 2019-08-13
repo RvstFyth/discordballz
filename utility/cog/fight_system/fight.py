@@ -5,7 +5,7 @@ The :class:`Fight()` manages a fight, from the beginning to the end and returns 
 
 Author : DrLarck
 
-Last update : 18/07/19
+Last update : 13/08/19 (DrLarck)
 """
 
 # dependancies
@@ -38,7 +38,7 @@ class Fight:
         self.player = caller
 
         # phase
-        self.trigger_phase = Trigger_phase()
+        self.trigger_phase = None
         self.selection_phase = None
         self.battle_phae = None
     
@@ -125,7 +125,7 @@ class Fight:
             await asyncio.sleep(2)
 
                 # phases
-            await self.ctx.send(f"💠 - Selection Phase")
+            await self.ctx.send(f"💠 - Selection phase")
             await asyncio.sleep(1)
 
             # get move
@@ -141,6 +141,26 @@ class Fight:
             await asyncio.sleep(2)
 
             await self.battle_phae.start_battle(team, team_a_move, None, turn)
+
+            # trigger phase
+            await self.ctx.send("🌀 - Trigger phase")
+            await asyncio.sleep(1)
+
+                # team_a
+            self.trigger_phase = Trigger_phase(team[0], team[1])
+
+            for character_a in team[0]:
+                await asyncio.sleep(0)
+
+                await self.trigger_phase.trigger_effect(self.ctx, character_a)
+
+                # team_b
+            self.trigger_phase = Trigger_phase(team[1], team[0])
+
+            for character_b in team[1]:
+                await asyncio.sleep(0)
+
+                await self.trigger_phase.trigger_effect(self.ctx, character_b)
 
             # end of turn
                 # calculate average hps
