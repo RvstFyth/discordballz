@@ -39,9 +39,6 @@ class Custom_embed:
         self.footer = footer
         self.thumb = thumb
 
-        # run the setup
-        self.client.loop.run_until_complete(self.setup_embed())
-
     # method
     async def setup_embed(self):
         """
