@@ -5,7 +5,7 @@ Every character classes inherit from the :class:`Character()` defined below.
 
 Author : DrLarck
 
-Last update : 13/08/19 (DrLarck)
+Last update : 16/08/19 (DrLarck)
 """
 
 # dependancies
@@ -104,6 +104,9 @@ class Character:
 
     # attribute
     def __init__(self):
+        # bot
+        self.is_npc = False  # if true, the action will automatically be managed by the AI
+        
         # basic info
         self.info = Character_info()
         self.image = Character_image()
