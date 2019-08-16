@@ -5,7 +5,7 @@ Manages the Acid Dot.
 
 Author : DrLarck
 
-Last update : 13/08/19 (DrLarck)
+Last update : 16/08/19 (DrLarck)
 """
 
 # dependance
@@ -99,10 +99,22 @@ class Dot_acid(Dot):
 
         Return : str formated for the acid's displaying
         """
+
+        # init
+        _damage = 0
+
+        # increase the damage if the target has 3 or more active stacks on it
+        print(f"stack : {self.stack}")
+        if(self.stack >= 3):
+            _damage = self.tick_damage * 1.5
+        
+        else:
+            _damage = self.tick_damage
+
         # get the damage
         # force it to be non-dodgable and non-critable to avoid the target dodge and the acid critical
         damage = await self.damager.ki_damage(
-            self.tick_damage,
+            _damage,
         )
 
         # apply the calculated damages to the target
@@ -128,17 +140,8 @@ class Dot_acid(Dot):
         
         # set the total damage
         self.total_damage = int(((1.5 + ((highest_ki / 250) * 0.05)) * self.target.health.maximum) / 100) 
-    
-        # set the tick damage
-        # there is a bonus of tick damage if the target has 3 or more active acid stacks on it
-            # init
-        damage_bonus = 1  # as it is a multiplier, it's initialized to 1
 
-        if(self.stack >= 3):
-            damage_bonus = 1.5  # + 50 % more damage on the target per tick
-        
-        # apply bonus
-        self.tick_damage = (self.total_damage * self.stack) * damage_bonus
+        self.tick_damage = (self.total_damage * self.stack)
 
         return
 

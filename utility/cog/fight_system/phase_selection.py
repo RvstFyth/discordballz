@@ -5,7 +5,7 @@ Manages the selection phase.
 
 Author : DrLarck
 
-Last update : 13/08/19 (DrLarck)
+Last update : 16/08/19 (DrLarck)
 """
 
 # dependancies
@@ -56,11 +56,8 @@ class Selection_phase:
         # init
         translation = Translator(self.client.db, self.player)
         #_ = await translation.translate()
-        order = 1  # display the character's order number 
         possible_action = []  # list of possible actions (str)
         all_character = team[0]+team[1]
-        target_display = ""
-        unit_index = 1
         
         # stores the move in it.
         move_list = []  # stores the move_choice
@@ -130,8 +127,14 @@ class Selection_phase:
                 # ask for the player's action
                 decision = False
 
+                # main loop
                 while(decision == False):
                     await asyncio.sleep(0)
+
+                    # init
+                    target_display = ""
+                    order = 1  # display the character's order number 
+                    unit_index = 1
 
                     # display the actions
                     actions = f"<@{self.player.id}> Please select an action amoung the following for #{order} {character.image.icon}**{character.info.name}**{character.type.icon} - {character.ki.current} :fire:\n{kit}"
