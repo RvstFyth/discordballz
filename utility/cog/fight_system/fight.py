@@ -5,7 +5,7 @@ The :class:`Fight()` manages a fight, from the beginning to the end and returns 
 
 Author : DrLarck
 
-Last update : 13/08/19 (DrLarck)
+Last update : 16/08/19 (DrLarck)
 """
 
 # dependancies
@@ -147,6 +147,8 @@ class Fight:
             await asyncio.sleep(1)
 
                 # team_a
+            await self.ctx.send(f"```🔵 - {self.player.name}'s team```")
+            await asyncio.sleep(1)
             self.trigger_phase = Trigger_phase(team[0], team[1])
 
             for character_a in team[0]:
@@ -155,6 +157,8 @@ class Fight:
                 await self.trigger_phase.trigger_effect(self.ctx, character_a)
 
                 # team_b
+            await self.ctx.send(f"```🔴 - Enemy team```")
+            await asyncio.sleep(1)
             self.trigger_phase = Trigger_phase(team[1], team[0])
 
             for character_b in team[1]:
