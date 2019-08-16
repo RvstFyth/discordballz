@@ -5,7 +5,7 @@ Manages the displaying of the characters.
 
 Author : DrLarck
 
-Last update : 13/08/19 (DrLarck)
+Last update : 16/08/19 (DrLarck)
 """
 
 # dependancies
@@ -49,7 +49,7 @@ class Character_displayer:
         self.character = None
     
     # method
-    async def display(self, combat_format = False):
+    async def display(self,  basic_format = False, combat_format = False, team_format = False, index = 0):
         """
         `coroutine`
 
@@ -63,19 +63,65 @@ class Character_displayer:
         # init
         translation = Translator(self.client.db, self.player)
         #_ = await translation.translate()
-
-        if(combat_format):
-            # posture icons
-            posture_icon = [":crossed_swords:", ":fire:", ":shield:", ":confused:"]
-
+        posture_icon = [":crossed_swords:", ":fire:", ":shield:", ":confused:"]
             # embed
-            embed = Custom_embed(
-                self.client,
-                thumb = self.character.image.thumb
+        embed = Custom_embed(
+            self.client,
+            thumb = self.character.image.thumb
+        )
+
+        if(index == 0):
+            index = ""
+        
+        embed = await embed.setup_embed()
+
+        ## TEAM FORMAT ##
+        if(team_format):
+            # posture
+            posture = None
+
+            if(self.character.posture.attacking == True):
+                posture = posture_icon[0]
+            
+            if(self.character.posture.charging == True):
+                posture = posture_icon[1]
+
+            if(self.character.posture.defending == True):
+                posture = posture_icon[2]
+            
+            if(self.character.posture.stunned == True):
+                posture = posture_icon[3]
+            
+            team_format = f"__Level__ : **{self.character.level:,}**{self.character.rarity.icon}\n"
+            team_format += f"__Health__ : \n**{self.character.health.current:,}** / **{self.character.health.current:,}** :hearts:\n"
+            team_format += f"__Posture__ : {posture}\n"
+            
+            # display bonus and malus
+            if(len(self.character.bonus) > 0):
+                team_format += f"__Bonus__ : "
+
+                for bonus in self.character.bonus:
+                    await asyncio.sleep(0)
+
+                    team_format += f"{bonus.icon} ({bonus.stack}|{bonus.duration}) "
+            
+            if(len(self.character.malus) > 0):
+                team_format += f"__Malus__ : "
+
+                for malus in self.character.malus:
+                    await asyncio.sleep(0)
+
+                    team_format += f"{malus.icon} ({malus.stack}|{malus.duration}) "
+            
+            embed.add_field(
+                name = f"#{index} - {self.character.image.icon}{self.character.info.name}{self.character.type.icon}",
+                value = team_format
             )
 
-            embed = await embed.setup_embed()
+            await self.ctx.send(embed = embed)
 
+        ## COMBAT FORMAT ## 
+        if(combat_format):
             # posture
             posture = None
 
@@ -92,8 +138,7 @@ class Character_displayer:
                 posture = posture_icon[3]
             
             # formatting the embed
-            combat_format = f"__Name__ : **{self.character.info.name}**{self.character.type.icon}\n"
-            combat_format += f"__Health__ : \n**{self.character.health.current:,}** / **{self.character.health.maximum}** :hearts: \n"
+            combat_format = f"__Health__ : \n**{self.character.health.current:,}** / **{self.character.health.maximum}** :hearts: \n"
             combat_format += f"__Posture__ : {posture}\n"
             combat_format += f"__Damage__ :\n:crossed_swords: **{self.character.damage.physical_min}** - **{self.character.damage.physical_max}** \n{game_icon['ki_ability']} **{self.character.damage.ki_min}** - **{self.character.damage.ki_max}** \n"
             combat_format += f"__Defense__ :\n:shield: **{self.character.defense.armor}**\n:rosette: **{self.character.defense.spirit}**\n"
@@ -121,8 +166,5 @@ class Character_displayer:
             embed.add_field(name = f"{self.character.image.icon}{self.character.info.name}'s infos :", value = combat_format)
 
             await self.ctx.send(embed = embed)
-
-        else:  # if not in combat format
-            pass
         
         return

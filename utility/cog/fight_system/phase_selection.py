@@ -184,7 +184,7 @@ class Selection_phase:
                                     # basic choice
                                     if(move > 0 and move <= 3):
                                         if(move == 1):  # sequence
-                                            team_display = Team_displayer(team[0], team[1])
+                                            team_display = Team_displayer(self.client, self.ctx, self.player, team[0], team[1])
                                             targetable_team_a, targetable_team_b = await team_display.get_targetable("sequence")
 
                                             # allies
@@ -257,7 +257,7 @@ class Selection_phase:
                                             if(character.ki.current >= ability.cost):
                                                 # check if it needs a target or not
                                                 if(need_target):
-                                                    team_display = Team_displayer(team[0], team[1])
+                                                    team_display = Team_displayer(self.client, self.ctx, self.player, team[0], team[1])
                                                     targetable_team_a, targetable_team_b = await team_display.get_targetable("ability", ability = ability)
 
                                                     # allies

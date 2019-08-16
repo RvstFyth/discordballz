@@ -5,11 +5,12 @@ Manages the displaying of teams.
 
 Author : DrLarck
 
-Last update : 26/07/19
+Last update : 16/08/19 (DrLarck)
 """
 
 # dependancies 
 import asyncio
+from utility.cog.displayer.character import Character_displayer
 
 # team displayer
 class Team_displayer:
@@ -24,11 +25,73 @@ class Team_displayer:
     """
 
     # attribute
-    def __init__(self, team_a, team_b):
+    def __init__(self, client, ctx, player, team_a, team_b):
+        # basic
+        self.client = client
+        self.ctx = ctx
+        self.player = player
         self.team_a = team_a
         self.team_b = team_b
     
     # method
+    async def display_teams(self):
+        """
+        `coroutine`
+
+        Display both teams.
+
+        --
+
+        Return : None, send messages.
+        """
+
+        # init
+        displayer = Character_displayer(self.client, self.ctx, self.player)
+        index = 1
+        
+        # display character one by one
+        # team a
+        await self.ctx.send(f"```🔵 - {self.player.name}'s team```")
+        for character_a in self.team_a:
+            await asyncio.sleep(0)
+            
+            if not character_a.is_npc:  # filter npc characters
+                displayer.character = character_a
+
+                await displayer.display(
+                    team_format = True,
+                    index = index
+                 )
+                
+                index += 1
+
+            else:
+                pass
+
+        await asyncio.sleep(2)
+        
+        # team b
+        await self.ctx.send(f"```🔴 - Enemy team```")
+        for character_b in self.team_b:
+            await asyncio.sleep(0)
+            
+            if not character_b.is_npc:  # filter npc characters
+                displayer.character = character_b
+
+                await displayer.display(
+                    team_format = True,
+                    index = index
+                )
+
+                index += 1
+
+            else:
+                pass
+        
+        await asyncio.sleep(2)
+
+        return
+
     async def get_targetable(self, move, ability = None):
         """
         `coroutine` 

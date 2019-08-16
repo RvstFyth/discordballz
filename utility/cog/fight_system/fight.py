@@ -16,6 +16,8 @@ from utility.cog.fight_system.phase_trigger import Trigger_phase
 from utility.cog.fight_system.phase_selection import Selection_phase
 from utility.cog.fight_system.phase_battle import Battle_phase
 
+from utility.cog.displayer.team import Team_displayer
+
 # translation
 from utility.translation.translator import Translator
 
@@ -116,6 +118,18 @@ class Fight:
         while(team_a_average_hp > 0 and team_b_average_hp > 0):  # if one of the teams is defeated, stops the loop
             await asyncio.sleep(0)
 
+            # display
+            displayer = Team_displayer(
+                self.client,
+                self.ctx,
+                self.player,
+                team[0],
+                team[1]
+            )
+
+            # team displaying
+            await displayer.display_teams()
+            
             # subclasses
             self.selection_phase = Selection_phase(self.client, self.ctx, self.player, turn)
             self.battle_phae = Battle_phase(self.client, self.ctx, self.player, None)
