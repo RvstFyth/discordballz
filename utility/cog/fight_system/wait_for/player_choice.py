@@ -5,7 +5,7 @@ Manages the player_choice for the fight.
 
 Author : DrLarck
 
-Last update : 21/07/19
+Last update : 16/08/19 (DrLarck)
 """
 
 # dependance
@@ -82,7 +82,7 @@ class Player_choice:
                                 if(content[1].isdigit()):
                                     to_spec = int(content[1])
 
-                                    if(to_spec > 0 and to_spec-1 <= len(team)):
+                                    if(to_spec > 0 and to_spec-1 <= len(team)-1):
                                         return(True)
                                     
                                     else:  # if the character to spec is not found
@@ -122,6 +122,7 @@ class Player_choice:
             choice = choice.content
             choice = choice.split()
             print(f"choice : {choice} : len {len(choice)}")
+            print(f"possible : {possible_choice}")
 
             if choice[0] in possible_choice:
                 if(len(choice) == 1):  # if the choice contains only 1 elem
@@ -139,6 +140,7 @@ class Player_choice:
                     if(choice[0].lower() == "check"):
                         if(choice[1].isdigit()):  # if the target is specified
                             if(int(choice[1])-1 <= len(team)):  # if the target is found
+                                print(f"team : {len(team)}\nintchoice : {int(choice[1]) - 1}")
                                 choice = [choice[0], choice[1]]
                                 return(choice)
                             

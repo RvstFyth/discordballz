@@ -110,6 +110,8 @@ class Dot_acid(Dot):
         
         else:
             _damage = self.tick_damage
+        
+        _damage *= self.stack
 
         # get the damage
         # force it to be non-dodgable and non-critable to avoid the target dodge and the acid critical
@@ -141,7 +143,7 @@ class Dot_acid(Dot):
         # set the total damage
         self.total_damage = int(((1.5 + ((highest_ki / 250) * 0.05)) * self.target.health.maximum) / 100) 
 
-        self.tick_damage = (self.total_damage * self.stack)
+        self.tick_damage = self.total_damage
 
         return
 

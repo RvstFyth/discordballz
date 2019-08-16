@@ -312,6 +312,18 @@ class Selection_phase:
                                         await self.ctx.send(f"<@{self.player.id}> ⏳ ⚠ Ability on cooldown : {ability.cooldown} turns.")
                                         await asyncio.sleep(1)
 
+                        elif(type(move) == list):
+                            if(move[0].lower() == "check" and move[1].isdigit()):  # manages the check option
+                                index = int(move[1]) - 1
+                                to_display = all_character[index]
+                                displayer.character = to_display
+
+                                await self.ctx.send(f"<@{self.player.id}> Here are some informations about {to_display.image.icon}**{to_display.info.name}**{to_display.type.icon} :")
+                                await displayer.display(combat_format = True)
+                                await asyncio.sleep(2)
+
+                                decision = False
+                                
                     # end main while
             
             # end for character in team

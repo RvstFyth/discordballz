@@ -102,7 +102,7 @@ class Fight:
         #_ = await translation.translate()
 
             # turn displaying
-        turn = 2  # begins at 1
+        turn = 1  # begins at 1
 
             # init at 1 to loop at least one time
         team_a_average_hp = 1  
