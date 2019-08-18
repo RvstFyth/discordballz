@@ -28,6 +28,7 @@ from utility.cog.character.attribute.regenation import Character_regen
 
 # utils
 from utility.cog.displayer.team import Team_displayer
+from utility.cog.displayer.icon import Icon_displayer
 
 # character class
 class Character:
@@ -94,6 +95,8 @@ class Character:
     :coro:`init()` : Translates strings and initializes the stats.
 
     :coro:`set_stat()` : Initializes the stats.
+
+    :coro:`translate()` : Translates the names
 
     :coro:`receive_damage()` : Inflicts the damages to the character and triggers the effects based on the type of the attack and if the character dies or not.
 
@@ -194,6 +197,15 @@ class Character:
         Return : None
         """
 
+        # init
+        icon = Icon_displayer()
+
+        # icons
+            # type
+        self.type.icon = await icon.get_type_icon(self.type.value)
+            # rarity
+        self.rarity.icon = await icon.get_rarity_icon(self.rarity.value)
+
         return
     
     async def set_stat(self):
@@ -207,6 +219,9 @@ class Character:
         Return : None
         """
 
+        return
+    
+    async def translate(self):
         return
     
     async def receive_damage(self, damage):

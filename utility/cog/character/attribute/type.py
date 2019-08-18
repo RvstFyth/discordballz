@@ -5,7 +5,7 @@ Manages the character's type attribute.
 
 Author : DrLarck
 
-Last update : 17/07/19
+Last update : 18/08/19 (DrLarck)
 """
 
 # class type
@@ -23,4 +23,4 @@ class Character_type:
     # attribute
     def __init__(self):
         self.icon = None
-        self.value = None
+        self.value = 0
