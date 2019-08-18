@@ -48,8 +48,11 @@ class Cmd_train(commands.Cog):
         charc = Character_1()
 
         ea = Character_1()
+        ea.is_npc = True
         eb = Character_1()
+        eb.is_npc = True
         ec = Character_1()
+        ec.is_npc = True
 
         caller_team = [chara, charb, charc]
         enemy_team = [ea, eb, ec]

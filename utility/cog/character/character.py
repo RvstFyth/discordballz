@@ -110,6 +110,7 @@ class Character:
     def __init__(self):
         # bot
         self.is_npc = False  # if true, the action will automatically be managed by the AI
+        self.is_minion = False  # a minion is a character supporter such as Cell Jr.
         
         # basic info
         self.info = Character_info()
@@ -370,16 +371,32 @@ class Character:
         )
 
         move = {
-            "target" : None,
-            "move" : 3
+            "move" : 3,
+            "target" : None
         }  # init to defend
+
+        # turn 1 manager
+        if(turn == 1):
+            possible_move = ["skip", 3]
+            move["move"] = choice(possible_move)
+
+            return(move)
 
         ############
         # set a list 
         for ability in self.ability:
             await asyncio.sleep(0)
 
-            ability_list.append(ability)
+            ability_list.append(
+                ability(
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None
+                )
+            )
 
         # order the list
         # if the ability is less expansive then the targetted ability
@@ -407,6 +424,7 @@ class Character:
         
         # decide if launch an ability or use an other move
         random_move = randint(1, 4)
+        print(f"bot_move : {random_move}\nbot_ability : {usable_ability}")
 
         if(random_move < 4):  # do not use an ability
             move["move"] = randint(1, 3)
@@ -434,6 +452,14 @@ class Character:
                 targetable = targetable_a + targetable_b
 
                 move["target"] = choice(targetable)
+
+                # pick a random ability
+                ability_choice = 4  # init to 4, 4 is the ability 1 (index 0)
+                random_ability = randint(0, len(usable_ability) - 1)
+
+                ability_choice += random_ability  # add random choice to ability (4) to define which ability has been used
+
+                move["move"] = ability_choice
             
             else:  # do not have enough ki to use an ability
                 move["move"] = 2

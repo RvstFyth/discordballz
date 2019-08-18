@@ -55,7 +55,7 @@ class Team_displayer:
         for character_a in self.team_a:
             await asyncio.sleep(0)
             
-            if not character_a.is_npc:  # filter npc characters
+            if not character_a.is_minion:  # filter npc characters
                 displayer.character = character_a
 
                 await displayer.display(
@@ -75,7 +75,7 @@ class Team_displayer:
         for character_b in self.team_b:
             await asyncio.sleep(0)
             
-            if not character_b.is_npc:  # filter npc characters
+            if not character_b.is_minion:  # filter npc characters
                 displayer.character = character_b
 
                 await displayer.display(

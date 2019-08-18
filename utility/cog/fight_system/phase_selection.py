@@ -58,6 +58,7 @@ class Selection_phase:
         #_ = await translation.translate()
         possible_action = []  # list of possible actions (str)
         all_character = team[0]+team[1]
+        order = 1
         
         # stores the move in it.
         move_list = []  # stores the move_choice
@@ -134,7 +135,6 @@ class Selection_phase:
 
                         # init
                         target_display = ""
-                        order = 1  # display the character's order number 
                         unit_index = 1
 
                         # display the actions
@@ -326,14 +326,14 @@ class Selection_phase:
                                     decision = False
 
                 else:  # the character is a bot
-                    bot_move = await character.bot()
+                    bot_move = await character.bot(self.client, self.ctx, self.player, team[1], team[0], self.turn)
 
-                    move_list.append(move_choice)
+                    move_list.append(bot_move)
 
                 # end main while
             
-            # end for character in team
-            order += 1
+                # end for character in team
+                order += 1
         
         # end of method
         print(f"chosen move : {move_list}")

@@ -144,18 +144,23 @@ class Fight:
             await asyncio.sleep(1)
 
             # get move
+                # team a
             team_a_move = await self.selection_phase.start_selection(team[0], team)
                 # check if the player want to flee
             if(type(team_a_move) == str):
                 if(team_a_move.lower() == "flee"):
                     await self.ctx.send(f"<@{self.player.id}> You flee the fight ...")
                     break
-            
+
+                # team b
+            team_b_move = await self.selection_phase.start_selection(team[1], team)
+
             # battle phase
             await self.ctx.send(f"```⚔ - Battle phase```")
             await asyncio.sleep(2)
 
-            await self.battle_phae.start_battle(team, team_a_move, None, turn)
+            print(f"Team_a_move : {team_a_move}\nTeam_b_move : {team_b_move}")
+            await self.battle_phae.start_battle(team, team_a_move, team_b_move, turn)
 
             # trigger phase
             await self.ctx.send("```🌀 - Trigger phase```")

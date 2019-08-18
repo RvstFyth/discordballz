@@ -93,7 +93,7 @@ class Character_displayer:
                 posture = posture_icon[3]
             
             team_format = f"__Level__ : **{self.character.level:,}**{self.character.rarity.icon}\n"
-            team_format += f"__Health__ : \n**{self.character.health.current:,}** / **{self.character.health.current:,}** :hearts:\n"
+            team_format += f"__Health__ : \n**{self.character.health.current:,}** / **{self.character.health.maximum:,}** :hearts:\n"
             team_format += f"__Posture__ : {posture}\n"
             
             # display bonus and malus
