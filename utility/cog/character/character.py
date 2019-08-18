@@ -10,6 +10,7 @@ Last update : 18/08/19 (DrLarck)
 
 # dependancies
 import asyncio
+from random import randint, choice
 
 # attribute
 from utility.cog.character.attribute.info import Character_info
@@ -24,6 +25,9 @@ from utility.cog.character.attribute.damage import Character_damage
 
 from utility.cog.character.attribute.defense import Character_defense
 from utility.cog.character.attribute.regenation import Character_regen
+
+# utils
+from utility.cog.displayer.team import Team_displayer
 
 # character class
 class Character:
@@ -328,13 +332,23 @@ class Character:
         return
     
         # artificial intelligence
-    async def bot(self, turn):
+    async def bot(self, client, ctx, player, team_a, team_b, turn):
         """
         `coroutine`
 
         Defines the character gameplay. The bot will play as defined in this method.
 
         - Parameter :
+
+        `client` : Represents a `discord.Client`
+
+        `ctx` : Represents the `commands.Context`
+
+        `player` : Represents the player who called the command
+
+        `team_a` : Allied team of the character
+
+        `team_b` : Opponent team of the character
 
         `turn` : Represents the current turn number.
 
@@ -343,4 +357,85 @@ class Character:
         Return : None
         """
 
-        return
+        # init
+        ability_list = []
+        usable_ability = []
+
+        team_displayer = Team_displayer(
+            client,
+            ctx,
+            player,
+            team_a,
+            team_b
+        )
+
+        move = {
+            "target" : None,
+            "move" : 3
+        }  # init to defend
+
+        ############
+        # set a list 
+        for ability in self.ability:
+            await asyncio.sleep(0)
+
+            ability_list.append(ability)
+
+        # order the list
+        # if the ability is less expansive then the targetted ability
+        # replace it in the list
+        for _ability in ability_list:
+            await asyncio.sleep(0)
+
+            for a in range(len(ability_list)):
+                await asyncio.sleep(0)
+
+                if(_ability.cost < ability_list[a].cost):
+                    ability_list.remove(_ability)
+                    ability_list.insert(a, _ability)
+                    break
+        
+        # get a list of usable ability
+        for __ability in ability_list:
+            await asyncio.sleep(0)
+
+            if(self.ki.current >= __ability.cost):
+                usable_ability.append(__ability)
+            
+            else:
+                break
+        
+        # decide if launch an ability or use an other move
+        random_move = randint(1, 4)
+
+        if(random_move < 4):  # do not use an ability
+            move["move"] = randint(1, 3)
+
+            if(move["move"] == 1):  # if sequence
+                # find the targetable targets
+                targetable_a, targetable_b = await team_displayer.get_targetable("sequence")
+                targetable = targetable_a + targetable_b
+
+                # pick a random target
+                move["target"] = choice(targetable)
+        
+        else:  # wants to use an ability
+            # if the character has enough ki to use any ability
+            if(len(usable_ability) > 0):
+                # pick a random ability in the usuable abilities list
+                ability = choice(usable_ability)
+
+                # get targetable
+                targetable_a, targetable_b = await team_displayer.get_targetable(
+                    "ability",
+                    ability = ability
+                )
+
+                targetable = targetable_a + targetable_b
+
+                move["target"] = choice(targetable)
+            
+            else:  # do not have enough ki to use an ability
+                move["move"] = 2
+
+        return(move)

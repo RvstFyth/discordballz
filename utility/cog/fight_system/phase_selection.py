@@ -327,14 +327,10 @@ class Selection_phase:
 
                 else:  # the character is a bot
                     bot_move = await character.bot()
-                    bot_target = bot_move[1]
-
-                    move_choice["move"] = bot_move[0]
-                    move_choice["target"] = bot_target
 
                     move_list.append(move_choice)
 
-                    # end main while
+                # end main while
             
             # end for character in team
             order += 1
