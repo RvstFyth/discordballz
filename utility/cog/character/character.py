@@ -5,7 +5,7 @@ Every character classes inherit from the :class:`Character()` defined below.
 
 Author : DrLarck
 
-Last update : 16/08/19 (DrLarck)
+Last update : 18/08/19 (DrLarck)
 """
 
 # dependancies
@@ -328,11 +328,15 @@ class Character:
         return
     
         # artificial intelligence
-    async def bot(self):
+    async def bot(self, turn):
         """
         `coroutine`
 
         Defines the character gameplay. The bot will play as defined in this method.
+
+        - Parameter :
+
+        `turn` : Represents the current turn number.
 
         --
 

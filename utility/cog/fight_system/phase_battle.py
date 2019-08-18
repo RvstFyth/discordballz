@@ -96,7 +96,7 @@ class Battle_phase:
                 print(f"move : {character_move['move']} {type(character_move['move'])}")
                 if(type(character_move["move"]) == str):
                     if(character_move["move"] == "skip"):
-                        pass
+                        team_a["display"] += await _move_display.skip_move()
 
                 else:
                     if(character_move["move"] == 1):  # sequence
@@ -188,18 +188,16 @@ class Battle_phase:
             unit_index += 1
         
             # display the team_a move
-            # test
-            if(turn > 1):
-                team_a_embed = Custom_embed(self.client)
-                team_a_embed = await team_a_embed.setup_embed()
+            team_a_embed = Custom_embed(self.client)
+            team_a_embed = await team_a_embed.setup_embed()
 
-                print(f"Team_display : {team_a['display']}")
-                team_a_embed.add_field(
-                    name = f"{self.player_a.name} team :",
-                    value = team_a["display"],
-                    inline = False
-                )
+            print(f"Team_display : {team_a['display']}")
+            team_a_embed.add_field(
+                name = f"{self.player_a.name} team :",
+                value = team_a["display"],
+                inline = False
+            )
 
-                await self.ctx.send(embed = team_a_embed)
+            await self.ctx.send(embed = team_a_embed)
         
         return

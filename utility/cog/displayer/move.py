@@ -5,7 +5,7 @@ Manages the way the move are displayed.
 
 Author : DrLarck
 
-Last update : 25/07/19 (DrLarck)
+Last update : 18/08/19 (DrLarck)
 """
 
 # dependancies
@@ -163,6 +163,24 @@ class Move_displayer:
         # init
         defend_display = ""
 
-        defend_display += f"__Move__ : Defending :shield:"
+        defend_display += "__Move__ : Defending :shield:"
 
         return(defend_display)
+    
+    async def skip_move(self):
+        """
+        `coroutine`
+
+        Manages the displaying of the skip choice.
+
+        --
+
+        Return : str formatted to display a skip choice
+        """
+
+        # init
+        skip_display = ""
+
+        skip_display += "__Move__ : Skip ⏩"
+
+        return(skip_display)
