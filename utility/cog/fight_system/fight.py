@@ -5,7 +5,7 @@ The :class:`Fight()` manages a fight, from the beginning to the end and returns 
 
 Author : DrLarck
 
-Last update : 16/08/19 (DrLarck)
+Last update : 18/08/19 (DrLarck)
 """
 
 # dependancies
@@ -126,20 +126,21 @@ class Fight:
                 team[0],
                 team[1]
             )
-
-            # team displaying
-            await displayer.display_teams()
             
             # subclasses
             self.selection_phase = Selection_phase(self.client, self.ctx, self.player, turn)
             self.battle_phae = Battle_phase(self.client, self.ctx, self.player, None)
 
             # new turn
-            await self.ctx.send(f"########## 📣 Round {turn} ! ##########")
+            await self.ctx.send(f"```########## 📣 Round {turn} ! ##########```")
             await asyncio.sleep(2)
+            # team displaying
+            await self.ctx.send("```👥 Teams```")
+            await asyncio.sleep(1)
+            await displayer.display_teams()
 
                 # phases
-            await self.ctx.send(f"💠 - Selection phase")
+            await self.ctx.send(f"```💠 - Selection phase```")
             await asyncio.sleep(1)
 
             # get move
@@ -151,13 +152,13 @@ class Fight:
                     break
             
             # battle phase
-            await self.ctx.send(f"⚔ - Battle phase")
+            await self.ctx.send(f"```⚔ - Battle phase```")
             await asyncio.sleep(2)
 
             await self.battle_phae.start_battle(team, team_a_move, None, turn)
 
             # trigger phase
-            await self.ctx.send("🌀 - Trigger phase")
+            await self.ctx.send("```🌀 - Trigger phase```")
             await asyncio.sleep(1)
 
                 # team_a
