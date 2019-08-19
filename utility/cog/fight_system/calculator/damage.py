@@ -5,7 +5,7 @@ Manages the damage calculator.
 
 Author : DrLarck
 
-Last update : 07/08/19 (DrLarck)
+Last update : 18/08/19 (DrLarck)
 """
 
 # dependancies
@@ -43,6 +43,68 @@ class Damage_calculator:
         self.spirit = 2500/(2500 + self.target.defense.spirit)
 
     # method
+    async def get_type_advantage(self):
+        """
+        `coroutine`
+
+        Check if the attacker has a type advantage onto the target.
+
+        --
+
+        Return : directly modify the `type_bonus` value and return the multiplier bonus.
+        """
+
+        # init
+        multiplier = 1
+        target, attacker = self.target.type.value, self.attacker.type.value
+
+        # advantage
+            # phy > int
+        if(attacker == 3 and target == 4):
+            multiplier = 1.2
+
+            # int > teq
+        elif(attacker == 4 and target == 1):
+            multiplier = 1.2
+
+            # agl > str
+        elif(attacker == 0 and target == 2):
+            multiplier = 1.2
+
+            # str > phy
+        elif(attacker == 2 and target == 3):
+            multiplier = 1.2
+
+            # teq > agl
+        elif(attacker == 1 and target == 0):
+            multiplier = 1.2
+        
+        # disadvantage
+            # just reverse
+        elif(attacker == 4 and target == 3):
+            multiplier = 0.8
+
+        elif(attacker == 1 and target == 4):
+            multiplier = 0.8
+        
+        elif(attacker == 2 and target == 0):
+            multiplier = 0.8
+        
+        elif(attacker == 3 and target == 2):
+            multiplier = 0.8
+        
+        elif(attacker == 0 and target == 1):
+            multiplier = 0.8
+        
+        # if not found
+        else:
+            pass
+
+        # modify the type advantage
+        self.type_bonus = multiplier
+
+        return(multiplier)
+
     async def physical_damage(self, roll_damage, dodgable = False, critable = False, ignore_defense = False):
         """
         `coroutine`
@@ -62,6 +124,9 @@ class Damage_calculator:
         - dodge (bool)
         - critical (bool)
         """
+
+        # init
+        await self.get_type_advantage()
 
         # roll to check if the target has dodged
         # if the target has dodged, return the dict 

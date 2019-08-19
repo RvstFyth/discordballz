@@ -5,7 +5,7 @@ Manages the battle phase.
 
 Author : DrLarck
 
-Last update : 13/08/19 (DrLarck)
+Last update : 19/08/19 (DrLarck)
 """
 
 # dependancies
@@ -122,7 +122,11 @@ class Battle_phase:
 
                             # generate a random number of damage
                             sequence_damage = randint(character.damage.physical_min, character.damage.physical_max)
-                            damage_done = await damager.physical_damage(sequence_damage)
+                            damage_done = await damager.physical_damage(
+                                    sequence_damage,
+                                    dodgable = True,
+                                    critable = True
+                                )
 
                             # inflict the damage
                             await character_move["target"].receive_damage(damage_done["calculated"])
