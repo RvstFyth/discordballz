@@ -5,7 +5,7 @@ The :class:`Fight()` manages a fight, from the beginning to the end and returns 
 
 Author : DrLarck
 
-Last update : 18/08/19 (DrLarck)
+Last update : 19/08/19 (DrLarck)
 """
 
 # dependancies
@@ -28,9 +28,17 @@ class Fight:
 
     - Parameter :
 
-    - Attribute : 
+    `client` : Represents a `discord.Client`
+
+    `ctx` : Represents the `commands.Context`
+
+    `caller` : Represents the player that has called the class
 
     - Method :
+
+    :coro:`get_average_hp(team)` : Returns the average hps of both teams
+
+    :coro:`run_fight(team)` : Run a fight
     """
 
     # attribute

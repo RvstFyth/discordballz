@@ -17,10 +17,16 @@ class Player_choice:
     Manages the player_choice for the fight.
 
     - Parameter :
-    
-    - Attribute :
+
+    `client` : Represents a `discord.Client`
+
+    `player` : Represents the player to look for
 
     - Method :
+
+    :coro:`wait_for_choice(possible_choice, team)` : Waits for the player's choice
+
+    :coro:`wait_for_target(possible_target)` : Waits for the player to choose a target
     """
 
     # attribute

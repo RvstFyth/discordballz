@@ -22,9 +22,21 @@ class Custom_embed:
 
     - Parameter :
 
-    - Attribute :
+    `client` : Represents a `discord.Client`
+
+    `title` : The embed title
+
+    `description` : The embed description
+
+    `colour` : The embed color
+
+    `footer` : The embed footer
+
+    `thumb` : The embed thumb
 
     - Method :
+
+    :coro:`setup_embed()` : Returns the embed.
     """
 
     # attribute

@@ -5,7 +5,7 @@ Manages the Acid Dot.
 
 Author : DrLarck
 
-Last update : 16/08/19 (DrLarck)
+Last update : 19/08/19 (DrLarck)
 """
 
 # dependance
@@ -22,40 +22,6 @@ from utility.cog.fight_system.calculator.damage import Damage_calculator
 class Dot_acid(Dot):
     """
     Applies a DOT based on the target maximum health.
-
-    - Parameter :
-
-    `client` : Represents a `discord.Client`.
-
-    `ctx` : Represents the `commands.Context`.
-
-    `target` : Represents the target on who the dot is active. The target must be `Character()` instance.
-
-    `team_a` : Represents the ally team of the dot caster.
-
-    `team_b` : Represents the opponent team.
-
-    - Attribute :
-
-    `name` : Represents the dot's name.
-
-    `caster` : Represents the dot's caster.
-
-    `target` : Represents the dot's target.
-
-    `id` : Represents the dot's id for comparison with other similar effects.
-
-    `initial_duration` : Represents the init duration, usefull for the reset.
-
-    `duration` : Represents the remaining turns before the effect ends.
-
-    `max_stack` : Represents the maximum amount of stack that can be active on a single target.
-
-    `stack` : Represents the current amount of active stacks on the target.
-
-    - Method : 
-
-    See `Dot()`'s methods.
     """
 
     # attribute

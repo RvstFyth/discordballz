@@ -26,9 +26,15 @@ class Battle_phase:
 
     - Parameter : 
 
-    - Attribute : 
+    `client` : Represents a `discord.Client`
+
+    `ctx` : Represents the `commands.Context`
+
+    `player_a` : Represents the first player to play
 
     - Method :
+
+    :coro:`start_battle(team, team_a_move, team_b_move, turn)` : Run a battle
     """
 
     # attribute

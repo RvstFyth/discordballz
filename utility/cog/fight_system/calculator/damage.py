@@ -5,7 +5,7 @@ Manages the damage calculator.
 
 Author : DrLarck
 
-Last update : 18/08/19 (DrLarck)
+Last update : 19/08/19 (DrLarck)
 """
 
 # dependancies
@@ -19,9 +19,36 @@ class Damage_calculator:
 
     - Parameter : 
 
+    `attacker` : Represents the character that is attacking
+
+    `target` : Represents the character that is attacked.
+
     - Attribute :
 
+    `damage` {
+        "calculated" : 0,
+        "dodge" : False,
+        "critical" : False
+    }
+
+    `type_bonus` : Represents type advantage multiplier
+
+    `critical_bonus` : Represents the critical multiplier bonus
+
+    `damage_reduction` : Damage reduction multiplier
+
+    `armor` : Armor value (phy dmg)
+
+    `spirit` : Spirit value (ki dmg)
+
     - Method :
+
+    :coro:`get_type_advantage()` : Returns the type_advantage mutliplier
+
+    :coro:`physical_damage(damage, dodgable, critable, ignore_defense) : Calculate physical damage
+    returns the `damage` dict.
+
+    :coro:`ki_damage(same as physical method)` : Same as physical but for ki.
     """
 
     # attribute

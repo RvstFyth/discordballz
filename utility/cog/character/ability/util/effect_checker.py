@@ -5,7 +5,7 @@ Check if the target has an effect active on it.
 
 Author : DrLarck
 
-Last update : 13/08/19 (DrLarck)
+Last update : 19/08/19 (DrLarck)
 """
 
 # dependancies
@@ -18,9 +18,15 @@ class Effect_checker:
 
     - Parameter :
 
-    - Attribute :
+    `target` : Represents the target.
 
     - Method :
+
+    :coro:`get_effect(effect_id, client, ctx, target, team_a, team_b)` : Get an effect instance.
+
+    :coro:`get_buff(buff_instance)` : Research a buff onto the target
+
+    :coro:`get_debugg(debuff_instance)` : Same as get_buff but for debuff.
     """
 
     # attribute

@@ -5,7 +5,7 @@ Manages the DOT super class.
 
 Author : DrLarck
 
-Last update : 13/08/19 (DrLarck)
+Last update : 19/08/19 (DrLarck)
 """
 
 # dependancies
@@ -18,9 +18,46 @@ class Dot:
 
     - Parameter : 
 
+    `client` : Represents the `discord.Client`
+
+    `ctx` : Represents the `commands.Context`
+
+    `team_a` | `team_b` : Represents a list of `Character()`.
+    Team A represents the ally team of the caster and the Team B the opponent one.
+
     - Attribute :
 
+    `name` : Represents the Dot name
+    
+    `description` : Represents the Dot description
+
+    `id` : Represents the Dot id (default 0)
+    
+    `icon` : Represents the Dot icon
+
+    `caster` : Represents the Dot caster
+
+    `initial_duration` : Represents the Dot initial duration, usefull for duration refreshing.
+
+    `duration` : Represents the Dot's current duration.
+
+    `max_stack` : Represents the Dot's max stacks that it can handles.
+
+    `stack` : Represents the Dot's active stacks.
+
+    `total_damage : Represents the total damage the Dot is going to inflict.
+
+    `tick_damage` : Represents the damages the Dot is inflicting at each tick.
+
     - Method :
+
+    :coro:`apply()` : Apply the Dot effects to the target.
+
+    :coro:`set_damage()` : Set the tick damage. According to the Dot behaviour.
+
+    :coro:`add_stack()` : Add a stack to the target.
+
+    :coro:`on_remove()` : Do something on remove.
     """
 
     # attribute
@@ -55,7 +92,7 @@ class Dot:
         return
 
     # init
-    async def set_tick_damage(self):
+    async def set_damage(self):
         return
     
     async def add_stack(self):

@@ -5,7 +5,7 @@ Manages the way the move are displayed.
 
 Author : DrLarck
 
-Last update : 18/08/19 (DrLarck)
+Last update : 19/08/19 (DrLarck)
 """
 
 # dependancies
@@ -21,10 +21,6 @@ from utility.graphic.embed import Custom_embed
 class Move_displayer:
     """
     Manages the way the moves are displayed
-
-    - Parameter :
-
-    - Attribute :
 
     - Method :
 

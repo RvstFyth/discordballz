@@ -5,7 +5,7 @@ Manages the trigger phase.
 
 Author : DrLarck
 
-Last update : 16/08/19 (DrLarck)
+Last update : 19/08/19 (DrLarck)
 """
 
 # dependancies
@@ -18,7 +18,9 @@ class Trigger_phase:
 
     - Parameter :
 
-    - Attribute :
+    `team_a` : Represents the ally team
+
+    `team_b` : Represents the opponent team
 
     - Method :
 

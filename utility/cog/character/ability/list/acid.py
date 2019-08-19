@@ -5,7 +5,7 @@ Manages the Acid ability.
 
 Author : DrLarck
 
-Last update : 13/08/19 (DrLarck)
+Last update : 19/08/19 (DrLarck)
 """
 
 # dependance
@@ -25,12 +25,6 @@ class Acid(Ability):
     """
     This ability applies a DOT on the target. This DOT inflicts damage
     at each turn.
-
-    - Parameter :
-
-    - Attribute :
-
-    - Method :
     """
 
     # attribute

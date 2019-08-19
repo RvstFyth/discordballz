@@ -5,7 +5,7 @@ Manages the displaying of teams.
 
 Author : DrLarck
 
-Last update : 16/08/19 (DrLarck)
+Last update : 19/08/19 (DrLarck)
 """
 
 # dependancies 
@@ -19,9 +19,23 @@ class Team_displayer:
 
     - Parameter :
 
-    - Attribute :
+    `client` : Represents a `discord.Client`
+
+    `ctx` : Represents the `commands.Context`
+
+    `player` : Represents the player that is calling it
+
+    `team_a, b` : Represents a list of `Character()`, allies then enemies.
 
     - Method :
+
+    :coro:`display_teams()` : Displays both teams infos.
+
+    :coro:`get_targetable(move, ability) : Returns a list of all targetable units. (Team a, then team_b)
+
+    `move` : Name of the move
+
+    `ability` : The ability that is used
     """
 
     # attribute
