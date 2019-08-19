@@ -72,7 +72,11 @@ class Acid(Ability):
         # get the damage
         damage = randint(self.caster.damage.ki_min, self.caster.damage.ki_max)
         damage = int(damage * 0.25)  # the ability inflicts only 25 % of the ki damage
-        damage = await calculator.ki_damage(damage)
+        damage = await calculator.ki_damage(
+            damage,
+            critable = True,
+            dodgable = True
+        )
 
         # define move info
         _move = await move.get_new_move()
