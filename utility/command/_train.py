@@ -40,5 +40,3 @@ class Train:
 
         Return : list of characters representing the generated team.
         """
-
-        
