@@ -21,6 +21,7 @@ from utility.cog.cog_loader import Cog_loader
 
     # database
 from utility.database.database_manager import Database
+from utility.database.operation.database_table import Table_creator
 
 # config
 from configuration.bot import Bot_config
@@ -40,6 +41,10 @@ logger.addHandler(handler)
 # create the database connection pool
 database = Database(None)  # pass None as we do not have set up a connection pool yet
 client.db = client.loop.run_until_complete(database.init())
+
+# test
+table_ = Table_creator(client)
+client.loop.run_until_complete(table_.create_all())
 
 # loading the cogs
 if __name__ == "__main__":
