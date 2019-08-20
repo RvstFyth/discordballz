@@ -5,7 +5,7 @@ A simple asynchronous PostgreSQL database manager.
 
 Author : DrLarck
 
-Last update : 13/07/19
+Last update : 20/08/19 (DrLarck)
 """
 
 # dependancies
@@ -18,6 +18,8 @@ from os import environ
 class Database:
     """
     A simple asynchronous PostgreSQL database manager.
+
+    The `connect()` and `close()` method are automatically managed.
 
     - Parameter :
 
@@ -38,6 +40,12 @@ class Database:
     :coro:`close()` : Release the connection to the database.
 
     :coro:`stop()` : Stop the connection to the database by releasing the connection pool.
+    
+    :coro:`execute(query)` : Execute the query.
+
+    :coro:`fetchval(query)` : Fetch a value.
+
+    :coro:`fetch(query)` : Fetch rows.
     """
 
     # attribute
