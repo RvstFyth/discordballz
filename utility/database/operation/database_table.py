@@ -20,14 +20,25 @@ class Table_creator:
     - Parameter :
 
     `client` : Represents a `discord.Client`. This client must handle a database pool (i.e Database().init())
+
+    - Attribute : 
+
+    `tables` : Represents all the functions that return a table.
+
+    - Method :
+
+    :coro:`create_all()` : Creates all the table contained in `tables`.
+
+    :coro:`get_creation_pattern()` : Returns the table pattern to allow you create a table.
+
+    :coro:`create_table()` : Create a table using the `creation pattern`.
     """
 
     # attribute
     def __init__(self, client):
-        self.db = Database(client.db)
-        self.tables = [
-            self.create_player_info
-        ]
+        self.client = client
+        self.db = Database(self.client.db)
+        self.tables = []
     
     # method
     async def create_all(self):
@@ -46,7 +57,7 @@ class Table_creator:
             await asyncio.sleep(0)
 
             # get table info
-            table_info = await func()
+            table_info = await func(self.client)
 
             # create the table with the infos
             await self.create_table(
@@ -181,65 +192,3 @@ class Table_creator:
         await self.db.execute(query)
 
         return
-    
-    # tables
-        # player
-    async def create_player_info(self):
-        """
-        `coroutine`
-
-        Creates the table player_info.
-
-        --
-
-        Return : dict i.e self.get_creation_pattern
-        """
-
-        # init
-        player_info = await self.get_creation_pattern()
-
-        player_info["name"] = "player_info"
-        player_info["need_ref"] = True
-
-        # attribute
-        player_id = {
-            "name" : "player_id",
-            "type" : "BIGINT",
-            "default" : None
-        }
-
-        player_name = {
-            "name" : "player_name",
-            "type" : "TEXT",
-            "default" : None
-        }
-
-        player_register_date = {
-            "name" : "player_register_date",
-            "type" : "TEXT",
-            "default" : None
-        }
-
-        player_lang = {
-            "name" : "player_lang",
-            "type" : "TEXT",
-            "default" : "EN"
-        }
-
-        player_location = {
-            "name" : "player_location",
-            "type" : "TEXT",
-            "default" : "UNKNOWN"
-        }
-
-            # add the attribute
-        player_info["attribute"] = [
-            player_id, player_name, player_register_date, player_lang, player_location
-        ]
-
-        # unique index
-        player_info["unique_index"] = [
-            player_id["name"]
-        ]
-
-        return(player_info)
