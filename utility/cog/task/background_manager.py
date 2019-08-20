@@ -14,7 +14,7 @@ import asyncio
 # utils
 from utility.database.operation.database_table import Table_creator
     # database
-from utility.database.operation.table_creation.player_table import player_table
+from utility.database.operation.table_creation.player_table import Player_table_creator
 
 # background 
 class Background_manager:
@@ -48,14 +48,9 @@ class Background_manager:
         """
 
         # init
-        table = Table_creator(self.client)
-        table_to_create = player_table
-
         # database
-            # table creation
-        for _table in table_to_create:
-            await asyncio.sleep(0)
+            # player tables creation
+        player_table = Player_table_creator(self.client)
+        await player_table.creator.create_all()
 
-            table.tables.append(_table)
-
-        await table.create_all()
+        print("BACKGROUND : DONE")

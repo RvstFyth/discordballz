@@ -57,7 +57,7 @@ class Table_creator:
             await asyncio.sleep(0)
 
             # get table info
-            table_info = await func(self.client)
+            table_info = await func()
 
             # create the table with the infos
             await self.create_table(
