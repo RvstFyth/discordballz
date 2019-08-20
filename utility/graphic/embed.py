@@ -5,7 +5,7 @@ Custom embed.
 
 Authord : DrLarck
 
-Last update : 15/07/19
+Last update : 20/08/19 (DrLarck)
 """
 
 # dependancies
@@ -13,7 +13,7 @@ import asyncio
 from discord.embeds import Embed
 
 # config
-from configuration.bot import bot_config
+from configuration.bot import Bot_config
 
 # class embed
 class Custom_embed:
@@ -81,7 +81,7 @@ class Custom_embed:
             embed.set_footer(text = self.footer, icon_url = self.client.user.avatar_url)
         
         else:
-            embed.set_footer(text = f"v{bot_config['version']} - {bot_config['phase']} | Credit : DrLarck & DrMegas", icon_url = self.client.user.avatar_url)
+            embed.set_footer(text = f"v{Bot_config.version} - {Bot_config.phase} | Credit : DrLarck & DrMegas", icon_url = self.client.user.avatar_url)
         
         if(self.thumb != None):
             embed.set_thumbnail(url = self.thumb)

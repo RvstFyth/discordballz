@@ -34,7 +34,10 @@ class Cog_loader:
     def __init__(self, client):
         self.client = client
         self.cog = [
-            "cog.command.train"
+            # command
+            "cog.command.train",
+            # other
+            "cog.event.on_event"
         ]
     
     # method
