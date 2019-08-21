@@ -5,7 +5,7 @@ Manages the creation of the player table.
 
 Author : DrLarck
 
-Last update : 20/08/19 (DrLarck)
+Last update : 21/08/19 (DrLarck)
 """
 
 # dependancies
@@ -21,6 +21,14 @@ class Player_table_creator:
     - Parameter :
 
     `client` : Represents a `discord.Client`. The discord client must contain a database pool.
+
+    - Method :
+
+    :coro:`create_player_info()` : Returns the characteristics of the player_info table.
+
+    :coro:`create_player_combat_info()` : Same as `create_player_info()` but for player_combat_info table.
+
+    :coro:`create_player_resource()` : Return the player_resource table characteristics.
     """
 
     # attribute
