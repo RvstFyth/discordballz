@@ -5,7 +5,7 @@ Manages all the summon tools.
 
 Authod : DrLarck
 
-Last update : 20/08/19 (DrLarck)
+Last update : 21/08/19 (DrLarck)
 """
 
 # dependancies
@@ -14,9 +14,11 @@ from string import ascii_letters
 
 # util
 from utility.database.database_manager import Database
+from utility.cog.character.getter import Character_getter
+from utility.cog.banner._sorted_banner import Sorted_banner
 
 # summon tools
-class Summon:
+class Summoner:
     """
     Manages all the utilities for the summon feature.
     
@@ -28,8 +30,110 @@ class Summon:
     # attribute
     def __init__(self, client):
         self.db = Database(client.db)
+        self.sorted = None
 
     # method
+    async def sort(self, character_list, banner = None):
+        """
+        `coroutine`
+
+        Sort the character contained in `character_list`.
+
+        - Parameter : 
+
+        `character_list` : A list of characters (global id) to sort
+
+        `banner` : Banner name : "basic", "expansion", "muscle
+
+        --
+
+        Return : dict 
+
+        - Key
+
+        LIST OF GLOBAL ID
+        `n` : list - The normal characters.
+
+        `r` : list - The rare characters.
+
+        `sr` : list - The super rare characters.
+
+        `ssr` : list - The super super rare characters.
+
+        `ur` : list - The ultra rare characters.
+
+        `lr` : list - The legendary characters.
+        """
+
+        # init
+        if(banner == None):
+            banner = "basic"
+
+        getter = Character_getter()
+        self.sorted = {
+            "n" : [],
+            "r" : [],
+            "sr" : [],
+            "ssr" : [],
+            "ur" : [],
+            "lr" : []
+        }
+        characters = []
+
+        # get characters' instance
+        for character in character_list:
+            await asyncio.sleep(0)
+
+            _character = await getter.get_character(character)
+            characters.append(_character)
+        
+        # now sort the characters
+        for char in characters:
+            await asyncio.sleep(0)
+
+            if(char != None):  # getter return None if the character has not been found
+                # get the rarity of the character
+                rarity = char.rarity.value
+
+                # sort it
+                # append the global id of the character
+                    # N
+                if(rarity == 0):
+                    self.sorted["n"].append(char.info.id)
+                    
+                    # R
+                elif(rarity == 1):
+                    self.sorted["r"].append(char.info.id)
+
+                    # SR
+                elif(rarity == 2):
+                    self.sorted["sr"].append(char.info.id)
+
+                    # SSR
+                elif(rarity == 3):
+                    self.sorted["ssr"].append(char.info.id)
+
+                    # UR
+                elif(rarity == 4):
+                    self.sorted["ur"].append(char.info.id)
+
+                    # LR
+                elif(rarity == 5):
+                    self.sorted["lr"].append(char.info.id)
+        
+        # storing the dict
+        if(banner == "basic"):
+            Sorted_banner.basic = self.sorted
+        
+        elif(banner == "expansion"):
+            Sorted_banner.expansion = self.sorted
+        
+        elif(banner == "muscle"):
+            Sorted_banner.muscle_tower = self.sorted
+
+        # returns the dict
+        return(self.sorted)
+        
     async def generate_unique_id(self, reference) :
         """
         `coroutine`
