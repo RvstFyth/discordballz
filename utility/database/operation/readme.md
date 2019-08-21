@@ -47,6 +47,8 @@ my_attribute = {
   my_int integer default 0
  );
  ```
+ If the `default` key is `None` the key will not be present in the final query.
+ 
  This tool has been designed to create huge table and improve the readability of the query (and reduce the use of SQL).
  
  It's 100 % python, and usefull if you have many constrains to add.
