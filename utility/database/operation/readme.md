@@ -30,7 +30,21 @@ my_attribute = {
  Your query will be generated like this by the `.create_table()` method :
  ```sql
  CREATE TABLE IF NOT EXISTS my_table_name(
-  my_attribute_name text default im_the_attribute
+  my_attribute_name text default 'im_the_attribute'
+ );
+ ```
+ To declare an integer :
+ ```python
+ my_int = {
+  "name" : "my_int",
+  "type" : "integer",
+  "default" : 0
+ }
+ ```
+ It will return :
+ ```sql
+ CREATE TABLE IF NOT EXISTS my_table_name(
+  my_int integer default 0
  );
  ```
  This tool has been designed to create huge table and improve the readability of the query (and reduce the use of SQL).
