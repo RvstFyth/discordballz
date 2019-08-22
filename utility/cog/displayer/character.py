@@ -49,7 +49,7 @@ class Character_displayer:
         self.character = None
     
     # method
-    async def display(self,  basic_format = False, combat_format = False, team_format = False, index = 0):
+    async def display(self,  summon_format = False, basic_format = False, combat_format = False, team_format = False, index = 0):
         """
         `coroutine`
 
@@ -75,8 +75,39 @@ class Character_displayer:
         
         embed = await embed.setup_embed()
 
+        ## SUMMON FORMAT ##
+        if(summon_format):
+            summon_format = f"__Name__ : *{self.character.info.name}* {self.character.type.value} `#{self.character.info.id}`\n"
+            summon_format += f"__Expansion__ : *{self.character.info.expansion}*\n"
+            summon_format += f"__Saga__ : *{self.character.info.saga}*\n"
+            summon_format += f"__Damage__ :\n:crossed_swords: **{self.character.damage.physical_min}** - **{self.character.damage.physical_max}** \n{game_icon['ki_ability']} **{self.character.damage.ki_min}** - **{self.character.damage.ki_max}** \n"
+            summon_format += f"__Defense__ :\n:shield: **{self.character.defense.armor}**\n:rosette: **{self.character.defense.spirit}**\n"
+            
+            # get the abilities
+            ability_index = 0
+            for ability in self.character.ability:
+                await asyncio.sleep(0)
+                
+                if(ability_index == 0):
+                    summon_format += f"{ability_index}. `{ability.name}`{ability.icon}"
+                
+                else:
+                    summon_format += f" | {ability_index}. `{ability.name}`{ability.icon}"
+
+                ability_index += 1
+            
+            # set the image
+            embed.set_image(url = self.character.image.image)
+            embed.add_field(
+                name = f"{self.player.name}'s summon",
+                value = summon_format,
+                inline = False
+            )
+
+            await self.ctx.send(embed = embed)
+
         ## TEAM FORMAT ##
-        if(team_format):
+        elif(team_format):
             # posture
             posture = None
 
@@ -121,7 +152,7 @@ class Character_displayer:
             await self.ctx.send(embed = embed)
 
         ## COMBAT FORMAT ## 
-        if(combat_format):
+        elif(combat_format):
             # posture
             posture = None
 
