@@ -77,22 +77,27 @@ class Character_displayer:
 
         ## SUMMON FORMAT ##
         if(summon_format):
-            summon_format = f"__Name__ : *{self.character.info.name}* {self.character.type.value} `#{self.character.info.id}`\n"
-            summon_format += f"__Expansion__ : *{self.character.info.expansion}*\n"
+            summon_format = f"__Name__ : {self.character.image.icon}*{self.character.info.name}* {self.character.type.icon} {self.character.rarity.icon} `#{self.character.info.id}`\n"
+            summon_format += f"__Expansion__ : *{self.character.info.expansion}*{self.character.image.expansion}\n"
             summon_format += f"__Saga__ : *{self.character.info.saga}*\n"
             summon_format += f"__Damage__ :\n:crossed_swords: **{self.character.damage.physical_min}** - **{self.character.damage.physical_max}** \n{game_icon['ki_ability']} **{self.character.damage.ki_min}** - **{self.character.damage.ki_max}** \n"
             summon_format += f"__Defense__ :\n:shield: **{self.character.defense.armor}**\n:rosette: **{self.character.defense.spirit}**\n"
-            
+            summon_format += f"__Abilities__ :\n"
             # get the abilities
-            ability_index = 0
+            ability_index = 1
             for ability in self.character.ability:
                 await asyncio.sleep(0)
+
+                ability = ability(
+                    None, None, None,
+                    None, None, None
+                )
                 
-                if(ability_index == 0):
-                    summon_format += f"{ability_index}. `{ability.name}`{ability.icon}"
+                if(ability_index == 1):
+                    summon_format += f"`{ability_index}. {ability.name}`{ability.icon}"
                 
                 else:
-                    summon_format += f" | {ability_index}. `{ability.name}`{ability.icon}"
+                    summon_format += f" | `{ability_index}. {ability.name}`{ability.icon}"
 
                 ability_index += 1
             

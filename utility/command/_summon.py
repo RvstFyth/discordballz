@@ -5,7 +5,7 @@ Manages all the summon tools.
 
 Authod : DrLarck
 
-Last update : 21/08/19 (DrLarck)
+Last update : 22/08/19 (DrLarck)
 """
 
 # dependancies
@@ -215,13 +215,15 @@ class Summoner:
         return
     
     # summoning
-    async def summon(self, _type = "basic"):
+    async def summon(self, summoner, _type = "basic"):
         """
         `coroutine`
 
         Summon a random character according its rarity.
 
         - Parameter : 
+
+        `summoner` : discord.Member - The player who has summoned.
 
         `_type` : str - The banner type : basic, expansion, muscle
 
@@ -239,6 +241,7 @@ class Summoner:
         
         # check if the lists are sorted or not
         if(Sorted_banner.is_sorted == False):
+            print("(SUMMON) Banners are not sorted.")
             return
 
         if(_type == "basic"):
@@ -256,7 +259,7 @@ class Summoner:
         if(draw <= droprate["lr"]):
             if(len(summon_list["lr"]) > 0):  # check if the list is empty
                 drawn_character = choice(summon_list["lr"])
-                drawn_character = getter.get_character(drawn_character)
+                drawn_character = await getter.get_character(drawn_character)
             
             else:
                 pass
@@ -266,7 +269,7 @@ class Summoner:
         if(draw <= droprate["ur"]):
             if(len(summon_list["ur"]) > 0):  # check if the list is empty
                 drawn_character = choice(summon_list["ur"])
-                drawn_character = getter.get_character(drawn_character)
+                drawn_character = await getter.get_character(drawn_character)
             
             else:
                 pass
@@ -276,7 +279,7 @@ class Summoner:
         if(draw <= droprate["ssr"]):
             if(len(summon_list["ssr"]) > 0):  # check if the list is empty
                 drawn_character = choice(summon_list["ssr"])
-                drawn_character = getter.get_character(drawn_character)
+                drawn_character = await getter.get_character(drawn_character)
             
             else:
                 pass
@@ -286,7 +289,7 @@ class Summoner:
         if(draw <= droprate["sr"]):
             if(len(summon_list["sr"]) > 0):  # check if the list is empty
                 drawn_character = choice(summon_list["sr"])
-                drawn_character = getter.get_character(drawn_character)
+                drawn_character = await getter.get_character(drawn_character)
             
             else:
                 pass
@@ -296,7 +299,7 @@ class Summoner:
         if(draw <= droprate["r"]):
             if(len(summon_list["r"]) > 0):  # check if the list is empty
                 drawn_character = choice(summon_list["r"])
-                drawn_character = getter.get_character(drawn_character)
+                drawn_character = await getter.get_character(drawn_character)
             
             else:
                 pass
@@ -306,9 +309,24 @@ class Summoner:
         if(draw <= droprate["n"]):
             if(len(summon_list["n"]) > 0):  # check if the list is empty
                 drawn_character = choice(summon_list["n"])
-                drawn_character = getter.get_character(drawn_character)
+                drawn_character = await getter.get_character(drawn_character)
             
             else:
                 pass
+        
+        # generate random characteristics
+        char_type = randint(0, 4)
+        drawn_character.type.value = char_type
+
+        # insert the new character into the database
+        await self.db.execute(
+            f"""
+            INSERT INTO character_unique(character_owner_id, character_owner_name, character_global_id, character_type, character_rarity)
+            VALUES({summoner.id}, '{summoner.name}', {drawn_character.info.id}, {drawn_character.type.value}, {drawn_character.rarity.value})
+            """
+        )
+
+        # set the unique id
+        await self.set_unique_id()
         
         return(drawn_character)

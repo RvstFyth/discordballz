@@ -5,7 +5,7 @@ Manages the Acid ability.
 
 Author : DrLarck
 
-Last update : 19/08/19 (DrLarck)
+Last update : 22/08/19 (DrLarck)
 """
 
 # dependance
@@ -40,6 +40,7 @@ class Acid(Ability):
         )
 
         self.name = "Acid"
+        self.icon = "<:acid:583953112406949888>"
         self.cost = 8
         self.need_target = True
         self.target_enemy = True

@@ -5,7 +5,7 @@ Manages the displaying of the icons such as the type, rarity, expansion, etc.
 
 Author : DrLarck
 
-Last update : 18/08/19 (DrLarck)
+Last update : 22/08/19 (DrLarck)
 """
 
 # dependancies
@@ -27,7 +27,7 @@ class Icon_displayer:
 
     :coro:`get_rarity_icon(rarity : int)` : Convert the rarity into the discord.Emoji icon
 
-    :coro:`get_type_icon(type : int) : Convert the type icon the discord.Emoji icon
+    :coro:`get_type_icon(type : int)` : Convert the type icon the discord.Emoji icon
     """
 
     # method

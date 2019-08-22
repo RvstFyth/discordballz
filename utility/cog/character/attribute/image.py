@@ -5,7 +5,7 @@ Manages the character's images.
 
 Author : DrLarck
 
-Last update : 17/07/19
+Last update : 22/08/19 (DrLarck)
 """
 
 # class image
@@ -27,3 +27,4 @@ class Character_image:
         self.image = None
         self.icon = None
         self.thumb = None
+        self.expansion = None

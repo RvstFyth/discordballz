@@ -5,7 +5,7 @@ Manages the icons.
 
 Author : DrLarck
 
-Last update : 18/08/19 (DrLarck)
+Last update : 22/08/19 (DrLarck)
 """
 
 game_icon = {
@@ -24,5 +24,10 @@ game_icon = {
     "int" : "<:int:582934074658783253>",
     "agl" : "<:agl:582934074197409793>",
     "str" : "<:str:582934078685184000>",
-    "phy" : "<:phy:582934077812768769>"
+    "phy" : "<:phy:582934077812768769>",
+
+    # expansion
+    "expansion" : {
+        "basic" : "<:basic:614094726089408522>"
+    }
 }
