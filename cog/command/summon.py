@@ -13,6 +13,7 @@ import asyncio
 from discord.ext import commands
 
 # utils
+from utility.cog.player.player import Player
 from utility.graphic.embed import Custom_embed
     # checker
 from utility.command.checker.basic import Basic_checker
@@ -42,6 +43,7 @@ class Cmd_summon(commands.Cog):
         # display the summon help
 
 
+
         return
     
     @commands.check(Basic_checker().is_game_ready)
@@ -52,7 +54,7 @@ class Cmd_summon(commands.Cog):
         """
 
         # init
-        player = ctx.message.author 
+        player = Player(ctx.message.author)
         summoner = Summoner(self.client)
         displayer = Character_displayer(self.client, ctx, player)
 

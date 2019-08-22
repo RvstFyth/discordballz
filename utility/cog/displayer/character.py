@@ -13,6 +13,7 @@ import asyncio
 
 # icons
 from configuration.icon import game_icon
+from configuration.color import game_color
 
 # utils
     # translation
@@ -20,6 +21,8 @@ from utility.translation.translator import Translator
 
     # embed
 from utility.graphic.embed import Custom_embed
+
+from utility.cog.displayer.color import Color_displayer
 
 # displayer class
 class Character_displayer:
@@ -49,7 +52,7 @@ class Character_displayer:
         self.character = None
     
     # method
-    async def display(self,  summon_format = False, basic_format = False, combat_format = False, team_format = False, index = 0):
+    async def display(self, summon_format = False, basic_format = False, combat_format = False, team_format = False, index = 0):
         """
         `coroutine`
 
@@ -102,6 +105,16 @@ class Character_displayer:
                 ability_index += 1
             
             # set the image
+            embed = Custom_embed(
+                self.client,
+                thumb = self.player.avatar,
+                colour = await Color_displayer().get_rarity_color(self.character.rarity.value)
+            )
+
+            # setup the embed
+            embed = await embed.setup_embed()
+
+            # config the embed
             embed.set_image(url = self.character.image.image)
             embed.add_field(
                 name = f"{self.player.name}'s summon",
