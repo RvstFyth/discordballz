@@ -21,6 +21,7 @@ from utility.command.checker.basic import Basic_checker
 from utility.command._summon import Summoner
     # displayer
 from utility.cog.displayer.character import Character_displayer
+from utility.cog.helper.helper import Helper
 
 class Cmd_summon(commands.Cog):
 
@@ -28,21 +29,23 @@ class Cmd_summon(commands.Cog):
         self.client = client
     
     @commands.check(Basic_checker().is_game_ready)
-    @commands.group(aliases = ["sum"])
+    @commands.group(
+        aliases = ["sum"],
+        invoke_without_command = True
+    )
     async def summon(self, ctx):
         """
         Command group :
 
         - basic {multi} default {single}
         """
-
+        
         # init
-        embed = Custom_embed(self.client)
-        embed = await embed.setup_embed()
+        helper = Helper(self.client, ctx)
+        summon_help = await helper.summon()
 
-        # display the summon help
-
-
+        # send the help
+        await helper.display_help(summon_help)
 
         return
     
@@ -65,6 +68,8 @@ class Cmd_summon(commands.Cog):
         # display
         displayer.character = drawn_character
         await displayer.display(summon_format = True)
+        
+        return
 
 def setup(client):
     client.add_cog(Cmd_summon(client))
