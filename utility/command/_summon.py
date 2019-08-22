@@ -11,11 +11,13 @@ Last update : 21/08/19 (DrLarck)
 # dependancies
 import asyncio
 from string import ascii_letters
+from random import randint, uniform, choice
 
 # util
 from utility.database.database_manager import Database
 from utility.cog.character.getter import Character_getter
 from utility.cog.banner._sorted_banner import Sorted_banner
+from configuration.bot import Bot_config
 
 # summon tools
 class Summoner:
@@ -33,7 +35,7 @@ class Summoner:
         self.sorted = None
 
     # method
-    async def sort(self, character_list, banner = None):
+    async def sort(self, character_list, banner = "basic"):
         """
         `coroutine`
 
@@ -66,9 +68,6 @@ class Summoner:
         """
 
         # init
-        if(banner == None):
-            banner = "basic"
-
         getter = Character_getter()
         self.sorted = {
             "n" : [],
@@ -214,3 +213,102 @@ class Summoner:
             await self.db.execute(query_update)
         
         return
+    
+    # summoning
+    async def summon(self, _type = "basic"):
+        """
+        `coroutine`
+
+        Summon a random character according its rarity.
+
+        - Parameter : 
+
+        `_type` : str - The banner type : basic, expansion, muscle
+
+        --
+
+        Return : character instance
+        """
+
+        # init
+        summon_list = []
+        getter = Character_getter()
+        droprate = Bot_config.droprate
+        drawn_character = None
+        draw = 0
+        
+        # check if the lists are sorted or not
+        if(Sorted_banner.is_sorted == False):
+            return
+
+        if(_type == "basic"):
+            summon_list = Sorted_banner.basic
+
+        elif(_type == "expansion") :
+           summon_list = Sorted_banner.expansion
+        
+        elif(_type == "muscle"):
+            summon_list = Sorted_banner.muscle_tower
+        
+        # draw a random character
+        # LR
+        draw = uniform(0, 100)
+        if(draw <= droprate["lr"]):
+            if(len(summon_list["lr"]) > 0):  # check if the list is empty
+                drawn_character = choice(summon_list["lr"])
+                drawn_character = getter.get_character(drawn_character)
+            
+            else:
+                pass
+        
+        # UR
+        draw = uniform(0, 100)
+        if(draw <= droprate["ur"]):
+            if(len(summon_list["ur"]) > 0):  # check if the list is empty
+                drawn_character = choice(summon_list["ur"])
+                drawn_character = getter.get_character(drawn_character)
+            
+            else:
+                pass
+        
+        # SSR
+        draw = uniform(0, 100)
+        if(draw <= droprate["ssr"]):
+            if(len(summon_list["ssr"]) > 0):  # check if the list is empty
+                drawn_character = choice(summon_list["ssr"])
+                drawn_character = getter.get_character(drawn_character)
+            
+            else:
+                pass
+        
+        # SR
+        draw = uniform(0, 100)
+        if(draw <= droprate["sr"]):
+            if(len(summon_list["sr"]) > 0):  # check if the list is empty
+                drawn_character = choice(summon_list["sr"])
+                drawn_character = getter.get_character(drawn_character)
+            
+            else:
+                pass
+        
+        # R
+        draw = uniform(0, 100)
+        if(draw <= droprate["r"]):
+            if(len(summon_list["r"]) > 0):  # check if the list is empty
+                drawn_character = choice(summon_list["r"])
+                drawn_character = getter.get_character(drawn_character)
+            
+            else:
+                pass
+        
+        # N
+        draw = uniform(0, 100)
+        if(draw <= droprate["n"]):
+            if(len(summon_list["n"]) > 0):  # check if the list is empty
+                drawn_character = choice(summon_list["n"])
+                drawn_character = getter.get_character(drawn_character)
+            
+            else:
+                pass
+        
+        return(drawn_character)

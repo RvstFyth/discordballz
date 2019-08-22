@@ -14,6 +14,8 @@ class Sorted_banner:
 
     - Class attribute :
 
+    `is_sorted` bool - Determines if the banners have been sorted or not.
+    
     `basic` : dict - Represents the sorted basic banner.
 
     `expansion` : dict - Represents the sorted expansion banner.
@@ -21,6 +23,8 @@ class Sorted_banner:
     `muscle_tower` : dict - Represents the sorted muslce tower banner.
     """
 
+    # attribute
+    is_sorted = False
     basic = None
     expansion = None
     muscle_tower = None

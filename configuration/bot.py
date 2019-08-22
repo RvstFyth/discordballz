@@ -5,7 +5,7 @@ Here is the basic configuration of the bot.
 
 Author : DrLarck
 
-Last update : 20/08/19 (DrLarck)
+Last update : 21/08/19 (DrLarck)
 """
 
 # dependancies
@@ -27,6 +27,17 @@ class Bot_config:
     `version` : The bot version
 
     `phase` : The bot release phase.
+
+    `droprate` : dict - The droprates of the characters
+
+    - Key :
+
+    n
+    r
+    sr
+    ssr
+    ur
+    lr
     """
 
     # basic
@@ -43,3 +54,13 @@ class Bot_config:
     # info
     version = "3.0.1.0"
     phase = "BETA"
+
+    # droprate
+    droprate = {
+        "n" : 100,
+        "r" : 60,
+        "sr" : 30,
+        "ssr" : 10,
+        "ur" : 1,
+        "lr" : 0.1
+    }
