@@ -5,7 +5,7 @@ Manages the character getter.
 
 Author : DrLarck
 
-Last update : 22/08/19 (DrLarck)
+Last update : 26/08/19 (DrLarck)
 """
 
 # dependancies
@@ -111,22 +111,41 @@ class Character_getter:
         # init
         db = Database(client.db)
         character = None
-        get_father = await db.fetchval(
-            f"SELECT character_global_id FROM character_unique WHERE character_unique_id = '{unique_id}';"
+        char_father = await db.fetchval(
+            f"SELECT * FROM character_unique WHERE character_unique_id = '{unique_id}';"
         )
 
+        # sort the data
+        char_id = char_father[0][4]
+        char_type = char_father[0][5]
+        char_rarity = char_father[0][6]
+        char_level = char_father[0][7]
+        char_star = char_father[0][9]
+        char_training = {
+            "health" : char_father[0][10],
+            "armor" : char_father[0][11],
+            "spirit" : char_father[0][12],
+            "physical" : char_father[0][13],
+            "ki" : char_father[0][14]
+        }
+
         # get the character instance
-        character = await self.get_character(get_father)
+        character = await self.get_character(char_id)
+
+        # set the character's stats
+        character.type.value = char_type
+        character.rarity.value = char_rarity
+        character.level = char_level
+        
+            # training items
+        character.enhancement["star"] = char_star
+        character.enhancement["training"]["defense"]["health"] = char_training["health"]
+        character.enhancement["training"]["defense"]["armor"] = char_training["armor"]
+        character.enhancement["training"]["defense"]["armor"] = char_training["spirit"]
+        character.enhancement["training"]["damage"]["physical"] = char_training["physical"]
+        character.enhancement["training"]["damage"]["ki"] = char_training["ki"]
+
+        # init the object
+        await character.init()
 
         return(character)
-    
-    async def get_character_stat(self, client, unique_id):
-        """
-        `coroutine`
-
-        Returns a character instance with the stats from the db
-
-        --
-
-        Return : new character instance with the correct stats.
-        """

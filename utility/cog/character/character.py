@@ -206,7 +206,6 @@ class Character:
         self.type.icon = await icon.get_type_icon(self.type.value)
         self.info.expansion, self.image.expansion = await category.get_expansion(self.info.expansion)
 
-
         # icons
             # type
         self.type.icon = await icon.get_type_icon(self.type.value)
