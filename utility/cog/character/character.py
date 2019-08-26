@@ -5,7 +5,7 @@ Every character classes inherit from the :class:`Character()` defined below.
 
 Author : DrLarck
 
-Last update : 22/08/19 (DrLarck)
+Last update : 26/08/19 (DrLarck)
 """
 
 # dependancies
@@ -202,6 +202,10 @@ class Character:
         icon = Icon_displayer()
         category = Category_displayer()
 
+        # set stat
+        await self.set_stat()
+
+        # set display
         self.rarity.icon = await icon.get_rarity_icon(self.rarity.value)
         self.type.icon = await icon.get_type_icon(self.type.value)
         self.info.expansion, self.image.expansion = await category.get_expansion(self.info.expansion)
@@ -227,6 +231,28 @@ class Character:
 
         Return : None
         """
+        
+         # get the level multiplier
+        level_multiplier = self.level / 100
+        if(level_multiplier < 1):
+            level_multiplier = 1
+
+        level_multiplier = (level_multiplier + (self.enhancement["star"] * 10) / 100)
+
+        # setup health
+        self.health.maximum *= (1 + ((self.rarity.value * 20) / 100) + (250 * self.enhancement["training"]["defense"]["health"])) * level_multiplier
+        self.health.current = self.health.maximum
+
+        # setup damage
+        self.damage.physical_max *= (1 + ((self.rarity.value) * 20) / 100 + (50 * self.enhancement["training"]["damage"]["physical"])) * level_multiplier
+        self.damage.physical_min = 0.9 * self.damage.physical_max
+
+        self.damage.ki_max *= (1 + ((self.rarity.value) * 20) / 100 + (50 * self.enhancement["training"]["damage"]["ki"])) * level_multiplier 
+        self.damage.ki_min = 0.9 * self.damage.physical_max
+
+        # setup defense
+        self.defense.armor *= (1 + ((self.rarity.value) * 20) / 100 + (50 * self.enhancement["training"]["defense"]["armor"])) * level_multiplier
+        self.defense.spirit *= (1 +((self.rarity.value) * 20) / 100 + (50 * self.enhancement["training"]["defense"]["spirit"])) * level_multiplier
 
         return
     
