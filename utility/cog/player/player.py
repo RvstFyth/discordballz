@@ -5,11 +5,14 @@ Manages the player object.
 
 Author : DrLarck
 
-Last update : 19/08/19
+Last update : 26/08/19 (DrLarck)
 """
 
 # dependancies
 import asyncio
+
+# util
+from utility.cog.player.attribute.resource import Player_resource
 
 # player
 class Player:
@@ -18,6 +21,8 @@ class Player:
 
     - Parameter : 
     
+    `client` : Represents a `discord.Client`. The client must handle a database connection pool.
+
     `player` : Represents a `discord.Member`
 
     - Attribute :
@@ -30,8 +35,13 @@ class Player:
     """
 
     # attribute
-    def __init__(self, player):
+    def __init__(self, client, player):
+        # basics
+        self.client = client
         # player infos
         self.name = player.name
         self.id = player.id
         self.avatar = player.avatar_url
+
+        # resource
+        self.resource = Player_resource(self.client, self)
