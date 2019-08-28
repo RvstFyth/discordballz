@@ -29,9 +29,13 @@ class Cmd_box(commands.Cog):
     @commands.check(Basic_checker().is_game_ready)
     @commands.check(Box_checker().has_opened_box)
     @commands.command()
-    async def box(self, ctx):
+    async def box(self, ctx, character_id : int = None):
         """
         Displays the player's box
+
+        - Parameter :
+
+        `character_id` : Represents the character global id to display.
         """
 
         # init
@@ -39,7 +43,7 @@ class Cmd_box(commands.Cog):
         box = Box(ctx, self.client, player)
 
         # box
-        await box.manager()
+        await box.manager(character_id = character_id)
 
 def setup(client):
     client.add_cog(Cmd_box(client))

@@ -46,11 +46,15 @@ class Box:
         self.db = Database(self.client.db)
     
     # method
-    async def manager(self):
+    async def manager(self, character_id = None):
         """
         `coroutine`
 
         Manages the box by changing the page, closing, etc.
+
+        - Parameter :
+
+        `character_id` : int - Represents the character id to display
 
         --
 
@@ -63,9 +67,9 @@ class Box:
 
         while current_page > 0:  # set the current_page to 0 to stop
             await asyncio.sleep(0)
-        
+            
             # display the box
-            displayer, total_pages, current_page, data = await self.display_box(current_page, data)
+            displayer, total_pages, current_page, data = await self.display_box(current_page, data, character_id = character_id)
 
             # add buttons
             added_reaction = await self.add_button(displayer, current_page, total_pages)
@@ -95,9 +99,10 @@ class Box:
             if(reaction == "◀"):
                 current_page -= 1
         
+        # remove the player from the checker
         Box_checker.opened_box.remove(self.player.id)
         
-        return
+        return(data)
     
     async def wait_for_reaction(self, displayer, player, possible_reactions):
         """
@@ -194,7 +199,7 @@ class Box:
         
         return(added_reaction)
 
-    async def display_box(self, page = 1, data = None):
+    async def display_box(self, page = 1, data = None, character_id = None):
         """
         `coroutine`
 
@@ -205,6 +210,8 @@ class Box:
         `page` : int default 1 - The page to display.
 
         `data` : list default None - The data to use.
+
+        `character_id` : int default None - Represent the charcter id to display
 
         --
 
@@ -218,21 +225,31 @@ class Box:
         total_pages = 1
         max_display = 5  # number of characters to display
         start_at = 0     # index of the character to display first
-        end_at = 6       # idex of the character to display last  (= max_display + 1)
+        end_at = 5       # idex of the character to display last  (= max_display + 1)
         getter = Character_getter()
 
         if(data == None):  # if no data provided, get the player's character
-            data = await self.db.fetch(
-            f"""
-            SELECT DISTINCT character_global_id FROM character_unique 
-            WHERE character_owner_id = {self.player.id}
-            ORDER BY character_global_id ASC;
-            """
-            )
+            if(character_id == None):  # if the display is not unique
+                data = await self.db.fetch(
+                f"""
+                SELECT DISTINCT character_global_id FROM character_unique 
+                WHERE character_owner_id = {self.player.id}
+                ORDER BY character_global_id ASC;
+                """
+                )
+            
+            else:
+                data = await self.db.fetch(
+                    f"""
+                    SELECT character_unique_id, character_type, character_rarity, character_level FROM character_unique
+                    WHERE character_owner_id = {self.player.id} AND character_global_id = {character_id}
+                    ORDER BY character_level DESC;
+                    """
+                )
 
         if(page > 1):
-            start_at += (end_at + 1) * page - 1  # display the character above the last one of the previous page
-            end_at += max_display * page - 1
+            start_at += (end_at) * (page - 1)  # display the character above the last one of the previous page
+            end_at += max_display * (page - 1)
 
             # setup total pages
         total_pages = int(((len(data) - 1) / 8) + 1)
@@ -250,21 +267,36 @@ class Box:
         for row in range(start_at, end_at):
             await asyncio.sleep(0)
 
-            # retrieve the character
-            character_id = data[row][0]
-            character = await getter.get_character(character_id)
-            await character.init()
+            if(character_id == None):
+                # retrieve the character
+                character_id = data[row][0]
+                character = await getter.get_character(character_id)
+                await character.init()
 
-            # get the character quantity
-            character_quantity = len(await self.db.fetch(
-                f"""
-                SELECT character_global_id FROM character_unique
-                WHERE character_global_id = {character.info.id} AND character_owner_id = {self.player.id};
-                """
-            ))
+                # get the character quantity
+                character_quantity = len(await self.db.fetch(
+                    f"""
+                    SELECT character_global_id FROM character_unique
+                    WHERE character_global_id = {character.info.id} AND character_owner_id = {self.player.id};
+                    """
+                ))
 
-            # add line to the box
-            box_display += f"#{character.info.id} - {character.image.icon}__{character.info.name}__ : *x{character_quantity}*\n"
+                # add line to the box
+                box_display += f"#`{character.info.id}` - {character.image.icon}__{character.info.name}__ : *x{character_quantity}*\n"
+
+            else:  # character unique
+                # retrieve the character
+                character = await getter.get_character(character_id)
+
+                # setup the character
+                unique_id = data[row][0]
+                character.type.value = data[row][1]
+                character.rarity.value = data[row][2]
+                character.level = data[row][3]
+                await character.init()
+
+                # add line to the box
+                box_display += f"{row + 1} - `{unique_id}` - {character.image.icon}__{character.info.name}__ {character.type.icon}{character.rarity.icon} - lv.{character.level}\n"
         
         # check if there is something to display
         if(box_display == ""):
