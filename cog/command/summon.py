@@ -35,6 +35,7 @@ class Cmd_summon(commands.Cog):
         }
     
     @commands.check(Basic_checker().is_game_ready)
+    @commands.check(Basic_checker().is_registered)
     @commands.group(
         aliases = ["sum"],
         invoke_without_command = True
@@ -56,6 +57,7 @@ class Cmd_summon(commands.Cog):
         return
     
     @commands.check(Basic_checker().is_game_ready)
+    @commands.check(Basic_checker().is_registered)
     @summon.command()
     async def basic(self, ctx):
         """

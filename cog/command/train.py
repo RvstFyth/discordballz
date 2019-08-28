@@ -30,6 +30,7 @@ class Cmd_train(commands.Cog):
         self.client = client
     
     @commands.check(Basic_checker().is_game_ready)
+    @commands.check(Basic_checker().is_registered)
     @commands.command()
     async def train(self, ctx):
         """

@@ -27,6 +27,7 @@ class Cmd_box(commands.Cog):
         self.client = client
     
     @commands.check(Basic_checker().is_game_ready)
+    @commands.check(Basic_checker().is_registered)
     @commands.check(Box_checker().has_opened_box)
     @commands.command()
     async def box(self, ctx, character_id : int = None):

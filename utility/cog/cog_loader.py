@@ -36,6 +36,7 @@ class Cog_loader:
         self.cog = [
             # command
             "cog.command.train", "cog.command.summon", "cog.command.box",
+            "cog.command.start",
             # other
             "cog.event.on_event"
         ]
