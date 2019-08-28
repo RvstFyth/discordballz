@@ -67,7 +67,7 @@ class Box:
         total_pages = 1
         max_display = 5  # number of characters to display
         start_at = 0     # index of the character to display first
-        end_at = 4       # idex of the character to display last  (= max_display - 1 as we start at 0)
+        end_at = 6       # idex of the character to display last  (= max_display + 1)
         getter = Character_getter()
 
         if(data == None):  # if no data provided, get the player's character
