@@ -54,7 +54,83 @@ class Box:
         Return : None
         """
 
+        # init
+        displayer, total_pages, current_page, data = None, 0, 1, None
+
+        while current_page > 0:  # set the current_page to 0 to stop
+            await asyncio.sleep(0)
         
+            # display the box
+            displayer, total_pages, current_page, data = await self.display_box(current_page, data)
+
+            # add buttons
+            added_reaction = await self.add_button(displayer, current_page, total_pages)
+
+            # wait for a reaction
+            reaction = await self.wait_for_reaction(displayer, self.player, added_reaction)
+
+            await displayer.delete()
+
+            if(reaction == None):  # in this case, the player didn't react in time
+                await self.ctx.send(f"<@{self.player.id}> Closing the box.", delete_after = 20)
+                current_page = 0
+                break
+            
+            if(reaction == "❌"):
+                current_page = 0        
+            
+            if(reaction == "⏮"):
+                current_page = 1
+            
+            if(reaction == "⏭"):
+                current_page = total_pages
+            
+            if(reaction == "▶"):
+                current_page += 1
+            
+            if(reaction == "◀"):
+                current_page -= 1
+        
+        return
+    
+    async def wait_for_reaction(self, displayer, player, possible_reactions):
+        """
+        `coroutine`
+
+        Wait for a reaction to be added onto the box message.
+
+        --
+
+        Return : the added reaction as str(`discord.Emoji`).
+        """
+        
+        # init
+        added_reaction = None
+        def box_predicate(reaction, user):
+            check = False
+            if(reaction.message.id == displayer.id):
+                if(user.id == player.id):
+                    if str(reaction.emoji) in possible_reactions:
+                        check = True
+
+            return(check)
+        
+        # get the reaction
+        try:
+            reaction, user = await self.client.wait_for(
+                "reaction_add",
+                timeout = 120,
+                check = box_predicate
+            )
+        
+        except asyncio.TimeoutError:
+            return(added_reaction)
+        
+        else:
+            return(str(reaction.emoji))
+
+        return
+
     async def add_button(self, box, current_page, total_pages):
         """
         `coroutine`
