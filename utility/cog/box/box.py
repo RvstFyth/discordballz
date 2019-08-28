@@ -252,7 +252,7 @@ class Box:
             end_at += max_display * (page - 1)
 
             # setup total pages
-        total_pages = int(((len(data) - 1) / 8) + 1)
+        total_pages = int(((len(data) - 1) / max_display) + 1)
 
         if(len(data) < end_at):  # if there is not enough character to display
             end_at = len(data)
