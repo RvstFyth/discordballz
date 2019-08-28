@@ -5,7 +5,7 @@ Summon command
 
 Author : DrLarck
 
-Last update : 22/08/19 (DrLarck)
+Last update : 28/08/19 (DrLarck)
 """
 
 # dependancies
@@ -57,7 +57,7 @@ class Cmd_summon(commands.Cog):
         """
 
         # init
-        player = Player(ctx.message.author)
+        player = Player(self.client, ctx.message.author)
         summoner = Summoner(self.client)
         displayer = Character_displayer(self.client, ctx, player)
 

@@ -5,7 +5,7 @@ Load the cogs.
 
 Author : DrLarck
 
-Last update : 14/07/19 (DrLarck)
+Last update : 28/08/19 (DrLarck)
 """
 
 # dependancies
@@ -35,7 +35,7 @@ class Cog_loader:
         self.client = client
         self.cog = [
             # command
-            "cog.command.train", "cog.command.summon",
+            "cog.command.train", "cog.command.summon", "cog.command.box",
             # other
             "cog.event.on_event"
         ]
