@@ -5,7 +5,7 @@ Managing the basic checks.
 
 Author : DrLarck
 
-Last update : 28/08/19 (DrLarck)
+Last update : 29/08/19 (DrLarck)
 """
 
 # dependancies
@@ -38,7 +38,7 @@ class Basic_checker:
         """
 
         # init
-        handler = await self.database.init()
+        handler = ctx.bot.db
         db = Database(handler)
 
         # get the player
