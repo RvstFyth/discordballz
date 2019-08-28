@@ -43,6 +43,75 @@ class Box:
         self.db = Database(self.client.db)
     
     # method
+    async def manager(self):
+        """
+        `coroutine`
+
+        Manages the box by changing the page, closing, etc.
+
+        --
+
+        Return : None
+        """
+
+        
+    async def add_button(self, box, current_page, total_pages):
+        """
+        `coroutine`
+
+        Add the button to switch the pages onto the box message.
+
+        - Parameter : 
+
+        `box` : discord.Message - Represents the discord.Message to add the reactions to.
+
+        `current_page` : int - Represents the page that is currently displayed.
+
+        `total_pages` : int - Represents the max number of pages.
+
+        --
+
+        Return : list of added reactions
+        """
+
+        # int
+        added_reaction = []
+        reactions = {
+            "close" : "❌",
+            "beginning" : "⏮",
+            "end" : "⏭",
+            "next" : "▶",
+            "previous" : "◀"
+        }
+        
+        # add reactions
+        await box.add_reaction(reactions["close"])
+        added_reaction.append(reactions["close"])
+
+        if(current_page == 1):
+            if(total_pages > current_page):
+                await box.add_reaction(reactions["next"])
+                added_reaction.append(reactions["next"])
+
+                await box.add_reaction(reactions["end"])
+                added_reaction.append(reactions["end"])
+        
+        elif(current_page > 1):
+            await box.add_reaction(reactions["beginning"])
+            added_reaction.append(reactions["beginning"])
+
+            await box.add_reaction(reactions["previous"])
+            added_reaction.append(reactions["previous"])
+
+            if(total_pages > current_page):
+                await box.add_reaction(reactions["next"])
+                added_reaction.append(reactions["next"])
+
+                await box.add_reaction(reactions["end"])
+                added_reaction.append(reactions["end"])
+        
+        return(added_reaction)
+
     async def display_box(self, page = 1, data = None):
         """
         `coroutine`
@@ -57,7 +126,7 @@ class Box:
 
         --
 
-        Return : box message, number of pages, data
+        Return : box message, number of pages, current_page, data
         """
 
         # init
@@ -132,4 +201,4 @@ class Box:
         await waiting_message.delete()
         box = await self.ctx.send(embed = embed)
 
-        return(box, total_pages, data)
+        return(box, total_pages, page, data)

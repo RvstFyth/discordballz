@@ -37,7 +37,8 @@ class Cmd_box(commands.Cog):
         box = Box(ctx, self.client, player)
 
         # display the box
-        await box.display_box()
+        displayer, total_pages, current_page, data = await box.display_box()
+        await box.add_button(displayer, current_page, total_pages)
 
 def setup(client):
     client.add_cog(Cmd_box(client))
