@@ -259,6 +259,7 @@ class Box:
 
         if(page > total_pages):
             await self.ctx.send(f"<@{self.player.id}> Sorry, this page doesn't exist.")
+            Box_checker.opened_box.remove(self.player.id)
             return
         
         # start displaying
