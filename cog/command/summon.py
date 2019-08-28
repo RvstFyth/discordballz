@@ -12,6 +12,9 @@ Last update : 28/08/19 (DrLarck)
 import asyncio
 from discord.ext import commands
 
+# config
+from configuration.icon import game_icon
+
 # utils
 from utility.cog.player.player import Player
 from utility.graphic.embed import Custom_embed
@@ -27,6 +30,9 @@ class Cmd_summon(commands.Cog):
 
     def __init__(self, client):
         self.client = client
+        self.cost = {
+            "basic" : 5
+        }
     
     @commands.check(Basic_checker().is_game_ready)
     @commands.group(
@@ -61,13 +67,20 @@ class Cmd_summon(commands.Cog):
         summoner = Summoner(self.client)
         displayer = Character_displayer(self.client, ctx, player)
 
-        # draw 
-        drawn_character = await summoner.summon(player)
-        await drawn_character.init()
+        # get player's resource
+        await player.resource.update()
 
-        # display
-        displayer.character = drawn_character
-        await displayer.display(summon_format = True)
+        if(player.resource.dragonstone >= self.cost["basic"]):
+            # draw 
+            drawn_character = await summoner.summon(player)
+            await drawn_character.init()
+
+            # display
+            displayer.character = drawn_character
+            await displayer.display(summon_format = True)
+        
+        else:
+            await ctx.send(f"<@{player.id}> You do not have enough **Dragon Stones**{game_icon['dragonstone']} to summon ({player.resource.dragonstone:,} / {self.cost['basic']:,}).")
         
         return
 

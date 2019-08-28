@@ -5,11 +5,15 @@ Manages the icons.
 
 Author : DrLarck
 
-Last update : 22/08/19 (DrLarck)
+Last update : 28/08/19 (DrLarck)
 """
 
 game_icon = {
     "ki_ability" : "<:power:602612684898435132>",
+
+    # resource
+    "dragonstone" : "<:dragonstone:594954189579354112>",
+    "zenis" : "<:zenis:594954191999336514>",
 
     # rarity
     "n" : "<:n_:582922492402860053>",

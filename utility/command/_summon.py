@@ -238,6 +238,7 @@ class Summoner:
         droprate = Bot_config.droprate
         drawn_character = None
         draw = 0
+        cost = 0
         
         # check if the lists are sorted or not
         if(Sorted_banner.is_sorted == False):
@@ -246,9 +247,11 @@ class Summoner:
 
         if(_type == "basic"):
             summon_list = Sorted_banner.basic
+            cost = 5
 
         elif(_type == "expansion") :
            summon_list = Sorted_banner.expansion
+           cost = 10
         
         elif(_type == "muscle"):
             summon_list = Sorted_banner.muscle_tower
