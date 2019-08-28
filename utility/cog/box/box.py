@@ -11,6 +11,9 @@ Last update : 28/08/19 (DrLarck)
 # dependancies
 import asyncio
 
+# check
+from utility.command.checker.box import Box_checker
+
 # util
 from utility.database.database_manager import Database
 from utility.cog.character.getter import Character_getter
@@ -56,6 +59,7 @@ class Box:
 
         # init
         displayer, total_pages, current_page, data = None, 0, 1, None
+        Box_checker.opened_box.append(self.player.id)
 
         while current_page > 0:  # set the current_page to 0 to stop
             await asyncio.sleep(0)
@@ -90,6 +94,8 @@ class Box:
             
             if(reaction == "◀"):
                 current_page -= 1
+        
+        Box_checker.opened_box.remove(self.player.id)
         
         return
     

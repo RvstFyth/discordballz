@@ -14,6 +14,7 @@ from discord.ext import commands
 
 # checker
 from utility.command.checker.basic import Basic_checker
+from utility.command.checker.box import Box_checker
 
 # util
 from utility.cog.player.player import Player
@@ -26,6 +27,7 @@ class Cmd_box(commands.Cog):
         self.client = client
     
     @commands.check(Basic_checker().is_game_ready)
+    @commands.check(Box_checker().has_opened_box)
     @commands.command()
     async def box(self, ctx):
         """
