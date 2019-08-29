@@ -5,7 +5,7 @@ Summon command
 
 Author : DrLarck
 
-Last update : 28/08/19 (DrLarck)
+Last update : 29/08/19 (DrLarck)
 """
 
 # dependancies
@@ -65,7 +65,7 @@ class Cmd_summon(commands.Cog):
         """
 
         # init
-        player = Player(self.client, ctx.message.author)
+        player = Player(ctx, self.client, ctx.message.author)
         summoner = Summoner(self.client)
         displayer = Character_displayer(self.client, ctx, player)
 
@@ -74,12 +74,16 @@ class Cmd_summon(commands.Cog):
 
         if(player.resource.dragonstone >= self.cost["basic"]):
             # draw 
-            drawn_character = await summoner.summon(player)
+            drawn_character = await summoner.summon(player, _type = "basic")
             await drawn_character.init()
 
             # display
             displayer.character = drawn_character
             await displayer.display(summon_format = True)
+
+            # apply the cost
+            print(player.resource.dragonstone)
+            await player.resource.remove_dragonstone(self.cost["basic"])
         
         else:
             await ctx.send(f"<@{player.id}> You do not have enough **Dragon Stones**{game_icon['dragonstone']} to summon ({player.resource.dragonstone:,} / {self.cost['basic']:,}).")

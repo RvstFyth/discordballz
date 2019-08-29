@@ -5,7 +5,7 @@ Manages the box command.
 
 Author : DrLarck
 
-Last update : 28/08/19 (DrLarck)
+Last update : 29/08/19 (DrLarck)
 """
 
 # dependancies
@@ -40,11 +40,10 @@ class Cmd_box(commands.Cog):
         """
 
         # init
-        player = Player(self.client, ctx.message.author)
-        box = Box(ctx, self.client, player)
+        player = Player(ctx, self.client, ctx.message.author)
 
         # box
-        await box.manager(character_id = character_id)
+        await player.box.manager(character_id = character_id)
 
 def setup(client):
     client.add_cog(Cmd_box(client))

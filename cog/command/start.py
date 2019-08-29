@@ -5,7 +5,7 @@ Manages the start command
 
 Author : DrLarck
 
-Last update : 28/08/19 (DrLarck)
+Last update : 29/08/19 (DrLarck)
 """
 
 # dependancies
@@ -36,13 +36,13 @@ class Cmd_start(commands.Cog):
 
         # init
         db = Database(self.client.db)
-        player = Player(self.client, ctx.message.author)
+        player = Player(ctx, self.client, ctx.message.author)
         
         # insert the player into the tables
         await db.execute(
             f"""
             INSERT INTO player_info(player_id, player_name) VALUES({player.id}, '{player.name}');
-            INSERT INTO player_resource(player_id, player_name) VALUES({player.id}, '{player.name}');
+            INSERT INTO player_resource(player_id, player_name, player_dragonstone) VALUES({player.id}, '{player.name}', 25);
             INSERT INTO player_combat_info(player_id, player_name) VALUES({player.id}, '{player.name}');
             """
         )

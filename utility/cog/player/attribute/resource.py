@@ -125,11 +125,10 @@ class Player_resource:
 
         # init
         await self.get_dragonstone()  # update the player's resource
-        update_stone = f"UPDATE player_resource SET player_dragonstone = {self.dragonstone} WHERE player_id = {self.player.id};"
 
         # update 
         self.dragonstone -= amount
-        await self.db.execute(update_stone)
+        await self.db.execute(f"UPDATE player_resource SET player_dragonstone = {self.dragonstone} WHERE player_id = {self.player.id};")
 
         return
     
@@ -150,10 +149,9 @@ class Player_resource:
 
         # init
         await self.get_zenis()
-        update_zenis = f"UPDATE player_resource SET player_zenis = {self.player.zenis} WHERE player_id = {self.player.id};"
 
         # update
         self.zenis -= amount
-        await self.db.execute(update_zenis)
+        await self.db.execute(f"UPDATE player_resource SET player_zenis = {self.player.zenis} WHERE player_id = {self.player.id};")
 
         return

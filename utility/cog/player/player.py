@@ -5,7 +5,7 @@ Manages the player object.
 
 Author : DrLarck
 
-Last update : 26/08/19 (DrLarck)
+Last update : 29/08/19 (DrLarck)
 """
 
 # dependancies
@@ -13,6 +13,7 @@ import asyncio
 
 # util
 from utility.cog.player.attribute.resource import Player_resource
+from utility.cog.box.box import Box
 
 # player
 class Player:
@@ -21,6 +22,8 @@ class Player:
 
     - Parameter : 
     
+    `ctx` : Represents the `commands.Context`.
+
     `client` : Represents a `discord.Client`. The client must handle a database connection pool.
 
     `player` : Represents a `discord.Member`
@@ -35,8 +38,9 @@ class Player:
     """
 
     # attribute
-    def __init__(self, client, player):
+    def __init__(self, ctx, client, player):
         # basics
+        self.ctx = ctx
         self.client = client
         # player infos
         self.name = player.name
@@ -45,3 +49,6 @@ class Player:
 
         # resource
         self.resource = Player_resource(self.client, self)
+
+        # box
+        self.box = Box(self.ctx, self.client, self)
