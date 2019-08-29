@@ -43,6 +43,7 @@ class Cmd_fighter(commands.Cog):
 
         # display the fighter help here
 
+    ################ FIGHTER ###################
     @commands.check(Basic_checker().is_game_ready)
     @commands.check(Basic_checker().is_registered)
     @fighter.command()

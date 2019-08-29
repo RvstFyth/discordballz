@@ -32,7 +32,7 @@ class Start_checker:
         """
 
         # init
-        handler = await Database(None).init()
+        handler = ctx.bot.db
         db = Database(handler)
 
         # check if the player is found
