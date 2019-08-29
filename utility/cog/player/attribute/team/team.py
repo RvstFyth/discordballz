@@ -13,6 +13,7 @@ import asyncio
 
 # util
 from utility.database.database_manager import Database
+from utility.cog.character.getter import Character_getter
 
 # player's team
 class Team:
@@ -45,6 +46,27 @@ class Team:
         }
 
     # method
+    async def update_team(self):
+        """
+        `coroutine`
+
+        Updates the player's team infos.
+
+        --
+
+        Return : None
+        """
+        
+        await self.db.execute(
+            f"""
+            UPDATE SET player_combat_info SET player_fighter_a = {self.team['a']} WHERE player_id = {self.player.id};
+            UPDATE SET player_combat_info SET player_fighter_b = {self.team['b']} WHERE player_id = {self.player.id};
+            UPDATE SET player_combat_info SET player_fighter_c = {self.team['c']} WHERE player_id = {self.player.id};
+            """
+        )
+
+        return
+
     async def get_team(self):
         """
         `coroutine`
@@ -85,3 +107,86 @@ class Team:
             self.team["b"] = None
 
         return(self.team)
+    
+    async def set_fighter(self, slot, character_unique):
+        """
+        `coroutine`
+
+        Set a fighter at the passed slot with the specified unique id.
+
+        - Parameter :
+
+        `slot` : str - Represents the slot to set ("a", "b", "c").
+
+        `character_unique` : str - Represents the unique id of the character to set at the slot.
+
+        --
+
+        Return : None
+        """
+
+        # The player cannot have copy of a same character in his team
+        # we get the character's global id and we compare it with the 
+        # other team members
+
+        # init
+        team = {
+            "a" : None,
+            "b" : None,
+            "c" : None
+        }
+        team_id = []
+        in_team = False
+
+        getter = Character_getter()
+        await self.get_team()
+
+        # get the team ids
+        if(self.team["a"] != None):
+            team["a"] = await getter.get_from_unique(self.client, self.team["a"])
+            team_id.append(team["a"].info.id)
+        
+        if(self.team["b"] != None):
+            team["b"] = await getter.get_from_unique(self.client, self.team["b"])
+            team_id.append(team["b"].info.id)
+        
+        if(self.team["c"] != None):
+            team["c"] = await getter.get_from_unique(self.client, self.team["c"])
+            team_id.append(team["c"].info.id)
+        
+        # now get the id of the fighter the player wants to set
+        character = await getter.get_from_unique(self.client, character_unique)
+
+        # check if the character is in the team
+        if character.info.id in team_id:
+            in_team = True
+        
+        # if the character isn't in the team, add it to it
+        self.team[slot] = character_unique
+        await self.update_team()
+
+        return
+    
+    async def remove(self, slot):
+        """
+        `coroutine`
+
+        Reset a character slot.
+
+        - Parameter :
+
+        `slot` : str - Represents the slot to reset ("a", "b", "c")
+
+        --
+
+        Return : None
+        """
+
+        await self.db.execute(
+            f"""
+            UPDATE player_combat_info SET player_fighter_{slot} = 'NONE'
+            WHERE player_id = {self.player.id};
+            """
+        )
+
+        return
