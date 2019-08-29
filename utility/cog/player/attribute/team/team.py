@@ -138,6 +138,9 @@ class Team:
         team_id = []
         in_team = False
 
+        # remove the slot
+        await self.remove(slot)
+        
         getter = Character_getter()
         await self.get_team()
 
