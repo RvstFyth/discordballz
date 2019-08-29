@@ -39,6 +39,8 @@ class Team:
     :coro:`set_fighter(slot, character_unique)` : Update the fighter slot with the passed unique id.
 
     :coro:`remove(slot)` : Reset the passed slot.
+
+    :coro:`get_info()` : Return the team infos such as its average level and rarity.
     """
 
     # attribute
@@ -216,3 +218,61 @@ class Team:
         )
 
         return
+    
+    async def get_info(self):
+        """
+        `coroutine`
+
+        Get the teams infos.
+
+        --
+        
+        Return : dict 
+
+        - Key :
+
+        "level" : The team's average level
+
+        "rarity" : The team's average rarity value
+        """
+
+        # init
+        self.team = await self.get_team()
+        getter = Character_getter()
+        _team = []
+        average_level = 0
+        average_rarity = 0
+        data = {
+            "level" : 0,
+            "rarity" : 0
+        }
+
+        # sort the characters
+        if(self.team["a"] != None):
+            character = await getter.get_from_unique(self.client, self.team["a"])
+            _team.append(character)
+        
+        if(self.team["b"] != None):
+            character = await getter.get_from_unique(self.client, self.team["b"])
+            _team.append(character)
+        
+        if(self.team["c"] != None):
+            character = await getter.get_from_unique(self.client, self.team["c"])
+            _team.append(character)
+        
+        # get the average
+        for char in _team:
+            await asyncio.sleep(0)
+
+            average_level += char.level
+            average_rarity += char.rarity.value
+        
+        # calculate the average
+        average_level /= len(_team)
+        average_rarity /= len(_team)
+
+        # set the data
+        data["level"] = int(average_level)
+        data["rarity"] = int(average_rarity)
+
+        return(data)
