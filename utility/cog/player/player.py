@@ -14,6 +14,7 @@ import asyncio
 # util
 from utility.cog.player.attribute.resource import Player_resource
 from utility.cog.player.attribute.box.box import Box
+from utility.cog.player.attribute.team.team import Team
 
 # player
 class Player:
@@ -52,3 +53,6 @@ class Player:
 
         # box
         self.box = Box(self.ctx, self.client, self)
+
+        # team
+        self.team = Team(self.client, self)
