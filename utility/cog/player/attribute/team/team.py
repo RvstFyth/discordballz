@@ -67,11 +67,21 @@ class Team:
         Return : None
         """
         
+        # init
+        if(self.team["a"] == None):
+            self.team["a"] = "NONE"
+
+        if(self.team["b"] == None):
+            self.team["b"] = "NONE"
+
+        if(self.team["c"] == None):
+            self.team["c"] = "NONE"
+
         await self.db.execute(
             f"""
-            UPDATE SET player_combat_info SET player_fighter_a = {self.team['a']} WHERE player_id = {self.player.id};
-            UPDATE SET player_combat_info SET player_fighter_b = {self.team['b']} WHERE player_id = {self.player.id};
-            UPDATE SET player_combat_info SET player_fighter_c = {self.team['c']} WHERE player_id = {self.player.id};
+            UPDATE player_combat_info SET player_fighter_a = '{self.team['a']}' WHERE player_id = {self.player.id};
+            UPDATE player_combat_info SET player_fighter_b = '{self.team['b']}' WHERE player_id = {self.player.id};
+            UPDATE player_combat_info SET player_fighter_c = '{self.team['c']}' WHERE player_id = {self.player.id};
             """
         )
 
@@ -113,8 +123,8 @@ class Team:
         if(self.team["b"] == "NONE"):
             self.team["b"] = None
         
-        if(self.team["b"] == "NONE"):
-            self.team["b"] = None
+        if(self.team["c"] == "NONE"):
+            self.team["c"] = None
 
         return(self.team)
     
@@ -132,7 +142,7 @@ class Team:
 
         --
 
-        Return : None
+        Return : None or False if the character is already in the team
         """
 
         # The player cannot have copy of a same character in his team
@@ -152,9 +162,10 @@ class Team:
         await self.remove(slot)
 
         getter = Character_getter()
-        await self.get_team()
+        self.team = await self.get_team()
 
         # get the team ids
+        print(self.team)
         if(self.team["a"] != None):
             team["a"] = await getter.get_from_unique(self.client, self.team["a"])
             team_id.append(team["a"].info.id)
@@ -171,8 +182,10 @@ class Team:
         character = await getter.get_from_unique(self.client, character_unique)
 
         # check if the character is in the team
+        print(f"character : {character.info.id}\nteam : {team_id}")
         if character.info.id in team_id:
             in_team = True
+            return(False)
         
         # if the character isn't in the team, add it to it
         self.team[slot] = character_unique
