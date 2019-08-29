@@ -5,7 +5,7 @@ Manages the helper.
 
 Author : DrLarck
 
-Last update : 22/08/19 (DrLarck)
+Last update : 29/08/19 (DrLarck)
 """
 
 # dependancies
@@ -47,42 +47,3 @@ class Helper:
         """
 
         await self.ctx.send(embed = help_message)
-    
-    # special
-    async def summon(self):
-        """
-        `coroutine`
-
-        Displays the command.help for the summon command.
-
-        --
-
-        Return : send a discord.Message (embedded)
-        """
-
-        # init
-        self.embed = Custom_embed(self.client)
-        summon_help = await self.embed.setup_embed()
-
-        # setup
-        # title and desc
-        summon_help.add_field(
-            name = "Summon commands :",
-            value = "Welcome to the **Summon** help pannel.\n__Aliases__ : sum",
-            inline = False
-        )
-
-        # commands
-        summon_help.add_field(
-            name = "d!summon",
-            value = "Displays the command help.",
-            inline = False
-        )
-
-        summon_help.add_field(
-            name = "d!summon basic",
-            value = "Summons a random character from the **Basic** expansion.",
-            inline = False
-        )
-
-        return(summon_help)

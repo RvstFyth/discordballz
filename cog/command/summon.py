@@ -24,6 +24,8 @@ from utility.command.checker.basic import Basic_checker
 from utility.command._summon import Summoner
     # displayer
 from utility.cog.displayer.character import Character_displayer
+    # help
+from utility.cog.helper.command._summon import _summon
 from utility.cog.helper.helper import Helper
 
 class Cmd_summon(commands.Cog):
@@ -49,7 +51,7 @@ class Cmd_summon(commands.Cog):
         
         # init
         helper = Helper(self.client, ctx)
-        summon_help = await helper.summon()
+        summon_help = await _summon(self.client)
 
         # send the help
         await helper.display_help(summon_help)
