@@ -268,8 +268,9 @@ class Team:
             average_rarity += char.rarity.value
         
         # calculate the average
-        average_level /= len(_team)
-        average_rarity /= len(_team)
+        if(len(_team) > 0):
+            average_level /= len(_team)
+            average_rarity /= len(_team)
 
         # set the data
         data["level"] = int(average_level)

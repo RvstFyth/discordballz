@@ -34,6 +34,5 @@ class Cmd_help(commands.Cog):
         # init
         helper = Helper(self.client, ctx)
 
-
 def setup(client):
     client.add_cog(Cmd_help(client))
