@@ -29,6 +29,16 @@ class Team:
     - Attribute :
 
     `team` : dict - Represents the player's team ["a", "b", "c"]. None if the slot is not defined.
+
+    - Method :
+
+    :coro:`update_team()` : Update the player's team info (in db).
+
+    :coro:`get_team()` : Get the player's team from the database.
+
+    :coro:`set_fighter(slot, character_unique)` : Update the fighter slot with the passed unique id.
+
+    :coro:`remove(slot)` : Reset the passed slot.
     """
 
     # attribute
@@ -140,7 +150,7 @@ class Team:
 
         # remove the slot
         await self.remove(slot)
-        
+
         getter = Character_getter()
         await self.get_team()
 
