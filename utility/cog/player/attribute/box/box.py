@@ -5,7 +5,7 @@ Manages the box behaviour.
 
 Author : DrLarck
 
-Last update : 28/08/19 (DrLarck)
+Last update : 29/08/19 (DrLarck)
 """
 
 # dependancies
@@ -34,7 +34,17 @@ class Box:
 
     - Method :
 
+    :coro:`manager(character_id : None)` : Manages the box display, the page switching etc.
+
+    :coro:`wait_for_reaction(displayer, player, possible_reactions)` : Get the player's reaction for the box.
+
+    :coro:`add_button(displayer, current_page, total_pages)` : Add the buttons according to the box logic.
+
+    :coro:`display_box(page : 1, data : None, character_id : None)` : Display the box. If a character_id is passed, display the unique characters.
+
     :coro:`display_box(page, data)` : Display the player's box.
+
+    :coro:`get_data(id)` : Get the data used for the unique display.
     """
 
     # attribute
@@ -317,3 +327,24 @@ class Box:
         box = await self.ctx.send(embed = embed)
 
         return(box, total_pages, page, data)
+    
+    async def get_data(self, character_id):
+        """
+        `coroutine`
+
+        Get the data used for the box.
+
+        --
+
+        Return : list
+        """
+
+        data = await self.db.fetch(
+            f"""
+            SELECT character_unique_id, character_type, character_rarity, character_level FROM character_unique
+            WHERE character_owner_id = {self.player.id} AND character_global_id = {character_id}
+            ORDER BY character_level DESC;
+            """
+        )
+
+        return(data)
