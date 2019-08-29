@@ -13,7 +13,7 @@ import asyncio
 
 # util
 from utility.cog.player.attribute.resource import Player_resource
-from utility.cog.box.box import Box
+from utility.cog.player.attribute.box.box import Box
 
 # player
 class Player:

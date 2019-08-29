@@ -18,7 +18,7 @@ from utility.command.checker.box import Box_checker
 
 # util
 from utility.cog.player.player import Player
-from utility.cog.box.box import Box
+from utility.cog.player.attribute.box.box import Box
 
 # command
 class Cmd_box(commands.Cog):
