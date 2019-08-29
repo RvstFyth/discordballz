@@ -41,9 +41,9 @@ class Cmd_start(commands.Cog):
         # insert the player into the tables
         await db.execute(
             f"""
-            INSERT INTO player_info(player_id) VALUES({player.id});
-            INSERT INTO player_resource(player_id) VALUES({player.id});
-            INSERT INTO player_combat_info(player_id) VALUES({player.id});
+            INSERT INTO player_info(player_id, player_name) VALUES({player.id}, '{player.name}');
+            INSERT INTO player_resource(player_id, player_name) VALUES({player.id}, '{player.name}');
+            INSERT INTO player_combat_info(player_id, player_name) VALUES({player.id}, '{player.name}');
             """
         )
     

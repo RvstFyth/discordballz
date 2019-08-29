@@ -135,12 +135,6 @@ class Player_table_creator:
             "default" : None
         }
 
-        player_leader = {
-            "name" : "player_leader",
-            "type" : "TEXT",
-            "default" : "NONE"
-        }
-
         fighter_a = {
             "name" : "player_fighter_a",
             "type" : "TEXT",
@@ -162,7 +156,6 @@ class Player_table_creator:
         player_combat["attribute"] = [
             player_id,
             player_name,
-            player_leader,
             fighter_a,
             fighter_b,
             fighter_c
