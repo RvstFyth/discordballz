@@ -17,6 +17,7 @@ from discord.ext import commands
 from utility.cog.fight_system.fight import Fight
     #checker
 from utility.command.checker.basic import Basic_checker
+from utility.command.checker.fight import Fight_checker
     # translation
 from utility.translation.translator import Translator
 
@@ -31,6 +32,7 @@ class Cmd_train(commands.Cog):
     
     @commands.check(Basic_checker().is_game_ready)
     @commands.check(Basic_checker().is_registered)
+    @commands.check(Fight_checker().has_team)
     @commands.command()
     async def train(self, ctx):
         """
