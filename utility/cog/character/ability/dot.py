@@ -5,7 +5,7 @@ Manages the DOT super class.
 
 Author : DrLarck
 
-Last update : 19/08/19 (DrLarck)
+Last update : 30/08/19 (DrLarck)
 """
 
 # dependancies
@@ -51,6 +51,8 @@ class Dot:
 
     - Method :
 
+    :coro:`translate()` : Allows you to translate the Dot's strings.
+
     :coro:`apply()` : Apply the Dot effects to the target.
 
     :coro:`set_damage()` : Set the tick damage. According to the Dot behaviour.
@@ -88,6 +90,9 @@ class Dot:
         self.tick_damage = 0
 
     # method
+    async def translate(self):
+        return
+
     async def apply(self):
         return
 
