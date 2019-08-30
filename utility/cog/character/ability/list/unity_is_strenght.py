@@ -87,7 +87,7 @@ class Unity_is_strenght(Ability):
                     ally_buff.duration = unity_buff.initial_duration
                 
                 else:  # otherwise, add the buff
-                    character.buff.append(unity_buff)
+                    character.bonus.append(unity_buff)
 
             # setup the move display
             display = await move.get_new_move()

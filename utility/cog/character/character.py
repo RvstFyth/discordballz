@@ -5,7 +5,7 @@ Every character classes inherit from the :class:`Character()` defined below.
 
 Author : DrLarck
 
-Last update : 26/08/19 (DrLarck)
+Last update : 30/08/19 (DrLarck)
 """
 
 # dependancies
@@ -240,19 +240,19 @@ class Character:
         level_multiplier = (level_multiplier + (self.enhancement["star"] * 10) / 100)
 
         # setup health
-        self.health.maximum *= (1 + ((self.rarity.value * 20) / 100) + (250 * self.enhancement["training"]["defense"]["health"])) * level_multiplier
+        self.health.maximum *= int((1 + ((self.rarity.value * 20) / 100) + (250 * self.enhancement["training"]["defense"]["health"])) * level_multiplier)
         self.health.current = self.health.maximum
 
         # setup damage
-        self.damage.physical_max *= (1 + ((self.rarity.value) * 20) / 100 + (50 * self.enhancement["training"]["damage"]["physical"])) * level_multiplier
-        self.damage.physical_min = 0.9 * self.damage.physical_max
+        self.damage.physical_max *= int((1 + ((self.rarity.value) * 20) / 100 + (50 * self.enhancement["training"]["damage"]["physical"])) * level_multiplier)
+        self.damage.physical_min = int(0.9 * self.damage.physical_max)
 
-        self.damage.ki_max *= (1 + ((self.rarity.value) * 20) / 100 + (50 * self.enhancement["training"]["damage"]["ki"])) * level_multiplier 
-        self.damage.ki_min = 0.9 * self.damage.physical_max
+        self.damage.ki_max *= int((1 + ((self.rarity.value) * 20) / 100 + (50 * self.enhancement["training"]["damage"]["ki"])) * level_multiplier )
+        self.damage.ki_min = int(0.9 * self.damage.physical_max)
 
         # setup defense
-        self.defense.armor *= (1 + ((self.rarity.value) * 20) / 100 + (50 * self.enhancement["training"]["defense"]["armor"])) * level_multiplier
-        self.defense.spirit *= (1 +((self.rarity.value) * 20) / 100 + (50 * self.enhancement["training"]["defense"]["spirit"])) * level_multiplier
+        self.defense.armor *= int((1 + ((self.rarity.value) * 20) / 100 + (50 * self.enhancement["training"]["defense"]["armor"])) * level_multiplier)
+        self.defense.spirit *= int((1 +((self.rarity.value) * 20) / 100 + (50 * self.enhancement["training"]["defense"]["spirit"])) * level_multiplier)
 
         return
     
