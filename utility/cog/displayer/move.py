@@ -5,7 +5,7 @@ Manages the way the move are displayed.
 
 Author : DrLarck
 
-Last update : 19/08/19 (DrLarck)
+Last update : 30/08/19 (DrLarck)
 """
 
 # dependancies
@@ -65,6 +65,7 @@ class Move_displayer:
     
         return(self.move)
 
+    # display
     async def offensive_move(self, move):
         """
         `coroutine`
@@ -144,6 +145,33 @@ class Move_displayer:
         ki_display += f"__Ki gain__ : +**{move['damage']}** :fire: \n"
         
         return(ki_display)
+    
+    async def effect_move(self, move):
+        """
+        `coroutine`
+
+        Manages the displaying of a buff move
+
+        Damage key represents the damages done (if negative) or the heal (if positive)
+        
+        --
+
+        Return : str
+        """
+
+        # init
+        effect_display = ""
+
+        effect_display += f"__Move__ : `{move['name']}{move['icon']}\n"
+
+        if(move["damage"] != 0):
+            if(move["damage"] < 0):  # damaging
+                effect_display += f"__Damage__ : **{move['damage']:,}** :hearts:"
+            
+            else:  # healing
+                effect_display += f"__Healing__ : + **{move['damage']:,}** :hearts:"
+
+        return(effect_display)
     
     async def defense_move(self):
         """

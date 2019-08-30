@@ -5,7 +5,7 @@ Check if the target has an effect active on it.
 
 Author : DrLarck
 
-Last update : 19/08/19 (DrLarck)
+Last update : 30/08/19 (DrLarck)
 """
 
 # dependancies
@@ -51,9 +51,15 @@ class Effect_checker:
         effect = None
 
         # list of the effect
+        # Dot Acid
         if(effect_id == 1):
             from utility.cog.character.ability.effect.dot.dot_acid import Dot_acid
             effect = Dot_acid(client, ctx, target, team_a, team_b)
+        
+        # Buff Unity is strenght
+        if(effect_id == 2):
+            from utility.cog.character.ability.effect.buff.unity_is_strenght import Buff_unity_is_strenght
+            effect = Buff_unity_is_strenght(client, ctx, team_a, team_b)
             
         return(effect)
 

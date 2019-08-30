@@ -60,5 +60,41 @@ class Unity_is_strenght(Ability):
         # init
         await self.caster.posture.change_posture("attacking")
         move = Move_displayer()
-        checker = Effect_checker(self.caster)
 
+        # applies the buff on the team
+        for character in self.team_a:
+            await asyncio.sleep(0)
+
+            # init
+            checker = Effect_checker(character)
+            unity_buff = await checker.get_effect(
+                2, 
+                self.client, 
+                self.ctx, 
+                character, 
+                self.team_a, 
+                self.team_b
+            )
+
+            ally_buff = None  # check if the ally already has the Unity is strenght active
+
+            if character.info.id in self.saibaimen:
+                # if the ally is a saibaimen
+                # applies the buff
+                ally_buff = await checker.get_buff(unity_buff)
+
+                if(ally_buff != None):  # if the ally has the buff, reset duration
+                    ally_buff.duration = unity_buff.initial_duration
+                
+                else:  # otherwise, add the buff
+                    character.buff.append(unity_buff)
+
+            # setup the move display
+            display = await move.get_new_move()
+            display["name"] = self.name
+            display["icon"] = self.icon
+            display["ki"] = True
+
+            display = await move.effect_move(display)
+
+            return(display)

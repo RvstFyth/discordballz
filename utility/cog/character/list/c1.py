@@ -5,7 +5,7 @@ Manages the character 1
 
 Author : DrLarck
 
-Last update : 18/07/19
+Last update : 30/08/19 (DrLarck)
 """
 
 # dependancies
@@ -13,7 +13,10 @@ import asyncio
 
 # utils
 from utility.cog.character.character import Character
+
+# abilities
 from utility.cog.character.ability.list.acid import Acid
+from utility.cog.character.ability.list.unity_is_strenght import Unity_is_strenght
 
 # saibaiman
 class Character_1(Character):
@@ -57,4 +60,4 @@ class Character_1(Character):
         self.critical_chance = 10
 
         # ability
-        self.ability = [Acid]
+        self.ability = [Acid, Unity_is_strenght]
