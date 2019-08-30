@@ -494,14 +494,25 @@ class Character:
                 ability = choice(usable_ability)
 
                 # get targetable
-                targetable_a, targetable_b = await team_displayer.get_targetable(
-                    "ability",
-                    ability = ability
-                )
+                if(ability.need_target):
+                    targetable_a, targetable_b = await team_displayer.get_targetable(
+                        "ability",
+                        ability = ability
+                    )
 
-                targetable = targetable_a + targetable_b
+                    targetable = targetable_a + targetable_b
 
-                move["target"] = choice(targetable)
+                    move["target"] = choice(targetable)
+
+                    # redefine ability parameter
+                    ability.__init__(
+                        client,
+                        ctx,
+                        self,
+                        move["target"],
+                        team_a,
+                        team_b
+                    )
 
                 # pick a random ability
                 ability_choice = 4  # init to 4, 4 is the ability 1 (index 0)

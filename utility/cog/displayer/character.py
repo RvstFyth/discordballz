@@ -172,6 +172,7 @@ class Character_displayer:
         ## COMBAT FORMAT ## 
         elif(combat_format):
             # posture
+            print(f"character buffs : {len(self.character.bonus)}")
             posture = None
 
             if(self.character.posture.attacking == True):

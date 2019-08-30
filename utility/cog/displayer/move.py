@@ -162,7 +162,7 @@ class Move_displayer:
         # init
         effect_display = ""
 
-        effect_display += f"__Move__ : `{move['name']}{move['icon']}\n"
+        effect_display += f"__Move__ : `{move['name']}`{move['icon']}\n"
 
         if(move["damage"] != 0):
             if(move["damage"] < 0):  # damaging
