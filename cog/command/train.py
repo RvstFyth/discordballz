@@ -5,7 +5,7 @@ This command allows the player to level up his characters.
 
 Author : DrLarck
 
-Last update : 16/08/19 (DrLarck)
+Last update : 31/08/19 (DrLarck)
 """
 
 # dependancies
@@ -15,6 +15,8 @@ from discord.ext import commands
 
 # utils
 from utility.cog.fight_system.fight import Fight
+from utility.cog.player.player import Player
+from utility.cog.character.getter import Character_getter
     #checker
 from utility.command.checker.basic import Basic_checker
 from utility.command.checker.fight import Fight_checker
@@ -45,12 +47,18 @@ class Cmd_train(commands.Cog):
         If the player wins the fight, his character gain some xp.
         """
 
+        # init
         caller = ctx.message.author 
+        player = Player(ctx, self.client, caller)
+        getter = Character_getter()
 
-        # test shit
-        chara = Character_1()
-        charb = Character_1()
-        charc = Character_1()
+        # get caller team
+        caller_team = await player.team.get_team()
+        caller_team = [
+            await getter.get_from_unique(self.client, caller_team["a"]),
+            await getter.get_from_unique(self.client, caller_team["b"]),
+            await getter.get_from_unique(self.client, caller_team["c"])
+        ]
 
         ea = Character_1()
         ea.is_npc = True
@@ -59,18 +67,29 @@ class Cmd_train(commands.Cog):
         ec = Character_1()
         ec.is_npc = True
 
-        caller_team = [chara, charb, charc]
         enemy_team = [ea, eb, ec]
 
         for char in caller_team:
-            await char.init()
+            await asyncio.sleep(0)
+
+            if(char != None):
+                await char.init()
+            
+            else:  # remove the None type
+                caller_team.remove(char)
         
         for char_b in enemy_team:
-            await char_b.init()
+            await asyncio.sleep(0)
+
+            if(char_b != None):
+                await char_b.init()
+            
+            else:
+                enemy_team.remove(char_b)
 
         team = [caller_team, enemy_team]
 
-        fight = Fight(self.client, ctx, caller)
+        fight = Fight(self.client, ctx, player)
         await fight.run_fight(team)
         
         return
