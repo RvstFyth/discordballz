@@ -30,5 +30,5 @@ class Basic_banner(Banner):
         Banner.__init__(self)
         # attr
         self.all = [
-            1, 2
+            1, 2, 3, 4, 5, 6
         ]

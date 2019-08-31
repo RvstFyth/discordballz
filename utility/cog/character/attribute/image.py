@@ -5,7 +5,7 @@ Manages the character's images.
 
 Author : DrLarck
 
-Last update : 22/08/19 (DrLarck)
+Last update : 31/08/19 (DrLarck)
 """
 
 # class image
@@ -24,7 +24,7 @@ class Character_image:
 
     # attribute 
     def __init__(self):
-        self.image = None
+        self.image = "https://imgur.com/eMiHxeP"
         self.icon = None
-        self.thumb = None
+        self.thumb = "https://imgur.com/eMiHxeP"
         self.expansion = None

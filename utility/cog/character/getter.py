@@ -70,7 +70,31 @@ class Character_getter:
             from utility.cog.character.list.c2 import Character_2
 
             character = Character_2()
+        
+        # Red Saibaiman
+        if(character_id == 3):
+            from utility.cog.character.list.c3 import Character_3
 
+            character = Character_3()
+        
+        # Pilaf Machine
+        if(character_id == 4):
+            from utility.cog.character.list.c4 import Character_4
+
+            character = Character_4()
+        
+        # Piccolo
+        if(character_id == 5):
+            from utility.cog.character.list.c5 import Character_5
+
+            character = Character_5()
+
+        # Bardock
+        if(character_id == 6):
+            from utility.cog.character.list.c6 import Character_6
+
+            character = Character_6()
+        
         return(character)
     
     async def get_summonable(self):
