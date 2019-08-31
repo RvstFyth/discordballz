@@ -5,7 +5,7 @@ Represents the player's team.
 
 Author : DrLarck
 
-Last update : 29/08/19 (DrLarck)
+Last update : 31/08/19 (DrLarck)
 """
 
 # dependancies
@@ -160,9 +160,6 @@ class Team:
         team_id = []
         in_team = False
 
-        # remove the slot
-        await self.remove(slot)
-
         getter = Character_getter()
         self.team = await self.get_team()
 
@@ -188,6 +185,9 @@ class Team:
         if character.info.id in team_id:
             in_team = True
             return(False)
+        
+        # remove the slot
+        await self.remove(slot)
         
         # if the character isn't in the team, add it to it
         self.team[slot] = character_unique

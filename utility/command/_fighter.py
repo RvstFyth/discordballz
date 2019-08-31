@@ -44,7 +44,7 @@ class Fighter:
     # method
     async def fighter_command(self, slot, character_id):
         """
-        Allow the player to select the fighter a to set
+        Allow the player to select the fighter to set
 
         `character_id` : int - Represents the character to display
         """
