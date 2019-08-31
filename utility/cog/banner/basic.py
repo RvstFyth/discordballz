@@ -5,7 +5,7 @@ Manages the basic banner.
 
 Author : DrLarck
 
-Last update : 21/08/19 (DrLarck)
+Last update : 31/08/19 (DrLarck)
 """
 
 # dependancies
@@ -30,5 +30,5 @@ class Basic_banner(Banner):
         Banner.__init__(self)
         # attr
         self.all = [
-            1
+            1, 2
         ]
