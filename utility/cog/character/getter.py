@@ -5,7 +5,7 @@ Manages the character getter.
 
 Author : DrLarck
 
-Last update : 26/08/19 (DrLarck)
+Last update : 31/08/19 (DrLarck)
 """
 
 # dependancies
@@ -59,10 +59,17 @@ class Character_getter:
         # init
         character = None
 
-        if(character_id == 1):  # Green Saibaiman
+        # Green Saibaiman
+        if(character_id == 1):
             from utility.cog.character.list.c1 import Character_1
 
             character = Character_1()
+        
+        # Blue Saibaiman
+        if(character_id == 2):
+            from utility.cog.character.list.c2 import Character_2
+
+            character = Character_2()
 
         return(character)
     
