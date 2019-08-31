@@ -5,7 +5,7 @@ Allows the player to manage his team
 
 Author : DrLarck
 
-Last update : 29/08/19 (DrLarck)
+Last update : 31/08/19 (DrLarck)
 """
 
 # dependancies
@@ -44,6 +44,34 @@ class Cmd_fighter(commands.Cog):
         # display the fighter help here
 
     ################ FIGHTER ###################
+    @commands.check(Basic_checker().is_game_ready)
+    @commands.check(Basic_checker().is_registered)
+    @fighter.command()
+    async def remove(self, ctx, slot):
+        """
+        Allows the player to remove a character from a slot.
+        """
+
+        # init
+        player = Player(ctx, self.client, ctx.message.author)
+        player_team = await player.team.get_team()
+        getter = Character_getter()
+        possible_slot = ["a", "b", "c"]
+
+
+        # remove the slot
+        if slot.lower() in possible_slot:
+            await player.team.remove(slot)
+            removed_character = await getter.get_from_unique(self.client, player_team[slot])
+            await removed_character.init()
+
+            await ctx.send(f"<@{player.id}> You have successfully removed {removed_character.image.icon}**{removed_character.info.name}** {removed_character.type.icon}{removed_character.rarity.icon} from the slot **{slot.upper()}**.")
+
+        else:  # unexisting slot
+            await ctx.send(f"<@{player.id}> Slot **{slot.upper()}** not found.")
+
+        return
+        
     @commands.check(Basic_checker().is_game_ready)
     @commands.check(Basic_checker().is_registered)
     @fighter.command()
