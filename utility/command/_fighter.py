@@ -5,7 +5,7 @@ Here are the fighter command utils
 
 Author : DrLarck
 
-Last update : 29/08/19 (DrLarck)
+Last update : 31/08/19 (DrLarck)
 """
 
 # dependancies
@@ -84,7 +84,7 @@ class Fighter:
             
             else:
                 # confirm
-                await self.ctx.send(f"<@{player.id}> You have successfully set {character.image.icon}**{character.info.name}** {character.type.icon}{character.rarity.icon} lv.{character.level:,} as **fighter {slot.upper}** !")
+                await self.ctx.send(f"<@{player.id}> You have successfully set {character.image.icon}**{character.info.name}** {character.type.icon}{character.rarity.icon} lv.{character.level:,} as **fighter {slot.upper()}** !")
             
             await explanation.delete()
         
@@ -106,7 +106,7 @@ class Fighter:
             
                 else:
                     # confirm
-                    await self.ctx.send(f"<@{player.id}> You have successfully set {character.image.icon}**{character.info.name}** {character.type.icon}{character.rarity.icon} lv.{character.level:,} as **fighter A** !")
+                    await self.ctx.send(f"<@{player.id}> You have successfully set {character.image.icon}**{character.info.name}** {character.type.icon}{character.rarity.icon} lv.{character.level:,} as **fighter {slot.upper()}** !")
 
     async def wait_for_fighter_index(self, data):
         """
