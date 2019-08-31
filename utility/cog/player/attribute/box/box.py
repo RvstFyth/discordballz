@@ -5,7 +5,7 @@ Manages the box behaviour.
 
 Author : DrLarck
 
-Last update : 29/08/19 (DrLarck)
+Last update : 31/08/19 (DrLarck)
 """
 
 # dependancies
@@ -278,6 +278,7 @@ class Box:
         for row in range(start_at, end_at):
             await asyncio.sleep(0)
 
+            print(f"Character_id : {character_id}")
             if(character_id == None):
                 # retrieve the character
                 character_id = data[row][0]
@@ -294,6 +295,9 @@ class Box:
 
                 # add line to the box
                 box_display += f"#`{character.info.id}` - {character.image.icon}__{character.info.name}__ : *x{character_quantity}*\n"
+
+                # reset
+                character_id = None
 
             else:  # character unique
                 # retrieve the character
