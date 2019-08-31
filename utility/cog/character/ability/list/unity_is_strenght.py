@@ -78,6 +78,7 @@ class Unity_is_strenght(Ability):
 
             ally_buff = None  # check if the ally already has the Unity is strenght active
 
+            print(f"character in saibaimen : {character.info.id in self.saibaimen}")
             if character.info.id in self.saibaimen:
                 # if the ally is a saibaimen
                 # applies the buff
