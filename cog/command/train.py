@@ -18,6 +18,7 @@ from utility.cog.fight_system.fight import Fight
 from utility.cog.player.player import Player
 from utility.cog.character.getter import Character_getter
 from utility.command._train import Train
+from utility.cog.level.level import Leveller
     #checker
 from utility.command.checker.basic import Basic_checker
 from utility.command.checker.fight import Fight_checker
@@ -50,6 +51,7 @@ class Cmd_train(commands.Cog):
         player = Player(ctx, self.client, caller)
         getter = Character_getter()
         tool = Train(self.client)
+        leveller = Leveller(self.client, ctx)
 
         # get caller team
         caller_team = await player.team.get_team()
@@ -65,9 +67,22 @@ class Cmd_train(commands.Cog):
         team = [caller_team, opponent_team]
 
         fight = Fight(self.client, ctx, player)
-        await fight.run_fight(team)
+        winner = await fight.run_fight(team)
         
-        return
+        # redefine team
+        caller_team = await player.team.get_team()
+        
+        # check winning condition
+        if(winner == 0):  # if the player wins it
+            # add xp
+            if(caller_team["a"] != None):
+                await leveller.character_levelling(player, caller_team["a"], 10000)
+            
+            if(caller_team["b"] != None):
+                await leveller.character_levelling(player, caller_team["b"], 10000)
+            
+            if(caller_team["b"] != None):
+                await leveller.character_levelling(player, caller_team["c"], 10000)
 
 def setup(client):
     client.add_cog(Cmd_train(client))

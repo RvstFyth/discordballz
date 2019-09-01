@@ -104,6 +104,10 @@ class Fight:
         --
 
         Return : Winner index (0 or 1, 2 in case of a draw)
+
+        0 : Caller
+        1 : Enemy
+        2 : Draw
         """
 
         # init
@@ -222,6 +226,20 @@ class Fight:
 
                 # increase the turn value
             turn += 1
+            print(f"team hps, a : {team_a_average_hp}, b : {team_b_average_hp}")
             await asyncio.sleep(5)
+        
+        # check the winner
+        # player : 
+        if(team_a_average_hp > 0 and team_b_average_hp <= 0):
+            return(0)
+        
+        # enemy :
+        if(team_b_average_hp > 0 and team_a_average_hp <= 0):
+            return(1)
+        
+        # draw
+        if(team_a_average_hp <= 0 and team_b_average_hp <= 0):
+            return(2)
 
         return

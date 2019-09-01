@@ -5,7 +5,7 @@ Manages the battle phase.
 
 Author : DrLarck
 
-Last update : 19/08/19 (DrLarck)
+Last update : 01/09/19 (DrLarck)
 """
 
 # dependancies
@@ -223,6 +223,7 @@ class Battle_phase:
                     inline = False
                 )
 
-                await self.ctx.send(embed = team_a_embed)
+                if(len(team_a["display"]) > 0):
+                    await self.ctx.send(embed = team_a_embed)
 
         return
