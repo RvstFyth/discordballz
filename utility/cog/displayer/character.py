@@ -5,7 +5,7 @@ Manages the displaying of the characters.
 
 Author : DrLarck
 
-Last update : 22/08/19 (DrLarck)
+Last update : 01/09/19 (DrLarck)
 """
 
 # dependancies
@@ -88,21 +88,25 @@ class Character_displayer:
             summon_format += f"__Abilities__ :\n"
             # get the abilities
             ability_index = 1
-            for ability in self.character.ability:
-                await asyncio.sleep(0)
+            if(len(self.character.ability) > 0):
+                for ability in self.character.ability:
+                    await asyncio.sleep(0)
 
-                ability = ability(
-                    None, None, None,
-                    None, None, None
-                )
-                
-                if(ability_index == 1):
-                    summon_format += f"`{ability_index}. {ability.name}`{ability.icon}"
-                
-                else:
-                    summon_format += f" | `{ability_index}. {ability.name}`{ability.icon}"
+                    ability = ability(
+                        None, None, None,
+                        None, None, None
+                    )
+                    
+                    if(ability_index == 1):
+                        summon_format += f"`{ability_index}. {ability.name}`{ability.icon}"
+                    
+                    else:
+                        summon_format += f" | `{ability_index}. {ability.name}`{ability.icon}"
 
-                ability_index += 1
+                    ability_index += 1
+            
+            else:  # no ability
+                summon_format += "--"
             
             # set the image
             embed = Custom_embed(
