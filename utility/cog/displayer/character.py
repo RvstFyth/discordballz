@@ -192,7 +192,7 @@ class Character_displayer:
                 posture = posture_icon[3]
             
             # formatting the embed
-            combat_format = f"__Health__ : \n**{self.character.health.current:,}** / **{self.character.health.maximum}** :hearts: \n"
+            combat_format = f"__Health__ : \n**{self.character.health.current:,}** / **{self.character.health.maximum:,}** :hearts: \n"
             combat_format += f"__Posture__ : {posture}\n"
             combat_format += f"__Damage__ :\n:crossed_swords: **{self.character.damage.physical_min:,}** - **{self.character.damage.physical_max:,}** \n{game_icon['ki_ability']} **{self.character.damage.ki_min:,}** - **{self.character.damage.ki_max:,}** \n"
             combat_format += f"__Defense__ :\n:shield: **{self.character.defense.armor:,}**\n:rosette: **{self.character.defense.spirit:,}**\n"
