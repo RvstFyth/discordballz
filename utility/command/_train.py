@@ -89,6 +89,7 @@ class Train:
         player_average = await player.team.get_info()  
         opponent = None
 
+        print(f"player_average : {player_average}")
         # check if the team is able to fight
         if(player_average["level"] > 0):
             # add a character to init according to the player's team rarity
@@ -152,7 +153,8 @@ class Train:
         for character in opponent_team:
             await asyncio.sleep(0)
 
-            character.level = int(randint((0.9 * player_average["level"]), (1.1 * player_average["level"])))  # pick a random level between 90 % of the player's team
-            character.rarity.value = player_average["rarity"]                                                 # average level and 110 %
+            character.level = randint(int((0.9 * player_average["level"])), int(1.1 * player_average["level"]))  # pick a random level between 90 % of the player's team
+            character.rarity.value = player_average["rarity"]                                                     # average level and 110 %
         
+        print(f"opponent team : {opponent_team}")
         return(opponent_team)

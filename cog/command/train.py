@@ -24,9 +24,6 @@ from utility.command.checker.fight import Fight_checker
     # translation
 from utility.translation.translator import Translator
 
-# test
-from utility.cog.character.list.c1 import Character_1
-
 # command
 class Cmd_train(commands.Cog):
 

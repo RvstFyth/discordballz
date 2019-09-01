@@ -123,11 +123,27 @@ class Fight:
         team_b_length = len(team[1])
 
         # init
-        for character in team:
+        # team a
+        for character in team[0]:
             await asyncio.sleep(0)
 
-            await character.init()
+            if(character != None):
+                await character.init()
+            
+            else:
+                team[0].remove(character)
+        
+        # team_b
+        for _character in team[1]:
+            await asyncio.sleep(0)
+            
+            if(_character != None):
+                await _character.init()
+            
+            else:
+                team[1].remove(_character)
 
+        #########################################################################
         # main loop
         while(team_a_average_hp > 0 and team_b_average_hp > 0):  # if one of the teams is defeated, stops the loop
             await asyncio.sleep(0)
