@@ -5,7 +5,7 @@ This command allows the player to level up his characters.
 
 Author : DrLarck
 
-Last update : 31/08/19 (DrLarck)
+Last update : 01/09/19 (DrLarck)
 """
 
 # dependancies
@@ -17,6 +17,7 @@ from discord.ext import commands
 from utility.cog.fight_system.fight import Fight
 from utility.cog.player.player import Player
 from utility.cog.character.getter import Character_getter
+from utility.command._train import Train
     #checker
 from utility.command.checker.basic import Basic_checker
 from utility.command.checker.fight import Fight_checker
@@ -51,6 +52,7 @@ class Cmd_train(commands.Cog):
         caller = ctx.message.author 
         player = Player(ctx, self.client, caller)
         getter = Character_getter()
+        tool = Train(self.client)
 
         # get caller team
         caller_team = await player.team.get_team()
@@ -60,34 +62,10 @@ class Cmd_train(commands.Cog):
             await getter.get_from_unique(self.client, caller_team["c"])
         ]
 
-        ea = Character_1()
-        ea.is_npc = True
-        eb = Character_1()
-        eb.is_npc = True
-        ec = Character_1()
-        ec.is_npc = True
+        # get opponent team
+        opponent_team = await tool.generate_opponent_team(player)
 
-        enemy_team = [ea, eb, ec]
-
-        for char in caller_team:
-            await asyncio.sleep(0)
-
-            if(char != None):
-                await char.init()
-            
-            else:  # remove the None type
-                caller_team.remove(char)
-        
-        for char_b in enemy_team:
-            await asyncio.sleep(0)
-
-            if(char_b != None):
-                await char_b.init()
-            
-            else:
-                enemy_team.remove(char_b)
-
-        team = [caller_team, enemy_team]
+        team = [caller_team, opponent_team]
 
         fight = Fight(self.client, ctx, player)
         await fight.run_fight(team)

@@ -38,7 +38,6 @@ class Train:
         self.possible_opponent = [
             1, 2, 3, 4, 5, 6
         ]
-
     
     # method
     async def is_in_team(self, team, character):
