@@ -155,6 +155,7 @@ class Train:
 
             character.level = randint(int((0.9 * player_average["level"])), int(1.1 * player_average["level"]))  # pick a random level between 90 % of the player's team
             character.rarity.value = player_average["rarity"]                                                     # average level and 110 %
-        
+            character.type.value = randint(0, 4)
+            
         print(f"opponent team : {opponent_team}")
         return(opponent_team)
