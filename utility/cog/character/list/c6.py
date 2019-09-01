@@ -31,7 +31,7 @@ class Character_6(Character):
         self.rarity.value = 0
 
         # image
-        self.image.image = "https://imgur.com/FWJSzJb"
+        self.image.image = "https://i.imgur.com/FWJSzJb.png"
         
         # stat
         # health
