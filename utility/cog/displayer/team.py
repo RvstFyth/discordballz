@@ -69,18 +69,19 @@ class Team_displayer:
         for character_a in self.team_a:
             await asyncio.sleep(0)
             
-            if not character_a.is_minion:  # filter npc characters
-                displayer.character = character_a
+            if(character_a != None):
+                if not character_a.is_minion:  # filter npc characters
+                    displayer.character = character_a
 
-                await displayer.display(
-                    team_format = True,
-                    index = index
-                 )
-                
-                index += 1
+                    await displayer.display(
+                        team_format = True,
+                        index = index
+                    )
+                    
+                    index += 1
 
-            else:
-                pass
+                else:
+                    pass
 
         await asyncio.sleep(2)
         
@@ -89,18 +90,19 @@ class Team_displayer:
         for character_b in self.team_b:
             await asyncio.sleep(0)
             
-            if not character_b.is_minion:  # filter npc characters
-                displayer.character = character_b
+            if(character_b != None):
+                if not character_b.is_minion:  # filter npc characters
+                    displayer.character = character_b
 
-                await displayer.display(
-                    team_format = True,
-                    index = index
-                )
+                    await displayer.display(
+                        team_format = True,
+                        index = index
+                    )
 
-                index += 1
+                    index += 1
 
-            else:
-                pass
+                else:
+                    pass
         
         await asyncio.sleep(2)
 
