@@ -1,5 +1,11 @@
 """
 Manages the character 5
+
+--
+
+Author : DrLarck
+
+Last update : 01/09/19 (DrLarck)
 """
 
 # dependancies

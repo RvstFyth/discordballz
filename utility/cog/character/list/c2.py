@@ -1,5 +1,11 @@
 """
 Represents the character 2
+
+--
+
+Author : DrLarck
+
+Last update : 01/09/19 (DrLarck)
 """
 
 # dependancies
