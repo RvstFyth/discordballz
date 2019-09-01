@@ -5,7 +5,7 @@ The :class:`Fight()` manages a fight, from the beginning to the end and returns 
 
 Author : DrLarck
 
-Last update : 19/08/19 (DrLarck)
+Last update : 01/09/19 (DrLarck)
 """
 
 # dependancies
@@ -121,6 +121,12 @@ class Fight:
             # determines the number of characters in each team
         team_a_length = len(team[0])
         team_b_length = len(team[1])
+
+        # init
+        for character in team:
+            await asyncio.sleep(0)
+
+            await character.init()
 
         # main loop
         while(team_a_average_hp > 0 and team_b_average_hp > 0):  # if one of the teams is defeated, stops the loop
