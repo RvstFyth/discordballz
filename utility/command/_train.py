@@ -5,7 +5,7 @@ Manages the utils for the train command.
 
 Authod : DrLarck
 
-Last update : 01/09/19 (DrLarck)
+Last update : 02/09/19 (DrLarck)
 """
 
 # dependancies
@@ -156,6 +156,7 @@ class Train:
             character.level = randint(int((0.9 * player_average["level"])), int(1.1 * player_average["level"]))  # pick a random level between 90 % of the player's team
             character.rarity.value = player_average["rarity"]                                                     # average level and 110 %
             character.type.value = randint(0, 4)
+            character.is_npc = True
             
         print(f"opponent team : {opponent_team}")
         return(opponent_team)
