@@ -62,15 +62,16 @@ class Unity_is_strenght(Ability):
         move = Move_displayer()
 
         # applies the buff on the team
+        index = 0
         for character in self.team_a:
             await asyncio.sleep(0)
-
+            index += 1
             # init
             checker = Effect_checker(character)
             unity_buff = await checker.get_effect(
                 2, 
                 self.client, 
-                self.ctx, 
+                self.ctx,
                 character, 
                 self.team_a, 
                 self.team_b
@@ -96,12 +97,12 @@ class Unity_is_strenght(Ability):
                     character.bonus.append(unity_buff)
                     print(f"new bonus : {character.bonus}")
 
-            # setup the move display
-            display = await move.get_new_move()
-            display["name"] = self.name
-            display["icon"] = self.icon
-            display["ki"] = True
+        # setup the move display
+        display = await move.get_new_move()
+        display["name"] = self.name
+        display["icon"] = self.icon
+        display["ki"] = True
 
-            display = await move.effect_move(display)
+        display = await move.effect_move(display)
 
-            return(display)
+        return(display)
