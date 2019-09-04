@@ -5,7 +5,7 @@ Manages the selection phase.
 
 Author : DrLarck
 
-Last update : 16/08/19 (DrLarck)
+Last update : 04/09/19 (DrLarck)
 """
 
 # dependancies
@@ -99,11 +99,10 @@ class Selection_phase:
 
                         # init the possible actions
                         possible_action = ["check", "flee", "1", "2", "3"]
-
-                        kit += "\n\n__Abilities__ :\n\n"
                         
                         if(len(character.ability) > 0):  # if the character has an ability
                             # init
+                            kit += "\n\n__Abilities__ :\n\n"
                             ability_index = 4
 
                             for ability in character.ability:
@@ -121,8 +120,11 @@ class Selection_phase:
                                 # add a new possible action
                                 possible_action.append(str(ability_index))
 
-                                kit += f"`{ability_index}. {ability.name}`{ability.icon}\n"
+                                kit += f"`{ability_index}. {ability.name}`{ability.icon} (:fire: {ability.cost} / {character.ki.current})\n"
                                 ability_index += 1
+                        
+                        else:
+                            kit += "\n"
                     
                     kit += f"\nTo **flee** the fight, type `flee`, to **take a look at** a specific unit, type `check [unit index]`."
                     
@@ -194,24 +196,16 @@ class Selection_phase:
                                                 # retrieve all the targetable units
                                                 unit_index = 1
 
-                                                for ally in targetable_team_a:
-                                                    await asyncio.sleep(0)
-
-                                                    target_display += f"{unit_index}. {ally.image.icon}**{ally.info.name}**{ally.type.icon}\n"
-
-                                                    unit_index += 1
+                                                target_display += await self.display_targetable(targetable_team_a, unit_index)
                                             
                                             # enemies
                                             if(len(targetable_team_b) > 0):
                                                 target_display += "\n🔴 - Enemy team :\n" 
 
                                                 # retrieve all the targetable enemies
-                                                for enemy in targetable_team_b:
-                                                    await asyncio.sleep(0)
+                                                unit_index = 1
 
-                                                    target_display += f"{unit_index}. {enemy.image.icon}**{enemy.info.name}**{enemy.type.icon}\n"
-
-                                                    unit_index += 1
+                                                target_display += await self.display_targetable(targetable_team_b, unit_index)
                                             
                                             # display the targets
                                             await self.ctx.send(f"<@{self.player.id}> Please select a target among the following for `Sequence 👊` :\n{target_display}")
@@ -267,24 +261,16 @@ class Selection_phase:
                                                         # retrieve all the targetable units
                                                         unit_index = 1
 
-                                                        for ally in targetable_team_a:
-                                                            await asyncio.sleep(0)
-
-                                                            target_display += f"{unit_index}. {ally.image.icon}**{ally.info.name}**{ally.type.icon}\n"
-
-                                                            unit_index += 1
+                                                        target_display += await self.display_targetable(targetable_team_a, unit_index)
                                                     
                                                     # enemies
                                                     if(len(targetable_team_b) > 0):
                                                         target_display += "\n🔴 - Enemy team :\n" 
 
                                                         # retrieve all the targetable enemies
-                                                        for enemy in targetable_team_b:
-                                                            await asyncio.sleep(0)
+                                                        unit_index = 1
 
-                                                            target_display += f"{unit_index}. {enemy.image.icon}**{enemy.info.name}**{enemy.type.icon}\n"
-
-                                                            unit_index += 1
+                                                        target_display += await self.display_targetable(targetable_team_b, unit_index)
 
                                                     # send the message 
                                                     await self.ctx.send(f"<@{self.player.id}> Please select a target among the following for `{ability.name}`{ability.icon} : \n{target_display}")
@@ -338,3 +324,71 @@ class Selection_phase:
         # end of method
         print(f"chosen move : {move_list}")
         return(move_list)
+    
+    async def display_targetable(self, _list, unit_index):
+        """
+        `coroutine`
+        
+        Return the display of the targetables units in the list.
+
+        - Parameter : 
+
+        `_list` : List of targetable units to display.
+
+        `unit_index` : The index to count with.
+
+        --
+
+        Return : str
+        """
+
+        # init
+        target_display = ""
+
+        for unit in _list:
+            await asyncio.sleep(0)
+
+            # get the posture
+            posture, posture_icon = await unit.posture.get_posture()
+
+            target_display += f"{unit_index}. {unit.image.icon}**{unit.info.name}**{unit.type.icon} - **{unit.health.current:,}** :hearts: : {posture}{posture_icon}\n"
+            
+            # get the ally's bonus
+            if(len(unit.bonus) > 0):
+                target_display += f"__Bonus__ : "
+                bonus_index = 0
+
+                for bonus in unit.bonus:
+                    await asyncio.sleep(0)
+                    
+                    if(bonus_index == 0):
+                        target_display += f"{bonus.icon}[{bonus.stack}|{bonus.duration}]"
+                    
+                    else:
+                        target_display += f", {bonus.icon}[{bonus.stack}|{bonus.duration}]"
+
+                    bonus_index += 1
+                
+                target_display += "\n"
+            
+            # get the ally's malus
+            if(len(unit.malus) > 0):
+                target_display += f"__Malus__ : "
+                malus_index = 0
+
+                for malus in unit.malus:
+                    await asyncio.sleep(0)
+                    
+                    if(malus_index == 0):
+                        target_display += f"{malus.icon}[{malus.stack}|{malus.duration}]"
+                    
+                    else:
+                        target_display += f", {malus.icon}[{malus.stack}|{malus.duration}]"
+
+                    malus_index += 1
+                
+                target_display += "\n"
+
+            unit_index += 1
+        
+        return(target_display)

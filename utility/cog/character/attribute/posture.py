@@ -5,7 +5,7 @@ Manages the character's posture.
 
 Author : DrLarck
 
-Last update : 18/07/19
+Last update : 04/09/19 (DrLarck)
 """
 
 # class posture
@@ -29,6 +29,8 @@ class Character_posture:
 
     - Method :
 
+    :coro:`get_posture()` : Returns the posture name and icon.
+
     :coro:`change_posture(posture)` : Changes the character's posture to the passed posture. The posture must be passed as 
     str.
     """
@@ -44,6 +46,39 @@ class Character_posture:
         self.ghost = False
     
     # method
+    async def get_posture(self):
+        """
+        `coroutine`
+
+        Return the character's posture name and icon.
+
+        --
+
+        Return : posture name, icon
+        """
+
+        # init
+        posture = None
+        icon = None
+
+        if(self.attacking):
+            posture = "Attacking"
+            icon = ":crossed_swords:"
+        
+        elif(self.defending):
+            posture = "Defending"
+            icon = ":shield:"
+        
+        elif(self.charging):
+            posture = "Charging"
+            icon = ":fire:"
+        
+        elif(self.stunned):
+            posture = "Stunned"
+            icon = ":dizzy_face:"
+        
+        return(posture, icon)
+
     async def change_posture(self, posture):
         """
         `coroutine`

@@ -161,9 +161,10 @@ class Fight:
             await self.ctx.send(f"```########## 📣 Round {turn} ! ##########```")
             await asyncio.sleep(2)
             # team displaying
-            await self.ctx.send("```👥 Teams```")
-            await asyncio.sleep(1)
-            await displayer.display_teams()
+            if(turn == 1):
+                await self.ctx.send("```👥 Teams```")
+                await asyncio.sleep(1)
+                await displayer.display_teams()
 
                 # phases
             await self.ctx.send(f"```💠 - Selection phase```")
