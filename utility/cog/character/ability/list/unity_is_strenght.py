@@ -76,19 +76,25 @@ class Unity_is_strenght(Ability):
                 self.team_b
             )
 
+            print(f"team : {self.team_a}")
+
             ally_buff = None  # check if the ally already has the Unity is strenght active
 
+            character.bonus.append(unity_buff)
             print(f"character in saibaimen : {character.info.id in self.saibaimen}")
             if character.info.id in self.saibaimen:
                 # if the ally is a saibaimen
                 # applies the buff
                 ally_buff = await checker.get_buff(unity_buff)
+                print(f"ally_buff : {ally_buff}")
 
                 if(ally_buff != None):  # if the ally has the buff, reset duration
                     ally_buff.duration = unity_buff.initial_duration
                 
                 else:  # otherwise, add the buff
+                    print(f"unity buff : {unity_buff} | character bonus : {character.bonus}")
                     character.bonus.append(unity_buff)
+                    print(f"new bonus : {character.bonus}")
 
             # setup the move display
             display = await move.get_new_move()

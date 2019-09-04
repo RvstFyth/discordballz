@@ -5,7 +5,7 @@ Manages the battle phase.
 
 Author : DrLarck
 
-Last update : 01/09/19 (DrLarck)
+Last update : 04/09/19 (DrLarck)
 """
 
 # dependancies
@@ -65,6 +65,7 @@ class Battle_phase:
         _move_display = Move_displayer()
 
         _team_a, _team_b = team[0], team[1]
+        print(f"battle phase (team) : a {_team_a} b {_team_b}")
 
         team_a = {
             "index" : 0,
@@ -193,6 +194,7 @@ class Battle_phase:
                             ability =  await character.get_ability(
                                 self.client,
                                 self.ctx,
+                                character,
                                 character_move["target"],
                                 _team_a,
                                 _team_b,

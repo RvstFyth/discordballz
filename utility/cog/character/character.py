@@ -293,7 +293,7 @@ class Character:
         return
     
     # ability
-    async def get_ability(self, client, ctx, target, team_a, team_b, ability_index):
+    async def get_ability(self, client, ctx, caster, target, team_a, team_b, ability_index):
         """
         `coroutine`
 
@@ -323,7 +323,7 @@ class Character:
         ability = ability(
             client,
             ctx,
-            self,
+            caster,
             target,
             team_a,
             team_b
