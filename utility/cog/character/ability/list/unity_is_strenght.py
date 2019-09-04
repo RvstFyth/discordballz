@@ -5,7 +5,7 @@ Manages the Unity is Strenght ability.
 
 Author : DrLarck
 
-Last update : 30/08/19 (DrLarck)
+Last update : 04/09/19 (DrLarck)
 """
 
 # dependancies
@@ -39,7 +39,7 @@ class Unity_is_strenght(Ability):
 
         # info
         self.name = "Unity is strenght"
-        self.icon = ""
+        self.icon = "<:notfound:617735236473585694>"
         self.cost = 60
 
         # special

@@ -5,7 +5,7 @@ Represents the Unity is strenght buff
 
 Author : DrLarck
 
-Last update : 30/08/19 (DrLarck)
+Last update : 04/09/19 (DrLarck)
 """
 
 # dependancies
@@ -32,6 +32,11 @@ class Buff_unity_is_strenght(Buff):
         )
 
         self.id = 2
+        self.name = "Unity is strenght"
+        self.icon = "<:notfound:617735236473585694>"
+
+        self.initial_duration = 3
+        self.stack = 1
 
     # method
     async def apply(self):

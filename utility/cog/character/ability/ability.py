@@ -5,7 +5,7 @@ Ability super class.
 
 Author : DrLarck
 
-Last update : 19/08/19 (DrLarck)
+Last update : 04/09/19 (DrLarck)
 """
 
 # dependance
@@ -67,7 +67,7 @@ class Ability:
         # attribute
         self.name = None
         self.description = None
-        self.icon = None
+        self.icon = "<:notfound:617735236473585694>"
 
         # condition
         self.cost = 0

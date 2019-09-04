@@ -5,7 +5,7 @@ Manages the DOT super class.
 
 Author : DrLarck
 
-Last update : 30/08/19 (DrLarck)
+Last update : 04/09/19 (DrLarck)
 """
 
 # dependancies
@@ -74,7 +74,7 @@ class Dot:
         self.name = None
         self.description = None
         self.id = 0
-        self.icon = None
+        self.icon = "<:notfound:617735236473585694>"
         self.caster = None
 
         # duration
