@@ -5,7 +5,7 @@ Every character classes inherit from the :class:`Character()` defined below.
 
 Author : DrLarck
 
-Last update : 31/08/19 (DrLarck)
+Last update : 04/09/19 (DrLarck)
 """
 
 # dependancies
@@ -247,8 +247,8 @@ class Character:
         self.damage.physical_max *= int((1 + ((self.rarity.value) * 20) / 100 + (50 * self.enhancement["training"]["damage"]["physical"])) * level_multiplier)
         self.damage.physical_min = int(0.9 * self.damage.physical_max)
 
-        self.damage.ki_max *= int((1 + ((self.rarity.value) * 20) / 100 + (50 * self.enhancement["training"]["damage"]["ki"])) * level_multiplier )
-        self.damage.ki_min = int(0.9 * self.damage.physical_max)
+        self.damage.ki_max *= int((1 + ((self.rarity.value) * 20) / 100 + (50 * self.enhancement["training"]["damage"]["ki"])) * level_multiplier)
+        self.damage.ki_min = int(0.9 * self.damage.ki_max)
 
         # setup defense
         self.defense.armor *= int((1 + ((self.rarity.value) * 20) / 100 + (50 * self.enhancement["training"]["defense"]["armor"])) * level_multiplier)

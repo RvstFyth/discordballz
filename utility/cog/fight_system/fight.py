@@ -5,7 +5,7 @@ The :class:`Fight()` manages a fight, from the beginning to the end and returns 
 
 Author : DrLarck
 
-Last update : 01/09/19 (DrLarck)
+Last update : 04/09/19 (DrLarck)
 """
 
 # dependancies
@@ -53,11 +53,11 @@ class Fight:
         self.battle_phae = None
     
     # method
-    async def get_average_hp(self, team):
+    async def get_teams_hp(self, team):
         """
         `coroutine`
 
-        Calculates then return the average hp of each team.
+        Calculates then return the hp of each team.
 
         --
 
@@ -65,12 +65,8 @@ class Fight:
         """
 
         # init
-        team_a_average_hp = 1
-        team_b_average_hp = 1
-
-        # determines the number of characters in each team
-        team_a_length = len(team[0])
-        team_b_length = len(team[1])
+        team_a_average_hp = 0
+        team_b_average_hp = 0
 
         # get the average team hps
             # for team_a
@@ -84,10 +80,6 @@ class Fight:
             await asyncio.sleep(0)
 
             team_b_average_hp += character_b.health.current
-        
-        # get the average amount of hps
-        team_a_average_hp = int(team_a_average_hp / team_a_length)
-        team_b_average_hp = int(team_b_average_hp / team_b_length)
 
         return(team_a_average_hp, team_b_average_hp)
 
@@ -222,9 +214,10 @@ class Fight:
 
             # end of turn
                 # calculate average hps
-            team_a_average_hp, team_b_average_hp = await self.get_average_hp(team)
+            team_a_average_hp, team_b_average_hp = await self.get_teams_hp(team)
 
                 # increase the turn value
+            team_b_average_hp = 0  # test kill
             turn += 1
             print(f"team hps, a : {team_a_average_hp}, b : {team_b_average_hp}")
             await asyncio.sleep(5)
@@ -232,14 +225,17 @@ class Fight:
         # check the winner
         # player : 
         if(team_a_average_hp > 0 and team_b_average_hp <= 0):
+            await self.ctx.send(f"<@{self.player.id}> The player 🔵**{self.player.name}** has won the fight !")
             return(0)
         
         # enemy :
         if(team_b_average_hp > 0 and team_a_average_hp <= 0):
+            await self.ctx.send(f"<@{self.player.id}> The 🔴**Enemy team** has won the fight ! ")
             return(1)
         
         # draw
         if(team_a_average_hp <= 0 and team_b_average_hp <= 0):
+            await self.ctx.send(f"<@{self.player.id}> Draw !")
             return(2)
 
         return

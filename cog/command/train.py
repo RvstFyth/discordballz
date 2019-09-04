@@ -55,7 +55,7 @@ class Cmd_train(commands.Cog):
 
         # get caller team
         caller_team = await player.team.get_team()
-        caller_team = [
+        player_team = [
             await getter.get_from_unique(self.client, caller_team["a"]),
             await getter.get_from_unique(self.client, caller_team["b"]),
             await getter.get_from_unique(self.client, caller_team["c"])
@@ -64,7 +64,7 @@ class Cmd_train(commands.Cog):
         # get opponent team
         opponent_team = await tool.generate_opponent_team(player)
 
-        team = [caller_team, opponent_team]
+        team = [player_team, opponent_team]
 
         fight = Fight(self.client, ctx, player)
         winner = await fight.run_fight(team)
@@ -73,16 +73,14 @@ class Cmd_train(commands.Cog):
         caller_team = await player.team.get_team()
         
         # check winning condition
+        id_team = [
+            caller_team["a"], caller_team["b"], caller_team["c"]
+        ]
+
         if(winner == 0):  # if the player wins it
+            print(f"team : {caller_team}")
             # add xp
-            if(caller_team["a"] != None):
-                await leveller.character_levelling(player, caller_team["a"], 10000)
-            
-            if(caller_team["b"] != None):
-                await leveller.character_levelling(player, caller_team["b"], 10000)
-            
-            if(caller_team["b"] != None):
-                await leveller.character_levelling(player, caller_team["c"], 10000)
+            await leveller.team_add_xp(player, id_team, 100000)
 
 def setup(client):
     client.add_cog(Cmd_train(client))
