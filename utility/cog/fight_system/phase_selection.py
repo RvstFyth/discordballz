@@ -195,17 +195,16 @@ class Selection_phase:
 
                                                 # retrieve all the targetable units
                                                 unit_index = 1
-
-                                                target_display += await self.display_targetable(targetable_team_a, unit_index)
+                                                display_targetable, unit_index = await self.display_targetable(targetable_team_a, unit_index)
+                                                target_display += display_targetable
                                             
                                             # enemies
                                             if(len(targetable_team_b) > 0):
                                                 target_display += "\n🔴 - Enemy team :\n" 
 
                                                 # retrieve all the targetable enemies
-                                                unit_index = 1
-
-                                                target_display += await self.display_targetable(targetable_team_b, unit_index)
+                                                display_targetable, unit_index = await self.display_targetable(targetable_team_b, unit_index)
+                                                target_display += display_targetable
                                             
                                             # display the targets
                                             await self.ctx.send(f"<@{self.player.id}> Please select a target among the following for `Sequence 👊` :\n{target_display}")
@@ -261,16 +260,16 @@ class Selection_phase:
                                                         # retrieve all the targetable units
                                                         unit_index = 1
 
-                                                        target_display += await self.display_targetable(targetable_team_a, unit_index)
+                                                        display_targetable, unit_index = await self.display_targetable(targetable_team_a, unit_index)
+                                                        target_display += display_targetable
                                                     
                                                     # enemies
                                                     if(len(targetable_team_b) > 0):
                                                         target_display += "\n🔴 - Enemy team :\n" 
 
                                                         # retrieve all the targetable enemies
-                                                        unit_index = 1
-
-                                                        target_display += await self.display_targetable(targetable_team_b, unit_index)
+                                                        display_targetable, unit_index = await self.display_targetable(targetable_team_b, unit_index)
+                                                        target_display += display_targetable
 
                                                     # send the message 
                                                     await self.ctx.send(f"<@{self.player.id}> Please select a target among the following for `{ability.name}`{ability.icon} : \n{target_display}")
@@ -339,7 +338,7 @@ class Selection_phase:
 
         --
 
-        Return : str
+        Return : str, int
         """
 
         # init
@@ -391,4 +390,4 @@ class Selection_phase:
 
             unit_index += 1
         
-        return(target_display)
+        return(target_display, unit_index)
