@@ -192,6 +192,8 @@ class Fight:
             await self.ctx.send("```🌀 - Trigger phase```")
             await asyncio.sleep(1)
 
+            character_index = 1
+
                 # team_a
             await self.ctx.send(f"```🔵 - {self.player.name}'s team```")
             await asyncio.sleep(1)
@@ -200,7 +202,9 @@ class Fight:
             for character_a in team[0]:
                 await asyncio.sleep(0)
 
-                await self.trigger_phase.trigger_effect(self.ctx, character_a)
+                await self.trigger_phase.trigger_effect(self.ctx, character_index, character_a)
+
+                character_index += 1
 
                 # team_b
             await self.ctx.send(f"```🔴 - Enemy team```")
@@ -210,14 +214,15 @@ class Fight:
             for character_b in team[1]:
                 await asyncio.sleep(0)
 
-                await self.trigger_phase.trigger_effect(self.ctx, character_b)
+                await self.trigger_phase.trigger_effect(self.ctx, character_index, character_b)
+
+                character_index += 1
 
             # end of turn
                 # calculate average hps
             team_a_average_hp, team_b_average_hp = await self.get_teams_hp(team)
 
                 # increase the turn value
-            team_b_average_hp = 0  # test kill
             turn += 1
             print(f"team hps, a : {team_a_average_hp}, b : {team_b_average_hp}")
             await asyncio.sleep(5)

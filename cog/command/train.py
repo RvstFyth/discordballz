@@ -77,10 +77,22 @@ class Cmd_train(commands.Cog):
             caller_team["a"], caller_team["b"], caller_team["c"]
         ]
 
+        # set the xp
+        # init
+        xp_won = 100
+        player_info = await player.team.get_info()
+        player_team_level, player_team_rarity = player_info["level"], player_info["rarity"]
+
+        # set the xp gain
+        xp_won += (((1.5 * 100) - 100) * player_team_level) + (100 * (player_team_rarity - 1))
+
         if(winner == 0):  # if the player wins it
-            print(f"team : {caller_team}")
             # add xp
-            await leveller.team_add_xp(player, id_team, 100000)
+            await leveller.team_add_xp(player, id_team, xp_won)
+        
+        elif(winner == 2):  # if draw
+            # half xp gained
+            await leveller.team_add_xp(player, team, xp_won/2)
 
 def setup(client):
     client.add_cog(Cmd_train(client))

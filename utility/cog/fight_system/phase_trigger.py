@@ -5,7 +5,7 @@ Manages the trigger phase.
 
 Author : DrLarck
 
-Last update : 19/08/19 (DrLarck)
+Last update : 04/09/19 (DrLarck)
 """
 
 # dependancies
@@ -35,7 +35,7 @@ class Trigger_phase:
         self.team_b = team_b
 
     # method
-    async def trigger_effect(self, ctx, character):
+    async def trigger_effect(self, ctx, character_index, character):
         """
         `coroutine`
         
@@ -44,6 +44,8 @@ class Trigger_phase:
         - Parameter :
 
         `ctx` : Current `commands.Context`.
+
+        `character_index` : Represents the character's index number.
 
         `character` : Represents a `Character()`.
 
@@ -54,7 +56,15 @@ class Trigger_phase:
 
         # init
         health_change = character.health.current  # allow us to check the health change
-        displaying = f"```\n```{character.image.icon} **{character.info.name}**{character.type.icon} :\n"
+        # check if its the first character of its team
+        print(f"character_index : {character_index} | team_a : len({len(self.team_a)}")
+        if(character_index == 1 or len(self.team_a) == 1):
+            displaying = ""
+        
+        else:
+            displaying = "```\n```"
+
+        displaying += f"{character.image.icon} **{character.info.name}**{character.type.icon} :\n"
         effect = {
             "bonus" : "",
             "malus" : ""
