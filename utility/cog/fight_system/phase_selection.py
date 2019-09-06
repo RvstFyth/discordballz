@@ -332,6 +332,9 @@ class Selection_phase:
                 
                     # end for character in team
                     order += 1
+                
+                else:  # the character is dead or cannot play the turn
+                    move_list.append(None)
         
         # end of method
         print(f"chosen move : {move_list}")

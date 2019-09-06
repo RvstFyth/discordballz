@@ -5,7 +5,7 @@ Manages the displaying of the characters.
 
 Author : DrLarck
 
-Last update : 01/09/19 (DrLarck)
+Last update : 06/09/19 (DrLarck)
 """
 
 # dependancies
@@ -201,7 +201,7 @@ class Character_displayer:
             # now the effects
                 # buff
             if(len(self.character.bonus) > 0):  # if the character has a buff
-                combat_format += f"__Bonus__ : "
+                combat_format += f"\n__Bonus__ : "
 
                 for buff in self.character.bonus:
                     await asyncio.sleep(0)
