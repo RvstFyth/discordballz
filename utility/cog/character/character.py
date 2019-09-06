@@ -5,7 +5,7 @@ Every character classes inherit from the :class:`Character()` defined below.
 
 Author : DrLarck
 
-Last update : 04/09/19 (DrLarck)
+Last update : 06/09/19 (DrLarck)
 """
 
 # dependancies
@@ -434,50 +434,55 @@ class Character:
 
         ############
         # set a list 
-        for ability in self.ability:
-            await asyncio.sleep(0)
-
-            ability_list.append(
-                ability(
-                    None,
-                    None,
-                    None,
-                    None,
-                    None,
-                    None
-                )
-            )
-
-        # order the list
-        # if the ability is less expansive then the targetted ability
-        # replace it in the list
-        for _ability in ability_list:
-            await asyncio.sleep(0)
-
-            for a in range(len(ability_list)):
+        if(len(self.ability) > 0):
+            for ability in self.ability:
                 await asyncio.sleep(0)
 
-                if(_ability.cost < ability_list[a].cost):
-                    ability_list.remove(_ability)
-                    ability_list.insert(a, _ability)
+                ability_list.append(
+                    ability(
+                        None,
+                        None,
+                        None,
+                        None,
+                        None,
+                        None
+                    )
+                )
+
+            # order the list
+            # if the ability is less expansive then the targetted ability
+            # replace it in the list
+            for _ability in ability_list:
+                await asyncio.sleep(0)
+
+                for a in range(len(ability_list)):
+                    await asyncio.sleep(0)
+
+                    if(_ability.cost < ability_list[a].cost):
+                        ability_list.remove(_ability)
+                        ability_list.insert(a, _ability)
+                        break
+            
+            # get a list of usable ability
+            for __ability in ability_list:
+                await asyncio.sleep(0)
+
+                if(self.ki.current >= __ability.cost):
+                    usable_ability.append(__ability)
+                
+                else:
                     break
         
-        # get a list of usable ability
-        for __ability in ability_list:
-            await asyncio.sleep(0)
-
-            if(self.ki.current >= __ability.cost):
-                usable_ability.append(__ability)
-            
-            else:
-                break
-        
         # decide if launch an ability or use an other move
-        random_move = randint(1, 4)
+        if(len(usable_ability) > 0):  # if the character has an ability
+            random_move = randint(1, 4)
+        
+        else:  # else if the character doesn't have any ability
+            random_move = randint(1, 3)
         print(f"bot_move : {random_move}\nbot_ability : {usable_ability}")
 
         if(random_move < 4):  # do not use an ability
-            move["move"] = randint(1, 3)
+            move["move"] = random_move
 
             if(move["move"] == 1):  # if sequence
                 # find the targetable targets
