@@ -56,6 +56,18 @@ class Selection_phase:
         # init
         translation = Translator(self.client.db, self.player)
         #_ = await translation.translate()
+
+        # define the bot's team
+        if(player_team == 0):
+            bot_team = team[0]
+            bot_enemy = team[1]
+        
+        elif(player_team == 1):
+            bot_team = team[1]
+            bot_enemy = team[0]
+    
+        player_team = team[player_team]
+        
         possible_action = []  # list of possible actions (str)
         all_character = team[0]+team[1]
         order = 1
@@ -312,7 +324,7 @@ class Selection_phase:
                                         decision = False
 
                     else:  # the character is a bot
-                        bot_move = await character.bot(self.client, self.ctx, self.player, team[1], team[0], self.turn)
+                        bot_move = await character.bot(self.client, self.ctx, self.player, bot_team, bot_enemy, self.turn)
 
                         move_list.append(bot_move)
 

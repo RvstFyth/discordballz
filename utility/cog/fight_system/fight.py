@@ -169,7 +169,7 @@ class Fight:
 
             # get move
                 # team a
-            team_a_move = await self.selection_phase.start_selection(team[0], team)
+            team_a_move = await self.selection_phase.start_selection(0, team)
                 # check if the player want to flee
             if(type(team_a_move) == str):
                 if(team_a_move.lower() == "flee"):
@@ -177,7 +177,7 @@ class Fight:
                     break
 
                 # team b
-            team_b_move = await self.selection_phase.start_selection(team[1], team)
+            team_b_move = await self.selection_phase.start_selection(1, team)
 
             # battle phase
             await self.ctx.send(f"```⚔ - Battle phase```")
