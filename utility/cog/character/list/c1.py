@@ -43,7 +43,6 @@ class Character_1(Character):
 
             # health
         self.health.maximum = 3500
-        self.health.current = 3500
 
             # damage
         self.damage.physical_max = 400

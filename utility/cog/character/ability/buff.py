@@ -5,7 +5,7 @@ Represents a bonus effect
 
 Author : DrLarck
 
-Last update : 04/09/19 (DrLarck)
+Last update : 06/09/19 (DrLarck)
 """
 
 # dependancies
@@ -21,6 +21,8 @@ class Buff:
     `client` : Represents a `discord.Client` instance.
 
     `ctx` : Represents the `commands.Context`
+
+    `carrier` : Represents the character who carries the buff.
 
     `team_a` | `b` : Represents the Ally team and the opponent team.
 
@@ -54,10 +56,11 @@ class Buff:
     """
 
     # attribute
-    def __init__(self, client, ctx, team_a, team_b):
+    def __init__(self, client, ctx, carrier, team_a, team_b):
         # basic
         self.client = client
         self.ctx = ctx
+        self.carrier = carrier
         self.team_a = team_a
         self.team_b = team_b
 

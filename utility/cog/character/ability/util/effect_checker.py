@@ -5,7 +5,7 @@ Check if the target has an effect active on it.
 
 Author : DrLarck
 
-Last update : 30/08/19 (DrLarck)
+Last update : 06/09/19 (DrLarck)
 """
 
 # dependancies
@@ -26,7 +26,7 @@ class Effect_checker:
 
     :coro:`get_buff(buff_instance)` : Research a buff onto the target
 
-    :coro:`get_debugg(debuff_instance)` : Same as get_buff but for debuff.
+    :coro:`get_debuff(debuff_instance)` : Same as get_buff but for debuff.
     """
 
     # attribute
@@ -42,6 +42,18 @@ class Effect_checker:
         
         The returned effect is not suitable for a normal use. It's used to compare the effects based on their id.
 
+        - Parameter :
+
+        `effect_id` : int - The id of the effect you want to get.
+
+        `client` : Represents a `discord.Client`.
+
+        `ctx` : Represents the `commands.Context`.
+
+        `target` : Represents a `Character()`, not `None`.
+
+        `team A` | `B` : A  is the allied team, B the opponent one.
+        
         --
 
         Return : Instance of the effect. Else : `None`.
@@ -59,7 +71,7 @@ class Effect_checker:
         # Buff Unity is strenght
         if(effect_id == 2):
             from utility.cog.character.ability.effect.buff.unity_is_strenght import Buff_unity_is_strenght
-            effect = Buff_unity_is_strenght(client, ctx, team_a, team_b)
+            effect = Buff_unity_is_strenght(client, ctx, target, team_a, team_b)
             
         return(effect)
 
@@ -96,6 +108,10 @@ class Effect_checker:
         `coroutine`
 
         Search for the debuff in the list of active debuffs on the target. If not found returns `None`.
+
+        - Parameter : 
+
+        `debuff` : Represents a debuff object.
 
         --
 
