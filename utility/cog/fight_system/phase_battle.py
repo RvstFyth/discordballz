@@ -66,7 +66,6 @@ class Battle_phase:
         character_move = None
 
         _team_a, _team_b = team[0], team[1]
-        print(f"battle phase (team) : a {_team_a} b {_team_b}")
 
         team_a = {
             "index" : 0,
@@ -91,7 +90,7 @@ class Battle_phase:
             else:
                 await self.ctx.send(f"```🔴 - Enemy team```")
                 await asyncio.sleep(2)
-            print(f"team is : {_team}")
+
             for character in team[_team]:
                 await asyncio.sleep(0)
 
@@ -106,7 +105,6 @@ class Battle_phase:
                 # check if the character is able to fight
                 if(character != None):
                     if(character.health.current > 0 and character.posture.stunned == False):
-                        print(f"index : team_a_move : {team_a['index']}")
                         character_move = team_a_move[team_a["index"]]
                         
                         if(character_move != None):
@@ -118,7 +116,6 @@ class Battle_phase:
                                 team_a["display"] += f"\n{unit_index}. {character.image.icon}**{character.info.name}**{character.type.icon} to {character_move['target'].image.icon}**{character_move['target'].info.name}**{character_move['target'].type.icon} :\n"
                             
                             # manage the move
-                            print(f"move : {character_move['move']} {type(character_move['move'])}")
                             if(type(character_move["move"]) == str):
                                 if(character_move["move"] == "skip"):
                                     team_a["display"] += await _move_display.skip_move()
@@ -221,7 +218,6 @@ class Battle_phase:
                 team_a_embed = Custom_embed(self.client)
                 team_a_embed = await team_a_embed.setup_embed()
 
-                print(f"Team_display : {team_a['display']}")
                 team_a_embed.add_field(
                     name = f"{self.player_a.name} team :",
                     value = team_a["display"],

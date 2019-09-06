@@ -5,7 +5,7 @@ Manages the character 1
 
 Author : DrLarck
 
-Last update : 30/08/19 (DrLarck)
+Last update : 06/09/19 (DrLarck)
 """
 
 # dependancies
@@ -16,7 +16,7 @@ from utility.cog.character.character import Character
 
 # abilities
 from utility.cog.character.ability.list.acid import Acid
-from utility.cog.character.ability.list.unity_is_strenght import Unity_is_strenght
+from utility.cog.character.ability.list.unity_is_strength import Unity_is_strength
 
 # saibaiman
 class Character_1(Character):
@@ -59,4 +59,4 @@ class Character_1(Character):
         self.critical_chance = 10
 
         # ability
-        self.ability = [Acid, Unity_is_strenght]
+        self.ability = [Acid, Unity_is_strength]

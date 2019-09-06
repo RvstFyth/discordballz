@@ -146,7 +146,6 @@ class Character_getter:
             f"SELECT * FROM character_unique WHERE character_unique_id = '{unique_id}';"
         )
 
-        print(f"\n\n\nChar father for {unique_id} : {char_father}\n\n\n")
         if(len(char_father) > 0):
             # sort the data
             char_id = char_father[0][4]

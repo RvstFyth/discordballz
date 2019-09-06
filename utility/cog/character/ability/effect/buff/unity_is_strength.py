@@ -37,7 +37,7 @@ class Buff_unity_is_strength(Buff):
 
         self.id = 2
         self.name = "Unity is strength"
-        self.icon = "<:notfound:617735236473585694>"
+        self.icon = "<:unity_is_strenght:585503883133059074>"
 
         self.initial_duration = 3
         self.stack = 1

@@ -84,7 +84,6 @@ class Cmd_summon(commands.Cog):
             await displayer.display(summon_format = True)
 
             # apply the cost
-            print(player.resource.dragonstone)
             await player.resource.remove_dragonstone(self.cost["basic"])
         
         else:

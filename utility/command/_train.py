@@ -89,7 +89,6 @@ class Train:
         player_average = await player.team.get_info()  
         opponent = None
 
-        print(f"player_average : {player_average}")
         # check if the team is able to fight
         if(player_average["level"] > 0):
             # add a character to init according to the player's team rarity
@@ -158,5 +157,4 @@ class Train:
             character.type.value = randint(0, 4)
             character.is_npc = True
             
-        print(f"opponent team : {opponent_team}")
         return(opponent_team)

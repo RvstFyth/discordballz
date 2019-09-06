@@ -127,8 +127,6 @@ class Player_choice:
         else:  # seems that everything is ok
             choice = choice.content
             choice = choice.split()
-            print(f"choice : {choice} : len {len(choice)}")
-            print(f"possible : {possible_choice}")
 
             if choice[0] in possible_choice:
                 if(len(choice) == 1):  # if the choice contains only 1 elem
@@ -146,7 +144,6 @@ class Player_choice:
                     if(choice[0].lower() == "check"):
                         if(choice[1].isdigit()):  # if the target is specified
                             if(int(choice[1])-1 <= len(team)):  # if the target is found
-                                print(f"team : {len(team)}\nintchoice : {int(choice[1]) - 1}")
                                 choice = [choice[0], choice[1]]
                                 return(choice)
                             

@@ -164,7 +164,6 @@ class Team:
         self.team = await self.get_team()
 
         # get the team ids
-        print(self.team)
         if(self.team["a"] != None):
             team["a"] = await getter.get_from_unique(self.client, self.team["a"])
             team_id.append(team["a"].info.id)
@@ -181,7 +180,6 @@ class Team:
         character = await getter.get_from_unique(self.client, character_unique)
 
         # check if the character is in the team
-        print(f"character : {character.info.id}\nteam : {team_id}")
         if character.info.id in team_id:
             in_team = True
             return(False)

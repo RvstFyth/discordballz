@@ -176,7 +176,6 @@ class Character_displayer:
         ## COMBAT FORMAT ## 
         elif(combat_format):
             # posture
-            print(f"character buffs : {len(self.character.bonus)}")
             posture = None
 
             if(self.character.posture.attacking == True):
@@ -206,7 +205,7 @@ class Character_displayer:
                 for buff in self.character.bonus:
                     await asyncio.sleep(0)
 
-                    combat_format += f"{buff.icon} x{buff.stack} ({buff.duration}) |"
+                    combat_format += f"{buff.icon}[{buff.stack}|{buff.duration}]"
             
             if(len(self.character.malus) > 0):
                 combat_format += f"\n__Malus__ : "
@@ -214,10 +213,10 @@ class Character_displayer:
                 for debuff in self.character.malus:
                     await asyncio.sleep(0)
 
-                    combat_format += f"{debuff.icon} x{debuff.stack} ({debuff.duration}) |"
+                    combat_format += f"{debuff.icon}[{debuff.stack}|{debuff.duration}]"
             
             # send the messages
-            embed.add_field(name = f"{self.character.image.icon}{self.character.info.name}'s infos :", value = combat_format)
+            embed.add_field(name = f"{self.character.image.icon}{self.character.info.name} {self.character.type.icon}{self.character.rarity.icon}'s infos :", value = combat_format)
 
             await self.ctx.send(embed = embed)
         

@@ -278,7 +278,6 @@ class Box:
         for row in range(start_at, end_at):
             await asyncio.sleep(0)
 
-            print(f"Character_id : {character_id}")
             if(character_id == None):
                 # retrieve the character
                 character_id = data[row][0]

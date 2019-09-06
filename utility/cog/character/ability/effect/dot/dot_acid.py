@@ -5,7 +5,7 @@ Manages the Acid Dot.
 
 Author : DrLarck
 
-Last update : 19/08/19 (DrLarck)
+Last update : 06/09/19 (DrLarck)
 """
 
 # dependance
@@ -70,7 +70,6 @@ class Dot_acid(Dot):
         _damage = 0
 
         # increase the damage if the target has 3 or more active stacks on it
-        print(f"stack : {self.stack}")
         if(self.stack >= 3):
             _damage = self.tick_damage * 1.5
         
@@ -95,7 +94,6 @@ class Dot_acid(Dot):
         highest_ki = 0
 
         # get the highest ki amount
-        print(f"TEAM A : {self.team_a}")
         for ally in self.team_a:
             await asyncio.sleep(0)
             
@@ -117,7 +115,14 @@ class Dot_acid(Dot):
         # init
         checker = Effect_checker(self.target)
         unity = False
-        print(f"acid target : {self.target}")
+        unity_buff = await checker.get_effect(
+            2,
+            self.client,
+            self.ctx,
+            self.target,
+            self.team_a,
+            self.team_b
+        )
 
         _acid = await checker.get_effect(
             1,
@@ -127,12 +132,20 @@ class Dot_acid(Dot):
             self.team_a,
             self.team_b
         )
-        print(_acid)
 
         # check if the target already has acid on it
         has_acid = await checker.get_debuff(self)
         
         # look for someone in the team_a who has the unity is strength buff
+        for ally in self.team_a:
+            await asyncio.sleep(0)
+
+            if ally.info.id in self.saibaiman_id:
+                _unity = await checker.get_buff(unity_buff)
+
+                if(_unity != None):  # if someone has the buff active
+                    unity = True
+                    break
 
         # increase acid stack   
         # get existing acid stack

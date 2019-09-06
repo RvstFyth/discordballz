@@ -158,7 +158,6 @@ class Selection_phase:
 
                             if(self.turn == 1):  # manages the first turn possible actions
                                 move = await choice.wait_for_choice(possible_action, all_character)
-                                print(f"{move} : type {type(move)}")
 
                                 if(type(move) == str):
                                     if(move.lower() == "flee"):
@@ -337,7 +336,6 @@ class Selection_phase:
                     move_list.append(None)
         
         # end of method
-        print(f"chosen move : {move_list}")
         return(move_list)
     
     async def display_targetable(self, _list, unit_index):

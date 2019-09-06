@@ -56,7 +56,6 @@ class Fighter:
         # if a global id is passed
         if(character_id.isdigit()):
             box_data = await player.box.get_data(character_id)
-            print(type(box_data))
             character_id = int(character_id)
             
             # ask the player to pick the id of his character
@@ -70,8 +69,6 @@ class Fighter:
             if(unique_id == None):
                 await self.ctx.send(f"<@{player.id}> Error : character not found.")
                 return
-            
-            print(type(unique_id), unique_id)
 
             character = await self.getter.get_from_unique(self.client, unique_id)
             await character.init()
@@ -89,7 +86,6 @@ class Fighter:
             await explanation.delete()
         
         else:  # if the character_id is a unique id
-            print("direct unique id")
             character = await self.getter.get_from_unique(self.client, character_id)
 
             if(character == None):

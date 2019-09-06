@@ -68,7 +68,7 @@ class Effect_checker:
             from utility.cog.character.ability.effect.dot.dot_acid import Dot_acid
             effect = Dot_acid(client, ctx, target, team_a, team_b)
         
-        # Buff Unity is strenght
+        # Buff Unity is strength
         if(effect_id == 2):
             from utility.cog.character.ability.effect.buff.unity_is_strength import Buff_unity_is_strength
             effect = Buff_unity_is_strength(client, ctx, target, team_a, team_b)

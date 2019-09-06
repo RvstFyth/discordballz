@@ -39,7 +39,7 @@ class Unity_is_strength(Ability):
 
         # info
         self.name = "Unity is strength"
-        self.icon = "<:notfound:617735236473585694>"
+        self.icon = "<:unity_is_strenght:585503883133059074>"
         self.cost = 60
 
         # special

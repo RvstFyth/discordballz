@@ -57,7 +57,6 @@ class Trigger_phase:
         # init
         health_change = character.health.current  # allow us to check the health change
         # check if its the first character of its team
-        print(f"character_index : {character_index} | team_a : len({len(self.team_a)}")
         if(character_index == 1 or len(self.team_a) == 1):
             displaying = ""
         
@@ -106,7 +105,6 @@ class Trigger_phase:
         # displaying
             # health
         health_change = character.health.current - health_change  # check if there is health change
-        print(f"change : {health_change}\nmalus : {len(character.malus)}")
         if(health_change != 0):
             if(health_change > 0):
                 displaying += f"__Health__ : +**{health_change:,}** :hearts:\n"

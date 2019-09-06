@@ -484,7 +484,6 @@ class Character:
         
         else:  # else if the character doesn't have any ability
             random_move = randint(1, 3)
-        print(f"bot_move : {random_move}\nbot_ability : {usable_ability}")
 
         if(random_move < 4):  # do not use an ability
             move["move"] = random_move

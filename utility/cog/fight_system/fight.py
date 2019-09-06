@@ -108,7 +108,7 @@ class Fight:
         #_ = await translation.translate()
 
             # turn displaying
-        turn = 1  # begins at 1
+        turn = 2  # begins at 1
 
             # init at 1 to loop at least one time
         team_a_average_hp = 1  
@@ -116,7 +116,6 @@ class Fight:
 
         # init
         # team a
-        print(f"teams :\na : {team[0]}\nb : {team[1]}")
         for character in team[0]:
             await asyncio.sleep(0)
 
@@ -183,7 +182,6 @@ class Fight:
             await self.ctx.send(f"```⚔ - Battle phase```")
             await asyncio.sleep(2)
 
-            print(f"Team_a_move : {team_a_move}\nTeam_b_move : {team_b_move}")
             await self.battle_phae.start_battle(team, team_a_move, team_b_move, turn)
 
             # trigger phase
@@ -222,7 +220,6 @@ class Fight:
 
                 # increase the turn value
             turn += 1
-            print(f"team hps, a : {team_a_average_hp}, b : {team_b_average_hp}")
             await asyncio.sleep(5)
         
         # check the winner
