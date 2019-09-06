@@ -70,8 +70,8 @@ class Effect_checker:
         
         # Buff Unity is strenght
         if(effect_id == 2):
-            from utility.cog.character.ability.effect.buff.unity_is_strenght import Buff_unity_is_strenght
-            effect = Buff_unity_is_strenght(client, ctx, target, team_a, team_b)
+            from utility.cog.character.ability.effect.buff.unity_is_strength import Buff_unity_is_strength
+            effect = Buff_unity_is_strength(client, ctx, target, team_a, team_b)
             
         return(effect)
 

@@ -18,7 +18,7 @@ from utility.cog.character.ability.buff import Buff
 from utility.cog.character.ability.util.effect_checker import Effect_checker
 
 # unity is strenght
-class Buff_unity_is_strenght(Buff):
+class Buff_unity_is_strength(Buff):
     """
     Represents the unity is strenght buff
     """
@@ -36,7 +36,7 @@ class Buff_unity_is_strenght(Buff):
         )
 
         self.id = 2
-        self.name = "Unity is strenght"
+        self.name = "Unity is strength"
         self.icon = "<:notfound:617735236473585694>"
 
         self.initial_duration = 3

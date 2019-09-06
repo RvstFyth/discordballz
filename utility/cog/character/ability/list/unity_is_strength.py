@@ -1,5 +1,5 @@
 """
-Manages the Unity is Strenght ability.
+Manages the Unity is Strength ability.
 
 --
 
@@ -19,7 +19,7 @@ from utility.cog.character.ability.util.effect_checker import Effect_checker
 from utility.cog.character.ability.ability import Ability
 
 # spell
-class Unity_is_strenght(Ability):
+class Unity_is_strength(Ability):
     """
     Applies the Unity is Strenght buff on the Saibaimen.
     """
@@ -38,7 +38,7 @@ class Unity_is_strenght(Ability):
         )
 
         # info
-        self.name = "Unity is strenght"
+        self.name = "Unity is strength"
         self.icon = "<:notfound:617735236473585694>"
         self.cost = 60
 
