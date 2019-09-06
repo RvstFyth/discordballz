@@ -5,7 +5,7 @@ Represents the character 6
 
 Author : DrLarck
 
-Last update : 01/09/19 (DrLarck)
+Last update : 06/09/19 (DrLarck)
 """
 
 # dependancies
@@ -32,6 +32,8 @@ class Character_6(Character):
 
         # image
         self.image.image = "https://i.imgur.com/FWJSzJb.png"
+        self.image.thumb = "https://i.imgur.com/60PB1UY.png"
+        self.image.icon = "<:bardock:619492509864820737>"
         
         # stat
         # health

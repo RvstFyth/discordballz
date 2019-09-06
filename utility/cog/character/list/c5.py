@@ -5,7 +5,7 @@ Manages the character 5
 
 Author : DrLarck
 
-Last update : 01/09/19 (DrLarck)
+Last update : 06/09/19 (DrLarck)
 """
 
 # dependancies
@@ -32,6 +32,8 @@ class Character_5(Character):
 
         # image
         self.image.image = "https://i.imgur.com/pCv2cyO.png"
+        self.image.thumb = "https://i.imgur.com/kDoU9ZH.png"
+        self.image.icon = "<:piccolo:619492513673248778>"
 
         # stat
         # health

@@ -5,7 +5,7 @@ Manages the character 4
 
 Author : DrLarck
 
-Last update : 01/09/19 (DrLarck)
+Last update : 06/09/19 (DrLarck)
 """
 
 # dependancies
@@ -32,6 +32,8 @@ class Character_4(Character):
 
         # image
         self.image.image = "https://i.imgur.com/j4V5Qxm.png"
+        self.image.thumb = "https://i.imgur.com/tt2Aoh0.png"
+        self.image.icon = "<:pilaf_machine:619492931920723980>"
         
         # stat
         # health
