@@ -62,10 +62,8 @@ class Unity_is_strenght(Ability):
         move = Move_displayer()
 
         # applies the buff on the team
-        index = 0
         for character in self.team_a:
             await asyncio.sleep(0)
-            index += 1
             # init
             checker = Effect_checker(character)
             unity_buff = await checker.get_effect(

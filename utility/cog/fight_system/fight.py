@@ -5,7 +5,7 @@ The :class:`Fight()` manages a fight, from the beginning to the end and returns 
 
 Author : DrLarck
 
-Last update : 04/09/19 (DrLarck)
+Last update : 06/09/19 (DrLarck)
 """
 
 # dependancies
@@ -108,18 +108,15 @@ class Fight:
         #_ = await translation.translate()
 
             # turn displaying
-        turn = 2  # begins at 1
+        turn = 1  # begins at 1
 
             # init at 1 to loop at least one time
         team_a_average_hp = 1  
         team_b_average_hp = 1
 
-            # determines the number of characters in each team
-        team_a_length = len(team[0])
-        team_b_length = len(team[1])
-
         # init
         # team a
+        print(f"teams :\na : {team[0]}\nb : {team[1]}")
         for character in team[0]:
             await asyncio.sleep(0)
 

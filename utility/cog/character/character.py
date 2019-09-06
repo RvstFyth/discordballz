@@ -48,6 +48,8 @@ class Character:
 
     `rarity` : Represents the character's rarity.
 
+    `is_init` : bool - Tells if the character has been init or not.
+
     `level` : Represents the character's level.
 
     `posture` : Represents the character's posture.
@@ -121,6 +123,7 @@ class Character:
         self.image = Character_image()
         self.type = Character_type()
         self.rarity = Character_rarity()
+        self.is_init = False
 
         # characteristics
         self.level = 0
@@ -203,7 +206,9 @@ class Character:
         category = Category_displayer()
 
         # set stat
-        await self.set_stat()
+        if(self.is_init == False):
+            await self.set_stat()
+            self.is_init = True
 
         # set display
         self.rarity.icon = await icon.get_rarity_icon(self.rarity.value)
