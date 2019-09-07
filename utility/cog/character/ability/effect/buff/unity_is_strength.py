@@ -5,7 +5,7 @@ Represents the Unity is strenght buff
 
 Author : DrLarck
 
-Last update : 06/09/19 (DrLarck)
+Last update : 07/09/19 (DrLarck)
 """
 
 # dependancies
@@ -89,4 +89,35 @@ class Buff_unity_is_strength(Buff):
             self.carrier.health.current += heal 
             await self.carrier.health.health_limit()
 
+        return
+    
+    async def on_remove(self):
+        """
+        Reset all the acid effects. (Duration and max stacks)
+        """
+
+        # init
+        checker = Effect_checker(None)
+        acid_ref = await checker.get_effect(
+            1,
+            self.client,
+            self.ctx,
+            None,
+            self.team_a,
+            self.team_b
+        )
+
+        # now retrieve all the acid effects
+        for character in self.team_a:
+            await asyncio.sleep(0)
+
+            # reinit the checker
+            checker = Effect_checker(character)
+            acid_active = await checker.get_debuff(1)
+
+            # now reset
+            if(acid_active != None):
+                acid_active.initial_duration = acid_ref.initial_duration
+                acid_active.max_stack = acid_ref.max_stack
+        
         return
