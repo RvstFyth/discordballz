@@ -96,28 +96,33 @@ class Buff_unity_is_strength(Buff):
         Reset all the acid effects. (Duration and max stacks)
         """
 
-        # init
-        checker = Effect_checker(None)
-        acid_ref = await checker.get_effect(
-            1,
-            self.client,
-            self.ctx,
-            None,
-            self.team_a,
-            self.team_b
-        )
-
         # now retrieve all the acid effects
-        for character in self.team_a:
+        # team b because we reset the effect in the enemy team
+        for character in self.team_b:
             await asyncio.sleep(0)
 
-            # reinit the checker
+            # init the checker
             checker = Effect_checker(character)
-            acid_active = await checker.get_debuff(1)
+            acid_ref = await checker.get_effect(
+                1,
+                self.client,
+                self.ctx,
+                character,
+                self.team_a,
+                self.team_b
+            )
+            acid_active = await checker.get_debuff(acid_ref)
 
             # now reset
             if(acid_active != None):
+                # duration
                 acid_active.initial_duration = acid_ref.initial_duration
+                if(acid_active.duration > acid_ref.initial_duration):
+                    acid_active.duration = acid_ref.initial_duration
+                
+                # stack
                 acid_active.max_stack = acid_ref.max_stack
-        
+                if(acid_active.stack > acid_ref.max_stack):
+                    acid_active.stack = acid_ref.max_stack
+                
         return
