@@ -14,6 +14,9 @@ import asyncio
 # util
 from utility.cog.character.character import Character
 
+# test
+from utility.cog.character.ability.list.acid import Acid
+
 # Bardock
 class Character_6(Character):
     """
@@ -50,3 +53,5 @@ class Character_6(Character):
 
         # crit
         self.critical_chance = 15
+
+        self.ability = [Acid]

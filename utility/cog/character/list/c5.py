@@ -14,6 +14,9 @@ import asyncio
 # util
 from utility.cog.character.character import Character
 
+# test
+from utility.cog.character.ability.list.acid import Acid
+
 # Piccolo
 class Character_5(Character):
     """
@@ -50,3 +53,5 @@ class Character_5(Character):
 
         # crit
         self.critical_chance = 10
+
+        self.ability = [Acid]

@@ -5,7 +5,7 @@ Manages the character 3
 
 Author : DrLarck
 
-Last update : 01/09/19 (DrLarck)
+Last update : 07/09/19 (DrLarck)
 """
 
 # dependancies
@@ -13,6 +13,9 @@ import asyncio
 
 # util
 from utility.cog.character.character import Character
+
+# test
+from utility.cog.character.ability.list.acid import Acid
 
 # Red Saibaiman
 class Character_3(Character):
@@ -51,3 +54,6 @@ class Character_3(Character):
 
         # crit
         self.critical_chance = 10
+
+        # ability
+        self.ability = [Acid]

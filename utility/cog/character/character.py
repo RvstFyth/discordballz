@@ -5,7 +5,7 @@ Every character classes inherit from the :class:`Character()` defined below.
 
 Author : DrLarck
 
-Last update : 06/09/19 (DrLarck)
+Last update : 07/09/19 (DrLarck)
 """
 
 # dependancies
@@ -438,7 +438,7 @@ class Character:
             return(move)
 
         ############
-        # set a list 
+        # set a list of abilities
         if(len(self.ability) > 0):
             for ability in self.ability:
                 await asyncio.sleep(0)
@@ -478,6 +478,7 @@ class Character:
                 else:
                     break
         
+        print(f"usable : {len(usable_ability)}")
         # decide if launch an ability or use an other move
         if(len(usable_ability) > 0):  # if the character has an ability
             random_move = randint(1, 4)
@@ -492,6 +493,7 @@ class Character:
                 # find the targetable targets
                 targetable_a, targetable_b = await team_displayer.get_targetable("sequence")
                 targetable = targetable_a + targetable_b
+                print(f"{self.info.name} can target : {targetable}")
 
                 # pick a random target
                 move["target"] = choice(targetable)
@@ -500,7 +502,14 @@ class Character:
             # if the character has enough ki to use any ability
             if(len(usable_ability) > 0):
                 # pick a random ability in the usuable abilities list
-                ability = choice(usable_ability)
+                # pick a random ability
+                ability_choice = 4  # init to 4, 4 is the ability 1 (index 0)
+                random_ability = randint(0, len(usable_ability) - 1)
+
+                # get the ability object with the random obtained index.
+                ability = usable_ability[random_ability]
+
+                ability_choice += random_ability  # add random choice to ability (4) to define which ability has been used
 
                 # get targetable
                 if(ability.need_target):
@@ -510,6 +519,7 @@ class Character:
                     )
 
                     targetable = targetable_a + targetable_b
+                    print(f"{self.info.name} can target : {targetable}")
 
                     move["target"] = choice(targetable)
 
@@ -522,12 +532,16 @@ class Character:
                         team_a,
                         team_b
                     )
-
-                # pick a random ability
-                ability_choice = 4  # init to 4, 4 is the ability 1 (index 0)
-                random_ability = randint(0, len(usable_ability) - 1)
-
-                ability_choice += random_ability  # add random choice to ability (4) to define which ability has been used
+                
+                else:
+                    ability.__init__(
+                        client,
+                        ctx,
+                        self,
+                        None,
+                        team_a,
+                        team_b
+                    )
 
                 move["move"] = ability_choice
             

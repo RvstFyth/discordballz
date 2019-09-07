@@ -14,6 +14,9 @@ import asyncio
 # util
 from utility.cog.character.character import Character
 
+# test
+from utility.cog.character.ability.list.acid import Acid
+
 # Pilaf Machine
 class Character_4(Character):
     """
@@ -51,3 +54,5 @@ class Character_4(Character):
 
         # crit
         self.critical_chance = 10
+
+        self.ability = [Acid]

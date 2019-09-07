@@ -5,7 +5,7 @@ Represents the character 2
 
 Author : DrLarck
 
-Last update : 01/09/19 (DrLarck)
+Last update : 07/09/19 (DrLarck)
 """
 
 # dependancies
@@ -13,6 +13,9 @@ import asyncio
 
 # util
 from utility.cog.character.character import Character
+
+# test
+from utility.cog.character.ability.list.acid import Acid
 
 # blue saibaiman
 class Character_2(Character):
@@ -50,3 +53,6 @@ class Character_2(Character):
 
         # crit
         self.critical_chance = 10
+
+        # ability
+        self.ability = [Acid]
