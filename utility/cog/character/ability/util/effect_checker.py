@@ -100,6 +100,7 @@ class Effect_checker:
 
             if(effect.id == buff_id):
                 match = effect
+                break
             
         return(match)
     

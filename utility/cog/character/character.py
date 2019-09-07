@@ -478,7 +478,6 @@ class Character:
                 else:
                     break
         
-        print(f"usable : {len(usable_ability)}")
         # decide if launch an ability or use an other move
         if(len(usable_ability) > 0):  # if the character has an ability
             random_move = randint(1, 4)
@@ -493,7 +492,6 @@ class Character:
                 # find the targetable targets
                 targetable_a, targetable_b = await team_displayer.get_targetable("sequence")
                 targetable = targetable_a + targetable_b
-                print(f"{self.info.name} can target : {targetable}")
 
                 # pick a random target
                 move["target"] = choice(targetable)
@@ -519,7 +517,6 @@ class Character:
                     )
 
                     targetable = targetable_a + targetable_b
-                    print(f"{self.info.name} can target : {targetable}")
 
                     move["target"] = choice(targetable)
 

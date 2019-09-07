@@ -115,14 +115,6 @@ class Dot_acid(Dot):
         # init
         checker = Effect_checker(self.target)
         unity = False
-        unity_buff = await checker.get_effect(
-            2,
-            self.client,
-            self.ctx,
-            self.target,
-            self.team_a,
-            self.team_b
-        )
 
         _acid = await checker.get_effect(
             1,
@@ -139,6 +131,18 @@ class Dot_acid(Dot):
         # look for someone in the team_a who has the unity is strength buff
         for ally in self.team_a:
             await asyncio.sleep(0)
+
+            # get the character
+            checker = Effect_checker(ally)
+            
+            unity_buff = await checker.get_effect(
+                2,
+                self.client,
+                self.ctx,
+                ally,
+                self.team_a,
+                self.team_b
+            )
 
             if ally.info.id in self.saibaiman_id:
                 _unity = await checker.get_buff(unity_buff)
@@ -157,6 +161,10 @@ class Dot_acid(Dot):
             if(_acid.stack < _acid.max_stack):
                 if(unity):  # if an ally has the unity buff
                     _acid.stack += 2
+                    
+                    if(_acid.stack > _acid.max_stack):
+                        _acid.stack = _acid.max_stack
+
                     _acid.duration = _acid.initial_duration
                 
                 else:  # if no unity in the team
