@@ -136,7 +136,6 @@ class Fight:
                 team_b_ref.append(_character)
         
         team[1] = team_b_ref
-        print(f"teams :\na {team[0]}\nb {team[1]}")
 
         #########################################################################
         # main loop
