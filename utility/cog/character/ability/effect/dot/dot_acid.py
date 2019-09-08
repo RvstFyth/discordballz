@@ -97,12 +97,13 @@ class Dot_acid(Dot):
         for ally in self.team_a:
             await asyncio.sleep(0)
             
-            if ally.info.id in self.saibaiman_id:  # only compare with saibaimen in the team.
-                if(ally.damage.ki_max > highest_ki):
-                    highest_ki = ally.damage.ki_max
-            
-            else:
-                pass
+            if(ally != None):
+                if ally.info.id in self.saibaiman_id:  # only compare with saibaimen in the team.
+                    if(ally.damage.ki_max > highest_ki):
+                        highest_ki = ally.damage.ki_max
+                
+                else:
+                    pass
         
         # set the total damage
         self.total_damage = int(((1.5 + ((highest_ki / 250) * 0.05)) * self.target.health.maximum) / 100) 
@@ -144,12 +145,13 @@ class Dot_acid(Dot):
                 self.team_b
             )
 
-            if ally.info.id in self.saibaiman_id:
-                _unity = await checker.get_buff(unity_buff)
+            if(ally != None):
+                if ally.info.id in self.saibaiman_id:
+                    _unity = await checker.get_buff(unity_buff)
 
-                if(_unity != None):  # if someone has the buff active
-                    unity = True
-                    break
+                    if(_unity != None):  # if someone has the buff active
+                        unity = True
+                        break
 
         # increase acid stack   
         # get existing acid stack

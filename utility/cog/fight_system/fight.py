@@ -116,24 +116,27 @@ class Fight:
 
         # init
         # team a
+        team_a_ref = []
         for character in team[0]:
             await asyncio.sleep(0)
 
             if(character != None):
                 await character.init()
-            
-            else:
-                team[0].remove(character)
+                team_a_ref.append(character)
+        
+        team[0] = team_a_ref
         
         # team_b
+        team_b_ref = []
         for _character in team[1]:
             await asyncio.sleep(0)
             
             if(_character != None):
                 await _character.init()
-            
-            else:
-                team[1].remove(_character)
+                team_b_ref.append(_character)
+        
+        team[1] = team_b_ref
+        print(f"teams :\na {team[0]}\nb {team[1]}")
 
         #########################################################################
         # main loop

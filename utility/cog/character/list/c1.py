@@ -39,7 +39,7 @@ class Character_1(Character):
         self.image.image = "https://i.imgur.com/1m8rA7L.png"
         self.image.thumb = "https://i.imgur.com/SITD9VY.png"
 
-        self.rarity.value = 0 
+        self.rarity.value = 0
 
             # health
         self.health.maximum = 3500

@@ -5,7 +5,7 @@ Every character classes inherit from the :class:`Character()` defined below.
 
 Author : DrLarck
 
-Last update : 07/09/19 (DrLarck)
+Last update : 08/09/19 (DrLarck)
 """
 
 # dependancies

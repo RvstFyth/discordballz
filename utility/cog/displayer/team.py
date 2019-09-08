@@ -135,9 +135,10 @@ class Team_displayer:
             for char_b in self.team_b:
                 await asyncio.sleep(0)
 
-                # check if the character is alive
-                if(char_b.health.current > 0):  
-                    team_b.append(char_b)
+                if(char_b != None):
+                    # check if the character is alive
+                    if(char_b.health.current > 0):  
+                        team_b.append(char_b)
             
             # now filter with the defender
             defender = []
