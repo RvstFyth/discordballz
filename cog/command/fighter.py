@@ -5,7 +5,7 @@ Allows the player to manage his team
 
 Author : DrLarck
 
-Last update : 31/08/19 (DrLarck)
+Last update : 08/09/19 (DrLarck)
 """
 
 # dependancies
@@ -98,7 +98,7 @@ class Cmd_fighter(commands.Cog):
         
         else:
             char_a = await self.getter.get_from_unique(self.client, player_team["a"])
-            char_a = f"{char_a.image.icon}{char_a.info.name} {char_a.type.icon}{char_a.rarity.icon} lv.{char_a.level:,}"
+            char_a = f"`{player_team['a']}` | {char_a.image.icon}{char_a.info.name} {char_a.type.icon}{char_a.rarity.icon} lv.{char_a.level:,}"
         
         ### b
         if(player_team["b"] == None):
@@ -106,7 +106,7 @@ class Cmd_fighter(commands.Cog):
         
         else:
             char_b = await self.getter.get_from_unique(self.client, player_team["b"])
-            char_b = f"{char_b.image.icon}{char_b.info.name} {char_b.type.icon}{char_b.rarity.icon} lv.{char_b.level:,}" 
+            char_b = f"{player_team['b']}` | {char_b.image.icon}{char_b.info.name} {char_b.type.icon}{char_b.rarity.icon} lv.{char_b.level:,}" 
         
         ### c
         if(player_team["c"] == None):
@@ -114,7 +114,7 @@ class Cmd_fighter(commands.Cog):
         
         else:
             char_c = await self.getter.get_from_unique(self.client, player_team["c"])
-            char_c = f"{char_c.image.icon}{char_c.info.name} {char_c.type.icon}{char_c.rarity.icon} lv.{char_c.level:,}"
+            char_c = f"{player_team['c']}` | {char_c.image.icon}{char_c.info.name} {char_c.type.icon}{char_c.rarity.icon} lv.{char_c.level:,}"
 
         # set display
         display_infos = f"""
