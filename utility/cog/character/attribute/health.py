@@ -5,7 +5,7 @@ Manages the health attribute of a character.
 
 Author : DrLarck
 
-Last update : 18/07/19
+Last update : 09/09/19 (DrLarck)
 """
 
 # character health
@@ -28,6 +28,7 @@ class Character_health:
     def __init__(self):
         self.maximum = 0
         self.current = 0
+        self.regen = 0
     
     # method
     async def health_limit(self):
