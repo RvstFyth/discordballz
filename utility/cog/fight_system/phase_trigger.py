@@ -5,11 +5,15 @@ Manages the trigger phase.
 
 Author : DrLarck
 
-Last update : 04/09/19 (DrLarck)
+Last update : 09/09/19 (DrLarck)
 """
 
 # dependancies
 import asyncio
+from random import randint
+
+# util
+from utility.cog.character.getter import Character_getter
 
 # trigger phase manager
 class Trigger_phase:
@@ -55,6 +59,11 @@ class Trigger_phase:
         """
 
         # init
+            # reference character
+        character_getter = Character_getter()
+        character_ref = character_getter.get_character(character.info.id)
+        await character_ref.init()
+
         health_change = character.health.current  # allow us to check the health change
         # check if its the first character of its team
         if(character_index == 1 or len(self.team_a) == 1):
@@ -123,6 +132,31 @@ class Trigger_phase:
             displaying += f"__Malus__ : {effect['malus']}\n"
             send = True
         
+        # regen
+        # ki
+        if(character.posture.attacking):
+            character.ki.current += character.ki.regen + randint(1, 5)
+            await character.ki.ki_limit()
+        
+        elif(character.posture.defending):
+            character.ki.current += character.ki.regen
+            await character.ki.ki_limit()
+        
+        else:  # if not attacking or defending, doesn't gain ki
+            pass
+        
+            # displaying
+            # only if the regen is different than the normal regen
+        if(character.ki.regen != character_ref.ki.regen):
+            if(character.ki.regen > 0):
+                displaying += f"__Ki regen__ : +**{character.ki.regen:,}** :fire:\n"
+            
+            else:
+                displaying += f"__Ki regen__ : **{character.ki.regen:,}** :fire:\n"
+
+        # health
+        character.health.current += character.health.regen
+
         # sending
         if(send):
             await ctx.send(displaying)
