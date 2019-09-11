@@ -5,7 +5,7 @@ Manages the trigger phase.
 
 Author : DrLarck
 
-Last update : 09/09/19 (DrLarck)
+Last update : 11/09/19 (DrLarck)
 """
 
 # dependancies
@@ -61,7 +61,7 @@ class Trigger_phase:
         # init
             # reference character
         character_getter = Character_getter()
-        character_ref = character_getter.get_character(character.info.id)
+        character_ref = await character_getter.get_character(character.info.id)
         await character_ref.init()
 
         health_change = character.health.current  # allow us to check the health change
