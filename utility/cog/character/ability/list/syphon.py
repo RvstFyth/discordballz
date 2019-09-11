@@ -75,7 +75,7 @@ class Syphon(Ability):
         )
 
         # init the damage done
-        damage_done["calculated"] *= 0.1
+        damage_done["calculated"] = int(damage_done["calculated"] * 0.1)
 
         # special effect
         if not damage_done["dodge"]:  # if the damage has not been dodged
@@ -102,11 +102,11 @@ class Syphon(Ability):
                 pass
         
         # deal damage to the target
-        self.target.receive_damage(damage_done["calculated"])
+        await self.target.receive_damage(damage_done["calculated"])
         
         # heal the caster
         # of 50 % of damage done
-        healing = damage_done["calculated"] / 2
+        healing = int(damage_done["calculated"] / 2)
         self.caster.health.current += healing
         await self.caster.health.health_limit()
 
