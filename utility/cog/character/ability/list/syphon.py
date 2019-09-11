@@ -96,7 +96,7 @@ class Syphon(Ability):
                 
                 # remove the acid debuff to the target
                 # consums it
-                self.target.malus(has_acid)
+                self.target.malus.remove(has_acid)
             
             else:  # doesn't have acid active on it
                 pass
