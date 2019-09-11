@@ -5,7 +5,7 @@ Manages the damage calculator.
 
 Author : DrLarck
 
-Last update : 19/08/19 (DrLarck)
+Last update : 11/09/19 (DrLarck)
 """
 
 # dependancies
@@ -45,7 +45,7 @@ class Damage_calculator:
 
     :coro:`get_type_advantage()` : Returns the type_advantage mutliplier
 
-    :coro:`physical_damage(damage, dodgable, critable, ignore_defense) : Calculate physical damage
+    :coro:`physical_damage(damage, dodgable, critable, ignore_defense)` : Calculate physical damage
     returns the `damage` dict.
 
     :coro:`ki_damage(same as physical method)` : Same as physical but for ki.
