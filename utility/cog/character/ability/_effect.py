@@ -74,13 +74,13 @@ class Effect:
         self.caster = None
 
         # duration
-        self.initial_duration = 0
-        self.duration = 0
+        self.initial_duration = 1
+        self.duration = 1
         self.is_permanent = False
 
         # stack
-        self.max_stack = 0
-        self.stack = 0
+        self.max_stack = 1
+        self.stack = 1
     
     # method
     async def translate(self):

@@ -8,6 +8,8 @@ Here are listed all the effects id sorted by effect type :
 
 ### Debuff
 
+**Acid explosion** : 3
+
 ### DOT
 
 **Acid** : 1

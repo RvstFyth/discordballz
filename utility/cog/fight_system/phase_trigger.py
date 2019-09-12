@@ -110,7 +110,7 @@ class Trigger_phase:
 
                         if(malus.is_permanent == False):
                             malus.duration -= 1
-                            effect["malus"] += f"{malus.icon}({malus.stack}|{malus.duration}) "
+                            effect["malus"] += f"{malus.icon}[{malus.stack}|{malus.duration}] "
                         
                         else:
                             effect["malus"] += f"{malus.icon}[{malus.stack}|*∞*] "

@@ -5,7 +5,7 @@ The :class:`Fight()` manages a fight, from the beginning to the end and returns 
 
 Author : DrLarck
 
-Last update : 06/09/19 (DrLarck)
+Last update : 12/09/19 (DrLarck)
 """
 
 # dependancies
@@ -187,7 +187,6 @@ class Fight:
         """
 
         # init
-        save = team
 
             # translation
         translation = Translator(self.client.db, self.player)
@@ -222,6 +221,7 @@ class Fight:
                 team_b_ref.append(_character)
         
         team[1] = team_b_ref
+        save = [team_a_ref, team_b_ref]
 
         #########################################################################
         # main loop
@@ -274,7 +274,7 @@ class Fight:
 
             # reset stat
             await self.reset_stat(team, save)
-            
+
             # trigger phase
             await self.ctx.send("```🌀 - Trigger phase```")
             await asyncio.sleep(1)

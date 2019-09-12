@@ -5,7 +5,7 @@ Check if the target has an effect active on it.
 
 Author : DrLarck
 
-Last update : 06/09/19 (DrLarck)
+Last update : 12/09/19 (DrLarck)
 """
 
 # dependancies
@@ -72,6 +72,11 @@ class Effect_checker:
         if(effect_id == 2):
             from utility.cog.character.ability.effect.buff.unity_is_strength import Buff_unity_is_strength
             effect = Buff_unity_is_strength(client, ctx, target, team_a, team_b)
+        
+        # Debuff acid explosion
+        if(effect_id == 3):
+            from utility.cog.character.ability.effect.debuff.acid_explosion import Debuff_acid_explosion
+            effect = Debuff_acid_explosion(client, ctx, target, team_a, team_b)
             
         return(effect)
 

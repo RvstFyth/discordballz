@@ -64,8 +64,19 @@ class Acid_explosion(Ability):
         move = Move_displayer()
         effect_checker = Effect_checker(self.target)
         damage_calculator = Damage_calculator(self.caster, self.target)
+        
+        # debuff
         acid_ref = await effect_checker.get_effect(
             1,
+            self.client,
+            self.ctx,
+            self.target,
+            self.team_a,
+            self.team_b
+        )
+
+        explosion_ref = await effect_checker.get_effect(
+            3,
             self.client,
             self.ctx,
             self.target,
@@ -114,6 +125,18 @@ class Acid_explosion(Ability):
                         )
                         # applies the new acid instance
                         await unit_acid.add_stack()
+        
+        # now check if the target already have explosion debuff active
+        has_explosion = await effect_checker.get_debuff(explosion_ref)
+
+        if(has_explosion != None):
+            print(f"The unity does have an explosion active")
+            # reset the duration
+            has_explosion.duration = has_explosion.initial_duration
+        
+        else:
+            print(f"The unity does not have an explosion active")
+            self.target.malus.append(explosion_ref)
         
         # setting up the move display
         _move = await move.get_new_move()
