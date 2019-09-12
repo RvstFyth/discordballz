@@ -103,7 +103,17 @@ class Acid_explosion(Ability):
                         unit_has_acid.duration = unit_has_acid.initial_duration
                     
                     else:  # the unit doesn't have acid active on it
-                        await acid_ref.add_stack()
+                        # create a new acid instance for the target
+                        unit_acid = await effect_checker.get_effect(
+                            1,
+                            self.client,
+                            self.ctx,
+                            unit,
+                            self.team_a,
+                            self.team_b
+                        )
+                        # applies the new acid instance
+                        await unit_acid.add_stack()
         
         # setting up the move display
         _move = await move.get_new_move()
