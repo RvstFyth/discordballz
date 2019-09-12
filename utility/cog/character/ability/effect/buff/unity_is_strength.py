@@ -5,20 +5,20 @@ Represents the Unity is strenght buff
 
 Author : DrLarck
 
-Last update : 07/09/19 (DrLarck)
+Last update : 12/09/19 (DrLarck)
 """
 
 # dependancies
 import asyncio
 
 # inheritance
-from utility.cog.character.ability.buff import Buff
+from utility.cog.character.ability.effect import Effect
 
 # util
 from utility.cog.character.ability.util.effect_checker import Effect_checker
 
 # unity is strenght
-class Buff_unity_is_strength(Buff):
+class Buff_unity_is_strength(Effect):
     """
     Represents the unity is strenght buff
     """
@@ -26,7 +26,7 @@ class Buff_unity_is_strength(Buff):
     # attribute
     def __init__(self, client, ctx, carrier, team_a, team_b):
         # inheritance
-        Buff.__init__(
+        Effect.__init__(
             self,
             client,
             ctx,

@@ -5,14 +5,14 @@ Represents a bonus effect
 
 Author : DrLarck
 
-Last update : 06/09/19 (DrLarck)
+Last update : 12/09/19 (DrLarck)
 """
 
 # dependancies
 import asyncio
 
 # buff
-class Buff:
+class Effect:
     """
     Represents a bonus effect.
 
