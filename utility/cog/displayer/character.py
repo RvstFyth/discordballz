@@ -5,7 +5,7 @@ Manages the displaying of the characters.
 
 Author : DrLarck
 
-Last update : 06/09/19 (DrLarck)
+Last update : 12/09/19 (DrLarck)
 """
 
 # dependancies
@@ -156,7 +156,11 @@ class Character_displayer:
                 for bonus in self.character.bonus:
                     await asyncio.sleep(0)
 
-                    team_format += f"{bonus.icon} ({bonus.stack}|{bonus.duration}) "
+                    if(bonus.is_permanent):
+                        team_format += f"{bonus.icon} ({bonus.stack}|*∞*) "
+
+                    else:    
+                        team_format += f"{bonus.icon} ({bonus.stack}|{bonus.duration}) "
             
             if(len(self.character.malus) > 0):
                 team_format += f"__Malus__ : "
@@ -164,7 +168,11 @@ class Character_displayer:
                 for malus in self.character.malus:
                     await asyncio.sleep(0)
 
-                    team_format += f"{malus.icon} ({malus.stack}|{malus.duration}) "
+                    if(malus.is_permanent):
+                        team_format += f"{malus.icon} ({malus.stack}|*∞*) "
+
+                    else:
+                        team_format += f"{malus.icon} ({malus.stack}|{malus.duration}) "
             
             embed.add_field(
                 name = f"#{index} - {self.character.image.icon}{self.character.info.name}{self.character.type.icon}",
@@ -205,7 +213,11 @@ class Character_displayer:
                 for buff in self.character.bonus:
                     await asyncio.sleep(0)
 
-                    combat_format += f"{buff.icon}[{buff.stack}|{buff.duration}]"
+                    if(buff.is_permanent):
+                        combat_format += f"{buff.icon}[{buff.stack}|*∞*]"    
+                    
+                    else:
+                        combat_format += f"{buff.icon}[{buff.stack}|{buff.duration}]"
             
             if(len(self.character.malus) > 0):
                 combat_format += f"\n__Malus__ : "

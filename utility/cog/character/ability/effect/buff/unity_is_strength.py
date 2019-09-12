@@ -12,7 +12,7 @@ Last update : 12/09/19 (DrLarck)
 import asyncio
 
 # inheritance
-from utility.cog.character.ability.effect import Effect
+from utility.cog.character.ability._effect import Effect
 
 # util
 from utility.cog.character.ability.util.effect_checker import Effect_checker
@@ -39,7 +39,6 @@ class Buff_unity_is_strength(Effect):
         self.name = "Unity is strength"
         self.icon = "<:unity_is_strenght:585503883133059074>"
 
-        self.is_permanent = True  # test
         self.initial_duration = 3
         self.stack = 1
 

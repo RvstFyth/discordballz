@@ -5,7 +5,7 @@ Manages the DOT super class.
 
 Author : DrLarck
 
-Last update : 04/09/19 (DrLarck)
+Last update : 12/09/19 (DrLarck)
 """
 
 # dependancies
@@ -80,6 +80,7 @@ class Dot:
         # duration
         self.initial_duration = 0
         self.duration = 0
+        self.is_permanent = False
 
         # stack
         self.max_stack = 0
