@@ -42,6 +42,8 @@ class Effect:
 
     `duration` : default 0 - Represents the Buff's current duration.
 
+    `is_permanent` : default False - Tells if an effect is permanent or not.
+
     `max_stack` : default 0 - Represents the Buff's max stacks.
 
     `stack` : default 0 - Represents the Buff's current stacks.
@@ -74,6 +76,7 @@ class Effect:
         # duration
         self.initial_duration = 0
         self.duration = 0
+        self.is_permanent = False
 
         # stack
         self.max_stack = 0

@@ -5,7 +5,7 @@ Manages the trigger phase.
 
 Author : DrLarck
 
-Last update : 11/09/19 (DrLarck)
+Last update : 12/09/19 (DrLarck)
 """
 
 # dependancies
@@ -88,9 +88,13 @@ class Trigger_phase:
 
                     if(bonus.duration > 0):  # check if the bonus is still active
                         await bonus.apply()
-                        bonus.duration -= 1
 
-                        effect["bonus"] += f"{bonus.icon}({bonus.stack}|{bonus.duration}) "
+                        if(bonus.is_permanent == False):
+                            bonus.duration -= 1
+                            effect["bonus"] += f"{bonus.icon}[{bonus.stack}|{bonus.duration}] "
+                        
+                        else:  # if the bonus is permanent 
+                            effect["bonus"] += f"{bonus.icon}[{bonus.stack}|*∞*] "
                     
                     else:
                         character.bonus.remove(bonus)
@@ -103,9 +107,13 @@ class Trigger_phase:
 
                     if(malus.duration > 0):
                         await malus.apply()
-                        malus.duration -= 1
 
-                        effect["malus"] += f"{malus.icon}({malus.stack}|{malus.duration}) "
+                        if(malus.is_permanent == False):
+                            malus.duration -= 1
+                            effect["malus"] += f"{malus.icon}({malus.stack}|{malus.duration}) "
+                        
+                        else:
+                            effect["malus"] += f"{malus.icon}[{malus.stack}|*∞*] "
                     
                     else:
                         character.malus.remove(malus)
