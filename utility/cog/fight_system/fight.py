@@ -53,6 +53,90 @@ class Fight:
         self.battle_phae = None
     
     # method
+    async def reset_stat(self, team, save):
+        """
+        `coroutine` 
+
+        Reset the stats of the characters, except the current health.
+
+        - Parameter :
+
+        `team` : Represents the two teams.
+
+        `save` : Represents the two teams, but untouched.
+
+        --
+
+        Return : None
+        """
+
+        # init
+        character_index = 0
+
+        # team a
+        for char_a in team[0]:
+            await asyncio.sleep(0)
+
+            # get the reference
+            char_a_ref = save[0][character_index]
+
+                # health
+            char_a.health.maximum = char_a_ref.health.maximum
+
+                # damage
+            char_a.damage.physical_max = char_a_ref.damage.physical_max
+            char_a.damage.physical_min = char_a_ref.damage.physical_min
+
+            char_a.damage.ki_max = char_a_ref.damage.ki_max
+            char_a.damage.ki_min = char_a_ref.damage.ki_min
+
+                # defense
+            char_a.defense.armor = char_a_ref.defense.armor
+            char_a.defense.spirit = char_a_ref.defense.spirit
+            char_a.defense.dodge = char_a_ref.defense.dodge
+
+                # bonus
+            char_a.critical_chance = char_a_ref.critical_chance
+            char_a.critical_bonus = char_a_ref.critical_bonus
+            char_a.regeneration.health = char_a_ref.regeneration.health
+            char_a.regeneration.ki = char_a_ref.regeneration.ki
+
+            character_index += 1
+
+        # team b
+        character_index = 0
+
+        for char_b in team[1]:
+            await asyncio.sleep(0)
+
+            # get the reference
+            char_b_ref = save[1][character_index]
+
+                # health
+            char_b.health.maximum = char_b_ref.health.maximum
+
+                # damage
+            char_b.damage.physical_max = char_b_ref.damage.physical_max
+            char_b.damage.physical_min = char_b_ref.damage.physical_min
+
+            char_b.damage.ki_max = char_b_ref.damage.ki_max
+            char_b.damage.ki_min = char_b_ref.damage.ki_min
+
+                # defense
+            char_b.defense.armor = char_b_ref.defense.armor
+            char_b.defense.spirit = char_b_ref.defense.spirit
+            char_b.defense.dodge = char_b_ref.defense.dodge
+
+                # bonus
+            char_b.critical_chance = char_b_ref.critical_chance
+            char_b.critical_bonus = char_b_ref.critical_bonus
+            char_b.regeneration.health = char_b_ref.regeneration.health
+            char_b.regeneration.ki = char_b_ref.regeneration.ki
+
+            character_index += 1
+
+        return
+
     async def get_teams_hp(self, team):
         """
         `coroutine`
@@ -103,6 +187,8 @@ class Fight:
         """
 
         # init
+        save = team
+
             # translation
         translation = Translator(self.client.db, self.player)
         #_ = await translation.translate()
@@ -186,6 +272,9 @@ class Fight:
 
             await self.battle_phae.start_battle(team, team_a_move, team_b_move, turn)
 
+            # reset stat
+            await self.reset_stat(team, save)
+            
             # trigger phase
             await self.ctx.send("```🌀 - Trigger phase```")
             await asyncio.sleep(1)
