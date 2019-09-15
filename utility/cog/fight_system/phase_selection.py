@@ -59,8 +59,8 @@ class Selection_phase:
 
         # define the bot's team
         if(player_team == 0):
-            bot_team = team[0]
-            bot_enemy = team[1]
+            bot_team = team[1]
+            bot_enemy = team[0]
         
         elif(player_team == 1):
             bot_team = team[1]

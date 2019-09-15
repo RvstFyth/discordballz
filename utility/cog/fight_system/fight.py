@@ -5,7 +5,7 @@ The :class:`Fight()` manages a fight, from the beginning to the end and returns 
 
 Author : DrLarck
 
-Last update : 12/09/19 (DrLarck)
+Last update : 15/09/19 (DrLarck)
 """
 
 # dependancies
@@ -17,6 +17,8 @@ from utility.cog.fight_system.phase_selection import Selection_phase
 from utility.cog.fight_system.phase_battle import Battle_phase
 
 from utility.cog.displayer.team import Team_displayer
+
+from utility.cog.character.getter import Character_getter
 
 # translation
 from utility.translation.translator import Translator
@@ -53,7 +55,7 @@ class Fight:
         self.battle_phae = None
     
     # method
-    async def reset_stat(self, team, save):
+    async def reset_stat(self, team):
         """
         `coroutine` 
 
@@ -61,9 +63,7 @@ class Fight:
 
         - Parameter :
 
-        `team` : Represents the two teams.
-
-        `save` : Represents the two teams, but untouched.
+        `team` : Represents the team to reset.
 
         --
 
@@ -71,14 +71,25 @@ class Fight:
         """
 
         # init
+        character_getter = Character_getter()
         character_index = 0
 
+        print("#################################################")
+
         # team a
-        for char_a in team[0]:
+        for char_a in team:
             await asyncio.sleep(0)
 
             # get the reference
-            char_a_ref = save[0][character_index]
+            char_a_ref = await character_getter.get_character(char_a.info.id)
+
+            # set the same stat as the char_a
+            char_a_ref.level = char_a.level
+            char_a_ref.rarity.value = char_a.rarity.value
+            char_a_ref.enhancement = char_a.enhancement
+            await char_a_ref.init()
+
+            print(f"Reset :\nchar a : {char_a.info.id} | ref : {char_a_ref.info.id}\nA spirit : {char_a.defense.spirit} | B : {char_a_ref.defense.spirit}")
 
                 # health
             char_a.health.maximum = char_a_ref.health.maximum
@@ -100,38 +111,6 @@ class Fight:
             char_a.critical_bonus = char_a_ref.critical_bonus
             char_a.regeneration.health = char_a_ref.regeneration.health
             char_a.regeneration.ki = char_a_ref.regeneration.ki
-
-            character_index += 1
-
-        # team b
-        character_index = 0
-
-        for char_b in team[1]:
-            await asyncio.sleep(0)
-
-            # get the reference
-            char_b_ref = save[1][character_index]
-
-                # health
-            char_b.health.maximum = char_b_ref.health.maximum
-
-                # damage
-            char_b.damage.physical_max = char_b_ref.damage.physical_max
-            char_b.damage.physical_min = char_b_ref.damage.physical_min
-
-            char_b.damage.ki_max = char_b_ref.damage.ki_max
-            char_b.damage.ki_min = char_b_ref.damage.ki_min
-
-                # defense
-            char_b.defense.armor = char_b_ref.defense.armor
-            char_b.defense.spirit = char_b_ref.defense.spirit
-            char_b.defense.dodge = char_b_ref.defense.dodge
-
-                # bonus
-            char_b.critical_chance = char_b_ref.critical_chance
-            char_b.critical_bonus = char_b_ref.critical_bonus
-            char_b.regeneration.health = char_b_ref.regeneration.health
-            char_b.regeneration.ki = char_b_ref.regeneration.ki
 
             character_index += 1
 
@@ -221,7 +200,6 @@ class Fight:
                 team_b_ref.append(_character)
         
         team[1] = team_b_ref
-        save = [team_a_ref, team_b_ref]
 
         #########################################################################
         # main loop
@@ -273,7 +251,11 @@ class Fight:
             await self.battle_phae.start_battle(team, team_a_move, team_b_move, turn)
 
             # reset stat
-            await self.reset_stat(team, save)
+                # team a
+            await self.reset_stat(team_a_ref)
+
+                # team b
+            await self.reset_stat(team_b_ref)
 
             # trigger phase
             await self.ctx.send("```🌀 - Trigger phase```")
