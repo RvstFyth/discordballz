@@ -5,7 +5,7 @@ Manages the character 3
 
 Author : DrLarck
 
-Last update : 07/09/19 (DrLarck)
+Last update : 15/09/19 (DrLarck)
 """
 
 # dependancies
@@ -16,6 +16,7 @@ from utility.cog.character.character import Character
 
 # test
 from utility.cog.character.ability.list.acid import Acid
+from utility.cog.character.ability.list.spreading_acid import Spreading_acid
 
 # Red Saibaiman
 class Character_3(Character):
@@ -56,4 +57,4 @@ class Character_3(Character):
         self.critical_chance = 10
 
         # ability
-        self.ability = [Acid]
+        self.ability = [Acid, Spreading_acid]
