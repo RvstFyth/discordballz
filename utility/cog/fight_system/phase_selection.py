@@ -5,7 +5,7 @@ Manages the selection phase.
 
 Author : DrLarck
 
-Last update : 06/09/19 (DrLarck)
+Last update : 15/09/19 (DrLarck)
 """
 
 # dependancies
@@ -363,8 +363,8 @@ class Selection_phase:
 
             # get the posture
             posture, posture_icon = await unit.posture.get_posture()
-
-            target_display += f"{unit_index}. {unit.image.icon}**{unit.info.name}**{unit.type.icon} - **{unit.health.current:,}** :hearts: : {posture}{posture_icon}\n"
+            health_percent = int((unit.health.current * 100) / unit.health.maximum)
+            target_display += f"{unit_index}. {unit.image.icon}**{unit.info.name}**{unit.type.icon} - **{unit.health.current:,}**/**{unit.health.maximum:,}**:hearts: *({health_percent} %)* : {posture}{posture_icon}\n"
             
             # get the ally's bonus
             if(len(unit.bonus) > 0):
@@ -400,7 +400,7 @@ class Selection_phase:
 
                     malus_index += 1
                 
-                target_display += "\n"
+                target_display += "\n\n"
 
             unit_index += 1
         

@@ -30,7 +30,7 @@ class Spreading_acid(Ability):
             client,
             ctx,
             caster,
-            target,
+            caster,
             team_a,
             team_b
         )
@@ -38,10 +38,6 @@ class Spreading_acid(Ability):
         # ability
         self.name = "Spreading acid"
         self.cost = 30
-
-        # targetting
-        self.need_target = True
-        self.target_enemy = True
     
     # method
     async def use(self):
@@ -57,14 +53,14 @@ class Spreading_acid(Ability):
 
         # init
         move = Move_displayer()
-        effect_checker = Effect_checker(self.target)
+        effect_checker = Effect_checker(self.caster)
         has_unity = False
 
         acid_ref = await effect_checker.get_effect(
             1,
             self.client,
             self.ctx,
-            self.target,
+            self.caster,
             self.team_a,
             self.team_b
         )
@@ -73,7 +69,7 @@ class Spreading_acid(Ability):
             2,
             self.client,
             self.ctx,
-            self.target,
+            self.caster,
             self.team_a,
             self.team_b
         )
@@ -105,5 +101,7 @@ class Spreading_acid(Ability):
         _move["name"] = self.name
         _move["icon"] = self.icon
         _move["ki"] = True
+
+        _move = await move.effect_move(_move)
 
         return(_move)
