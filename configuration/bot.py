@@ -5,7 +5,7 @@ Here is the basic configuration of the bot.
 
 Author : DrLarck
 
-Last update : 21/08/19 (DrLarck)
+Last update : 15/09/19 (DrLarck)
 """
 
 # dependancies
@@ -63,4 +63,14 @@ class Bot_config:
         "ssr" : 10,
         "ur" : 1,
         "lr" : 0.1
+    }
+
+    # level per rarity
+    rarity_level = {
+        "n" : 20,
+        "r" : 40,
+        "sr" : 60,
+        "ssr" : 80,
+        "ur" : 120,
+        "lr" : 150
     }

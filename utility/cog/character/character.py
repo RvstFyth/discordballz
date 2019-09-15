@@ -5,7 +5,7 @@ Every character classes inherit from the :class:`Character()` defined below.
 
 Author : DrLarck
 
-Last update : 08/09/19 (DrLarck)
+Last update : 15/09/19 (DrLarck)
 """
 
 # dependancies
@@ -208,21 +208,22 @@ class Character:
         # set stat
         if(self.is_init == False):
             await self.set_stat()
+
+            # set display
+            self.rarity.icon = await icon.get_rarity_icon(self.rarity.value)
+            self.type.icon = await icon.get_type_icon(self.type.value)
+            self.info.expansion, self.image.expansion = await category.get_expansion(self.info.expansion)
+
+            # icons
+                # type
+            self.type.icon = await icon.get_type_icon(self.type.value)
+                # rarity
+            self.rarity.icon = await icon.get_rarity_icon(self.rarity.value)
+
+            # translation
+            await self.translate()
+
             self.is_init = True
-
-        # set display
-        self.rarity.icon = await icon.get_rarity_icon(self.rarity.value)
-        self.type.icon = await icon.get_type_icon(self.type.value)
-        self.info.expansion, self.image.expansion = await category.get_expansion(self.info.expansion)
-
-        # icons
-            # type
-        self.type.icon = await icon.get_type_icon(self.type.value)
-            # rarity
-        self.rarity.icon = await icon.get_rarity_icon(self.rarity.value)
-
-        # translation
-        await self.translate()
 
         return
     

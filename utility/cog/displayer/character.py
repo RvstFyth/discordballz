@@ -5,7 +5,7 @@ Manages the displaying of the characters.
 
 Author : DrLarck
 
-Last update : 12/09/19 (DrLarck)
+Last update : 15/09/19 (DrLarck)
 """
 
 # dependancies
@@ -15,7 +15,11 @@ import asyncio
 from configuration.icon import game_icon
 from configuration.color import game_color
 
+# config
+from configuration.bot import Bot_config
+
 # utils
+from utility.cog.character.getter import Character_getter
     # translation
 from utility.translation.translator import Translator
 
@@ -52,7 +56,7 @@ class Character_displayer:
         self.character = None
     
     # method
-    async def display(self, summon_format = False, basic_format = False, combat_format = False, team_format = False, index = 0):
+    async def display(self, summon_format = False, basic_format = False, combat_format = False, team_format = False, level = None, index = 0):
         """
         `coroutine`
 
@@ -64,6 +68,8 @@ class Character_displayer:
         """
 
         # init
+        await self.character.init()
+        character_getter = Character_getter()
         translation = Translator(self.client.db, self.player)
         #_ = await translation.translate()
         posture_icon = [":crossed_swords:", ":fire:", ":shield:", ":confused:"]
@@ -127,6 +133,80 @@ class Character_displayer:
             )
 
             await self.ctx.send(embed = embed)
+
+        ## BASIC FORMAT ##
+        elif(basic_format):
+            # get a character a second character for the comparison
+            comparison = await character_getter.get_character(self.character.info.id)
+
+            if(level != None):
+                if(level > 0):
+                    comparison.level = level
+
+                    # get the rarity
+                    if(level <= Bot_config.rarity_level["n"]):
+                        comparison.rarity.value = 0
+
+                        # check if r
+                    if(level <= Bot_config.rarity_level["r"] and level > Bot_config.rarity_level["n"]):
+                        comparison.rarity.value = 1
+
+                        # check if sr
+                    elif(level <= Bot_config.rarity_level["sr"] and level > Bot_config.rarity_level["r"]):
+                        comparison.rarity.value = 2
+                    
+                        # check if ssr
+                    elif(level <= Bot_config.rarity_level["ssr"] and level > Bot_config.rarity_level["sr"]):
+                        comparison.rarity.value = 3
+                    
+                        # check if ur
+                    elif(level <= Bot_config.rarity_level["ur"] and level > Bot_config.rarity_level["ssr"]):
+                        comparison.rarity.value = 4
+                    
+                        # check if lr
+                    elif(level <= Bot_config.rarity_level["lr"] and level > Bot_config.rarity_level["ur"]):
+                        comparison.rarity.value = 5
+            
+            else:
+                comparison.rarity.value = 5
+                level = 150
+                comparison.level = level
+            
+            await comparison.init()
+
+            # set up the message
+            basic_format = f"__Name__ : {self.character.image.icon}*{self.character.info.name}* {self.character.type.icon} {self.character.rarity.icon} `#{self.character.info.id}`\n"
+            basic_format += f"__Expansion__ : *{self.character.info.expansion}*{self.character.image.expansion}\n"
+            basic_format += f"__Level__ : {self.character.level} vs *({level} {comparison.rarity.icon})*\n"
+            basic_format += f"__Saga__ : *{self.character.info.saga}*\n"
+            basic_format += f"__Health__ : **{self.character.health.maximum:,}**:hearts: *({comparison.health.maximum:,})*\n"
+            basic_format += f"__Damage__ :\n:crossed_swords: **{self.character.damage.physical_max:,}** *({comparison.damage.physical_max:,})* \n{game_icon['ki_ability']} **{self.character.damage.ki_max:,}** *({comparison.damage.ki_max:,})*\n"
+            basic_format += f"__Defense__ :\n:shield: **{self.character.defense.armor:,}** *({comparison.defense.armor:,})*\n:rosette: **{self.character.defense.spirit:,}** *({comparison.defense.spirit:,})*\n"
+
+            # setup the embed
+            embed = await Custom_embed(self.client, thumb = self.character.image.thumb).setup_embed()
+
+            embed.add_field(
+                name = f"{self.character.info.name}'s stats",
+                value = basic_format,
+                inline = False
+            )
+
+            embed.set_image(url = self.character.image.image)
+
+            # sending the embed
+            await self.ctx.send(embed = embed)
+
+            # now send the abilities info
+            if(len(self.character.ability) > 0):
+                for skill in self.character.ability:
+                    await asyncio.sleep(0)
+
+                    _skill = skill(self.client, self.ctx, None, None, None, None)
+
+                    message = f"{_skill.icon}**__{_skill.name}__** : *{_skill.description}*"
+
+                    await self.ctx.send(message)
 
         ## TEAM FORMAT ##
         elif(team_format):
