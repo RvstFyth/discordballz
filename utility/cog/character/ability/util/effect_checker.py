@@ -5,7 +5,7 @@ Check if the target has an effect active on it.
 
 Author : DrLarck
 
-Last update : 12/09/19 (DrLarck)
+Last update : 21/09/19 (DrLarck)
 """
 
 # dependancies
@@ -77,6 +77,11 @@ class Effect_checker:
         if(effect_id == 3):
             from utility.cog.character.ability.effect.debuff.acid_explosion import Debuff_acid_explosion
             effect = Debuff_acid_explosion(client, ctx, target, team_a, team_b)
+        
+        # Debuff Paralyzing burns
+        if(effect_id == 4):
+            from utility.cog.character.ability.effect.debuff.paralyzing_burns import Debuff_Paralyzing_burns
+            effect = Debuff_Paralyzing_burns(client, ctx, target, team_a, team_b)
             
         return(effect)
 

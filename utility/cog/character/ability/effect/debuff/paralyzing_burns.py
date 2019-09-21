@@ -34,6 +34,10 @@ class Debuff_Paralyzing_burns(Effect):
             team_b
         )
 
+        # info
+        self.name = "Paralyzing burns"
+        self.id = 4
+
         # duration
         self.initial_duration = 2
         self.duration = 2
