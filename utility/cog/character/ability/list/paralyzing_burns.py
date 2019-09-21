@@ -137,6 +137,9 @@ class Paralyzing_burns(Ability):
                     
                     # apply the debuff on the target
                     self.target.malus.append(paralyzing_ref)
+                
+                # consums all the acid stacks
+                self.target.malus.remove(has_acid)
 
             else:  # the target has less that 3 acid stacks
                 pass
