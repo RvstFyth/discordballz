@@ -5,7 +5,7 @@ Manages the selection phase.
 
 Author : DrLarck
 
-Last update : 15/09/19 (DrLarck)
+Last update : 21/09/19 (DrLarck)
 """
 
 # dependancies

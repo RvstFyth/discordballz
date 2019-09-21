@@ -5,7 +5,7 @@ Manages the way the move are displayed.
 
 Author : DrLarck
 
-Last update : 30/08/19 (DrLarck)
+Last update : 21/09/19 (DrLarck)
 """
 
 # dependancies
@@ -45,11 +45,17 @@ class Move_displayer:
         - Key :
 
         "name" : None,
+
         "icon" : None,
+
         "damage" : 0,
+
         "critical" : False,
+
         "dodge" : False,
+
         "physical" : False,
+
         "ki" : False        
         """
 

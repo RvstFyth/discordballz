@@ -5,7 +5,7 @@ Manages the character 4
 
 Author : DrLarck
 
-Last update : 06/09/19 (DrLarck)
+Last update : 21/09/19 (DrLarck)
 """
 
 # dependancies
@@ -15,7 +15,7 @@ import asyncio
 from utility.cog.character.character import Character
 
 # test
-from utility.cog.character.ability.list.acid import Acid
+from utility.cog.character.ability.list.rolling_smash import Rolling_smash
 
 # Pilaf Machine
 class Character_4(Character):
@@ -55,4 +55,4 @@ class Character_4(Character):
         # crit
         self.critical_chance = 10
 
-        self.ability = [Acid]
+        self.ability = [Rolling_smash]
