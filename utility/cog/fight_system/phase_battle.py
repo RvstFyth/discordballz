@@ -5,7 +5,7 @@ Manages the battle phase.
 
 Author : DrLarck
 
-Last update : 06/09/19 (DrLarck)
+Last update : 21/09/19 (DrLarck)
 """
 
 # dependancies
@@ -207,6 +207,15 @@ class Battle_phase:
 
                                     character.ki.current -= ability.cost
                                     await character.ki.ki_limit()
+                    
+                    else:  # if the character is dead or stunned
+                        # dead
+                        if(character.health.current <= 0):
+                            team_a["display"] += f"\n{unit_index}. {character.image.icon}**{character.info.name}**{character.type.icon} is **K.O**:skull: !"
+                            
+                        # alive but stunned
+                        elif(character.health.current > 0 and character.posture.stunned == True) :
+                            team_a["display"] += f"\n{unit_index}. {character.image.icon}**{character.info.name}**{character.type.icon} is **Stunned**:dizzy_face:, he can't do anything !"
                 
                 # end of loop
 
