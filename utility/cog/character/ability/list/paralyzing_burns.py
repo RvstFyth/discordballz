@@ -46,6 +46,7 @@ class Paralyzing_burns(Ability):
 
         # stat
         self.name = "Paralyzing burns"
+        self.icon = "<:paralyzing_burns_ki:590183299335323659>"
         self.cost = 75
         
         # targetting

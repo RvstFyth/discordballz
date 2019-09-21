@@ -5,7 +5,7 @@ Manages the Acid Explosion ability.
 
 Author : DrLarck
 
-Last update : 12/09/19 (DrLarck)
+Last update : 21/09/19 (DrLarck)
 """
 
 # dependancies
@@ -130,12 +130,10 @@ class Acid_explosion(Ability):
         has_explosion = await effect_checker.get_debuff(explosion_ref)
 
         if(has_explosion != None):
-            print(f"The unity does have an explosion active")
             # reset the duration
             has_explosion.duration = has_explosion.initial_duration
         
         else:
-            print(f"The unity does not have an explosion active")
             self.target.malus.append(explosion_ref)
         
         # setting up the move display

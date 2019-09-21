@@ -36,6 +36,7 @@ class Debuff_Paralyzing_burns(Effect):
 
         # info
         self.name = "Paralyzing burns"
+        self.icon = "<:paralyzing_burns:590183265886011392>"
         self.id = 4
 
         # duration

@@ -5,7 +5,7 @@ The :class:`Fight()` manages a fight, from the beginning to the end and returns 
 
 Author : DrLarck
 
-Last update : 15/09/19 (DrLarck)
+Last update : 21/09/19 (DrLarck)
 """
 
 # dependancies
@@ -74,8 +74,6 @@ class Fight:
         character_getter = Character_getter()
         character_index = 0
 
-        print("#################################################")
-
         # team a
         for char_a in team:
             await asyncio.sleep(0)
@@ -88,8 +86,6 @@ class Fight:
             char_a_ref.rarity.value = char_a.rarity.value
             char_a_ref.enhancement = char_a.enhancement
             await char_a_ref.init()
-
-            print(f"Reset :\nchar a : {char_a.info.id} | ref : {char_a_ref.info.id}\nA spirit : {char_a.defense.spirit} | B : {char_a_ref.defense.spirit}")
 
                 # health
             char_a.health.maximum = char_a_ref.health.maximum
