@@ -5,7 +5,7 @@ Manages the Acid Explosion ability.
 
 Author : DrLarck
 
-Last update : 21/09/19 (DrLarck)
+Last update : 22/09/19 (DrLarck)
 """
 
 # dependancies
@@ -38,6 +38,10 @@ class Acid_explosion(Ability):
         )
 
         self.name = "Acid explosion"
+        self.description = f"""Inflicts **50 %** of your {self.game_icon['ki_ability']} damage.
+If the target has at least **3** stacks of **__Acid__** : **Add** a stack of **__Acid__** to all the target's team members.
+Applies the **__Acid explosion__** malus to the **main target** which will reduce the target's :rosette: by **2 %** : Lasts **2** turns."""
+
         self.icon = "<:acid_explosion_ki:590111692751372288>"
         self.cost = 30
 

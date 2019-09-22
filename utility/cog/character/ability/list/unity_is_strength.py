@@ -5,7 +5,7 @@ Manages the Unity is Strength ability.
 
 Author : DrLarck
 
-Last update : 06/09/19 (DrLarck)
+Last update : 22/09/19 (DrLarck)
 """
 
 # dependancies
@@ -39,6 +39,10 @@ class Unity_is_strength(Ability):
 
         # info
         self.name = "Unity is strength"
+        self.description = f"""Applies the **__Unity is strength__** bonus on all the **Saibaiman** in your team.
+Heals up the carriers of the bonus for an amount of **1 %** of the carrier's {self.game_icon['ki_ability']} per active **__Acid__** stack on the **enemy team**.
+Moreover, **your team** stacks up **__Acid__** **2** time faster on the **enemy team** and increase their **maximum stack** and **duration** by **2**."""
+
         self.icon = "<:unity_is_strenght:585503883133059074>"
         self.cost = 60
 

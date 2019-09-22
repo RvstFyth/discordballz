@@ -5,7 +5,7 @@ Manages the paralyzing burns ability.
 
 Author : DrLarck
 
-Last update : 21/09/19 (DrLarck)
+Last update : 22/09/19 (DrLarck)
 """
 
 # dependancies
@@ -46,6 +46,10 @@ class Paralyzing_burns(Ability):
 
         # stat
         self.name = "Paralyzing burns"
+        self.description = f"""If the target has at least **3** stack of **__Acid__** active on it : get **Stunned** for **2** turns.
+If the target has more than **3** **__Acid__** stack on it : get **Stunned** for **4** turns.
+**Remove** al the **__Acid__** stacks on the target."""
+
         self.icon = "<:paralyzing_burns_ki:590183299335323659>"
         self.cost = 75
         

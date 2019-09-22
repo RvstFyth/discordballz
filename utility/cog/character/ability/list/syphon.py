@@ -5,7 +5,7 @@ Manages the syphon ability
 
 Author : DrLarck
 
-Last update : 11/09/19 (DrLarck)
+Last update : 22/09/19 (DrLarck)
 """
 
 # dependancies
@@ -42,6 +42,9 @@ class Syphon(Ability):
         )
 
         self.name = "Syphon"
+        self.description = f"""Inflicts **10 % (+ 2 % of the target's Missing :hearts: per __Acid__ stacks on the target)** of your {self.game_icon['ki_ability']} damage.
+Heals you for an amount of **50 %** of the damage dealt."""
+
         self.icon = "<:syphon:585503902846418961>"
         self.cost = 25
 

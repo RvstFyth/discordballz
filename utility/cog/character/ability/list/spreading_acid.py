@@ -5,7 +5,7 @@ Manages the spreading acid ability.
 
 Author : DrLarck
 
-Last update : 21/09/19 (DrLarck)
+Last update : 22/09/19 (DrLarck)
 """
 
 # dependancies
@@ -37,6 +37,8 @@ class Spreading_acid(Ability):
 
         # ability
         self.name = "Spreading acid"
+        self.description = f"""Add a stack of **__Acid__** to all the active **__Acid__** malus."""
+
         self.icon = "<:spreading_acid_ki:590184731232960523>"
         self.cost = 30
     

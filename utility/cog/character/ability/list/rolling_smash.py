@@ -42,7 +42,9 @@ class Rolling_smash(Ability):
 
         # stat
         self.name = "Rolling smash"
-        self.description = f"Inflicts **150 %** of your :punch: damage. Ignores target's damage reduction.\n{self.game_icon['cooldown']}**Cooldown** : **4** turns."
+        self.description = f"""Inflicts **150 %** of your :punch: damage. Ignores target's damage reduction.
+{self.game_icon['cooldown']}**Cooldown** : **4** turns."""
+
         self.cost = 0
         self.cooldown = 0  # can be used at first turn
 

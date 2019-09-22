@@ -5,7 +5,7 @@ Manages the Acid ability.
 
 Author : DrLarck
 
-Last update : 22/08/19 (DrLarck)
+Last update : 22/09/19 (DrLarck)
 """
 
 # dependance
@@ -40,7 +40,12 @@ class Acid(Ability):
         )
 
         self.name = "Acid"
+
         self.icon = "<:acid:583953112406949888>"
+        self.description = f"""Inflicts **25 %** of your {self.game_icon['ki_ability']} damage and applies a stack of **__Acid__** to the target.
+Each stack of **__Acid__** inflicts an amount of **1.5 % (+ 5 % of the highest Saibaiman {self.game_icon['ki_ability']} /250 in your team)** of the target's **Maximum** :hearts: as {self.game_icon['ki_ability']} damage per stack each turn.
+Lasts **3** turns."""
+
         self.cost = 8
         self.need_target = True
         self.target_enemy = True

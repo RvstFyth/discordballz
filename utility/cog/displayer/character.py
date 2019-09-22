@@ -204,7 +204,7 @@ class Character_displayer:
 
                     _skill = skill(self.client, self.ctx, None, None, None, None)
 
-                    message = f"{_skill.icon}**__{_skill.name}__** : *{_skill.description}*"
+                    message = f"{_skill.icon}**__{_skill.name}__** (:fire: *{_skill.cost}*): *{_skill.description}*\n--"
 
                     await self.ctx.send(message)
 
