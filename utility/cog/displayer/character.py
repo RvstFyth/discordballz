@@ -5,7 +5,7 @@ Manages the displaying of the characters.
 
 Author : DrLarck
 
-Last update : 15/09/19 (DrLarck)
+Last update : 22/09/19 (DrLarck)
 """
 
 # dependancies
@@ -89,7 +89,7 @@ class Character_displayer:
             summon_format = f"__Name__ : {self.character.image.icon}*{self.character.info.name}* {self.character.type.icon} {self.character.rarity.icon} `#{self.character.info.id}`\n"
             summon_format += f"__Expansion__ : *{self.character.info.expansion}*{self.character.image.expansion}\n"
             summon_format += f"__Saga__ : *{self.character.info.saga}*\n"
-            summon_format += f"__Damage__ :\n:crossed_swords: **{self.character.damage.physical_min:,}** - **{self.character.damage.physical_max:,}** \n{game_icon['ki_ability']} **{self.character.damage.ki_min:,}** - **{self.character.damage.ki_max:,}** \n"
+            summon_format += f"__Damage__ :\n:punch: **{self.character.damage.physical_min:,}** - **{self.character.damage.physical_max:,}** \n{game_icon['ki_ability']} **{self.character.damage.ki_min:,}** - **{self.character.damage.ki_max:,}** \n"
             summon_format += f"__Defense__ :\n:shield: **{self.character.defense.armor:,}**\n:rosette: **{self.character.defense.spirit:,}**\n"
             summon_format += f"__Abilities__ :\n"
             # get the abilities
@@ -180,7 +180,7 @@ class Character_displayer:
             basic_format += f"__Level__ : {self.character.level} vs *({level} {comparison.rarity.icon})*\n"
             basic_format += f"__Saga__ : *{self.character.info.saga}*\n"
             basic_format += f"__Health__ : **{self.character.health.maximum:,}**:hearts: *({comparison.health.maximum:,})*\n"
-            basic_format += f"__Damage__ :\n:crossed_swords: **{self.character.damage.physical_max:,}** *({comparison.damage.physical_max:,})* \n{game_icon['ki_ability']} **{self.character.damage.ki_max:,}** *({comparison.damage.ki_max:,})*\n"
+            basic_format += f"__Damage__ :\n:punch: **{self.character.damage.physical_max:,}** *({comparison.damage.physical_max:,})* \n{game_icon['ki_ability']} **{self.character.damage.ki_max:,}** *({comparison.damage.ki_max:,})*\n"
             basic_format += f"__Defense__ :\n:shield: **{self.character.defense.armor:,}** *({comparison.defense.armor:,})*\n:rosette: **{self.character.defense.spirit:,}** *({comparison.defense.spirit:,})*\n"
 
             # setup the embed
@@ -281,7 +281,7 @@ class Character_displayer:
             # formatting the embed
             combat_format = f"__Health__ : \n**{self.character.health.current:,}** / **{self.character.health.maximum:,}** :hearts: \n"
             combat_format += f"__Posture__ : {posture}\n"
-            combat_format += f"__Damage__ :\n:crossed_swords: **{self.character.damage.physical_min:,}** - **{self.character.damage.physical_max:,}** \n{game_icon['ki_ability']} **{self.character.damage.ki_min:,}** - **{self.character.damage.ki_max:,}** \n"
+            combat_format += f"__Damage__ :\n:punch: **{self.character.damage.physical_min:,}** - **{self.character.damage.physical_max:,}** \n{game_icon['ki_ability']} **{self.character.damage.ki_min:,}** - **{self.character.damage.ki_max:,}** \n"
             combat_format += f"__Defense__ :\n:shield: **{self.character.defense.armor:,}**\n:rosette: **{self.character.defense.spirit:,}**\n"
             combat_format += f"__Ki__ : **{self.character.ki.current}** :fire:"
 

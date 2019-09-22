@@ -5,11 +5,14 @@ Ability super class.
 
 Author : DrLarck
 
-Last update : 04/09/19 (DrLarck)
+Last update : 22/09/19 (DrLarck)
 """
 
 # dependance
 import asyncio
+
+# graphic
+from configuration.icon import game_icon
 
 # super class
 class Ability:
@@ -68,6 +71,7 @@ class Ability:
         self.name = None
         self.description = None
         self.icon = "<:notfound:617735236473585694>"
+        self.game_icon = game_icon
 
         # condition
         self.cost = 0

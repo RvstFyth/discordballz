@@ -5,11 +5,12 @@ Manages the icons.
 
 Author : DrLarck
 
-Last update : 28/08/19 (DrLarck)
+Last update : 22/09/19 (DrLarck)
 """
 
 game_icon = {
     "ki_ability" : "<:power:602612684898435132>",
+    "cooldown" : ":hourglass:",
 
     # resource
     "dragonstone" : "<:dragonstone:594954189579354112>",
