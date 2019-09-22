@@ -5,7 +5,7 @@ Every character classes inherit from the :class:`Character()` defined below.
 
 Author : DrLarck
 
-Last update : 15/09/19 (DrLarck)
+Last update : 22/09/19 (DrLarck)
 """
 
 # dependancies
@@ -92,6 +92,8 @@ class Character:
             }
         }
     }
+
+    `ability_sorted` : bool - Tells if the ability list has been replaced
 
     - Method :
 
@@ -181,6 +183,7 @@ class Character:
 
         # ability
         # list of abilities
+        self.ability_sorted = False
         self.ability = []
         self.passive = []
         self.leader = []
@@ -324,16 +327,26 @@ class Character:
         
         # find the ability then create an instance of it
         ability = self.ability[ability_index]
-
-        # pass the parameter to the ability instance
-        ability = ability(
-            client,
-            ctx,
-            caster,
-            target,
-            team_a,
-            team_b
-        )
+        if(self.ability_sorted == False):
+            ability = ability(
+                client,
+                ctx,
+                caster,
+                target,
+                team_a,
+                team_b
+            )
+        
+        else:
+            # pass the parameter to the ability instance
+            ability.__init__(
+                client,
+                ctx,
+                caster,
+                target,
+                team_a,
+                team_b
+            )
 
         return(ability)
         
@@ -520,26 +533,6 @@ class Character:
                     targetable = targetable_a + targetable_b
 
                     move["target"] = choice(targetable)
-
-                    # redefine ability parameter
-                    ability.__init__(
-                        client,
-                        ctx,
-                        self,
-                        move["target"],
-                        team_a,
-                        team_b
-                    )
-                
-                else:
-                    ability.__init__(
-                        client,
-                        ctx,
-                        self,
-                        None,
-                        team_a,
-                        team_b
-                    )
 
                 move["move"] = ability_choice
             

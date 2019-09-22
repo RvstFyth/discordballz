@@ -117,24 +117,34 @@ class Selection_phase:
                                 # init
                                 kit += "\n\n__Abilities__ :\n\n"
                                 ability_index = 4
+                                new_ability_list = []
 
                                 for ability in character.ability:
                                     await asyncio.sleep(0)
 
-                                    ability = ability(
-                                        self.client,
-                                        self.ctx,
-                                        None,
-                                        None,
-                                        None,
-                                        None
-                                    )
+                                    if(character.ability_sorted == False):
+                                        # create a fake instance of the ability if not sorted
+                                        ability = ability(
+                                            self.client,
+                                            self.ctx,
+                                            None,
+                                            None,
+                                            None,
+                                            None
+                                        )
+
+                                        new_ability_list.append(ability)
 
                                     # add a new possible action
                                     possible_action.append(str(ability_index))
 
                                     kit += f"`{ability_index}. {ability.name}`{ability.icon} (:fire: {ability.cost} / {character.ki.current})\n"
                                     ability_index += 1
+                                
+                                if(character.ability_sorted == False):
+                                    # replace the current character ability list by the new one
+                                    character.ability = new_ability_list
+                                    character.ability_sorted = True
                             
                             else:
                                 kit += "\n"
@@ -244,14 +254,6 @@ class Selection_phase:
                                             # -4 because we start counting at 4
                                             # 4(choice) == first ability 
                                             ability = character.ability[move-4]
-                                            ability = ability(
-                                                self.client,
-                                                self.ctx,
-                                                None,
-                                                None,
-                                                None,
-                                                None
-                                            )
 
                                             # check if the ability needs a target
                                             need_target = ability.need_target

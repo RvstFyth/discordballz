@@ -200,7 +200,7 @@ class Battle_phase:
                                         _team_b,
                                         character_move["move"] - 4
                                     )
-
+                                    
                                     # use the ability
                                     # the ability returns the display
                                     team_a["display"] += await ability.use()
@@ -235,5 +235,9 @@ class Battle_phase:
 
                 if(len(team_a["display"]) > 0):
                     await self.ctx.send(embed = team_a_embed)
+        
+            # swap the team
+            _team_a = team[1]
+            _team_b = team[0]
 
         return
