@@ -457,16 +457,7 @@ class Character:
             for ability in self.ability:
                 await asyncio.sleep(0)
 
-                ability_list.append(
-                    ability(
-                        None,
-                        None,
-                        None,
-                        None,
-                        None,
-                        None
-                    )
-                )
+                ability_list.append(ability)
 
             # order the list
             # if the ability is less expansive then the targetted ability

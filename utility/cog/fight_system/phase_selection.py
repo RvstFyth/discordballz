@@ -134,6 +134,10 @@ class Selection_phase:
                                         )
 
                                         new_ability_list.append(ability)
+                                    
+                                    # reduce the cd by one
+                                    if(ability.cooldown > 0):
+                                        ability.cooldown -= 1
 
                                     # add a new possible action
                                     possible_action.append(str(ability_index))
@@ -325,6 +329,37 @@ class Selection_phase:
                                         decision = False
 
                     else:  # the character is a bot
+                        # sort the bot abilities
+                        if(len(character.ability) > 0):  # if the character has an ability
+                            # init                            
+                            new_ability_list = []
+
+                            for ability in character.ability:
+                                await asyncio.sleep(0)
+
+                                if(character.ability_sorted == False):
+                                    # create a fake instance of the ability if not sorted
+                                    ability = ability(
+                                        self.client,
+                                        self.ctx,
+                                        None,
+                                        None,
+                                        None,
+                                        None
+                                    )
+
+                                    new_ability_list.append(ability)
+                                
+                                # reduce the cd by one
+                                if(ability.cooldown > 0):
+                                    ability.cooldown -= 1
+                            
+                            if(character.ability_sorted == False):
+                                # replace the current character ability list by the new one
+                                character.ability = new_ability_list
+                                character.ability_sorted = True
+
+                        # generate a move for the npc
                         bot_move = await character.bot(self.client, self.ctx, self.player, bot_team, bot_enemy, self.turn)
 
                         move_list.append(bot_move)
