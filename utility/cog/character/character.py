@@ -478,7 +478,8 @@ class Character:
                 await asyncio.sleep(0)
 
                 if(self.ki.current >= __ability.cost):
-                    usable_ability.append(__ability)
+                    if(__ability.cooldown <= 0):
+                        usable_ability.append(__ability)
                 
                 else:
                     break
