@@ -5,7 +5,7 @@ Check if the target has an effect active on it.
 
 Author : DrLarck
 
-Last update : 21/09/19 (DrLarck)
+Last update : 22/09/19 (DrLarck)
 """
 
 # dependancies
@@ -82,6 +82,11 @@ class Effect_checker:
         if(effect_id == 4):
             from utility.cog.character.ability.effect.debuff.paralyzing_burns import Debuff_Paralyzing_burns
             effect = Debuff_Paralyzing_burns(client, ctx, target, team_a, team_b)
+
+        # Buff Pilaf barrier
+        if(effect_id == 5):
+            from utility.cog.character.ability.effect.buff.pilaf_barrier import Buff_pilaf_barrier
+            effect = Buff_pilaf_barrier(client, ctx, target, team_a, team_b)
             
         return(effect)
 

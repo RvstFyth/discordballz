@@ -6,6 +6,8 @@ Here are listed all the effects id sorted by effect type :
 
 **Unity is strenght** : 2
 
+**Pilaf barrier** : 5
+
 ### Debuff
 
 **Acid explosion** : 3
