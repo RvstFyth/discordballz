@@ -5,7 +5,7 @@ Represents a bonus effect
 
 Author : DrLarck
 
-Last update : 12/09/19 (DrLarck)
+Last update : 22/09/19 (DrLarck)
 """
 
 # dependancies
@@ -48,6 +48,8 @@ class Effect:
 
     `stack` : default 0 - Represents the Buff's current stacks.
 
+    `triggered` : default False - Tells if an effect has already been triggered or not.
+
     - Method :
 
     :coro:`translate()` : Allows you to translate the Buff's strings.
@@ -81,6 +83,9 @@ class Effect:
         # stack
         self.max_stack = 1
         self.stack = 1
+
+        # check
+        self.triggered = False
     
     # method
     async def translate(self):

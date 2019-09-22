@@ -87,6 +87,11 @@ class Effect_checker:
         if(effect_id == 5):
             from utility.cog.character.ability.effect.buff.pilaf_barrier import Buff_pilaf_barrier
             effect = Buff_pilaf_barrier(client, ctx, target, team_a, team_b)
+        
+        # Buff Triple pilots
+        if(effect_id == 6):
+            from utility.cog.character.ability.effect.buff.triple_pilots import Buff_triple_pilots
+            effect = Buff_triple_pilots(client, ctx, target, team_a, team_b)
             
         return(effect)
 

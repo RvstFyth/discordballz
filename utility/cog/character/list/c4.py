@@ -17,6 +17,9 @@ from utility.cog.character.character import Character
 # test
 from utility.cog.character.ability.list.rolling_smash import Rolling_smash
 from utility.cog.character.ability.list.pilaf_barrier import Pilaf_barrier
+from utility.cog.character.ability.list.triple_pilots import Triple_pilots
+
+from utility.cog.character.passive.triple_pilots import Passive_triple_pilots
 
 # Pilaf Machine
 class Character_4(Character):
@@ -60,4 +63,5 @@ class Character_4(Character):
         # crit
         self.critical_chance = 10
 
-        self.ability = [Rolling_smash, Pilaf_barrier]
+        self.ability = [Rolling_smash, Pilaf_barrier, Triple_pilots]
+        self.passive = [Passive_triple_pilots]

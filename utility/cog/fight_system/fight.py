@@ -5,7 +5,7 @@ The :class:`Fight()` manages a fight, from the beginning to the end and returns 
 
 Author : DrLarck
 
-Last update : 21/09/19 (DrLarck)
+Last update : 22/09/19 (DrLarck)
 """
 
 # dependancies
@@ -268,6 +268,7 @@ class Fight:
                 await asyncio.sleep(0)
 
                 await self.trigger_phase.trigger_effect(self.ctx, character_index, character_a)
+                await self.trigger_phase.trigger_passive(self.client, self.ctx, character_a)
 
                 character_index += 1
 
@@ -280,6 +281,7 @@ class Fight:
                 await asyncio.sleep(0)
 
                 await self.trigger_phase.trigger_effect(self.ctx, character_index, character_b)
+                await self.trigger_phase.trigger_passive(self.client, self.ctx, character_b)
 
                 character_index += 1
 

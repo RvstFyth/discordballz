@@ -5,7 +5,7 @@ Manages the trigger phase.
 
 Author : DrLarck
 
-Last update : 12/09/19 (DrLarck)
+Last update : 22/09/19 (DrLarck)
 """
 
 # dependancies
@@ -171,15 +171,65 @@ class Trigger_phase:
 
         return
     
-    async def trigger_passive(self):
+    async def trigger_passive(self, client, ctx, character):
         """
         `coroutine`
 
         Triggers all the character's passive effects.
 
+        - Parameter : 
+
+        `ctx` : Represents the `commands.Context`.
+
+        `character` : Represents a `Character()`.
+
         --
 
         Return : None
         """
+
+        # first sort the passive
+        new_passive = []
+        if(character.passive_sorted == False):
+            for passive in character.passive:
+                await asyncio.sleep(0)
+
+                passive = passive(
+                    client,
+                    ctx,
+                    character,
+                    self.team_a,
+                    self.team_b
+                )
+
+                new_passive.append(passive)
+            
+            character.passive = new_passive
+            character.passive_sorted = True
+
+        # trigger all the passive if they've not been triggered 
+        applied = False
+        applied_list = []
+        for _passive in character.passive:
+            await asyncio.sleep(0)
+
+            if not _passive.triggered :
+                await passive.apply()
+            
+                applied = True
+                applied_list.append(_passive)
+        
+        # display the applied effect
+        if(applied):
+            await ctx.send("```🏵 - Passive skills```")
+
+            displaying = f"{character.image.icon} **{character.info.name}**{character.type.icon} :\n"
+
+            for passive_ in applied_list:
+                await asyncio.sleep(0)
+
+                displaying += f"{passive_.icon}**__{passive_.name}__** : *{passive_.description}*"
+
+            await ctx.send(displaying)
 
         return

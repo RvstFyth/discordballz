@@ -185,6 +185,8 @@ class Character:
         # list of abilities
         self.ability_sorted = False
         self.ability = []
+
+        self.passive_sorted = False
         self.passive = []
         self.leader = []
         
