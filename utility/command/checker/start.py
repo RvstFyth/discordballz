@@ -5,7 +5,7 @@ Manages the start command checker
 
 Author : DrLarck
 
-Last update : 28/08/19 (DrLarck)
+Last update : 22/09/19 (DrLarck)
 """
 
 # dependancies
@@ -48,5 +48,5 @@ class Start_checker:
             return(True)
         
         else:
-            await ctx.send(f"<@{ctx.message.author.id}> You are already registered.")
+            await ctx.send(f"<@{ctx.message.author.id}> ❌ You are already registered.")
             return(False)

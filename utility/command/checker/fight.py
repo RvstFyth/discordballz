@@ -5,7 +5,7 @@ Regroups the fight checker
 
 Author : DrLarck
 
-Last update : 29/08/19 (DrLarck)
+Last update : 22/09/19 (DrLarck)
 """
 
 # dependancies
@@ -21,7 +21,31 @@ class Fight_checker:
     Represents the fight checker
     """
 
+    in_fight = []
+
     # method
+    async def is_in_fight(self, ctx):
+        """
+        `coroutine`
+
+        Check if the player is in fight or not.
+
+        --
+
+        Return : Bool
+        """
+
+        # init
+        can_fight = True
+        player = ctx.message.author
+
+        if player.id in self.in_fight:
+            can_fight = False
+            
+            await ctx.send(f"<@{player.id}> ❌ You are already in a fight.")
+
+        return(can_fight)
+
     async def has_team(self, ctx):
         """
         `coroutine`

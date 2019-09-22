@@ -20,6 +20,8 @@ from utility.cog.displayer.team import Team_displayer
 
 from utility.cog.character.getter import Character_getter
 
+from utility.command.checker.fight import Fight_checker
+
 # translation
 from utility.translation.translator import Translator
 
@@ -162,13 +164,15 @@ class Fight:
         """
 
         # init
+        # add the caller's id in the list of player that are already fighting
+        Fight_checker.in_fight.append(self.player.id)
 
             # translation
         translation = Translator(self.client.db, self.player)
         #_ = await translation.translate()
 
             # turn displaying
-        turn = 2  # begins at 1
+        turn = 1  # begins at 1
 
             # init at 1 to loop at least one time
         team_a_average_hp = 1  
@@ -292,6 +296,9 @@ class Fight:
                 # increase the turn value
             turn += 1
             await asyncio.sleep(5)
+        
+        # remove the player is from the player in fight list
+        Fight_checker.in_fight.remove(self.player.id)
         
         # check the winner
         # player : 

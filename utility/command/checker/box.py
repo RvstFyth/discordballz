@@ -48,7 +48,7 @@ class Box_checker:
         player_id = ctx.message.author.id 
 
         if player_id in self.opened_box:
-            await ctx.send(f"<@{player_id}> Please close your previous box page to open a new one.")
+            await ctx.send(f"<@{player_id}> ❌ Please close your previous box page to open a new one.")
             return(False)
         
         else:

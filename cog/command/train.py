@@ -5,7 +5,7 @@ This command allows the player to level up his characters.
 
 Author : DrLarck
 
-Last update : 01/09/19 (DrLarck)
+Last update : 22/09/19 (DrLarck)
 """
 
 # dependancies
@@ -33,6 +33,7 @@ class Cmd_train(commands.Cog):
     
     @commands.check(Basic_checker().is_game_ready)
     @commands.check(Basic_checker().is_registered)
+    @commands.check(Fight_checker().is_in_fight)
     @commands.check(Fight_checker().has_team)
     @commands.command()
     async def train(self, ctx):
@@ -67,6 +68,9 @@ class Cmd_train(commands.Cog):
         team = [player_team, opponent_team]
 
         fight = Fight(self.client, ctx, player)
+
+        await ctx.send(f"<@{player.id}> You enter in combat.")
+
         winner = await fight.run_fight(team)
         
         # redefine team

@@ -5,7 +5,7 @@ Managing the basic checks.
 
 Author : DrLarck
 
-Last update : 29/08/19 (DrLarck)
+Last update : 22/09/19 (DrLarck)
 """
 
 # dependancies
@@ -51,7 +51,7 @@ class Basic_checker:
 
         # check if registered
         if(player == None):
-            await ctx.send(f"<@{ctx.message.author.id}> You must be **registered** to perform this action.\nUse `d!start` to do so.")
+            await ctx.send(f"<@{ctx.message.author.id}> ❌ You must be **registered** to perform this action.\nUse `d!start` to do so.")
             return(False)
         
         else:
