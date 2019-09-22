@@ -5,7 +5,7 @@ Manages the character 4
 
 Author : DrLarck
 
-Last update : 21/09/19 (DrLarck)
+Last update : 22/09/19 (DrLarck)
 """
 
 # dependancies
@@ -42,6 +42,10 @@ class Character_4(Character):
         # health
         self.health.maximum = 3875
         self.health.current = 3875
+
+        # ki
+        # this unit doesn't have ki
+        self.ki.maximum = 0
 
         # damage
         self.damage.physical_max = 400
