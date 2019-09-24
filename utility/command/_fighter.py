@@ -90,7 +90,6 @@ class Fighter:
             db = Database(self.client.db)
             # check if the player has the character
             owns_character = await db.fetchval(f"SELECT character_owner_name FROM character_unique WHERE character_unique_id = '{character_id}' AND character_owner_id = {player.id};")
-            print(f"Owns character : {owns_character}")
 
             if(owns_character != None):
                 character = await self.getter.get_from_unique(self.client, character_id)

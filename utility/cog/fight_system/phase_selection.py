@@ -142,7 +142,18 @@ class Selection_phase:
                                     # add a new possible action
                                     possible_action.append(str(ability_index))
 
-                                    kit += f"`{ability_index}. {ability.name}`{ability.icon} (:fire: {ability.cost} / {character.ki.current})\n"
+                                    # check if the character could use the ability
+                                    if(character.ki.current >= ability.cost and ability.cooldown <= 0):
+                                        kit += f"`{ability_index}. {ability.name}`{ability.icon} ({character.ki.current} / {ability.cost:,} :fire:)"
+                                    
+                                    else:
+                                        kit += f"~~`{ability_index}. {ability.name}`{ability.icon} ({character.ki.current} / {ability.cost:,} :fire:)~~ "
+                                    
+                                    # check the cooldown
+                                    if(ability.cooldown > 0):
+                                        kit += f"**Cooldown** : **{ability.cooldown}** :hourglass:"
+
+                                    kit += "\n"
                                     ability_index += 1
                                 
                                 if(character.ability_sorted == False):
