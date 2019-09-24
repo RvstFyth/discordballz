@@ -5,7 +5,7 @@ Manages the selection phase.
 
 Author : DrLarck
 
-Last update : 21/09/19 (DrLarck)
+Last update : 24/09/19 (DrLarck)
 """
 
 # dependancies
@@ -167,7 +167,7 @@ class Selection_phase:
                             unit_index = 1
 
                             # display the actions
-                            actions = f"<@{self.player.id}> Please select an action amoung the following for #{order} {character.image.icon}**{character.info.name}**{character.type.icon} - {character.ki.current} :fire:\n{kit}"
+                            actions = f"<@{self.player.id}> Please select an action among the following for #{order} {character.image.icon}**{character.info.name}**{character.type.icon} - {character.ki.current} :fire:\n{kit}"
                             await self.ctx.send(actions)
 
                             if(self.turn == 1):  # manages the first turn possible actions
