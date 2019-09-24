@@ -5,7 +5,7 @@ Here are the fighter command utils
 
 Author : DrLarck
 
-Last update : 31/08/19 (DrLarck)
+Last update : 24/09/19 (DrLarck)
 """
 
 # dependancies
@@ -14,6 +14,7 @@ import asyncio
 # utils
 from utility.cog.player.player import Player
 from utility.cog.character.getter import Character_getter
+from utility.database.database_manager import Database
 
 # tools
 class Fighter:
@@ -86,23 +87,33 @@ class Fighter:
             await explanation.delete()
         
         else:  # if the character_id is a unique id
-            character = await self.getter.get_from_unique(self.client, character_id)
+            db = Database(self.client.db)
+            # check if the player has the character
+            owns_character = await db.fetchval(f"SELECT character_owner_name FROM character_unique WHERE character_unique_id = '{character_id}' AND character_owner_id = {player.id};")
+            print(f"Owns character : {owns_character}")
 
-            if(character == None):
-                await self.ctx.send(f"<@{player.id}> Character with unique id \"{character_id}\" not found. Please try with another id.\nYou can find your character's unique id by using `d!box [character id]`. The **unique id** format is `aaaa0`.")
-            
-            else:  # the character has been found
-                await character.init()
+            if(owns_character != None):
+                character = await self.getter.get_from_unique(self.client, character_id)
 
-                # set the fighter
-                possible = await player.team.set_fighter(slot, character_id)
+                if(character == None):
+                    await self.ctx.send(f"<@{player.id}> Character with unique id \"{character_id}\" not found. Please try with another id.\nYou can find your character's unique id by using `d!box [character id]`. The **unique id** format is `aaaa0`.")
+                
+                else:  # the character has been found
+                    await character.init()
 
-                if(possible == False):  # the character is already in the team
-                    await self.ctx.send(f"<@{player.id}> You already have a {character.image.icon}**{character.info.name}** in your team. **Remove** it or choose a different character.")
-            
-                else:
-                    # confirm
-                    await self.ctx.send(f"<@{player.id}> You have successfully set {character.image.icon}**{character.info.name}** {character.type.icon}{character.rarity.icon} lv.{character.level:,} as **fighter {slot.upper()}** !")
+                    # set the fighter
+                    possible = await player.team.set_fighter(slot, character_id)
+
+                    if(possible == False):  # the character is already in the team
+                        await self.ctx.send(f"<@{player.id}> You already have a {character.image.icon}**{character.info.name}** in your team. **Remove** it or choose a different character.")
+                
+                    else:
+                        # confirm
+                        await self.ctx.send(f"<@{player.id}> You have successfully set {character.image.icon}**{character.info.name}** {character.type.icon}{character.rarity.icon} lv.{character.level:,} as **fighter {slot.upper()}** !")
+                
+            else:  # doesn't own the character
+                await self.ctx.send(f"<@{player.id}> Character `{character_id}` not found.")
+                return
 
     async def wait_for_fighter_index(self, data):
         """
