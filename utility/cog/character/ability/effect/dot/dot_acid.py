@@ -172,6 +172,8 @@ class Dot_acid(Dot):
                 else:  # if no unity in the team
                     _acid.stack += 1
                     _acid.duration = _acid.initial_duration
+            
+            _acid.duration = _acid.initial_duration
 
             # add or re-add the malus
             self.target.malus.append(_acid)
