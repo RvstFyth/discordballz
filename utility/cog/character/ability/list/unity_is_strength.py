@@ -43,7 +43,7 @@ class Unity_is_strength(Ability):
 Heals up the carriers of the bonus for an amount of **1 %** of the carrier's {self.game_icon['ki_ability']} per active **__Acid__** stack on the **enemy team**.
 Moreover, **your team** stacks up **__Acid__** **2** time faster on the **enemy team** and increase their **maximum stack** and **duration** by **2**."""
 
-        self.icon = "<:unity_is_strenght:585503883133059074>"
+        self.icon = self.game_icon['ability']['unity_is_strength']
         self.cost = 60
 
         # special

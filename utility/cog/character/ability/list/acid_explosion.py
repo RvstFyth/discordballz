@@ -42,7 +42,7 @@ class Acid_explosion(Ability):
 If the target has at least **3** stacks of **__Acid__** : **Add** a stack of **__Acid__** to all the target's team members.
 Applies the **__Acid explosion__** malus to the **main target** which will reduce the target's :rosette: by **2 %** : Lasts **2** turns."""
 
-        self.icon = "<:acid_explosion_ki:590111692751372288>"
+        self.icon = self.game_icon['ability']['acid_explosion']
         self.cost = 30
 
         self.need_target = True

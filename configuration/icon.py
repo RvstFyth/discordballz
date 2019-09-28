@@ -38,14 +38,23 @@ game_icon = {
 
     # ability
     "ability" : {
-        "NULL" : None
+        "acid" : "<:acid:627586764252512297>",
+        "syphon" : "<:syphon:627589088979189760>",
+        "unity_is_strength" : "<:unity_is_strength:627586807512563712>",
+        "acid_explosion" : "<:acid_explosion:627586772720680995>",
+        "spreading_acid" : "<:spreading_acid:627586793763766333>",
+        "paralyzing_burns" : "<:paralyzing_burns:627586801401593856>",
+        "pilaf_barrier" : "<:pilaf_barrier:627504111792816128>",
+        "triple_pilots" : "<:triple_pilots:627508544488603666>",
+        "rolling_smash" : "<:rolling_smash:627502512290660392>"
     },
 
     # effect
     "effect" : {
-        "acid" : "<:acid:583953112406949888>",
-        "unity_is_strength" : "<:unity_is_strenght:585503883133059074>",
-        "acid_explosion" : "<:acid_explosion:590111720127594497>",
+        "acid" : "<:acid_malus:627586792924774441>",
+        "unity_is_strength" : "<:unity_is_strength_buff:627586807751507968>",
+        "acid_explosion" : "<:acid_explosion_malus:627586778936639521>",
+        "paralyzing_burns" : "<:paralyzing_burns_debuff:627586801627955205>",
         "pilaf_barrier" : "<:pilaf_barrier_buff:627504114355535882>",
         "triple_pilots" : "<:triple_pilots_buff:627508545062961164>"
     }

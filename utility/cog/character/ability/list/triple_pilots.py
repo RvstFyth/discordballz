@@ -30,7 +30,7 @@ class Triple_pilots(Ability):
         # info
         self.name = "Triple pilots"
         self.description = f"""This unit consums one stack of **__Triple pilots__** bonus to recover **30 %** of its **Maximum** :hearts:."""
-        self.icon = "<:triple_pilots:627508544488603666>"
+        self.icon = self.game_icon['ability']['triple_pilots']
 
     # method
     async def set_tooltip(self):

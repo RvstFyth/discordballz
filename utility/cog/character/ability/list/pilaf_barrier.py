@@ -40,9 +40,8 @@ class Pilaf_barrier(Ability):
         # info
         self.name = "Pilaf barrier"
         self.description = f"""Applies **__Pilaf Barrier__** bonus on this unit which makes it take **50 %** less :punch: damage for **1** turn and change its posture to :shield:.
-{self.game_icon['cooldown']}**Cooldown** : **3** turns.
-        """
-        self.icon = "<:pilaf_barrier:627504111792816128>"
+{self.game_icon['cooldown']}**Cooldown** : **3** turns."""
+        self.icon = self.game_icon['ability']['pilaf_barrier']
 
         self.cost = 0
     

@@ -42,7 +42,7 @@ class Spreading_acid(Ability):
         self.name = "Spreading acid"
         self.description = f"""Add a stack of **__Acid__** to all the active **__Acid__** malus."""
 
-        self.icon = "<:spreading_acid_ki:590184731232960523>"
+        self.icon = self.game_icon['ability']['spreading_acid']
         self.cost = 30
     
     # method

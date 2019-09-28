@@ -53,7 +53,7 @@ class Paralyzing_burns(Ability):
 If the target has more than **3** **__Acid__** stack on it : get **Stunned** for **4** turns.
 **Remove** al the **__Acid__** stacks on the target."""
 
-        self.icon = "<:paralyzing_burns_ki:590183299335323659>"
+        self.icon = self.game_icon['ability']['paralyzing_burns']
         self.cost = 75
         
         # targetting
