@@ -5,7 +5,7 @@ Manages the Acid ability.
 
 Author : DrLarck
 
-Last update : 22/09/19 (DrLarck)
+Last update : 28/09/19 (DrLarck)
 """
 
 # dependance
@@ -51,6 +51,11 @@ Lasts **3** turns."""
         self.target_enemy = True
     
     # method
+    async def set_tooltip(self):
+        self.tooltip = f"Inflicts **{int(self.caster.damage.ki_min * 0.25):,}** - **{int(self.caster.damage.ki_max * 0.25):,}** {self.game_icon['ki_ability']} and add a stack of **__Acid__**{self.game_icon['effect']['acid']} to the target."
+
+        return
+
     async def use(self):
         """
         `coroutine`

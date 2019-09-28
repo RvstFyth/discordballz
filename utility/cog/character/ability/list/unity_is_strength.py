@@ -5,7 +5,7 @@ Manages the Unity is Strength ability.
 
 Author : DrLarck
 
-Last update : 22/09/19 (DrLarck)
+Last update : 28/09/19 (DrLarck)
 """
 
 # dependancies
@@ -50,6 +50,11 @@ Moreover, **your team** stacks up **__Acid__** **2** time faster on the **enemy 
         self.saibaimen = [1, 2, 3]  # represents the Saibaimen ids
     
     # method
+    async def set_tooltip(self):
+        self.tooltip = f"Add **__Unity is strength__**{self.game_icon['effect']['unity_is_strength']} bonus on all your **Saibaiman**."
+
+        return
+
     async def use(self):
         """
         `coroutine`

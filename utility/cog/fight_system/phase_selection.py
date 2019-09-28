@@ -160,7 +160,7 @@ class Selection_phase:
                                     if(ability.cooldown > 0):
                                         kit += f"**Cooldown** : **{ability.cooldown}** :hourglass:"
 
-                                    kit += "\n"
+                                    kit += "\n--\n"
                                     ability_index += 1
                                 
                                 if(character.ability_sorted == False):

@@ -5,7 +5,7 @@ Manages the syphon ability
 
 Author : DrLarck
 
-Last update : 22/09/19 (DrLarck)
+Last update : 28/09/19 (DrLarck)
 """
 
 # dependancies
@@ -53,6 +53,11 @@ Heals you for an amount of **50 %** of the damage dealt."""
         self.target_enemy = True
     
     # method
+    async def set_tooltip(self):
+        self.tooltip = f"Inflicts **{int(self.caster.damage.ki_min * 0.10):,}** - **{int(self.caster.damage.ki_max * 0.10):,}** (+ **2 %** of target's **Missing** :hearts:). Heals your for **50 %** of damage done."
+
+        return
+
     async def use(self):
         """
         `coroutine`
