@@ -33,6 +33,11 @@ class Triple_pilots(Ability):
         self.icon = "<:triple_pilots:627508544488603666>"
 
     # method
+    async def set_tooltip(self):
+        self.tooltip = f"Consums a charge of **__Triple pilots__**{self.game_icon['effect']['triple_pilots']} to restore **{int((30 * self.caster.health.maximum)/100):,}** :hearts:."
+        
+        return
+
     async def use(self):
         """
         `coroutine`

@@ -5,7 +5,7 @@ Manages the icons.
 
 Author : DrLarck
 
-Last update : 22/09/19 (DrLarck)
+Last update : 28/09/19 (DrLarck)
 """
 
 game_icon = {
@@ -34,5 +34,16 @@ game_icon = {
     # expansion
     "expansion" : {
         "basic" : "<:basic:614094726089408522>"
+    },
+
+    # ability
+    "ability" : {
+        "NULL" : None
+    },
+
+    # effect
+    "effect" : {
+        "pilaf_barrier" : "<:pilaf_barrier_buff:627504114355535882>",
+        "triple_pilots" : "<:triple_pilots_buff:627508545062961164>"
     }
 }
