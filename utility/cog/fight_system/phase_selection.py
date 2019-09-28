@@ -5,7 +5,7 @@ Manages the selection phase.
 
 Author : DrLarck
 
-Last update : 24/09/19 (DrLarck)
+Last update : 28/09/19 (DrLarck)
 """
 
 # dependancies
@@ -145,9 +145,15 @@ class Selection_phase:
                                     # check if the character could use the ability
                                     if(character.ki.current >= ability.cost and ability.cooldown <= 0):
                                         kit += f"`{ability_index}. {ability.name}`{ability.icon} ({character.ki.current} / {ability.cost:,} :fire:)"
+
+                                        if(ability.tooltip != None):  # add the tooltip after the ability
+                                            kit += f" : *{ability.tooltip}*"
                                     
                                     else:
                                         kit += f"~~`{ability_index}. {ability.name}`{ability.icon} ({character.ki.current} / {ability.cost:,} :fire:)~~ "
+
+                                        if(ability.tooltip != None):  # add the tooltip after the ability
+                                            kit += f"~~ : *{ability.tooltip}*~~"
                                     
                                     # check the cooldown
                                     if(ability.cooldown > 0):

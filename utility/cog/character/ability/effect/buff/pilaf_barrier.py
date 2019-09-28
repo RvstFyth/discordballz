@@ -5,7 +5,7 @@ Manages the Pilaf Barrier buff
 
 Author : DrLarck
 
-Last update : 22/09/19
+Last update : 28/09/19 (DrLarck)
 """
 
 # dependancies
@@ -27,6 +27,7 @@ class Buff_pilaf_barrier(Effect):
 
         # duration
         self.name = "Pilaf barrier"
+        self.icon = "<:pilaf_barrier_buff:627504114355535882>"
         self.id = 5
         self.initial_duration = 1
         self.duration = 1

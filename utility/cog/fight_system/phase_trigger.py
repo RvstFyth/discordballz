@@ -5,7 +5,7 @@ Manages the trigger phase.
 
 Author : DrLarck
 
-Last update : 22/09/19 (DrLarck)
+Last update : 28/09/19 (DrLarck)
 """
 
 # dependancies
@@ -228,7 +228,7 @@ class Trigger_phase:
             for passive_ in applied_list:
                 await asyncio.sleep(0)
 
-                displaying += f"{passive_.icon}**__{passive_.name}__** : *{passive_.description}*"
+                displaying += f"- {passive_.icon}**__{passive_.name}__** : *{passive_.description}*"
 
             await ctx.send(displaying)
 

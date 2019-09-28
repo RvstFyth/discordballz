@@ -5,7 +5,7 @@ Manages the triple pilots passive skill.
 
 Author : DrLarck
 
-Last update : 22/09/19
+Last update : 28/09/19 (DrLarck)
 """
 
 # dependancies
@@ -29,6 +29,7 @@ class Passive_triple_pilots(Effect):
         # info
         self.name = "Triple pilots"
         self.description = "Add 2 stacks of **__Triple pilots__** to the caster."
+        self.icon = "<:triple_pilots_buff:627508545062961164>"
 
     # method
     async def apply(self):

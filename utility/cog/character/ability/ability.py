@@ -5,7 +5,7 @@ Ability super class.
 
 Author : DrLarck
 
-Last update : 22/09/19 (DrLarck)
+Last update : 28/09/19 (DrLarck)
 """
 
 # dependance
@@ -70,6 +70,7 @@ class Ability:
         # attribute
         self.name = None
         self.description = None
+        self.tooltip = None
         self.icon = "<:notfound:617735236473585694>"
         self.game_icon = game_icon
 

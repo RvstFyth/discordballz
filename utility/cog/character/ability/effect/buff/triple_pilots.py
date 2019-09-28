@@ -27,6 +27,7 @@ class Buff_triple_pilots(Effect):
 
         # info
         self.name = "Triple pilots"
+        self.icon = "<:triple_pilots_buff:627508545062961164>"
         self.id = 6
         
         # duration

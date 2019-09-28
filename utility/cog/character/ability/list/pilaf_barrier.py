@@ -5,7 +5,7 @@ Manages the Pilaf Barrier ability
 
 Author : DrLarck
 
-Last update : 22/09/19 (DrLarck)
+Last update : 28/09/19 (DrLarck)
 """
 
 # dependancies
@@ -42,6 +42,7 @@ class Pilaf_barrier(Ability):
         self.description = f"""Applies **__Pilaf Barrier__** bonus on this unit which makes it take **50 %** less :punch: damage for **1** turn and change its posture to :shield:.
 {self.game_icon['cooldown']}**Cooldown** : **3** turns.
         """
+        self.icon = "<:pilaf_barrier:627504111792816128>"
 
         self.cost = 0
     
