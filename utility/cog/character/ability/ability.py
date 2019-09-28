@@ -96,7 +96,7 @@ class Ability:
         """
 
         return
-        
+
     async def init(self):
         """
         `coroutine`
@@ -107,6 +107,9 @@ class Ability:
 
         Return : None
         """
+
+        # set the tooltip
+        await self.set_tooltip()
 
         return
     

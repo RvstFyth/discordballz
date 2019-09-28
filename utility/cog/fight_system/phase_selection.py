@@ -127,12 +127,13 @@ class Selection_phase:
                                         ability = ability(
                                             self.client,
                                             self.ctx,
+                                            character,
                                             None,
-                                            None,
-                                            None,
-                                            None
+                                            player_team,
+                                            team[1]
                                         )
 
+                                        await ability.init()
                                         new_ability_list.append(ability)
                                     
                                     # reduce the cd by one
