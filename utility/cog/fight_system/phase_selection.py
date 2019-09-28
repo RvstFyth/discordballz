@@ -136,6 +136,8 @@ class Selection_phase:
                                         await ability.init()
                                         new_ability_list.append(ability)
                                     
+                                    await ability.init()
+                                    
                                     # reduce the cd by one
                                     if(ability.cooldown > 0):
                                         ability.cooldown -= 1

@@ -5,7 +5,7 @@ Manages the Acid Explosion ability.
 
 Author : DrLarck
 
-Last update : 22/09/19 (DrLarck)
+Last update : 28/09/19 (DrLarck)
 """
 
 # dependancies
@@ -49,6 +49,11 @@ Applies the **__Acid explosion__** malus to the **main target** which will reduc
         self.target_enemy = True
     
     # method
+    async def set_tooltip(self):
+        self.tooltip = f"Inflicts **{int(self.caster.damage.ki_min * 0.50):,}** - **{int(self.caster.damage.ki_max * 0.50):,}** {self.game_icon['ki_ability']}.\nIf the target has at least **3** stacks of **__Acid__**{self.game_icon['effect']['acid']} applies **__Acid Explosion__**{self.game_icon['effect']['acid_explosion']} malus to the target wich reduces its **Spirit**:rosette: by **2 %**."
+
+        return
+
     async def use(self):
         """
         `coroutine`

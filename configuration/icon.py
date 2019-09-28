@@ -45,6 +45,7 @@ game_icon = {
     "effect" : {
         "acid" : "<:acid:583953112406949888>",
         "unity_is_strength" : "<:unity_is_strenght:585503883133059074>",
+        "acid_explosion" : "<:acid_explosion:590111720127594497>",
         "pilaf_barrier" : "<:pilaf_barrier_buff:627504114355535882>",
         "triple_pilots" : "<:triple_pilots_buff:627508545062961164>"
     }

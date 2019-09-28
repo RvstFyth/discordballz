@@ -48,7 +48,7 @@ class Pilaf_barrier(Ability):
     
     # method
     async def set_tooltip(self):
-        self.tooltip = f"Gains **__Pilaf Barrier__**{self.game_icon['effect']['pilaf_barrier']} bonus which increases your **Armor** by **50 %** for **1** turn and change your posture to :shield:."
+        self.tooltip = f"Gains **__Pilaf Barrier__**{self.game_icon['effect']['pilaf_barrier']} bonus which increases your **Armor**:shield: by **50 %** for **1** turn and change your posture to :shield:."
 
         return
 

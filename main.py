@@ -7,7 +7,7 @@ Project started : 06/05/19 - 8:20 PM France
 
 Author : DrLarck
 
-Last update : 20/08/19 (DrLarck)
+Last update : 28/08/19 (DrLarck)
 """
 
 # dependancies
@@ -24,8 +24,11 @@ from utility.database.operation.database_table import Table_creator
 # config
 from configuration.bot import Bot_config
 
+# presence
+presence_activity = discord.Game(f"v{Bot_config.version} - {Bot_config.phase}")
+
 # init client
-client = commands.AutoShardedBot(command_prefix = Bot_config.prefix, help_command = None)
+client = commands.AutoShardedBot(command_prefix = Bot_config.prefix, help_command = None, activity = presence_activity)
 cog = Cog_loader(client)
 
 # logs
