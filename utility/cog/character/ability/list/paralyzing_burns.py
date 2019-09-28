@@ -5,7 +5,7 @@ Manages the paralyzing burns ability.
 
 Author : DrLarck
 
-Last update : 22/09/19 (DrLarck)
+Last update : 28/09/19 (DrLarck)
 """
 
 # dependancies
@@ -17,6 +17,9 @@ from utility.cog.character.ability.util.effect_checker import Effect_checker
 
 # formatting
 from utility.cog.displayer.move import Move_displayer
+
+# icon
+from configuration.icon import game_icon
 
 # ability
 class Paralyzing_burns(Ability):
@@ -58,6 +61,11 @@ If the target has more than **3** **__Acid__** stack on it : get **Stunned** for
         self.target_enemy = True
     
     # method
+    async def set_tooltip(self):
+        self.tooltip = f"Stuns the target according to the amount of active **__Acid__**{self.game_icon['effect']['acid']} stacks on it."
+
+        return
+
     async def use(self):
         """
         `coroutine`

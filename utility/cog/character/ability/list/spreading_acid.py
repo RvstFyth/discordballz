@@ -5,7 +5,7 @@ Manages the spreading acid ability.
 
 Author : DrLarck
 
-Last update : 22/09/19 (DrLarck)
+Last update : 28/09/19 (DrLarck)
 """
 
 # dependancies
@@ -15,6 +15,9 @@ import asyncio
 from utility.cog.character.ability.ability import Ability
 from utility.cog.displayer.move import Move_displayer
 from utility.cog.character.ability.util.effect_checker import Effect_checker
+
+# icon
+from configuration.icon import game_icon
 
 # spreading acid
 class Spreading_acid(Ability):
@@ -43,6 +46,11 @@ class Spreading_acid(Ability):
         self.cost = 30
     
     # method
+    async def set_tooltip(self):
+        self.tooltip = f"Add an additional stack to all active **__Acid__**{self.game_icon['effect']['acid']} malus."
+
+        return
+
     async def use(self):
         """
         `coroutine`
