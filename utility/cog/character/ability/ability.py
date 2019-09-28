@@ -84,6 +84,19 @@ class Ability:
         self.target_enemy = False
     
     # method
+    async def set_tooltip(self):
+        """
+        `coroutine` 
+
+        Allows you to set the tooltip of the ability.
+
+        --
+
+        Return : None
+        """
+
+        return
+        
     async def init(self):
         """
         `coroutine`
