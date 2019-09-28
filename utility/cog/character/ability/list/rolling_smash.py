@@ -54,6 +54,11 @@ class Rolling_smash(Ability):
         self.target_enemy = True
     
     # method
+    async def set_tooltip(self):
+        self.tooltip = f"Inflicts **{int(self.caster.damage.physical_min * 1.5):,}** - **{int(self.caster.damage.physical_max * 1.5):,}** :punch: and ignores the target's damage reduction."
+
+        return
+        
     async def use(self):
         """
         `coroutine`
