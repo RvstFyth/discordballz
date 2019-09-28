@@ -430,10 +430,18 @@ class Selection_phase:
                     await asyncio.sleep(0)
                     
                     if(bonus_index == 0):
-                        target_display += f"{bonus.icon}[{bonus.stack}|{bonus.duration}]"
+                        if(bonus.is_permanent):
+                            target_display += f"{bonus.icon}[{bonus.stack}|*∞*]"
+                        
+                        else:  # non perma bonus
+                            target_display += f"{bonus.icon}[{bonus.stack}|{bonus.duration}]"
                     
                     else:
-                        target_display += f", {bonus.icon}[{bonus.stack}|{bonus.duration}]"
+                        if(bonus.is_permanent):
+                            target_display += f", {bonus.icon}[{bonus.stack}|*∞*]"
+                        
+                        else:
+                            target_display += f", {bonus.icon}[{bonus.stack}|{bonus.duration}]"
 
                     bonus_index += 1
                 
