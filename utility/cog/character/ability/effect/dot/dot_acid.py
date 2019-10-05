@@ -5,7 +5,7 @@ Manages the Acid Dot.
 
 Author : DrLarck
 
-Last update : 06/09/19 (DrLarck)
+Last update : 29/09/19 (DrLarck)
 """
 
 # dependance
@@ -37,7 +37,7 @@ class Dot_acid(Dot):
 
         # attribute
         self.name = "Acid"
-        self.icon = "<:acid:583953112406949888>"
+        self.icon = self.game_icon['effect']['acid']
         self.caster = None
         self.target = target
         self.id = 1

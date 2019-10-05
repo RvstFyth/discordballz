@@ -92,6 +92,11 @@ class Effect_checker:
         if(effect_id == 6):
             from utility.cog.character.ability.effect.buff.triple_pilots import Buff_triple_pilots
             effect = Buff_triple_pilots(client, ctx, target, team_a, team_b)
+        
+        # Passive Green Saibaiman passive
+        if(effect_id == 7):
+            from utility.cog.character.ability.effect.buff.saibaiman_gather_ki import Buff_gather_ki
+            effect = Buff_gather_ki(client, ctx, target, team_a, team_b)
             
         return(effect)
 

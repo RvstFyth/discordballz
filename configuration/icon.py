@@ -56,6 +56,7 @@ game_icon = {
         "acid_explosion" : "<:acid_explosion_malus:627586778936639521>",
         "paralyzing_burns" : "<:paralyzing_burns_debuff:627586801627955205>",
         "pilaf_barrier" : "<:pilaf_barrier_buff:627504114355535882>",
-        "triple_pilots" : "<:triple_pilots_buff:627508545062961164>"
+        "triple_pilots" : "<:triple_pilots_buff:627508545062961164>",
+        "green_saibaiman_leader" : "<:green_saibaiman_leader:627925946313342976>"
     }
 }

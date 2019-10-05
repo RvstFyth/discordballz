@@ -5,7 +5,7 @@ Manages the trigger phase.
 
 Author : DrLarck
 
-Last update : 28/09/19 (DrLarck)
+Last update : 29/09/19 (DrLarck)
 """
 
 # dependancies
@@ -65,14 +65,8 @@ class Trigger_phase:
         await character_ref.init()
 
         health_change = character.health.current  # allow us to check the health change
-        # check if its the first character of its team
-        if(character_index == 1 or len(self.team_a) == 1):
-            displaying = ""
-        
-        else:
-            displaying = "```\n```"
 
-        displaying += f"{character.image.icon} **{character.info.name}**{character.type.icon} :\n"
+        displaying = f"{character.image.icon} **{character.info.name}**{character.type.icon} :\n"
         effect = {
             "bonus" : "",
             "malus" : ""
@@ -167,6 +161,7 @@ class Trigger_phase:
 
         # sending
         if(send):
+            displaying += "--\n"
             await ctx.send(displaying)
 
         return
@@ -214,22 +209,77 @@ class Trigger_phase:
             await asyncio.sleep(0)
 
             if not _passive.triggered :
-                await passive.apply()
+                await _passive.apply()
             
                 applied = True
                 applied_list.append(_passive)
         
         # display the applied effect
         if(applied):
-            await ctx.send("```🏵 - Passive skills```")
-
             displaying = f"{character.image.icon} **{character.info.name}**{character.type.icon} :\n"
 
             for passive_ in applied_list:
                 await asyncio.sleep(0)
 
-                displaying += f"- {passive_.icon}**__{passive_.name}__** : *{passive_.description}*"
+                displaying += f"• {passive_.icon}**__{passive_.name}__** : *{passive_.description}*"
 
             await ctx.send(displaying)
+            await ctx.send("--")
+
+        return
+    
+    async def trigger_leader(self, client, ctx, character_leader):
+        """
+        `coroutine`
+
+        Trigger the leader skill of the passed character.
+
+        --
+
+        Return : None
+        """
+
+        # first sort the leader
+        new_leader = []
+        if(character_leader.leader_sorted == False):
+            for leader in character_leader.leader:
+                await asyncio.sleep(0)
+
+                leader = leader(
+                    client,
+                    ctx,
+                    character_leader,
+                    self.team_a,
+                    self.team_b
+                )
+
+                new_leader.append(leader)
+            
+            character_leader.leader = new_leader
+            character_leader.leader_sorted = True
+
+        # trigger all the leader if they've not been triggered 
+        applied = False
+        applied_list = []
+        for _leader in character_leader.leader:
+            await asyncio.sleep(0)
+
+            if not _leader.triggered :
+                await _leader.apply()
+            
+                applied = True
+                applied_list.append(_leader)
+        
+        # display the applied effect
+        if(applied):
+            displaying = f"{character_leader.image.icon} **{character_leader.info.name}**{character_leader.type.icon} :\n"
+
+            for leader_ in applied_list:
+                await asyncio.sleep(0)
+
+                displaying += f"• {leader_.icon}**__{leader_.name}__** : *{leader_.description}*"
+
+            await ctx.send(displaying)
+            await ctx.send("--")
 
         return

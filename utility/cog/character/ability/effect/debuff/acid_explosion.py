@@ -5,7 +5,7 @@ Manages the acid explosion debuff
 
 Author : DrLarck
 
-Last update : 12/09/19 (DrLarck)
+Last update : 29/09/19 (DrLarck)
 """
 
 # dependancies
@@ -35,7 +35,7 @@ class Debuff_acid_explosion(Effect):
 
         # info
         self.name = "Acid explosion"
-        self.icon = "<:acid_explosion:590111720127594497>"
+        self.icon = self.icon['effect']['acid_explosion']
         self.id = 3
 
         # duration

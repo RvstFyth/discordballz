@@ -172,7 +172,7 @@ class Fight:
         #_ = await translation.translate()
 
             # turn displaying
-        turn = 2  # begins at 1
+        turn = 1  # begins at 1
 
             # init at 1 to loop at least one time
         team_a_average_hp = 1  
@@ -268,11 +268,23 @@ class Fight:
             await asyncio.sleep(1)
             self.trigger_phase = Trigger_phase(team[0], team[1])
 
+                # leader
+            await self.ctx.send("```👑 - Leader skills```")
+            await self.trigger_phase.trigger_leader(self.client, self.ctx, team[0][0])
+
+                # passive
+            await self.ctx.send("```🏵 - Passive skills```")
+            for character_a_ in team[0]:
+                await asyncio.sleep(0)
+
+                await self.trigger_phase.trigger_passive(self.client, self.ctx, character_a_)
+
+                # effect
+            await self.ctx.send("```🌀 - Effects```")
             for character_a in team[0]:
                 await asyncio.sleep(0)
 
                 await self.trigger_phase.trigger_effect(self.ctx, character_index, character_a)
-                await self.trigger_phase.trigger_passive(self.client, self.ctx, character_a)
 
                 character_index += 1
 
@@ -281,14 +293,26 @@ class Fight:
             await asyncio.sleep(1)
             self.trigger_phase = Trigger_phase(team[1], team[0])
 
+                # leader
+            await self.ctx.send("```👑 - Leader skills```")
+            await self.trigger_phase.trigger_leader(self.client, self.ctx, team[1][0])
+
+                # passive
+            await self.ctx.send("```🏵 - Passive skills```")            
+            for character_b_ in team[1]:
+                await asyncio.sleep(0)
+
+                await self.trigger_phase.trigger_passive(self.client, self.ctx, character_b_)
+
+                # effect
+            await self.ctx.send("```🌀 - Effects```")
             for character_b in team[1]:
                 await asyncio.sleep(0)
 
                 await self.trigger_phase.trigger_effect(self.ctx, character_index, character_b)
-                await self.trigger_phase.trigger_passive(self.client, self.ctx, character_b)
 
                 character_index += 1
-
+            
             # end of turn
                 # calculate average hps
             team_a_average_hp, team_b_average_hp = await self.get_teams_hp(team)

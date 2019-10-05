@@ -5,11 +5,13 @@ Manages the DOT super class.
 
 Author : DrLarck
 
-Last update : 12/09/19 (DrLarck)
+Last update : 29/09/19 (DrLarck)
 """
 
 # dependancies
 import asyncio
+
+from configuration.icon import game_icon
 
 # super dot class
 class Dot:
@@ -75,6 +77,7 @@ class Dot:
         self.description = None
         self.id = 0
         self.icon = "<:notfound:617735236473585694>"
+        self.game_icon = game_icon
         self.caster = None
 
         # duration

@@ -5,7 +5,7 @@ Manages the character 1
 
 Author : DrLarck
 
-Last update : 11/09/19 (DrLarck)
+Last update : 29/09/19 (DrLarck)
 """
 
 # dependancies
@@ -18,6 +18,10 @@ from utility.cog.character.character import Character
 from utility.cog.character.ability.list.acid import Acid
 from utility.cog.character.ability.list.syphon import Syphon
 from utility.cog.character.ability.list.unity_is_strength import Unity_is_strength
+
+# passive
+from utility.cog.character.ability.passive.saibaiman_green import Passive_green_saibaiman
+from utility.cog.character.ability.leader.saibaiman_green import Leader_green_saibaiman
 
 # saibaiman
 class Character_1(Character):
@@ -61,3 +65,5 @@ class Character_1(Character):
 
         # ability
         self.ability = [Acid, Syphon, Unity_is_strength]
+        self.passive = [Passive_green_saibaiman]
+        self.leader = [Leader_green_saibaiman]

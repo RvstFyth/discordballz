@@ -5,7 +5,7 @@ Manages the paralyzing burns debuff
 
 Author : DrLarck
 
-Last update : 21/09/19 (DrLarck)
+Last update : 29/09/19 (DrLarck)
 """
 
 # dependancies
@@ -36,7 +36,7 @@ class Debuff_Paralyzing_burns(Effect):
 
         # info
         self.name = "Paralyzing burns"
-        self.icon = "<:paralyzing_burns:590183265886011392>"
+        self.icon = self.game_icon['effect']['paralyzing_burns']
         self.id = 4
 
         # duration

@@ -8,6 +8,10 @@ Here are listed all the effects id sorted by effect type :
 
 **Pilaf barrier** : 5
 
+**Triple pilots** : 6
+
+**Saibaima, gather our ki !** : 7
+
 ### Debuff
 
 **Acid explosion** : 3

@@ -5,7 +5,7 @@ Every character classes inherit from the :class:`Character()` defined below.
 
 Author : DrLarck
 
-Last update : 22/09/19 (DrLarck)
+Last update : 29/09/19 (DrLarck)
 """
 
 # dependancies
@@ -188,6 +188,8 @@ class Character:
 
         self.passive_sorted = False
         self.passive = []
+
+        self.leader_sorted = False
         self.leader = []
         
     #####################
