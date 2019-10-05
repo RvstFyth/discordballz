@@ -153,14 +153,14 @@ class Selection_phase:
                                             kit += f" : *{ability.tooltip}*"
                                     
                                     else:
+                                        # check the cooldown
+                                        if(ability.cooldown > 0):
+                                            kit += f"**Cooldown** : **{ability.cooldown}** :hourglass:"
+
                                         kit += f"~~`{ability_index}. {ability.name}`{ability.icon} ({character.ki.current} / {ability.cost:,} :fire:)~~ "
 
                                         if(ability.tooltip != None):  # add the tooltip after the ability
                                             kit += f"~~ : *{ability.tooltip}*~~"
-                                    
-                                    # check the cooldown
-                                    if(ability.cooldown > 0):
-                                        kit += f"**Cooldown** : **{ability.cooldown}** :hourglass:"
 
                                     kit += "\n--\n"
                                     ability_index += 1
