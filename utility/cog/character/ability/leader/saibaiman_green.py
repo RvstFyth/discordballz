@@ -28,6 +28,7 @@ class Leader_green_saibaiman(Effect):
 
         # info
         self.name = "Saibaiman, gather our ki !"
+        self.description = f"The **allied** Saibaiman gain **__Saibaiman, gather our ki !__**{self.game_icon['effect']['green_saibaiman_leader']}."
         self.icon = self.game_icon['effect']['green_saibaiman_leader']
 
         # other
