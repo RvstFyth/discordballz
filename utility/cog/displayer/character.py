@@ -5,7 +5,7 @@ Manages the displaying of the characters.
 
 Author : DrLarck
 
-Last update : 22/09/19 (DrLarck)
+Last update : 18/10/19 (DrLarck)
 """
 
 # dependancies
@@ -56,7 +56,7 @@ class Character_displayer:
         self.character = None
     
     # method
-    async def display(self, summon_format = False, basic_format = False, combat_format = False, team_format = False, level = None, index = 0):
+    async def display(self, summon_format = False, basic_format = False, combat_format = False, team_format = False, level = None, index = 0, team = 0):
         """
         `coroutine`
 
@@ -253,6 +253,21 @@ class Character_displayer:
 
                     else:
                         team_format += f"{malus.icon} ({malus.stack}|{malus.duration}) "
+
+            # color
+            if(team == 0):
+                embed = await Custom_embed(
+                    self.client,
+                    thumb = self.character.image.thumb,
+                    colour = 0x009dff
+                ).setup_embed()
+            
+            if(team == 1):
+                embed = await Custom_embed(
+                    self.client,
+                    thumb = self.character.image.thumb,
+                    colour = 0xff0000
+                ).setup_embed()
             
             embed.add_field(
                 name = f"#{index} - {self.character.image.icon}{self.character.info.name}{self.character.type.icon}",
@@ -307,6 +322,21 @@ class Character_displayer:
 
                     combat_format += f"{debuff.icon}[{debuff.stack}|{debuff.duration}]"
             
+            # color
+            if(team == 0):
+                embed = await Custom_embed(
+                    self.client,
+                    thumb = self.character.image.thumb,
+                    colour = 0x009dff
+                ).setup_embed()
+            
+            if(team == 1):
+                embed = await Custom_embed(
+                    self.client,
+                    thumb = self.character.image.thumb,
+                    colour = 0xff0000
+                ).setup_embed()
+
             # send the messages
             embed.add_field(name = f"{self.character.image.icon}{self.character.info.name} {self.character.type.icon}{self.character.rarity.icon}'s infos :", value = combat_format)
 

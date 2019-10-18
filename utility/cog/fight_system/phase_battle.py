@@ -5,7 +5,7 @@ Manages the battle phase.
 
 Author : DrLarck
 
-Last update : 21/09/19 (DrLarck)
+Last update : 18/10/19 (DrLarck)
 """
 
 # dependancies
@@ -224,8 +224,18 @@ class Battle_phase:
                 unit_index += 1
             
                 # display the team_a move
-                team_a_embed = Custom_embed(self.client)
-                team_a_embed = await team_a_embed.setup_embed()
+                    # color
+                if(_team == 0):
+                    team_a_embed = await Custom_embed(
+                        self.client,
+                        colour = 0x009dff
+                    ).setup_embed()
+                
+                if(_team == 1):
+                    team_a_embed = await Custom_embed(
+                        self.client,
+                        colour = 0xff0000
+                    ).setup_embed()
 
                 team_a_embed.add_field(
                     name = f"{self.player_a.name} team :",

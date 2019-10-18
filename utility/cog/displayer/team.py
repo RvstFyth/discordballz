@@ -5,7 +5,7 @@ Manages the displaying of teams.
 
 Author : DrLarck
 
-Last update : 19/08/19 (DrLarck)
+Last update : 18/10/19 (DrLarck)
 """
 
 # dependancies 
@@ -75,7 +75,8 @@ class Team_displayer:
 
                     await displayer.display(
                         team_format = True,
-                        index = index
+                        index = index,
+                        team = 0
                     )
                     
                     index += 1
@@ -96,7 +97,8 @@ class Team_displayer:
 
                     await displayer.display(
                         team_format = True,
-                        index = index
+                        index = index,
+                        team = 1
                     )
 
                     index += 1
