@@ -5,7 +5,7 @@ Every character classes inherit from the :class:`Character()` defined below.
 
 Author : DrLarck
 
-Last update : 29/09/19 (DrLarck)
+Last update : 18/10/19 (DrLarck)
 """
 
 # dependancies
@@ -191,6 +191,11 @@ class Character:
 
         self.leader_sorted = False
         self.leader = []
+
+        # on event
+        self.on_death_sorted = False
+        self.on_death_triggered = False
+        self.on_death = []  # on dying effect
         
     #####################
     # method

@@ -5,7 +5,7 @@ Represents the character 2
 
 Author : DrLarck
 
-Last update : 12/09/19 (DrLarck)
+Last update : 18/10/19 (DrLarck)
 """
 
 # dependancies
@@ -17,6 +17,9 @@ from utility.cog.character.character import Character
 # test
 from utility.cog.character.ability.list.acid import Acid
 from utility.cog.character.ability.list.acid_explosion import Acid_explosion
+
+from utility.cog.character.ability.leader.saibaiman_blue import Leader_blue_saibaiman
+from utility.cog.character.ability.effect.buff.saibaiman_last_will_acid import Buff_last_will_acid
 
 # blue saibaiman
 class Character_2(Character):
@@ -40,8 +43,8 @@ class Character_2(Character):
         self.image.thumb = "https://i.imgur.com/wcKoXiB.png"
 
         # health
-        self.health.maximum = 4250
-        self.health.current = 4250
+        self.health.maximum = 5 # 4250
+        self.health.current = 5
 
         # damage
         self.damage.physical_max = 250
@@ -57,3 +60,5 @@ class Character_2(Character):
 
         # ability
         self.ability = [Acid, Acid_explosion]
+        self.passive = [Buff_last_will_acid]
+        self.leader = [Leader_blue_saibaiman]

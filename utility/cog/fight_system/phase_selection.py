@@ -5,7 +5,7 @@ Manages the selection phase.
 
 Author : DrLarck
 
-Last update : 28/09/19 (DrLarck)
+Last update : 19/10/19 (DrLarck)
 """
 
 # dependancies
@@ -65,7 +65,13 @@ class Selection_phase:
         elif(player_team == 1):
             bot_team = team[1]
             bot_enemy = team[0]
-    
+        
+        if(player_team == 0):
+            enemy_team = 1
+        
+        else:
+            enemy_team = 0
+
         player_team = team[player_team]
         
         possible_action = []  # list of possible actions (str)
@@ -389,7 +395,17 @@ class Selection_phase:
                     # end for character in team
                     order += 1
                 
-                else:  # the character is dead or cannot play the turn
+                # dead
+                elif(character.health.current <= 0):  # trigger on death effects
+                    if(character.on_death_triggered == False):
+                        if(len(character.on_death) > 0):
+                            # now trigger all the effects
+                            for on_death_ in character.on_death:
+                                await asyncio.sleep(0)
+
+                                await on_death_.apply()
+                                character.on_death_triggered = True
+                    
                     move_list.append(None)
         
         # end of method

@@ -10,7 +10,9 @@ Here are listed all the effects id sorted by effect type :
 
 **Triple pilots** : 6
 
-**Saibaima, gather our ki !** : 7
+**Saibaiman, gather our ki !** : 7
+
+**Last will, acid !** : 9 (Passive)
 
 ### Debuff
 
@@ -21,3 +23,7 @@ Here are listed all the effects id sorted by effect type :
 ### DOT
 
 **Acid** : 1
+
+### Event
+
+**Last will, Acid !** : 8

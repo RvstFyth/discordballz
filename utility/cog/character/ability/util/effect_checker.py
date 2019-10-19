@@ -5,7 +5,7 @@ Check if the target has an effect active on it.
 
 Author : DrLarck
 
-Last update : 22/09/19 (DrLarck)
+Last update : 19/10/19 (DrLarck)
 """
 
 # dependancies
@@ -97,6 +97,16 @@ class Effect_checker:
         if(effect_id == 7):
             from utility.cog.character.ability.effect.buff.saibaiman_gather_ki import Buff_gather_ki
             effect = Buff_gather_ki(client, ctx, target, team_a, team_b)
+        
+        # Event Last will, Acid !
+        if(effect_id == 8):
+            from utility.cog.character.ability.effect.on_event.last_will_acid import Event_last_will_acid
+            effect = Event_last_will_acid(client, ctx, target, team_a, team_b)
+        
+        # Passive Last will, Acid !
+        if(effect_id == 9):
+            from utility.cog.character.ability.effect.buff.saibaiman_last_will_acid import Buff_last_will_acid
+            effect = Buff_last_will_acid(client, ctx, target, team_a, team_b)
             
         return(effect)
 
