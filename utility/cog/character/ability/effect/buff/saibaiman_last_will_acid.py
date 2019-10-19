@@ -27,6 +27,7 @@ class Buff_last_will_acid(Effect):
         # info
         self.name = "Last will, Acid !"
         self.description = f"On death, applies **2** stacks of **__Acid__**{self.game_icon['effect']['acid']} on the enemy team."
+        self.icon = self.game_icon["effect"]["blue_saibaiman_leader"]
         self.id = 9
 
         self.is_permanent = True

@@ -43,8 +43,8 @@ class Character_2(Character):
         self.image.thumb = "https://i.imgur.com/wcKoXiB.png"
 
         # health
-        self.health.maximum = 5 # 4250
-        self.health.current = 5
+        self.health.maximum = 4250
+        self.health.current = 4250
 
         # damage
         self.damage.physical_max = 250

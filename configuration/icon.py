@@ -5,7 +5,7 @@ Manages the icons.
 
 Author : DrLarck
 
-Last update : 28/09/19 (DrLarck)
+Last update : 19/10/19 (DrLarck)
 """
 
 game_icon = {
@@ -57,6 +57,8 @@ game_icon = {
         "paralyzing_burns" : "<:paralyzing_burns_debuff:627586801627955205>",
         "pilaf_barrier" : "<:pilaf_barrier_buff:627504114355535882>",
         "triple_pilots" : "<:triple_pilots_buff:627508545062961164>",
-        "green_saibaiman_leader" : "<:green_saibaiman_leader:627925946313342976>"
+        "green_saibaiman_leader" : "<:green_saibaiman_leader:627925946313342976>",
+        "blue_saibaiman_leader" : "<:blue_saibaiman_leader:635060238445445131>",
+        "red_saibaiman_leader" : "<:red_saibaiman_leader:635060244027932672>"
     }
 }

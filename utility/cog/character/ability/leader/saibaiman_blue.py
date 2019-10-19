@@ -5,7 +5,7 @@ Manages the blue saibaiman leader skill.
 
 Author : DrLarck
 
-Last update : 18/10/19 (DrLarck)
+Last update : 19/10/19 (DrLarck)
 """
 
 # dependancies
@@ -27,7 +27,8 @@ class Leader_blue_saibaiman(Effect):
 
         # info
         self.name = "Last will, Acid !"
-        self.description = f"Applies the **__Last will, Acid !__** on death effect to the allied saibaiman."
+        self.description = f"Applies the **__Last will, Acid !__**{self.game_icon['effect']['blue_saibaiman_leader']} on death effect to the allied saibaiman."
+        self.icon = self.game_icon["effect"]["blue_saibaiman_leader"]
 
         # other
         self.saibaiman_list = [1, 2, 3]
