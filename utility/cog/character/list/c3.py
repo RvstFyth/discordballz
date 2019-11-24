@@ -5,7 +5,7 @@ Manages the character 3
 
 Author : DrLarck
 
-Last update : 20/10/19 (DrLarck)
+Last update : 24/11/19 (DrLarck)
 """
 
 # dependancies
@@ -20,6 +20,7 @@ from utility.cog.character.ability.list.spreading_acid import Spreading_acid
 from utility.cog.character.ability.list.paralyzing_burns import Paralyzing_burns
 
 from utility.cog.character.ability.passive.saibaiman_red import Passive_red_saibaiman
+from utility.cog.character.ability.leader.saibaiman_red import Leader_saibaiman_red
 
 # Red Saibaiman
 class Character_3(Character):
@@ -61,4 +62,5 @@ class Character_3(Character):
 
         # ability
         self.ability = [Acid, Spreading_acid, Paralyzing_burns]
+        self.leader = [Leader_saibaiman_red]
         self.passive = [Passive_red_saibaiman]

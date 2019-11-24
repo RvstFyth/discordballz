@@ -5,7 +5,7 @@ Manages the trigger phase.
 
 Author : DrLarck
 
-Last update : 20/10/19 (DrLarck)
+Last update : 24/11/19 (DrLarck)
 """
 
 # dependancies
@@ -125,6 +125,8 @@ class Trigger_phase:
         health_change = character.health.current - health_change  # check if there is health change
         if(health_change != 0):
             if(health_change > 0):
+                character.health.current += character.health.regen
+                await character.health.health_limit()
                 displaying += f"__Health__ : **+{health_change:,}** :hearts:\n"
             
             else:
@@ -210,13 +212,12 @@ class Trigger_phase:
             # only if the regen is different than the normal regen
         if(character.ki.regen != character_ref.ki.regen):
             if(character.ki.regen > 0):
+                character.ki.current += character.ki.regen
+                await character.ki.ki_limit()
                 displaying += f"__Ki regen__ : +**{character.ki.regen:,}** :fire:\n"
             
             else:
                 displaying += f"__Ki regen__ : **{character.ki.regen:,}** :fire:\n"
-
-        # health
-        character.health.current += character.health.regen
 
         # sending
         if(send):
