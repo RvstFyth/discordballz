@@ -5,7 +5,7 @@ Manages the trigger phase.
 
 Author : DrLarck
 
-Last update : 18/10/19 (DrLarck)
+Last update : 20/10/19 (DrLarck)
 """
 
 # dependancies
@@ -71,6 +71,7 @@ class Trigger_phase:
         health_change = character.health.current  # allow us to check the health change
         physical_change, ki_change = character.damage.physical_max, character.damage.ki_max
         armor_change, spirit_change = character.defense.armor, character.defense.spirit
+        ki_regen_change = character.regeneration.ki
 
         displaying = f"{character.image.icon} **{character.info.name}**{character.type.icon} :\n"
         effect = {
@@ -124,7 +125,7 @@ class Trigger_phase:
         health_change = character.health.current - health_change  # check if there is health change
         if(health_change != 0):
             if(health_change > 0):
-                displaying += f"__Health__ : +**{health_change:,}** :hearts:\n"
+                displaying += f"__Health__ : **+{health_change:,}** :hearts:\n"
             
             else:
                 displaying += f"__Health__ : **{health_change:,}** :hearts:\n"
@@ -135,7 +136,7 @@ class Trigger_phase:
         armor_change = character.defense.armor - armor_change
         if(armor_change != 0):
             if(armor_change > 0):
-                displaying += f"__Armor__ : +**{armor_change:,}** :shield:\n"
+                displaying += f"__Armor__ : **+{armor_change:,}** :shield:\n"
             
             else:
                 displaying += f"__Armor__ : **{armor_change:,}** :shield:\n"
@@ -145,7 +146,7 @@ class Trigger_phase:
         spirit_change = character.defense.spirit - spirit_change
         if(spirit_change != 0):
             if(spirit_change > 0):
-                displaying += f"__Spirit__ : +**{spirit_change:,}** :rosette:\n"
+                displaying += f"__Spirit__ : **+{spirit_change:,}** :rosette:\n"
             
             else:
                 displaying += f"__Spirit__ : **{spirit_change:,}** :rosette:\n"
@@ -156,7 +157,7 @@ class Trigger_phase:
         physical_change = character.damage.physical_max - physical_change
         if(physical_change != 0):
             if(physical_change > 0):
-                displaying += f"__Physical damage__ : +**{physical_change:,}** :punch:\n"
+                displaying += f"__Physical damage__ : **+{physical_change:,}** :punch:\n"
             
             else:
                 displaying += f"__Physical damage__ : **{physical_change:,}** :punch:\n"
@@ -166,10 +167,20 @@ class Trigger_phase:
         ki_change = character.damage.ki_max - ki_change
         if(ki_change != 0):
             if(ki_change > 0):
-                displaying += f"__Ki damage__ : +**{ki_change:,}** {game_icon['ki_ability']}\n"
+                displaying += f"__Ki damage__ : **+{ki_change:,}** {game_icon['ki_ability']}\n"
             
             else:
                 displaying += f"__Ki damage__ : **{ki_change:,}** {game_icon['ki_ability']}\n"
+            
+            send = True
+        
+        ki_regen_change = character.regeneration.ki - ki_regen_change
+        if(ki_regen_change != 0) :
+            if(ki_regen_change > 0):
+                displaying += f"__Ki regeneration__ : **+{ki_regen_change:,}** :fire:\n"
+            
+            else:
+                displaying += f"__Ki regeneration__ : **{ki_regen_change:,}** :fire:\n"
             
             send = True
         

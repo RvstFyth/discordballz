@@ -14,6 +14,8 @@ Here are listed all the effects id sorted by effect type :
 
 **Last will, acid !** : 9 (Passive)
 
+**Power charge** : 10
+
 ### Debuff
 
 **Acid explosion** : 3

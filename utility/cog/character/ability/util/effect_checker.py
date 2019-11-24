@@ -107,6 +107,11 @@ class Effect_checker:
         if(effect_id == 9):
             from utility.cog.character.ability.effect.buff.saibaiman_last_will_acid import Buff_last_will_acid
             effect = Buff_last_will_acid(client, ctx, target, team_a, team_b)
+        
+        # Passive Power charge
+        if(effect_id == 10):
+            from utility.cog.character.ability.effect.buff.saibaiman_power_charge import Buff_power_charge
+            effect = Buff_power_charge(client, ctx, target, team_a, team_b)
             
         return(effect)
 
