@@ -5,7 +5,7 @@ Manages the trigger phase.
 
 Author : DrLarck
 
-Last update : 24/11/19 (DrLarck)
+Last update : 25/12/19 (DrLarck)
 """
 
 # dependancies
@@ -37,9 +37,10 @@ class Trigger_phase:
     """
 
     # attribute
-    def __init__(self, team_a, team_b):
+    def __init__(self, team_a, team_b, turn):
         self.team_a = team_a
         self.team_b = team_b
+        self.turn = turn
 
     # method
     async def trigger_effect(self, ctx, character_index, character):
@@ -283,8 +284,9 @@ class Trigger_phase:
 
                 displaying += f"• {passive_.icon}**__{passive_.name}__** : *{passive_.description}*"
 
-            await ctx.send(displaying)
-            await ctx.send("--")
+            if(self.turn == 1):
+                await ctx.send(displaying)
+                await ctx.send("--")
 
         return
     
@@ -339,7 +341,8 @@ class Trigger_phase:
 
                 displaying += f"• {leader_.icon}**__{leader_.name}__** : *{leader_.description}*"
 
-            await ctx.send(displaying)
-            await ctx.send("--")
+            if(self.turn == 1):
+                await ctx.send(displaying)
+                await ctx.send("--")
 
         return

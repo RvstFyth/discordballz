@@ -5,7 +5,7 @@ The :class:`Fight()` manages a fight, from the beginning to the end and returns 
 
 Author : DrLarck
 
-Last update : 22/09/19 (DrLarck)
+Last update : 25/12/19 (DrLarck)
 """
 
 # dependancies
@@ -266,14 +266,16 @@ class Fight:
                 # team_a
             await self.ctx.send(f"```🔵 - {self.player.name}'s team```")
             await asyncio.sleep(1)
-            self.trigger_phase = Trigger_phase(team[0], team[1])
+            self.trigger_phase = Trigger_phase(team[0], team[1], turn)
 
                 # leader
-            await self.ctx.send("```👑 - Leader skills```")
+            if(turn == 1):
+                await self.ctx.send("```👑 - Leader skills```")
             await self.trigger_phase.trigger_leader(self.client, self.ctx, team[0][0])
 
                 # passive
-            await self.ctx.send("```🏵 - Passive skills```")
+            if(turn == 1):
+                await self.ctx.send("```🏵 - Passive skills```")
             for character_a_ in team[0]:
                 await asyncio.sleep(0)
 
@@ -291,14 +293,16 @@ class Fight:
                 # team_b
             await self.ctx.send(f"```🔴 - Enemy team```")
             await asyncio.sleep(1)
-            self.trigger_phase = Trigger_phase(team[1], team[0])
+            self.trigger_phase = Trigger_phase(team[1], team[0], turn)
 
                 # leader
-            await self.ctx.send("```👑 - Leader skills```")
+            if(turn == 1):
+                await self.ctx.send("```👑 - Leader skills```")
             await self.trigger_phase.trigger_leader(self.client, self.ctx, team[1][0])
 
                 # passive
-            await self.ctx.send("```🏵 - Passive skills```")            
+            if(turn == 1):
+                await self.ctx.send("```🏵 - Passive skills```")            
             for character_b_ in team[1]:
                 await asyncio.sleep(0)
 
