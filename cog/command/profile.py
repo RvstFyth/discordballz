@@ -38,32 +38,35 @@ class Cmd_profile(commands.Cog):
         """
 
         # init
+            # player
         player = Player(ctx, self.client, ctx.message.author)
         await player.resource.update()  # update the resources count
+        char_amount = await player.box.get_characters_amount()
+            # embed
         profile_embed = await Custom_embed(self.client, thumb = player.avatar, title = f"{player.name}'s profile").setup_embed()
 
         # prepare the embed
         profile_embed.add_field(
-            name = ":star:Level",
+            name = ":star: Level",
             value = 0,
             inline = True
         )
 
         profile_embed.add_field(
-            name = f"{game_icon['dragonstone']}Dragon stone",
-            value = player.resource.dragonstone,
+            name = f"{game_icon['dragonstone']} Dragon stone",
+            value = f"{player.resource.dragonstone:,}",
             inline = True
         )
 
         profile_embed.add_field(
-            name = f"{game_icon['zenis']}Zenis",
-            value = player.resource.zenis,
+            name = f"{game_icon['zenis']} Zenis",
+            value = f"{player.resource.zenis:,}",
             inline = True
         )
 
         profile_embed.add_field(
-            name = ":trophy:Collection",
-            value = await player.box.get_characters_amount(),
+            name = ":trophy: Collection",
+            value = f"{char_amount:,}",
             inline = True
         )
 
