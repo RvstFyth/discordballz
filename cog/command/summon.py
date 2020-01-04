@@ -33,7 +33,7 @@ class Cmd_summon(commands.Cog):
     def __init__(self, client):
         self.client = client
         self.cost = {
-            "basic" : 0
+            "basic" : 5
         }
     
     @commands.check(Basic_checker().is_game_ready)

@@ -5,7 +5,7 @@ Manages the box behaviour.
 
 Author : DrLarck
 
-Last update : 31/08/19 (DrLarck)
+Last update : 04/01/2020 (DrLarck)
 """
 
 # dependancies
@@ -351,3 +351,29 @@ class Box:
         )
 
         return(data)
+    
+    async def get_characters_amount(self):
+        """
+        `coroutine`
+
+        Get the amount of characters owned by the player.
+
+        --
+
+        Return : `int`
+        """
+
+        # init
+        amount = 0
+        characters = await self.db.fetch(
+            f"""
+            SELECT character_unique_id 
+            FROM character_unique 
+            WHERE character_owner_id = {self.player.id};
+            """
+        )
+
+        if(characters != None):
+            amount = len(characters)
+
+        return(amount)
