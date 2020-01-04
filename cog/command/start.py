@@ -5,7 +5,7 @@ Manages the start command
 
 Author : DrLarck
 
-Last update : 29/08/19 (DrLarck)
+Last update : 04/01/19 (DrLarck)
 """
 
 # dependancies
@@ -19,6 +19,9 @@ from utility.cog.player.player import Player
 # checker
 from utility.command.checker.basic import Basic_checker
 from utility.command.checker.start import Start_checker
+
+# icon
+from configuration.icon import game_icon
 
 # start command
 class Cmd_start(commands.Cog):
@@ -46,6 +49,11 @@ class Cmd_start(commands.Cog):
             INSERT INTO player_combat_info(player_id, player_name) VALUES({player.id}, '{player.name}');
             """
         )
-    
+
+        # welcome message
+        welcome = f"<@{player.id}> Hello and welcome to **Discord Ball Z III** - *Open Beta* !\nWe're hoping you to enjoy your adventure !\n\nHere are **25** {game_icon['dragonstone']}, they will help you to **summon** your first heroes that will fight for you !\n\nIf you have any question, do not hesitate to consult the `d!help` command or join the **Official Server** : https://discord.gg/eZf2p7h"
+        
+        await ctx.send(welcome)
+        
 def setup(client):
     client.add_cog(Cmd_start(client))
