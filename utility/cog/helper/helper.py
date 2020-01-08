@@ -19,6 +19,8 @@ from utility.cog.player.attribute.box.box import Box
 from utility.cog.helper.command._summon import Help_summon
 from utility.cog.helper.command._box import Help_box
 from utility.cog.helper.command._fighter import Help_fighter
+from utility.cog.helper.command._profile import Help_profile
+from utility.cog.helper.command._show import Help_show
 
 # helper
 class Helper:
@@ -60,7 +62,8 @@ class Helper:
         self.embed = None
 
         self.commands = [
-            Help_summon(), Help_box(), Help_fighter()
+            Help_summon(), Help_box(), Help_fighter(),
+            Help_profile(), Help_show()
         ]
 
         # util

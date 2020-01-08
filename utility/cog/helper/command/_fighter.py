@@ -27,15 +27,15 @@ class Help_fighter(Help_command):
         
         self.fields = [
             {
-                "name" : "team",
+                "name" : "d!team",
                 "value" : "Display your team"
             },
             {
-                "name" : "set [a/b/c] [unique id]",
+                "name" : "d!set [a/b/c] [unique id]",
                 "value" : "Set the fighter with the `unique id` at the slot `a`, `b` or `c`"
             },
             {
-                "name" : "remove [a/b/c]",
+                "name" : "d!remove [a/b/c]",
                 "value" : "Remove the fighter at the specified slot"
             }
         ]
