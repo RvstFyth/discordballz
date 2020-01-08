@@ -62,7 +62,7 @@ class Help_command:
         # init
         self.init_field = {
             "name" : f"{self.name} command",
-            "value" : f"Welcome to the **{self.name}** help pannel",
+            "value" : f"Welcome to the **{self.name}** help panel",
             "inline" : False
         }
         embed = await Custom_embed(client).setup_embed()

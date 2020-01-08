@@ -50,7 +50,7 @@ class Cmd_help(commands.Cog):
                 await helper.display_help(help_panel)
             
             else:
-                await ctx.send(f"Sorry, the help pannel for the command `{command}` has not been found.")
+                await ctx.send(f"Sorry, the help panel for the command `{command}` has not been found.")
 
 def setup(client):
     client.add_cog(Cmd_help(client))
