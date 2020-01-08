@@ -14,6 +14,7 @@ from discord.ext import commands
 
 # utils
 from utility.cog.helper.helper import Helper
+from utility.cog.player.player import Player
 
 # check
 from utility.command.checker.basic import Basic_checker
@@ -36,10 +37,11 @@ class Cmd_help(commands.Cog):
         """
 
         # init
-        helper = Helper(self.client, ctx)
+        player = Player(ctx, self.client, ctx.message.author)
+        helper = Helper(self.client, ctx, player)
 
         if(command == None):
-            await helper.help_command()
+            await helper.helper_manager()
     
         else:
             help_panel = await helper.get_help_command(command)
