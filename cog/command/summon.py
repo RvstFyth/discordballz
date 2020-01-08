@@ -5,7 +5,7 @@ Summon command
 
 Author : DrLarck
 
-Last update : 22/09/19 (DrLarck)
+Last update : 08/01/2020 (DrLarck)
 """
 
 # dependancies
@@ -25,7 +25,7 @@ from utility.command._summon import Summoner
     # displayer
 from utility.cog.displayer.character import Character_displayer
     # help
-from utility.cog.helper.command._summon import _summon
+from utility.cog.helper.command._summon import Help_summon
 from utility.cog.helper.helper import Helper
 
 class Cmd_summon(commands.Cog):
@@ -51,7 +51,7 @@ class Cmd_summon(commands.Cog):
         
         # init
         helper = Helper(self.client, ctx)
-        summon_help = await _summon(self.client)
+        summon_help = await Help_summon().get_embed(self.client)
 
         # send the help
         await helper.display_help(summon_help)

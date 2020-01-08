@@ -5,49 +5,31 @@ Manages the summon help
 
 Author : DrLarck
 
-Last update : 29/08/19 (DrLarck)
+Last update : 08/01/2020 (DrLarck)
 """
 
 # dependancies
 import asyncio
+from utility.cog.helper.command.command_help import Help_command
 
 # graphic
 from utility.graphic.embed import Custom_embed
 
-async def _summon(client):
-    """
-    `coroutine`
+class Help_summon(Help_command):
+    def __init__(self):
+        Help_command.__init__(self)
+        self.name = "Summon"
+        self.description = "Allow you to summon a new character"
+        self.invoke = "summon"
+        self.aliases = ["sum"]
 
-    Displays the command.help for the summon command.
-
-    --
-
-    Return : send a discord.Message (embedded)
-    """
-
-    # init
-    embed = Custom_embed(client)
-    summon_help = await embed.setup_embed()
-
-    # setup
-    # title and desc
-    summon_help.add_field(
-        name = "Summon commands :",
-        value = "Welcome to the **Summon** help pannel.\n__Aliases__ : sum",
-        inline = False
-    )
-
-    # commands
-    summon_help.add_field(
-        name = "d!summon | sum",
-        value = "Displays the command help.",
-        inline = False
-    )
-
-    summon_help.add_field(
-        name = "d!summon basic",
-        value = "Summons a random character from the **Basic** expansion.",
-        inline = False
-    )
-
-    return(summon_help)
+        self.fields = [
+            {
+                "name" : "d!summon | sum",
+                "value" : "Displays the command help."
+            },
+            {
+                "name" : "d!summon basic",
+                "value" : "Summon a random character from the **Basic** expansion."
+            }
+        ]

@@ -5,7 +5,7 @@ A simple asynchronous PostgreSQL database manager.
 
 Author : DrLarck
 
-Last update : 20/08/19 (DrLarck)
+Last update : 08/01/2020 (DrLarck)
 """
 
 # dependancies
@@ -58,7 +58,7 @@ class Database:
             "user" : environ["DBZ_DB_USER"],
             "password" : environ["DBZ_DB_PASSWORD"],
             "host" : environ["DBZ_DB_HOST"],
-            "database" : "dev_dbz3",
+            "database" : environ["DBZ_DB_NAME"],
             "port" : "5432"
         }
     
