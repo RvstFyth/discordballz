@@ -18,6 +18,7 @@ from utility.cog.player.attribute.box.box import Box
 # help command
 from utility.cog.helper.command._summon import Help_summon
 from utility.cog.helper.command._box import Help_box
+from utility.cog.helper.command._fighter import Help_fighter
 
 # helper
 class Helper:
@@ -59,7 +60,7 @@ class Helper:
         self.embed = None
 
         self.commands = [
-            Help_summon(), Help_box()
+            Help_summon(), Help_box(), Help_fighter()
         ]
 
         # util
