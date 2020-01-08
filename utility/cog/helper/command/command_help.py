@@ -62,16 +62,19 @@ class Help_command:
         # init
         self.init_field = {
             "name" : f"{self.name} command",
-            "value" : f"Welcome to the **{self.name}** help pannel\n__Aliases__ : ",
+            "value" : f"Welcome to the **{self.name}** help pannel",
             "inline" : False
         }
         embed = await Custom_embed(client).setup_embed()
         aliases = ""
 
-        for alias in self.aliases:
-            aliases += f"{alias} | "
-        
-        self.init_field["value"] += aliases
+        if(len(self.aliases) > 0):
+            self.init_field["value"] += "\n__Aliases__ : "
+
+            for alias in self.aliases:
+                aliases += f"`{alias}` "
+            
+            self.init_field["value"] += aliases
 
         # init field
         embed.add_field(

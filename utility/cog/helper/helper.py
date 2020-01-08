@@ -17,6 +17,7 @@ from utility.cog.player.attribute.box.box import Box
 
 # help command
 from utility.cog.helper.command._summon import Help_summon
+from utility.cog.helper.command._box import Help_box
 
 # helper
 class Helper:
@@ -58,7 +59,7 @@ class Helper:
         self.embed = None
 
         self.commands = [
-            Help_summon()
+            Help_summon(), Help_box()
         ]
 
         # util
@@ -135,7 +136,6 @@ class Helper:
             if(a == len(self.commands)):
                 break
 
-            print(f"len : {len(self.commands)} | a : {a} | start : {start_at} | end : {end_at}")
             command = self.commands[a]
 
             help_embed.add_field(
