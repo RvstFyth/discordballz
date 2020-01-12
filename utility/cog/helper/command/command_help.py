@@ -5,7 +5,7 @@ Represents a command's help pannel.
 
 Author : DrLarck
 
-Last update : 08/01/2020 (DrLarck)
+Last update : 12/01/2020 (DrLarck)
 """
 
 # dependancies
@@ -85,6 +85,8 @@ class Help_command:
 
         # custom field
         for field in self.fields:
+            await asyncio.sleep(0)
+
             embed.add_field(
                 name = field["name"],
                 value = field["value"],
