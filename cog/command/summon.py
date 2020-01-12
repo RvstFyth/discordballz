@@ -5,7 +5,7 @@ Summon command
 
 Author : DrLarck
 
-Last update : 08/01/2020 (DrLarck)
+Last update : 12/01/2020 (DrLarck)
 """
 
 # dependancies
@@ -50,7 +50,7 @@ class Cmd_summon(commands.Cog):
         """
         
         # init
-        helper = Helper(self.client, ctx)
+        helper = Helper(self.client, ctx, ctx.message.author)
         summon_help = await Help_summon().get_embed(self.client)
 
         # send the help
