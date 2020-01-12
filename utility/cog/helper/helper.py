@@ -132,7 +132,7 @@ class Helper:
         """
 
         # init
-        help_embed = await Custom_embed(self.client, title = "Help panel", description = f"Prefixes : `d!`, `db` | Page {current_page} / {total_page}").setup_embed()
+        help_embed = await Custom_embed(self.client, title = "Help panel", description = f"Prefixes : `d!`, `db` | Support server : [Click here](https://discord.gg/eZf2p7h) \nPage {current_page} / {total_page}").setup_embed()
         start_at, end_at = 0 + 5 * (current_page - 1), 5 * current_page
 
         if(len(self.commands) < 5):
