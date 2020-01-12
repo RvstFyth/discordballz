@@ -22,6 +22,7 @@ from utility.cog.helper.command._fighter import Help_fighter
 from utility.cog.helper.command._profile import Help_profile
 from utility.cog.helper.command._show import Help_show
 from utility.cog.helper.command._start import Help_start
+from utility.cog.helper.command._train import Help_train
 
 # helper
 class Helper:
@@ -65,7 +66,7 @@ class Helper:
         self.commands = [
             Help_start(),
             Help_box(), Help_fighter(), Help_profile(),
-            Help_show(), Help_summon() 
+            Help_show(), Help_summon(), Help_train()
         ]
 
         # util
