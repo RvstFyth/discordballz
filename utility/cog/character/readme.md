@@ -2,13 +2,13 @@
 
 This directory manages the **Characters**.
 
-# File
+## File
 
 - `character.py` : Represents a character object.
 
 - `getter.py` : Character's informations getter.
 
-# Directory
+## Directory
 
 - `/ability` : Manages the abilities, effects, passive, etc.
 
