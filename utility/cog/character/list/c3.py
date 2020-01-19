@@ -59,6 +59,9 @@ class Character_3(Character):
 
         # crit
         self.critical_chance = 10
+        
+        #ki regeneration
+        self.regeneration.ki = 4
 
         # ability
         self.ability = [Acid, Spreading_acid, Paralyzing_burns]
