@@ -19,5 +19,3 @@ This **directory** stores all the **utility** features available to allow us to 
 - `/player` : Player's utils.
 
 - `/task` : Tasks manager.
-
-- `cog_loader.py` : Loads the cogs.
