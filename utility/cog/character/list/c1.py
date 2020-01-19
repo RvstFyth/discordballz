@@ -62,6 +62,9 @@ class Character_1(Character):
 
             # critical
         self.critical_chance = 10
+        
+            # ki gain
+        self.regeneration.ki = 3
 
         # ability
         self.ability = [Acid, Syphon, Unity_is_strength]
