@@ -48,22 +48,22 @@ class Cmd_start(commands.Cog):
         # insert the player into the tables
         await db.execute(
             f"""
-            INSERT INTO player_info(player_id, player_name, player_register_date) VALUES({player.id}, '{player.name}', '{time.strftime("%d/%m/%y", time.gmtime())}');
-            INSERT INTO player_resource(player_id, player_name, player_dragonstone) VALUES({player.id}, '{player.name}', 25);
-            INSERT INTO player_combat_info(player_id, player_name) VALUES({player.id}, '{player.name}');
-            """
+            INSERT INTO player_info(player_id, player_name, player_register_date) VALUES(%s, '%s', '%s');
+            INSERT INTO player_resource(player_id, player_name, player_dragonstone) VALUES(%s, '%s', 25);
+            INSERT INTO player_combat_info(player_id, player_name) VALUES(%s, '%s');
+            """, [player.id, player.name, time.strftime("%d/%m/%y", time.gmtime()), player.id, player.name, player.id, player.name]
         )
 
         # generate 3 saibaiman
         await db.execute(
             f"""
             INSERT INTO character_unique(character_owner_id, character_owner_name, character_global_id, character_type, character_rarity)
-            VALUES({player.id}, '{player.name}', 1, {random.randint(0, 4)}, 0);
+            VALUES(%s, '%s', 1, %s, 0);
             INSERT INTO character_unique(character_owner_id, character_owner_name, character_global_id, character_type, character_rarity)
-            VALUES({player.id}, '{player.name}', 2, {random.randint(0, 4)}, 0);
+            VALUES(%s, '%s', 1, %s, 0);
             INSERT INTO character_unique(character_owner_id, character_owner_name, character_global_id, character_type, character_rarity)
-            VALUES({player.id}, '{player.name}', 3, {random.randint(0, 4)}, 0);
-            """
+            VALUES(%s, '%s', 1, %s, 0);
+            """, [player.id, player.name, random.randint(0, 4), player.id, player.name, random.randint(0, 4), player.id, player.name, random.randint(0, 4)]
         )
 
         await summoner.set_unique_id()
