@@ -44,27 +44,25 @@ class Cmd_start(commands.Cog):
         db = Database(self.client.db)
         player = Player(ctx, self.client, ctx.message.author)
         summoner = Summoner(self.client)
-        
+
         # insert the player into the tables
         await db.execute(
-            f"""
-            INSERT INTO player_info(player_id, player_name, player_register_date) VALUES(%s, '%s', '%s');
-            INSERT INTO player_resource(player_id, player_name, player_dragonstone) VALUES(%s, '%s', 25);
-            INSERT INTO player_combat_info(player_id, player_name) VALUES(%s, '%s');
-            """, [player.id, player.name, time.strftime("%d/%m/%y", time.gmtime()), player.id, player.name, player.id, player.name]
-        )
+            """INSERT INTO player_info(player_id, player_name, player_register_date) VALUES ($1, $2, $3)""",
+            (player.id, player.name, time.strftime("%d/%m/%y", time.gmtime())))
+        await db.execute(
+            """INSERT INTO player_resource(player_id, player_name, player_dragonstone) VALUES ($1, $2, 25)""",
+            (player.id, player.name,))
+        await db.execute("""INSERT INTO player_combat_info(player_id, player_name) VALUES ($1, $2)""",
+                         (player.id, player.name,))
 
         # generate 3 saibaiman
-        await db.execute(
-            f"""
-            INSERT INTO character_unique(character_owner_id, character_owner_name, character_global_id, character_type, character_rarity)
-            VALUES(%s, '%s', 1, %s, 0);
-            INSERT INTO character_unique(character_owner_id, character_owner_name, character_global_id, character_type, character_rarity)
-            VALUES(%s, '%s', 1, %s, 0);
-            INSERT INTO character_unique(character_owner_id, character_owner_name, character_global_id, character_type, character_rarity)
-            VALUES(%s, '%s', 1, %s, 0);
-            """, [player.id, player.name, random.randint(0, 4), player.id, player.name, random.randint(0, 4), player.id, player.name, random.randint(0, 4)]
-        )
+        for i in range(3):
+            await db.execute("""
+                            INSERT INTO character_unique(character_owner_id, character_owner_name, character_global_id, 
+                            character_type, character_rarity)
+                            VALUES($1, $2, $3, $4, 0)""",
+                             [player.id, player.name, (i + 1), random.randint(0, 4)]
+                             )
 
         await summoner.set_unique_id()
 
@@ -91,7 +89,7 @@ class Cmd_start(commands.Cog):
 
         # welcome message
         welcome = f"<@{player.id}> Hello and welcome to **Discord Ball Z III** - *Open Beta* !\nWe're hoping you to enjoy your adventure !\n\nHere are **25**{game_icon['dragonstone']}, they will help you to **summon** your first heroes that will fight for you !\n\nIf you have any question, do not hesitate to consult the `d!help` command or join the **Official Server** : https://discord.gg/eZf2p7h"
-        
+
         await ctx.send(welcome)
 
 def setup(client):
