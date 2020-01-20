@@ -131,7 +131,7 @@ class Database:
         return
     
         # queries managment
-    async def execute(self, query, parameters=[]):
+    async def execute(self, query, parameters=None):
         """
         `coroutine`
         
@@ -147,6 +147,8 @@ class Database:
         """
 
         # init
+        if parameters is None:
+            parameters = []
         await self.connect()
 
         try:
