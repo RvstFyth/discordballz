@@ -131,7 +131,7 @@ class Database:
         return
     
         # queries managment
-    async def execute(self, query):
+    async def execute(self, query, parameters=[]):
         """
         `coroutine`
         
@@ -150,7 +150,7 @@ class Database:
         await self.connect()
 
         try:
-            await self.connection.execute(query)
+            await self.connection.execute(query, parameters)
         
         except asyncpg.UniqueViolationError:  # ignore the unique constraint violation
             pass
