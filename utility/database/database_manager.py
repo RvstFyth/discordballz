@@ -152,7 +152,7 @@ class Database:
         await self.connect()
 
         try:
-            await self.connection.execute(query, parameters)
+            await self.connection.execute(query, *parameters)
         
         except asyncpg.UniqueViolationError:  # ignore the unique constraint violation
             pass
