@@ -35,7 +35,7 @@ class Debuff_acid_explosion(Effect):
 
         # info
         self.name = "Acid explosion"
-        self.icon = self.icon['effect']['acid_explosion']
+        self.icon = self.game_icon['effect']['acid_explosion']
         self.id = 3
 
         # duration
