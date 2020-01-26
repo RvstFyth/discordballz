@@ -30,10 +30,11 @@ class Player_choice:
     """
 
     # attribute
-    def __init__(self, client, player):
+    def __init__(self, client, player, cast_to_lowercase=False):
         self.client = client
         self.player = player
         self.timeout = 120
+        self.cast_to_lowercase = cast_to_lowercase
 
     # method
     async def wait_for_choice(self, possible_choice, team):
@@ -68,6 +69,9 @@ class Player_choice:
 
             # init
             content = message.content
+            if self.cast_to_lowercase:
+                content = content.lower()
+
             content = content.split()
             choice = None
 
