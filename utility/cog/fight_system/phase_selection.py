@@ -82,7 +82,7 @@ class Selection_phase:
         move_list = []  # stores the move_choice
 
         # choice
-        choice = Player_choice(self.client, self.player)
+        choice = Player_choice(self.client, self.player, True)
 
         for character in player_team:
             await asyncio.sleep(0)
