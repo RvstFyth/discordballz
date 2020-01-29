@@ -14,7 +14,7 @@ import asyncio
 # util
 from utility.cog.character.character import Character
 
-class Character_7(Character):
+class Character_007(Character):
     """
     Represents the Buu unit from the Buu saga.
     """

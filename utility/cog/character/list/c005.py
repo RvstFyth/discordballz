@@ -18,7 +18,7 @@ from utility.cog.character.character import Character
 from utility.cog.character.ability.list.acid import Acid
 
 # Piccolo
-class Character_5(Character):
+class Character_005(Character):
     """
     Represents Picolo
     """

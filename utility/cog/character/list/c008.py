@@ -14,7 +14,7 @@ import asyncio
 # util
 from utility.cog.character.character import Character
 
-class Character_8(Character):
+class Character_008(Character):
     """
     Represents the Goten unit from the Buu saga.
     """

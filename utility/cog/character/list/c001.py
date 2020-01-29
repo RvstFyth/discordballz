@@ -24,7 +24,7 @@ from utility.cog.character.ability.passive.saibaiman_green import Passive_green_
 from utility.cog.character.ability.leader.saibaiman_green import Leader_green_saibaiman
 
 # saibaiman
-class Character_1(Character):
+class Character_001(Character):
     """
     Represents a Green Saibaiman.
     """
