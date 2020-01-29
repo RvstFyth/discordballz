@@ -9,5 +9,4 @@ Here is the characters list with their id :
 - 003 **Red Saibaiman**
 - 004 **Pilaf Machine**
 - 005 **Piccolo**
-- 00
-6 **Bardock**
+- 006 **Bardock**
