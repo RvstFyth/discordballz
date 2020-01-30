@@ -5,7 +5,7 @@ Manages the character 5
 
 Author : DrLarck
 
-Last update : 06/09/19 (DrLarck)
+Last update : 30/01/20 (DrLarck)
 """
 
 # dependancies
@@ -14,8 +14,9 @@ import asyncio
 # util
 from utility.cog.character.character import Character
 
-# test
-from utility.cog.character.ability.list.acid import Acid
+# ability
+from utility.cog.character.ability.list.arm_stretch import Arm_stretch
+from utility.cog.character.ability.list.special_beam_cannon import Special_beam_cannon
 
 # Piccolo
 class Character_005(Character):
@@ -54,4 +55,4 @@ class Character_005(Character):
         # crit
         self.critical_chance = 10
 
-        self.ability = [Acid]
+        self.ability = [Arm_stretch, Special_beam_cannon]
