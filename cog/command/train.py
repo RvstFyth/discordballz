@@ -63,7 +63,7 @@ class Cmd_train(commands.Cog):
         ]
 
         # get opponent team
-        #opponent_team = await tool.generate_opponent_team(player)
+        opponent_team = await tool.generate_opponent_team(player)
 
         # test
         opponent_team = [
@@ -71,6 +71,13 @@ class Cmd_train(commands.Cog):
             await getter.get_character(2),
             await getter.get_character(3)
         ]
+
+        for char in opponent_team:
+            await asyncio.sleep(0)
+
+            char.is_npc = True
+            
+        ############ end test ########
         
         team = [player_team, opponent_team]
 
