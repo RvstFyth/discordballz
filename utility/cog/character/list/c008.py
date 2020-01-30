@@ -5,7 +5,7 @@ Represents Goten
 
 Author : Zyorhist
 
-Last update : 28/01/20 (DrLarck)
+Last update : 30/01/20 (DrLarck)
 """
 
 # dependancies
@@ -28,7 +28,7 @@ class Character_008(Character):
         self.info.saga = "Buu"
 
         # stat
-        self.health = 1250
+        self.health.maximum = 1250
         
         self.damage.physical_max = 550
         self.damage.ki_max = 1000

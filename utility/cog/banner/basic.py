@@ -5,7 +5,7 @@ Manages the basic banner.
 
 Author : DrLarck
 
-Last update : 31/08/19 (DrLarck)
+Last update : 30/01/20 (DrLarck)
 """
 
 # dependancies
@@ -30,5 +30,6 @@ class Basic_banner(Banner):
         Banner.__init__(self)
         # attr
         self.all = [
-            1, 2, 3, 4, 5, 6
+            1, 2, 3, 4, 5,
+            6, 7, 8, 9, 10
         ]

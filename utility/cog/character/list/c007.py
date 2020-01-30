@@ -5,7 +5,7 @@ Represents Buu
 
 Author : DrLarck
 
-Last update : 25/01/20 (DrLarck)
+Last update : 30/01/20 (DrLarck)
 """
 
 # dependancies
@@ -28,7 +28,7 @@ class Character_007(Character):
         self.info.saga = "Buu"
 
         # stat
-        self.health = 1625
+        self.health.maximum = 1625
         
         self.damage.physical_max = 475
         self.damage.ki_max = 1000

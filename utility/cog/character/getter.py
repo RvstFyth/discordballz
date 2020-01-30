@@ -5,7 +5,7 @@ Manages the character getter.
 
 Author : DrLarck
 
-Last update : 31/08/19 (DrLarck)
+Last update : 30/01/20 (DrLarck)
 """
 
 # dependancies
@@ -95,6 +95,26 @@ class Character_getter:
 
             character = Character_006()
         
+        if(character_id == 7):
+            from utility.cog.character.list.c007 import Character_007
+
+            character = Character_007()
+        
+        if(character_id == 8):
+            from utility.cog.character.list.c008 import Character_008
+
+            character = Character_008()
+        
+        if(character_id == 9):
+            from utility.cog.character.list.c009 import Character_009
+
+            character = Character_009()
+        
+        if(character_id == 7):
+            from utility.cog.character.list.c010 import Character_010
+
+            character = Character_010()
+                    
         return(character)
     
     async def get_summonable(self):

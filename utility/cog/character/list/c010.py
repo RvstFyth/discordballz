@@ -5,7 +5,7 @@ Represents Launch
 
 Author : Zyorhist
 
-Last update : 28/01/20 (DrLarck)
+Last update : 30/01/20 (DrLarck)
 """
 
 # dependancies
@@ -28,7 +28,7 @@ class Character_010(Character):
         self.info.saga = "General Blue"
 
         # stat
-        self.health = 2000
+        self.health.maximum = 2000
         
         self.damage.physical_max = 625
         self.damage.ki_max = 700
