@@ -85,7 +85,7 @@ class Arm_stretch(Ability):
         _move["damage"] = damage["calculated"]
         _move["critical"] = damage["critical"]
         _move["dodge"] = damage["dodge"]
-        _move["ki"] = True
+        _move["physical"] = True
 
         _move = await move.offensive_move(_move)
 
