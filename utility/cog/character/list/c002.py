@@ -22,7 +22,7 @@ from utility.cog.character.ability.leader.saibaiman_blue import Leader_blue_saib
 from utility.cog.character.ability.effect.buff.saibaiman_last_will_acid import Buff_last_will_acid
 
 # blue saibaiman
-class Character_2(Character):
+class Character_002(Character):
     """
     Represents a Blue Saibaiman
     """

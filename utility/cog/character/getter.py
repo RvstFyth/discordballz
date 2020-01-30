@@ -61,39 +61,39 @@ class Character_getter:
 
         # Green Saibaiman
         if(character_id == 1):
-            from utility.cog.character.list.c1 import Character_1
+            from utility.cog.character.list.c001 import Character_001
 
-            character = Character_1()
+            character = Character_001()
         
         # Blue Saibaiman
         if(character_id == 2):
-            from utility.cog.character.list.c2 import Character_2
+            from utility.cog.character.list.c002 import Character_002
 
-            character = Character_2()
+            character = Character_002()
         
         # Red Saibaiman
         if(character_id == 3):
-            from utility.cog.character.list.c3 import Character_3
+            from utility.cog.character.list.c003 import Character_003
 
-            character = Character_3()
+            character = Character_003()
         
         # Pilaf Machine
         if(character_id == 4):
-            from utility.cog.character.list.c4 import Character_4
+            from utility.cog.character.list.c004 import Character_004
 
-            character = Character_4()
+            character = Character_004()
         
         # Piccolo
         if(character_id == 5):
-            from utility.cog.character.list.c5 import Character_5
+            from utility.cog.character.list.c005 import Character_005
 
-            character = Character_5()
+            character = Character_005()
 
         # Bardock
         if(character_id == 6):
-            from utility.cog.character.list.c6 import Character_6
+            from utility.cog.character.list.c006 import Character_006
 
-            character = Character_6()
+            character = Character_006()
         
         return(character)
     

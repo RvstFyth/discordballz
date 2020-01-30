@@ -18,7 +18,7 @@ from utility.cog.character.character import Character
 from utility.cog.character.ability.list.acid import Acid
 
 # Bardock
-class Character_6(Character):
+class Character_006(Character):
     """
     Represents Bardock
     """

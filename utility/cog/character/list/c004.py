@@ -22,7 +22,7 @@ from utility.cog.character.ability.list.triple_pilots import Triple_pilots
 from utility.cog.character.ability.passive.triple_pilots import Passive_triple_pilots
 
 # Pilaf Machine
-class Character_4(Character):
+class Character_004(Character):
     """
     Represents Pilaf Machine
     """

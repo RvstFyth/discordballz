@@ -23,7 +23,7 @@ from utility.cog.character.ability.passive.saibaiman_red import Passive_red_saib
 from utility.cog.character.ability.leader.saibaiman_red import Leader_saibaiman_red
 
 # Red Saibaiman
-class Character_3(Character):
+class Character_003(Character):
     """
     Represents a Red Saibaiman
     """
