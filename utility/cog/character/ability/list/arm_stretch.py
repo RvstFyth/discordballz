@@ -43,6 +43,7 @@ class Arm_stretch(Ability):
         self.description = f"""Performs a sequence attack against any enemy"""
 
         self.cost = 5
+        self.target_enemy = True
         self.need_target = True
     
     # method
