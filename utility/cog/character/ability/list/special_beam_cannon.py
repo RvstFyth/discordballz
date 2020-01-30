@@ -76,7 +76,7 @@ class Special_beam_cannon(Ability):
         damage_done = await damage_calculator.physical_damage(
             roll_damage,
             dodgable = True,
-            critable = True,
+            critable = False,
             ignore_defense = True
         )
         
