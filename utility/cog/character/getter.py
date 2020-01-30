@@ -110,7 +110,7 @@ class Character_getter:
 
             character = Character_009()
         
-        if(character_id == 7):
+        if(character_id == 10):
             from utility.cog.character.list.c010 import Character_010
 
             character = Character_010()
