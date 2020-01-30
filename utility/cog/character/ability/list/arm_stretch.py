@@ -5,7 +5,7 @@ Manages the Arm Stretch ability
 
 Author : Zyorhist
 
-Last update : 30/01/20 
+Last update : 30/01/20 (DrLarck)
 """
 
 # dependance
@@ -39,7 +39,7 @@ class Arm_stretch(Ability):
         )
 
         self.name = "Arm Stretch"
-        self.icon = self.game_icon['ability']['arm_stretch']
+        #self.icon = self.game_icon['ability']['arm_stretch']
         self.description = f"""Performs a sequence attack against any enemy"""
 
         self.cost = 5
