@@ -5,7 +5,7 @@ Manages the rolling special beam canon ability
 
 Author : Zyorhist
 
-Last update : 30/01/20 
+Last update : 30/01/20 (DrLarck)
 """
 
 # dependancies
@@ -92,7 +92,7 @@ class Special_beam_cannon(Ability):
         _move["dodge"] = damage_done["dodge"]
         _move["critical"] = damage_done["critical"]
         _move["physical"] = False
-        _moge["ki"] = False
+        _move["ki"] = False
 
         _move = await move.offensive_move(_move)
 
