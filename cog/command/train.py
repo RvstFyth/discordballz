@@ -5,7 +5,7 @@ This command allows the player to level up his characters.
 
 Author : DrLarck
 
-Last update : 22/09/19 (DrLarck)
+Last update : 30/01/20 (DrLarck)
 """
 
 # dependancies
@@ -63,8 +63,15 @@ class Cmd_train(commands.Cog):
         ]
 
         # get opponent team
-        opponent_team = await tool.generate_opponent_team(player)
+        #opponent_team = await tool.generate_opponent_team(player)
 
+        # test
+        opponent_team = [
+            await getter.get_character(1),
+            await getter.get_character(2),
+            await getter.get_character(3)
+        ]
+        
         team = [player_team, opponent_team]
 
         fight = Fight(self.client, ctx, player)
