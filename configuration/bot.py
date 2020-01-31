@@ -5,7 +5,7 @@ Here is the basic configuration of the bot.
 
 Author : DrLarck
 
-Last update : 30/01/2020 (DrLarck)
+Last update : 31/01/2020 (DrLarck)
 """
 
 # dependancies
@@ -52,7 +52,7 @@ class Bot_config:
     is_ready = False
 
     # info
-    version = "3.0.1.219"
+    version = "3.0.1.225"
     phase = "BETA"
 
     # droprate
