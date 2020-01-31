@@ -5,7 +5,7 @@ The :class:`Fight()` manages a fight, from the beginning to the end and returns 
 
 Author : DrLarck
 
-Last update : 25/12/19 (DrLarck)
+Last update : 31/01/20 (DrLarck)
 """
 
 # dependancies
@@ -165,7 +165,8 @@ class Fight:
 
         # init
         # add the caller's id in the list of player that are already fighting
-        Fight_checker.in_fight.append(self.player.id)
+        checker = Fight_checker()
+        checker.in_fight.append(self.player.id)
 
             # translation
         translation = Translator(self.client.db, self.player)
@@ -220,9 +221,17 @@ class Fight:
             self.battle_phae = Battle_phase(self.client, self.ctx, self.player, None)
 
             # new turn
+
+            if not await checker.is_fighting(self.ctx):  # if the player is no longer fighting
+                return
+
             await self.ctx.send(f"```########## 📣 Round {turn} ! ##########```")
             await asyncio.sleep(2)
+
             # team displaying
+            if not await checker.is_fighting(self.ctx):  # if the player is no longer fighting
+                return
+
             if(turn == 1):
                 await self.ctx.send("```👥 Teams```")
                 await asyncio.sleep(1)
@@ -233,6 +242,9 @@ class Fight:
             await asyncio.sleep(1)
 
             # get move
+            if not await checker.is_fighting(self.ctx):  # if the player is no longer fighting
+                return
+
                 # team a
             team_a_move = await self.selection_phase.start_selection(0, team)
                 # check if the player want to flee
@@ -245,6 +257,9 @@ class Fight:
             team_b_move = await self.selection_phase.start_selection(1, team)
 
             # battle phase
+            if not await checker.is_fighting(self.ctx):  # if the player is no longer fighting
+                return
+
             await self.ctx.send(f"```⚔ - Battle phase```")
             await asyncio.sleep(2)
 
@@ -258,6 +273,9 @@ class Fight:
             await self.reset_stat(team_b_ref)
 
             # trigger phase
+            if not await checker.is_fighting(self.ctx):  # if the player is no longer fighting
+                return
+
             await self.ctx.send("```🌀 - Trigger phase```")
             await asyncio.sleep(1)
 
@@ -269,11 +287,17 @@ class Fight:
             self.trigger_phase = Trigger_phase(team[0], team[1], turn)
 
                 # leader
+            if not await checker.is_fighting(self.ctx):  # if the player is no longer fighting
+                return
+
             if(turn == 1):
                 await self.ctx.send("```👑 - Leader skills```")
             await self.trigger_phase.trigger_leader(self.client, self.ctx, team[0][0])
 
                 # passive
+            if not await checker.is_fighting(self.ctx):  # if the player is no longer fighting
+                return
+
             if(turn == 1):
                 await self.ctx.send("```🏵 - Passive skills```")
             for character_a_ in team[0]:
@@ -282,6 +306,9 @@ class Fight:
                 await self.trigger_phase.trigger_passive(self.client, self.ctx, character_a_)
 
                 # effect
+            if not await checker.is_fighting(self.ctx):  # if the player is no longer fighting
+                return
+
             await self.ctx.send("```🌀 - Effects```")
             for character_a in team[0]:
                 await asyncio.sleep(0)
@@ -296,11 +323,17 @@ class Fight:
             self.trigger_phase = Trigger_phase(team[1], team[0], turn)
 
                 # leader
+            if not await checker.is_fighting(self.ctx):  # if the player is no longer fighting
+                return
+
             if(turn == 1):
                 await self.ctx.send("```👑 - Leader skills```")
             await self.trigger_phase.trigger_leader(self.client, self.ctx, team[1][0])
 
                 # passive
+            if not await checker.is_fighting(self.ctx):  # if the player is no longer fighting
+                return
+
             if(turn == 1):
                 await self.ctx.send("```🏵 - Passive skills```")            
             for character_b_ in team[1]:
@@ -309,6 +342,9 @@ class Fight:
                 await self.trigger_phase.trigger_passive(self.client, self.ctx, character_b_)
 
                 # effect
+            if not await checker.is_fighting(self.ctx):  # if the player is no longer fighting
+                return
+
             await self.ctx.send("```🌀 - Effects```")
             for character_b in team[1]:
                 await asyncio.sleep(0)
@@ -318,6 +354,9 @@ class Fight:
                 character_index += 1
             
             # end of turn
+            if not await checker.is_fighting(self.ctx):  # if the player is no longer fighting
+                return
+
                 # calculate average hps
             team_a_average_hp, team_b_average_hp = await self.get_teams_hp(team)
 
