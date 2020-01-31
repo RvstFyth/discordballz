@@ -64,7 +64,7 @@ class Fight_checker:
 
         if player.id in self.in_fight:
             return(True)
-            
+        
         return(False)
 
     async def has_team(self, ctx):
