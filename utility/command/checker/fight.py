@@ -5,7 +5,7 @@ Regroups the fight checker
 
 Author : DrLarck
 
-Last update : 22/09/19 (DrLarck)
+Last update : 31/01/20 (DrLarck)
 """
 
 # dependancies
@@ -45,6 +45,27 @@ class Fight_checker:
             await ctx.send(f"<@{player.id}> ❌ You are already in a fight.")
 
         return(can_fight)
+    
+    async def is_fighting(self, ctx):
+        """
+        `coroutine`
+
+        This function checks if the player is still fighting or not.
+
+        This one is used to check if the continue has to be stoped if the player has quit using the `cancel fight` command.
+
+        --
+
+        Return : bool
+        """
+
+        # init
+        player = ctx.message.author
+
+        if player.id in self.in_fight:
+            return(True)
+            
+        return(False)
 
     async def has_team(self, ctx):
         """
