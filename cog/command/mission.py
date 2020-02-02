@@ -31,7 +31,7 @@ class Cmd_mission(commands.Cog):
     @commands.check(Basic_checker().is_game_ready)
     @commands.check(Basic_checker().is_registered)
     @commands.command()
-    async def mission(self, ctx, choice : int = None):
+    async def mission(self, ctx, choice = None):
         """
         Allow the player to display the mission panel
 
@@ -48,10 +48,12 @@ class Cmd_mission(commands.Cog):
         embed = await Custom_embed(
             self.client, title = "Missions", description = "Welcome to the Missions panel"
         ).setup_embed()    
-
+        
         # start mission
         if(choice != None):
-            await mission.start_mission(ctx, self.client, player, choice)
+            if(choice.isdigit()):
+                choice = int(choice)
+                await mission.start_mission(ctx, self.client, player, choice)
 
         else:
             # display the missions panel

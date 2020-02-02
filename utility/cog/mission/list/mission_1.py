@@ -22,7 +22,15 @@ from utility.cog.character.list.c003 import Character_003
 
 class Mission_1(Mission):
     """
-    Contains a team of Saibaiman
+    Opponent : Team of Saibaiman
+
+    Reward :
+
+    - dragonstone 10
+
+    - zenis 100
+
+    - team xp 150
 
     Level : [5, 10]
     """
@@ -30,6 +38,10 @@ class Mission_1(Mission):
     # attribute
     def __init__(self):
         Mission.__init__(self)
+        self.level_range = {
+            "min" : 5,
+            "max" : 10
+        }
 
     async def set_opponent(self):
         
@@ -37,7 +49,7 @@ class Mission_1(Mission):
         self.opponent = [
             Character_001(),
             Character_002(),
-            Character_003
+            Character_003()
         ]
 
         # set the level

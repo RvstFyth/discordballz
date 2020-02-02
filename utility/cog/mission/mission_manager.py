@@ -62,7 +62,7 @@ class Mission_manager():
         if(mission_id < 0):
             mission_id = 0
 
-        if(mission_id < len(self.missions) and mission_id > 0):
+        if(mission_id <= len(self.missions) and mission_id > 0):
             mission_id -= 1  # get the index
 
             # init the combat system
