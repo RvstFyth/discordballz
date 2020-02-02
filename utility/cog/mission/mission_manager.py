@@ -13,6 +13,7 @@ import asyncio
 
 # util
 from utility.cog.fight_system.fight import Fight
+from utility.cog.level.level import Leveller
 
 # mission
 from utility.cog.mission.list.mission_1 import Mission_1
@@ -53,6 +54,7 @@ class Mission_manager():
         # init
         success = False
         mission_id -= 1
+        leveller = Leveller(client, ctx)
 
         # limit
         if(mission_id < 0):
@@ -73,7 +75,20 @@ class Mission_manager():
                 teams = [player_team, opponent_team]
 
                 winner = await combat.run_fight(teams)
-        
+
+                # if the player won
+                if(winner == 1):
+                    # get the unique id of the player's characters
+                    player_team_id = await player.team.get_team()
+
+                    player_team_id = [
+                        player_team_id["a"], player_team_id["b"], player_team_id["c"]
+                    ]
+
+                    await leveller.team_add_xp(player, player_team_id, mission.reward["team_xp"])
+
+                    # give player the resources he has won
+                    
         else:
             return
 
