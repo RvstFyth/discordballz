@@ -112,6 +112,11 @@ class Effect_checker:
         if(effect_id == 10):
             from utility.cog.character.ability.effect.buff.saibaiman_power_charge import Buff_power_charge
             effect = Buff_power_charge(client, ctx, target, team_a, team_b)
+
+        # Power of youth leader skill
+        if(effect_id == 11):
+            from utility.cog.character.ability.effect.buff.power_of_youth import Buff_power_of_youth
+            effect = Buff_power_of_youth(client, ctx, target, team_a, team_b)
             
         return(effect)
 
