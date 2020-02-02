@@ -20,6 +20,7 @@ from utility.graphic.embed import Custom_embed
 
 # util
 from utility.cog.player.player import Player
+from utility.cog.mission.mission_manager import Mission_manager
 
 # mission command
 class Cmd_mission(commands.Cog):
@@ -30,7 +31,7 @@ class Cmd_mission(commands.Cog):
     @commands.check(Basic_checker().is_game_ready)
     @commands.check(Basic_checker().is_registered)
     @commands.command()
-    async def mission(self, ctx, choice = None):
+    async def mission(self, ctx, choice : int = None):
         """
         Allow the player to display the mission panel
 
@@ -43,10 +44,18 @@ class Cmd_mission(commands.Cog):
 
         # init
         player = Player(ctx, self.client, ctx.message.author)
+        mission = Mission_manager()
         embed = await Custom_embed(
             self.client, title = "Missions", description = "Welcome to the Missions panel"
         ).setup_embed()    
-        
+
+        # start mission
+        if(choice != None):
+            await mission.start_mission(ctx, self.client, player, choice)
+
+        else:
+            # display the missions panel
+            pass
         
 
 def setup(client):
