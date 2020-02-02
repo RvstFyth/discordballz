@@ -15,6 +15,12 @@ from discord.ext import commands
 # checker
 from utility.command.checker.basic import Basic_checker
 
+# graphic
+from utility.graphic.embed import Custom_embed
+
+# util
+from utility.cog.player.player import Player
+
 # mission command
 class Cmd_mission(commands.Cog):
 
@@ -34,7 +40,14 @@ class Cmd_mission(commands.Cog):
 
         `choice` (`int`) : Mission index
         """
-    
+
+        # init
+        player = Player(ctx, self.client, ctx.message.author)
+        embed = await Custom_embed(
+            self.client, title = "Missions", description = "Welcome to the Missions panel"
+        ).setup_embed()    
+        
+        
 
 def setup(client):
     client.add_cog(Cmd_mission(client))
