@@ -21,4 +21,3 @@ Here are some technical informations about the project :
 - Database : ![postgresql](https://img.shields.io/badge/postgre-sql-blue.svg?logo=postgresql)
 
 *Last update : 02/02/20 - 17:22 France by **DrLarck***
-

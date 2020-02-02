@@ -34,6 +34,10 @@ class Mission():
 
     `opponent` (`list`) : List of `Character()` in the opponent team
 
+    `star` (`int`) : Difficulty
+
+    `level_range` (`dict`) : [min, max] The level range of the opponents 
+
     - Method 
 
     :coro:`init()` : `None` - Init the mission
@@ -52,6 +56,10 @@ class Mission():
 
         self.opponent = []
         self.star = 1  # difficulty
+        self.level_range = {
+            "min" : 0,
+            "max" : 1
+        }
     
     # method
     async def init(self):
