@@ -11,6 +11,9 @@ Last update : 02/02/20 (DrLarck)
 # dependancies
 import asyncio
 
+# graphic
+from configuration.icon import game_icon
+
 # util
 from utility.cog.fight_system.fight import Fight
 from utility.cog.level.level import Leveller
@@ -53,7 +56,6 @@ class Mission_manager():
 
         # init
         success = False
-        mission_id -= 1
         leveller = Leveller(client, ctx)
 
         # limit
@@ -61,6 +63,8 @@ class Mission_manager():
             mission_id = 0
 
         if(mission_id < len(self.missions) and mission_id > 0):
+            mission_id -= 1  # get the index
+
             # init the combat system
             combat = Fight(client, ctx, player)
             mission = self.missions[mission_id]
@@ -88,7 +92,12 @@ class Mission_manager():
                     await leveller.team_add_xp(player, player_team_id, mission.reward["team_xp"])
 
                     # give player the resources he has won
-                    
+                    await player.resource.add_dragonstone(mission.reward["dragonstone"])
+                    await player.resource.add_zenis(mission.reward["zenis"])
+
+                    # message
+                    await ctx.send(f"Congratulations ! You have earned **{mission.reward['dragonstone']:,}**{game_icon['dragonstone']} as well as **{mission.reward['zenis']:,}**{game_icon['zenis']}")
+
         else:
             return
 
