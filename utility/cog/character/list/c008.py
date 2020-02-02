@@ -9,7 +9,7 @@ Last update : 30/01/20 (DrLarck)
 """
 
 # dependancies
-import asyncio
+from utility.cog.character.ability.leader.power_of_youth import Leader_power_of_youth
 
 # util
 from utility.cog.character.character import Character
@@ -39,3 +39,7 @@ class Character_008(Character):
 
         self.critical_chance = 0
         self.regeneration.ki = 4
+
+        # ability
+        self.leader = [Leader_power_of_youth]
+
