@@ -5,7 +5,7 @@ Represents the player's team.
 
 Author : DrLarck
 
-Last update : 31/08/19 (DrLarck)
+Last update : 02/02/20 (DrLarck)
 """
 
 # dependancies
@@ -275,3 +275,48 @@ class Team:
         data["rarity"] = int(average_rarity)
 
         return(data)
+    
+    async def character(self):
+        """
+        `coroutine`
+
+        Get the player's team as a `list` of `Character()`
+
+        --
+
+        Return : `list` of `Character()`
+        """
+
+        # init
+        team = []
+        getter = Character_getter()
+
+        # get the unique id
+        unique_team = await self.get_team()
+
+        # get the character instance
+        if(unique_team["a"] != None):
+            char_a = await getter.get_from_unique(
+                self.client,
+                unique_team["a"]
+            )
+
+            team.append(char_a)
+        
+        if(unique_team["b"] != None):
+            char_b = await getter.get_from_unique(
+                self.client,
+                unique_team["b"]
+            )
+
+            team.append(char_b)
+        
+        if(unique_team["c"] != None):
+            char_c = await getter.get_from_unique(
+                self.client,
+                unique_team["c"]
+            )
+
+            team.append(char_c)
+
+        return(team)

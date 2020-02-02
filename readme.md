@@ -1,4 +1,4 @@
-![version](https://img.shields.io/badge/version-3.0.1-orange.svg)
+![version](https://img.shields.io/badge/version-3.0.2-orange.svg)
 
 ![MIT](https://img.shields.io/github/license/DrLarck/discordballz)
 [![discordguild](https://discordapp.com/api/guilds/531560539638202368/widget.png)](https://discord.gg/gwpJgtS)
@@ -20,5 +20,4 @@ Here are some technical informations about the project :
 - Libraries : ![discord.py](https://img.shields.io/badge/discord-py-blue.svg)
 - Database : ![postgresql](https://img.shields.io/badge/postgre-sql-blue.svg?logo=postgresql)
 
-*Last update : 19/01/19 - 14:51 France by **DrLarck***
-
+*Last update : 02/02/20 - 17:22 France by **DrLarck***

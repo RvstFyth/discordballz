@@ -5,7 +5,7 @@ Every character classes inherit from the :class:`Character()` defined below.
 
 Author : DrLarck
 
-Last update : 18/10/19 (DrLarck)
+Last update : 02/02/20 (DrLarck)
 """
 
 # dependancies
@@ -236,6 +236,9 @@ class Character:
             await self.translate()
 
             self.is_init = True
+        
+        else:
+            pass
 
         return
     
@@ -252,10 +255,8 @@ class Character:
         
          # get the level multiplier
         level_multiplier = self.level / 100
-        if(level_multiplier < 1):
-            level_multiplier = 1
 
-        level_multiplier = (level_multiplier + (self.enhancement["star"] * 10) / 100)
+        level_multiplier = 1 + (level_multiplier + ((self.enhancement["star"] * 10) / 100))
 
         # setup health
         self.health.maximum *= int((1 + ((self.rarity.value * 20) / 100) + (250 * self.enhancement["training"]["defense"]["health"])) * level_multiplier)
