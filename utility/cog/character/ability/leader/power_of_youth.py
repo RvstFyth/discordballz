@@ -26,7 +26,7 @@ class Leader_power_of_youth(Effect):
         self.description = f"Applies the **__{self.name}__**other allies deal +10% damage with their first attack of the battle**."
         self.icon = ""
 
-    def apply(self):
+    async def apply(self):
         """
         other allies deal +10% damage with their first attack of the battle
         :return:
