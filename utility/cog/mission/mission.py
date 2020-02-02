@@ -19,7 +19,7 @@ class Mission():
     - Parameter :
 
     # REWARD
-    
+
     `dragonstone` (`int`)
     
     `zenis` (`int`)
@@ -51,6 +51,7 @@ class Mission():
         }
 
         self.opponent = []
+        self.star = 1  # difficulty
     
     # method
     async def init(self):
