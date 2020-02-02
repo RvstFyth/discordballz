@@ -32,7 +32,7 @@ class Leader_power_of_youth(Effect):
         :return:
         """
         effect_checker = Effect_checker(self.carrier)
-        skill_ref = effect_checker.get_effect(
+        skill_ref = await effect_checker.get_effect(
             11,
             self.client,
             self.ctx,
