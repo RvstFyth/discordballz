@@ -5,7 +5,7 @@ Manages the player's resources.
 
 Author : DrLarck
 
-Last update : 08/09/19 (DrLarck)
+Last update : 02/02/19 (DrLarck)
 """
 
 # dependancies
@@ -158,6 +158,50 @@ class Player_resource:
         if(self.zenis < 0):
             self.zenis = 0
 
-        await self.db.execute(f"UPDATE player_resource SET player_zenis = {self.player.zenis} WHERE player_id = {self.player.id};")
+        await self.db.execute(f"UPDATE player_resource SET player_zenis = {self.zenis} WHERE player_id = {self.player.id};")
+
+        return
+
+    async def add_dragonstone(self, amount):
+        """
+        `coroutine`
+
+        Add dragonstones to the player's inventory
+
+        -- 
+
+        Return : `None`
+        """
+
+        # init
+        await self.get_dragonstone()
+
+        self.dragonstone += amount
+        if(self.dragonstone < 0):
+            self.dragonstone = 0
+        
+        await self.db.execute(f"UPDATE player_resource SET player_dragonstone = {self.dragonstone} WHERE player_id = {self.player.id};")
+
+        return
+    
+    async def add_zenis(self, amount):
+        """
+        `coroutine`
+
+        Add zenis to the player's inventory
+
+        --
+
+        Return : `None`
+        """
+
+        # init
+        await self.get_zenis()
+
+        self.zenis += amount
+        if(self.zenis < 0):
+            self.zenis = 0
+        
+        await self.db.execute(f"UPDATE player_resource SET player_zenis = {self.zenis} WHERE player_id = {self.player.id};")
 
         return
