@@ -62,7 +62,7 @@ class Mission_manager():
             await mission.init()
 
             # get the player's team
-            player_team = await player.character()
+            player_team = await player.team.character()
             opponent_team = mission.opponent
 
             if(len(opponent_team) > 0 and len(player_team) > 0):
