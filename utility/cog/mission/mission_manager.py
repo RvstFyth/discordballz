@@ -11,6 +11,9 @@ Last update : 02/02/20 (DrLarck)
 # dependancies
 import asyncio
 
+# util
+from utility.cog.fight_system.fight import Fight
+
 class Mission_manager():
     """
     Manages the mission feature by launching a mission, managing the rewards, storing the missions etc.
@@ -25,11 +28,15 @@ class Mission_manager():
         self.missions = []
     
     # method
-    async def start_mission(self, player, mission_id = 0):
+    async def start_mission(self, ctx, client, player, mission_id = 0):
         """
         Start a mission
 
         - Parameter : 
+
+        `ctx` (`discord.ext.commands.context`)
+
+        `client` (`discord.ext.commands.Bot`)
 
         `player` (`Player()`)
 
@@ -44,7 +51,7 @@ class Mission_manager():
         success = False
 
         if(mission_id <= len(self.missions)):
-            pass
+            combat = Fight(client, ctx, player)
         
         else:
             return
