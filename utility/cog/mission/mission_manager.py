@@ -54,7 +54,11 @@ class Mission_manager():
         success = False
         mission_id -= 1
 
-        if(mission_id < len(self.missions)):
+        # limit
+        if(mission_id < 0):
+            mission_id = 0
+
+        if(mission_id < len(self.missions) and mission_id > 0):
             # init the combat system
             combat = Fight(client, ctx, player)
             mission = self.missions[mission_id]
